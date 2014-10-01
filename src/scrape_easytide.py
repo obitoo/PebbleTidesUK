@@ -1,22 +1,23 @@
 #!/usr/bin/python
 # 
 # 
-# Owen Bullock - UK Tides - UKHO Easytide 
+# Owen Bullock - UK Tides - UKHO Easytide webscrape. We pay taxes for this fucking data
 # 25Sep2014 - Created
+# TODO - timezones - done
 #
-
 #
-# TODO - timezones
 
 import urllib2
 import sys
 import pprint
 import json
+from bs4 import BeautifulSoup
 
 
 #
 outfile="/var/www/tides0110.json"
 
+print "----------- starting"
 
 
 #
@@ -27,13 +28,12 @@ if len(sys.argv) == 2 and sys.argv[1] == '-d':
    dump_file=True
 
 #
-# Download and parse weather data - location 352448 = Loughton, Essex
+# Download and parse tides data - location 0110 = southend, Essex
 #
 url='http://www.ukho.gov.uk/easytide/EasyTide/ShowPrediction.aspx?PortID=0110&PredictionLength=7'
 print "opening ",url
 html_doc = urllib2.urlopen(url)#.read()
 
-from bs4 import BeautifulSoup
 soup = BeautifulSoup(html_doc)
 if dump_file == True:
    print (soup.prettify())
@@ -47,9 +47,11 @@ if dump_file == True:
   # Port details
   #
 
+  # todo?
+
   #
   # tide times
-  #
+  #  todo - combinenext 2 blocks
 array=[]
 for first in  soup.find_all('table', {'class':'HWLWTable first'} ):
   for tr in first.find_all('tr'): 
@@ -110,16 +112,33 @@ for first in  soup.find_all('table', {'class':'HWLWTable'} ):
 
 
 #
-#  Get current GMT dat
+#  Get current UK time - use tz to get BST/GMT depending
 #
-from time import gmtime, strftime
 def hhmm_to_mins(timestr):
   return int(timestr[:2])*60+int(timestr[3:])
 
-minsnow=hhmm_to_mins(strftime("%H:%M",gmtime()))
+from datetime import datetime
+from dateutil import tz
 
-print "time now gmt, ",strftime("%H:%M",gmtime())
-print "time now, mins= ",hhmm_to_mins(strftime("%H:%M",gmtime()))
+# timezone - magic!
+from_zone = tz.gettz('UTC')
+to_zone = tz.gettz('Europe/London')
+
+# get time
+utc = datetime.utcnow()
+print "utc time now = ",utc.strftime('%m/%d/%Y %H:%M:%S %Z')
+
+# Convert time zone
+utc = utc.replace(tzinfo=from_zone)
+london = utc.astimezone(to_zone)
+minsnow=hhmm_to_mins(london.strftime("%H:%M"))
+print "london time now = ",london.strftime('%m/%d/%Y %H:%M:%S %Z')
+print "london time now, mins= ",minsnow
+
+
+#
+#  Website gives all tides from midnight, discard any in the past
+#
 print " discard todays entries that are < now"
 for i in range(0,4):
    t=array[0]["time"]
