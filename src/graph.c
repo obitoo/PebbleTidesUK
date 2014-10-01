@@ -9,6 +9,7 @@ extern GColor colour_bg();
   
 static int draw_x[] = {0,0,0,0};  // relative
 static int draw_y[] = {0,0,0,0};
+static int g_got_tides = 0;
 
 extern  Layer       *s_graph_layer;
 extern  TextLayer   *s_tidetimes_text_layer;
@@ -75,8 +76,6 @@ void print_tidetimes(char (*state_buf)[8], char (*time_buf)[6]){
 static void draw_sinewave (GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
-  int plot_x_rel, plot_y;
-  int32_t xd, yd;
   int range_y = GRAPH_Y_PX /2 ;
   int range_x = GRAPH_X_PX /2 ;
   
@@ -90,15 +89,16 @@ static void draw_sinewave (GContext* ctx){
   plot_one_wave (ctx, (0-x_offset), range_x, draw_x[1], draw_x[0], flip_y, x_offset);
   
       // wave 2 - rhs
-  plot_one_wave (ctx, range_x,   GRAPH_X_PX, draw_x[3], draw_x[2], flip_y, x_offset);
+  plot_one_wave (ctx, range_x,   GRAPH_X_PX-x_offset, draw_x[3], draw_x[2], flip_y, x_offset);
   
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:    draw_sinewave()");
 }
 
 
 static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int x2, int flip_y, int x_offset){
+  APP_LOG(APP_LOG_LEVEL_WARNING, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
 
-  int     x_rel, plot_x, plot_y;
+  int     x_rel, plot_x = 0, plot_y;
   int32_t xd, yd;
 
   int     range_x = GRAPH_X_PX /2 ;
@@ -106,17 +106,18 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
   int     f = x1 - x2;
   
 
-  for (x_rel = xrel_from; x_rel < xrel_to; x_rel++){
+  for (x_rel = xrel_from; x_rel <= xrel_to; x_rel++){
 
-    xd = TRIG_MAX_ANGLE * (x_rel-range_x) /range_x;
-    yd = sin_lookup(xd*range_x/(2*f)); 
+    xd = TRIG_MAX_ANGLE * (x_rel-range_x) ;
+    yd = sin_lookup(xd /(2*f)); 
+//     APP_LOG(APP_LOG_LEVEL_WARNING, "xd = %d, yd = %d", (int)xd, (int) yd);
 
     // amplitude : (GRAPH_Y_PX - 20)/GRAPH_Y_PX
     plot_y =  flip_y * ((GRAPH_Y_PX - 20) * (range_y * yd/TRIG_MAX_RATIO))/GRAPH_Y_PX + range_y  ;
 
     // draw 
     plot_x = x_rel + GRAPH_BORDER_PX + x_offset ;
-    if ((plot_x > GRAPH_BORDER_PX) && (plot_x < GRAPH_X_PX - GRAPH_BORDER_PX)) {
+    if ((plot_x > GRAPH_BORDER_PX) && (plot_x < GRAPH_X_PX + GRAPH_BORDER_PX)) {
         GPoint p = (GPoint){plot_x, plot_y+GRAPH_BORDER_PX};
       
         if (SOLID_GRAPH)
@@ -125,6 +126,8 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
           graphics_draw_pixel(ctx, p);
     }
   }
+//   APP_LOG(APP_LOG_LEVEL_INFO, "   last plot: xrel = %d, x=%d",x_rel, plot_x);
+
 }
 
 
@@ -140,10 +143,10 @@ void layer_update_callback(Layer *me, GContext* ctx) {
   
   draw_box(ctx);
   
-  draw_tidepoints(ctx); 
-  
-  draw_sinewave(ctx);
-    
+  if (g_got_tides){
+    draw_tidepoints(ctx); 
+    draw_sinewave(ctx);
+  }  
 }
 
 
@@ -222,6 +225,8 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6]){
   }  
     
   layer_mark_dirty (s_graph_layer);
+  g_got_tides = 1;
+  
   
   APP_LOG(APP_LOG_LEVEL_INFO, "do_graph_calc() - exit ");
 }

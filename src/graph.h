@@ -37,6 +37,7 @@
   
 // #define DEBUG_TIME_NOW_MINS  1020  // 17:00
 // #define DEBUG_TIME_NOW_MINS  1316  // 21:56
+// #define DEBUG_TIME_NOW_MINS  870  // 14:30
   
 #define  TIDE_PHONE_POLL_MINS   30
  
