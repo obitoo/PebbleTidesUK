@@ -4,6 +4,7 @@
 # Owen Bullock - UK Tides - UKHO Easytide webscrape. We pay taxes for this fucking data
 # 25Sep2014 - Created
 # TODO - timezones - done
+# TODO - cope with only 3 tides a day
 #
 #
 
@@ -134,6 +135,19 @@ london = utc.astimezone(to_zone)
 minsnow=hhmm_to_mins(london.strftime("%H:%M"))
 print "london time now = ",london.strftime('%m/%d/%Y %H:%M:%S %Z')
 print "london time now, mins= ",minsnow
+
+#
+# Modify all tidetimes to local 
+#
+print "Modify all tidetimes to local:"
+for element in array:
+   utc_str= element["time"]
+   result = utc.replace(hour=int(utc_str[:2]), minute=int(utc_str[3:]))
+   result=result.astimezone(to_zone)
+   result_str=result.strftime("%H:%M")
+   element["time"]=result_str
+   print "%s -> %s",(utc_str,element["time"])
+
 
 
 #
