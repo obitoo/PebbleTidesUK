@@ -194,6 +194,7 @@ with open (outfile, "r") as f :
    for line in f:
       print line
 
-print "finished"
+print "finished @", london.strftime('%m/%d/%Y %H:%M:%S %Z')
+
 
 
