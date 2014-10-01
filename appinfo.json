@@ -1,0 +1,34 @@
+{
+    "appKeys": {
+        "KEY_STATE_0": 0,
+        "KEY_STATE_1": 2,
+        "KEY_STATE_2": 4,
+        "KEY_STATE_3": 6,
+        "KEY_TIME_0": 1,
+        "KEY_TIME_1": 3,
+        "KEY_TIME_2": 5,
+        "KEY_TIME_3": 7
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "avocalodge@gmail.com",
+    "longName": "Tides",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "fonts/perfect-dos-vga.ttf",
+                "name": "FONT_EXAMPLE_20",
+                "type": "font"
+            }
+        ]
+    },
+    "shortName": "Tides",
+    "uuid": "3dee6d28-1e53-4d0b-b0f6-f6f6ffdbb4dc",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
