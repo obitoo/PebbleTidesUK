@@ -19,8 +19,8 @@
 #define  TIDE_PHONE_POLL_MINS   30
   
   // display options
-#define  SOLID_GRAPH      0    // if 0, plot a graph with GRAPH_NUM_POINTS points
-#define  BLACK_ON_WHITE 0 // TODO - 1 doesnt work  
+#define  SOLID_GRAPH    0   // if 0, plot a line graph with GRAPH_NUM_POINTS hi/lo points / if 1, plot solid curve
+#define  BLACK_ON_WHITE 0   // TODO - 1 doesnt work  
 
   
 // these dont change whatever the size of the graph window
