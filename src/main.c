@@ -6,7 +6,7 @@ static void update_time();
 GColor colour_fg();
 GColor colour_bg();
 
-extern void calc_graph_points          (char (*p_state_buf)[8], char (*p_time_buf)[6]);
+extern void calc_graph_points          (char (*p_state_buf)[8], char (*p_time_buf)[6], char (*p_height_buf)[5]);
 extern void print_tidetimes            (char (*p_state_buf)[8], char (*p_time_buf)[6]);
 extern void layer_update_callback      (Layer *, GContext* );
 
@@ -146,7 +146,7 @@ static void update_time() {
     
       // Create a long-lived buffer
       static char buffer[] = "00:00";
-      static char dateString[] = "wednesday 99";
+      static char dateString[] = "wednesday 99 ";
     
       APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - entry" );
     
@@ -160,7 +160,7 @@ static void update_time() {
       }
     
       //date
-      strftime(dateString, sizeof(dateString), "%A %e", tick_time);
+      strftime(dateString, sizeof(dateString), "%A %e ", tick_time);
     
       // update layers
       text_layer_set_text(s_time_layer, buffer);
@@ -176,8 +176,9 @@ static void update_time() {
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "inbox_received_callback() - entry" );
 
-  static char state_buf[4][8];
-  static char time_buf[4][6];
+  static char state_buf[4][8];   // "hi" | "lo"
+  static char time_buf[4][6];    // "23:44"
+  static char height_buf[4][5];  // "5.6" 
   
   int i;
   
@@ -215,6 +216,20 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         case   KEY_TIME_3:
                snprintf(time_buf[3], sizeof(time_buf[3]), "%s", t->value->cstring);
                break;
+      
+        case   KEY_HEIGHT_0:
+               snprintf(height_buf[0], sizeof(height_buf[0]), "%s", t->value->cstring);
+               break;
+        case   KEY_HEIGHT_1:
+               snprintf(height_buf[1], sizeof(height_buf[1]), "%s", t->value->cstring);
+               break;
+        case   KEY_HEIGHT_2:
+               snprintf(height_buf[2], sizeof(height_buf[2]), "%s", t->value->cstring);
+               break;
+        case   KEY_HEIGHT_3:
+               snprintf(height_buf[3], sizeof(height_buf[3]), "%s", t->value->cstring);
+               break;
+      
         default:
                APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
                break;
@@ -227,11 +242,9 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   // Write the text for the 4 hi/lo times. 
   print_tidetimes(state_buf, time_buf);
   
-
-
   
   // calc plot points (as relative coords)
-  calc_graph_points(state_buf, time_buf);
+  calc_graph_points(state_buf, time_buf, height_buf);
   
   APP_LOG(APP_LOG_LEVEL_INFO, "inbox_received_callback()-exit");
 }

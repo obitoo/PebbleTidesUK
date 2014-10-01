@@ -153,7 +153,7 @@ void layer_update_callback(Layer *me, GContext* ctx) {
     //
     //  LOGIC ======================================================
     //
-void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6]){
+void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], char (*p_height_buf)[5]){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  calc_graph_points()");
   int i;
   int count_input = 0, count_output = 0;
