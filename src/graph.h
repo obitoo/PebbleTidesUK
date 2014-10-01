@@ -28,7 +28,7 @@
 #define  GRAPH_NUM_HOZ_LINES 3 // 1 or 3 if you prefer
 #define  MAX_X            144
 #define  GRAPH_BORDER_PX     4
-#define  GRAPH_Y_LOWPOINT    6 // from wherever the border is
+#define  GRAPH_Y_LOWPOINT    6 // from wherever the border is 
 
   
   
