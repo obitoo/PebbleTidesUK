@@ -6,7 +6,7 @@ static void update_time();
 GColor colour_fg();
 GColor colour_bg();
 
-extern void calc_graph_points          (char (*p_state_buf)[8], char (*p_time_buf)[6], char (*p_height_buf)[5]);
+extern void calc_graph_points          (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf);
 extern void print_tidetimes            (char (*p_state_buf)[8], char (*p_time_buf)[6]);
 extern void layer_update_callback      (Layer *, GContext* );
 
@@ -178,7 +178,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 
   static char state_buf[4][8];   // "hi" | "lo"
   static char time_buf[4][6];    // "23:44"
-  static char height_buf[4][5];  // "5.6" 
+  static int  height_buf[5];    // "56"  = 5.6m 
   
   int i;
   
@@ -218,16 +218,16 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
                break;
       
         case   KEY_HEIGHT_0:
-               snprintf(height_buf[0], sizeof(height_buf[0]), "%s", t->value->cstring);
+               height_buf[0] = atoi(t->value->cstring);
                break;
         case   KEY_HEIGHT_1:
-               snprintf(height_buf[1], sizeof(height_buf[1]), "%s", t->value->cstring);
+               height_buf[1] = atoi(t->value->cstring);
                break;
         case   KEY_HEIGHT_2:
-               snprintf(height_buf[2], sizeof(height_buf[2]), "%s", t->value->cstring);
+               height_buf[2] = atoi(t->value->cstring);
                break;
         case   KEY_HEIGHT_3:
-               snprintf(height_buf[3], sizeof(height_buf[3]), "%s", t->value->cstring);
+               height_buf[3] = atoi(t->value->cstring);
                break;
       
         default:
