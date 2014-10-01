@@ -1,5 +1,9 @@
 {
     "appKeys": {
+        "KEY_HEIGHT_0": 8,
+        "KEY_HEIGHT_1": 9,
+        "KEY_HEIGHT_2": 10,
+        "KEY_HEIGHT_3": 11,
         "KEY_STATE_0": 0,
         "KEY_STATE_1": 2,
         "KEY_STATE_2": 4,
@@ -13,18 +17,12 @@
         ""
     ],
     "companyName": "avocalodge@gmail.com",
-    "longName": "Tides",
+    "longName": "TidesUK",
     "projectType": "native",
     "resources": {
-        "media": [
-            {
-                "file": "fonts/perfect-dos-vga.ttf",
-                "name": "FONT_EXAMPLE_20",
-                "type": "font"
-            }
-        ]
+        "media": []
     },
-    "shortName": "Tides",
+    "shortName": "TidesUK",
     "uuid": "3dee6d28-1e53-4d0b-b0f6-f6f6ffdbb4dc",
     "versionCode": 1,
     "versionLabel": "1.0",

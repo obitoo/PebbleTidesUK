@@ -7,14 +7,18 @@ static int calc_mins (char *, int *);
 extern GColor colour_fg();
 extern GColor colour_bg();
   
-static int draw_x[] = {0,0,0,0};  // relative
-static int draw_y[] = {0,0,0,0};
+static int draw_x[] = {0,0,0,0,0};  // relative  // GRAPH_NUM_POINTS
+static int draw_y[] = {0,0,0,0,0};
 static int g_got_tides = 0;
 
 extern  Layer       *s_graph_layer;
 extern  TextLayer   *s_tidetimes_text_layer;
 
 static void plot_one_wave(GContext*, int, int, int , int , int , int);
+static int calc_y_range (char (*p_state_buf)[8],  int *p_height_buf, int *min_y, int *max_y);
+static int calc_localtime_mins();
+
+
 
     //
     //  PRESENTATION ======================================================
@@ -132,8 +136,10 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
 
 
 
+
+
   //
-  // entry point - drawing callback
+  // entry point - drawing callback  ==============================
   //
 void layer_update_callback(Layer *me, GContext* ctx) {
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  layer_update_callback()");
@@ -153,28 +159,28 @@ void layer_update_callback(Layer *me, GContext* ctx) {
     //
     //  LOGIC ======================================================
     //
-void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6]){
+void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  calc_graph_points()");
   int i;
   int count_input = 0, count_output = 0;
   int prev_mins;
   
   // reset globals
-  for (i=0; i < 4; i++){
+  for (i=0; i <= GRAPH_NUM_POINTS; i++){
     draw_x[i] = draw_y[i] = 0;
   }
     
   
-  // Get a tm structure
-  time_t temp = time(NULL); 
-  struct tm *tick_time = localtime(&temp);
-  
-  int time_now_mins = (tick_time->tm_hour * 60 ) + tick_time->tm_min;
-  #ifdef DEBUG_TIME_NOW_MINS
-    time_now_mins=DEBUG_TIME_NOW_MINS;
-  #endif
+  //  current time, in minutes from midnight
+  int time_now_mins = calc_localtime_mins();
   APP_LOG(APP_LOG_LEVEL_INFO, "      time_now_mins=%d",time_now_mins);
 
+  
+  // calculate height range
+  int min_h, max_h;
+  int h_range = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
+  APP_LOG(APP_LOG_LEVEL_INFO, "       miny=%d, maxy=%d, range =%d",min_h, max_h, h_range);
+  
   // loop for each input 
   while (count_input < GRAPH_NUM_POINTS) {
       
@@ -187,37 +193,35 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6]){
       }  
 //       APP_LOG(APP_LOG_LEVEL_INFO, "tidetime_mins = %d", time_now_mins );
       
-      // calculate x point
+      //  x point
       int xpos_mins        = tidetime_mins - time_now_mins;
       int xpos_px_relative = GRAPH_X_PX * xpos_mins / GRAPH_X_MINS;
       APP_LOG(APP_LOG_LEVEL_INFO, "    xpos: mins = %d  px_rel = %d", xpos_mins, xpos_px_relative );
     
-      // in the past? (possible but not likely if web server on top of things)
-//       if (xpos_mins < 0 ){
-//           APP_LOG(APP_LOG_LEVEL_INFO, " ..skipping tide input point (time_now_mins=%d, tidetime_mins=%d)",
-//                   time_now_mins, tidetime_mins);
-//         count_input++;
-//         continue;
-//       }
+
     
-      // calculate y point
+      //  y point
+      static int exaggerate_difference = 4;   // todo - #define
       int ypos_px_absolute = 0;
+      int hm = p_height_buf[count_input];
+      APP_LOG(APP_LOG_LEVEL_INFO, "    ypos: Height=%d",p_height_buf[count_input]);
+
       if (!strcmp(p_state_buf[count_input],"hi")){
-        ypos_px_absolute = GRAPH_BORDER_PX + 10;
-        APP_LOG(APP_LOG_LEVEL_INFO, "    ypos: High Tide %s",p_state_buf[count_input]);
+        ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * exaggerate_difference ;
       } else 
       if (!strcmp(p_state_buf[count_input],"lo")){
-        ypos_px_absolute = GRAPH_Y_PX - 10;
-        APP_LOG(APP_LOG_LEVEL_INFO, "    ypos: Low Tide %s",p_state_buf[count_input]);
+        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * exaggerate_difference;
       } else {
         APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
         return;
       }
-      
+      APP_LOG(APP_LOG_LEVEL_INFO, "    ypos: %s Tide = %dm",p_state_buf[count_input], hm );
+
+    
       // set datapoint for draw routine   
       draw_x[count_output] = xpos_px_relative; 
       draw_y[count_output] = ypos_px_absolute;
-      APP_LOG(APP_LOG_LEVEL_ERROR, "relative tidepoint set as (%d,%d)",draw_x[count_output], draw_y[count_output]);
+      APP_LOG(APP_LOG_LEVEL_WARNING, "relative tidepoint set as (%d,%d)",draw_x[count_output], draw_y[count_output]);
 
       // increment counters
       count_input++;
@@ -232,6 +236,30 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6]){
 }
 
 
+
+static int calc_localtime_mins(){
+  time_t temp = time(NULL); 
+  struct tm *tick_time = localtime(&temp);
+  
+  int time_now_mins = (tick_time->tm_hour * 60 ) + tick_time->tm_min;
+  #ifdef DEBUG_TIME_NOW_MINS
+    time_now_mins=DEBUG_TIME_NOW_MINS;
+  #endif
+  return time_now_mins;
+}
+
+
+static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, int *max_y){ 
+  int i;
+  *min_y=99, *max_y=-1;
+  for (i = 0;  i <= GRAPH_NUM_POINTS; i++){
+      if (!strcmp(p_state_buf[i],"lo") && p_height_buf[i] < *min_y)
+        *min_y = p_height_buf[i];
+      if (!strcmp(p_state_buf[i],"hi") && p_height_buf[i] > *max_y)
+        *max_y = p_height_buf[i];
+  }
+  return *max_y - *min_y;
+}
 
 
 
