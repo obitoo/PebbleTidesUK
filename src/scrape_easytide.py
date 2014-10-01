@@ -5,7 +5,7 @@
 # 25Sep2014 - Created
 # TODO - timezones - done
 # TODO - cope with only 3 tides a day - done
-#
+# remove . from height string, for little pebbles sake 
 #
 
 import urllib2
@@ -104,7 +104,9 @@ for first in  soup.find_all('table', {'class':'HWLWTable'} ):  # also picks up '
 
        if "m" in td.string:  # height
           print i
-          array[i]['height']=td.string[:3].encode("ascii")
+          hm=td.string[:3].encode("ascii")
+          # remove .
+          array[i]['height']=hm.replace(".","")
 
        if ":" in td.string:  # time
           array[i]['time']=td.string[1:].encode("ascii")
