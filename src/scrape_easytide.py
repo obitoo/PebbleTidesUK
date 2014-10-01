@@ -4,7 +4,7 @@
 # Owen Bullock - UK Tides - UKHO Easytide webscrape. We pay taxes for this fucking data
 # 25Sep2014 - Created
 # TODO - timezones - done
-# TODO - cope with only 3 tides a day
+# TODO - cope with only 3 tides a day - done
 #
 #
 
