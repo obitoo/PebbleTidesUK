@@ -54,49 +54,50 @@ if dump_file == True:
   # tide times
   #  todo - combinenext 2 blocks
 array=[]
-for first in  soup.find_all('table', {'class':'HWLWTable first'} ):
-  for tr in first.find_all('tr'): 
-    i = 0
 
-    # either th or td
-    for th in tr.findAll('th', {'class':'HWLWTableHWLWCell'}):
-       line={}
-       i = i + 1
-       print "A",i,th.string
-       if th.string == 'LW':
-          line['state']='lo'
-       else:
-          line['state']='hi'
-       array.append(line)
-     
-    for td in tr.findAll('td', {'class':'HWLWTableCell'}):
-       print "B",i,td.string
+#for first in  soup.find_all('table', {'class':'HWLWTable first'} ):
+#  for tr in first.find_all('tr'): 
+#    i = 0
+#
+#    # either th or td
+#    for th in tr.findAll('th', {'class':'HWLWTableHWLWCell'}):
+#       line={}
+#       i = i + 1
+#       print "AA",i,th.string
+#       if th.string == 'LW':
+#          line['state']='lo'
+#       else:
+#          line['state']='hi'
+#       array.append(line)
+#     
+#    for td in tr.findAll('td', {'class':'HWLWTableCell'}):
+#       print "BB",i,td.string
+#
+#       if "m" in td.string:  # height
+#          print i
+#          array[i]['height']=td.string[:3].encode("ascii")
+#
+#       if ":" in td.string:  # time
+#          array[i]['time']=td.string[1:].encode("ascii")
+#       i = i + 1
+#
+imax=0
 
-       if "m" in td.string:  # height
-          print i
-          array[i]['height']=td.string[:3].encode("ascii")
-
-       if ":" in td.string:  # time
-          array[i]['time']=td.string[1:].encode("ascii")
-       i = i + 1
-
-imax=i
-
-print "----------------------"
-for first in  soup.find_all('table', {'class':'HWLWTable'} ):
+for first in  soup.find_all('table', {'class':'HWLWTable'} ):  # also picks up 'HWLWTable first' it seems?
+  print "----------------------"
   for tr in first.find_all('tr'):
     i = imax
 
     # either th or td
     for th in tr.findAll('th', {'class':'HWLWTableHWLWCell'}):
        line={}
-       i = i + 1
        print "A",i,th.string
        if th.string == 'LW':
           line['state']='lo'
        else:
           line['state']='hi'
        array.append(line)
+       i = i + 1
 
     for td in tr.findAll('td', {'class':'HWLWTableCell'}):
        print "B",i,td.string
@@ -146,7 +147,7 @@ for element in array:
    result=result.astimezone(to_zone)
    result_str=result.strftime("%H:%M")
    element["time"]=result_str
-   print "%s -> %s",(utc_str,element["time"])
+   ## print "%s -> %s",(utc_str,element["time"])
 
 
 
