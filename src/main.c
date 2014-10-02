@@ -7,24 +7,102 @@ GColor colour_fg();
 GColor colour_bg();
 
 extern void calc_graph_points          (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf);
-extern void print_tidetimes            (char (*p_state_buf)[8], char (*p_time_buf)[6]);
-extern void layer_update_callback      (Layer *, GContext* );
+extern void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf);
+extern void gfx_layer_update_callback      (Layer *, GContext* );
 
 
 static Window      *s_main_window;
-
 static TextLayer   *s_time_layer;
 static TextLayer   *s_date_layer;
        TextLayer   *s_tidetimes_text_layer;
-
+       TextLayer   *s_tideheight_text_layer;
 static GFont        s_time_font;
 static GFont        s_date_font;
-static GFont        s_weather_font;
-
- Layer       *s_graph_layer;
+static GFont        s_tidetime_font;
+static GFont        s_tideheight_font;
+       Layer       *s_graph_layer;
 //static GBitmap     *s_background_bitmap;
 
+static void tick_handler(struct tm *tick_time, TimeUnits units_changed);
+static void mainwindow_load(Window *window);
+static void mainwindow_unload(Window *window);
 
+static void process_js_data(DictionaryIterator *iterator, void *context);
+static char *translate_error(AppMessageResult result);
+
+static char state_buf[4][8];   // "hi" | "lo"
+static char time_buf[4][6];    // "23:44"
+static int  height_buf[5];    // "56"  = 5.6m 
+
+    //
+    //  Callbacks ======================================================
+    //
+static void inbox_dropped_callback(AppMessageResult reason, void *context) {
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
+}
+
+static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %i - %s", reason, translate_error(reason));
+}
+
+static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
+  APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send success!");
+}
+  
+static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
+  APP_LOG(APP_LOG_LEVEL_INFO, "inbox_received_callback() - entry" );
+  process_js_data(iterator, context);
+  print_tide_text_layers(state_buf, time_buf, height_buf);
+  calc_graph_points(state_buf, time_buf, height_buf);
+  // update graphics
+  layer_mark_dirty (s_graph_layer);
+}
+    //
+    //  Init ======================================================
+    //
+static void init() {
+  APP_LOG(APP_LOG_LEVEL_INFO, "init()");
+  // Register with TickTimerService
+  tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+  
+  // Create GFontieees
+  s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
+  s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
+  s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+  s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+
+
+  // Create window, handlers
+  s_main_window = window_create();
+  window_set_background_color(s_main_window, colour_bg());
+
+  window_set_window_handlers(s_main_window, (WindowHandlers) {
+                    .load = mainwindow_load,
+                    .unload = mainwindow_unload
+  });
+  window_stack_push(s_main_window, true);
+  
+  // Register callbacks..
+  app_message_register_inbox_received(inbox_received_callback);
+  // Open AppMessage
+  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
+  // Register callbacks..
+  app_message_register_inbox_dropped(inbox_dropped_callback);
+  app_message_register_outbox_failed(outbox_failed_callback);
+  app_message_register_outbox_sent(outbox_sent_callback);
+}
+
+static void deinit() {
+    APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
+  window_destroy(s_main_window);
+}
+
+int main (void){
+  init();
+  APP_LOG(APP_LOG_LEVEL_INFO, "app_event_loop()");
+  app_event_loop();
+  deinit();
+}
 
 
     //
@@ -48,19 +126,19 @@ static void mainwindow_load(Window *window) {
 
   // Create graph layer
   s_graph_layer = layer_create(GRect(0, 0, 144, 75));
-  layer_set_update_proc(s_graph_layer, layer_update_callback);
+      // callback fn:
+  layer_set_update_proc(s_graph_layer, gfx_layer_update_callback);
   layer_add_child(window_get_root_layer(window), s_graph_layer);
 
         // screen is 144 x 168  ------------------------
   
-
   
   // Create text times Layer
   s_tidetimes_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX , 144, 50));
   text_layer_set_background_color(s_tidetimes_text_layer, colour_bg());
   text_layer_set_text_color(s_tidetimes_text_layer,  colour_fg());
   text_layer_set_text(s_tidetimes_text_layer, "Loading...");
-  text_layer_set_font(s_tidetimes_text_layer, s_weather_font);
+  text_layer_set_font(s_tidetimes_text_layer, s_tidetime_font);
   text_layer_set_text_alignment(s_tidetimes_text_layer, GTextAlignmentLeft);
 
   //   date   
@@ -72,16 +150,28 @@ static void mainwindow_load(Window *window) {
   text_layer_set_text(s_date_layer, "Today 10");
   
   //   time  
-  s_time_layer = text_layer_create(GRect(5, 118, 139, 50));
-  text_layer_set_background_color(s_time_layer, colour_bg());
+    s_time_layer = text_layer_create(GRect(5, 118, 139, 50));
+
+     text_layer_set_background_color(s_time_layer, colour_bg());
   text_layer_set_text_color(s_time_layer, colour_fg());
   text_layer_set_font(s_time_layer, s_time_font);
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
+  
+  //   heights - half and 3/4 graph only  
+      // -ve y - allowed? dodgy?
+  s_tideheight_text_layer = text_layer_create(GRect(GRAPH_X_PX+GRAPH_BORDER_PX, -4, MAX_X, GRAPH_Y_PX + 40));
+   text_layer_set_background_color(s_tideheight_text_layer, colour_bg());
+  text_layer_set_text_color(s_tideheight_text_layer, colour_fg());
+  text_layer_set_font(s_tideheight_text_layer, s_tideheight_font);
+  text_layer_set_text_alignment(s_tideheight_text_layer, GTextAlignmentLeft);
+    
+    
   // Add as child layers to the Window's root layer
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer));
   
   APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
 }
@@ -104,7 +194,7 @@ static void mainwindow_unload(Window *window) {
   // Destroy fonts
 
   APP_LOG(APP_LOG_LEVEL_INFO, "destroy fonts 1" );
-//   fonts_unload_custom_font(s_weather_font);
+//   fonts_unload_custom_font(s_tidetime_font);
 //   APP_LOG(APP_LOG_LEVEL_INFO, "destroy fonts 2" );
 //   fonts_unload_custom_font(s_time_font);
   
@@ -117,14 +207,14 @@ static void mainwindow_unload(Window *window) {
 
 
   //
-  //  Callbacks - time
+  //  Callback logic - time
   //
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - entry" );
   
       update_time();
   
-      // Get tide update every 30 minutes
+      // Get tide data from phone every 30 minutes
       if(tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) {
         // Begin dictionary
         DictionaryIterator *iter;
@@ -170,18 +260,13 @@ static void update_time() {
 }
 
 //
-//  Callbacks - JS
+//  Callback logic  - JS
 //
+static void process_js_data(DictionaryIterator *iterator, void *context){
+  APP_LOG(APP_LOG_LEVEL_INFO, "process_js_data() - entry" );
 
-static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
-  APP_LOG(APP_LOG_LEVEL_INFO, "inbox_received_callback() - entry" );
-
-  static char state_buf[4][8];   // "hi" | "lo"
-  static char time_buf[4][6];    // "23:44"
-  static int  height_buf[5];    // "56"  = 5.6m 
   
   int i;
-  
    
   // Read first item
   Tuple *t = dict_read_first(iterator);
@@ -239,22 +324,14 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   }
  
 
-  // Write the text for the 4 hi/lo times. 
-  print_tidetimes(state_buf, time_buf);
+
   
-  
-  // calc plot points (as relative coords)
-  calc_graph_points(state_buf, time_buf, height_buf);
-  
-  // update graphics
-  layer_mark_dirty (s_graph_layer);
-  
-  APP_LOG(APP_LOG_LEVEL_INFO, "inbox_received_callback()-exit");
+  APP_LOG(APP_LOG_LEVEL_INFO, "process_js_data()-exit");
 }
 
 
 
-char *translate_error(AppMessageResult result) {
+static char *translate_error(AppMessageResult result) {
   switch (result) {
     case APP_MSG_OK: return "APP_MSG_OK";
     case APP_MSG_SEND_TIMEOUT: return "APP_MSG_SEND_TIMEOUT";
@@ -275,66 +352,9 @@ char *translate_error(AppMessageResult result) {
 }
 
 
-static void inbox_dropped_callback(AppMessageResult reason, void *context) {
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
-}
-
-static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %i - %s", reason, translate_error(reason));
-}
-
-static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
-  APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send success!");
-}
-
-
-//
-//  Init
-//
-static void init() {
-  APP_LOG(APP_LOG_LEVEL_INFO, "init()");
-  // Register with TickTimerService
-  tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
-  // Create GFont
-  s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
-  // Create second custom font, apply it and add to Window
-//   s_weather_font =    fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_EXAMPLE_20));
-  s_weather_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
-  s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
 
 
 
-  // Create window, handlers
-  s_main_window = window_create();
-  window_set_background_color(s_main_window, colour_bg());
-
-  window_set_window_handlers(s_main_window, (WindowHandlers) {
-                    .load = mainwindow_load,
-                    .unload = mainwindow_unload
-  });
-  window_stack_push(s_main_window, true);
-  
-  // Register callbacks..
-  app_message_register_inbox_received(inbox_received_callback);
-  // Open AppMessage
-  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
-  // Register callbacks..
-  app_message_register_inbox_dropped(inbox_dropped_callback);
-  app_message_register_outbox_failed(outbox_failed_callback);
-  app_message_register_outbox_sent(outbox_sent_callback);
-}
-
-static void deinit() {
-    APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
-  window_destroy(s_main_window);
-}
-
-int main (void){
-  init();
-  APP_LOG(APP_LOG_LEVEL_INFO, "app_event_loop()");
-  app_event_loop();
-  deinit();
-}
 
 
 // EOF

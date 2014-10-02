@@ -12,10 +12,58 @@ static int draw_y[] = {0,0,0,0,0};
 static int g_got_tides = 0;
 
 extern  TextLayer   *s_tidetimes_text_layer;
+extern  TextLayer   *s_tideheight_text_layer;
+
+
 
 static void plot_one_wave(GContext*, int, int, int , int , int , int);
 static int calc_y_range (char (*p_state_buf)[8],  int *p_height_buf, int *min_y, int *max_y);
 static int calc_localtime_mins();
+
+static void draw_box(GContext* ctx);
+static void draw_tidepoints(GContext* ctx);
+static void draw_sinewave (GContext* ctx);
+
+
+static void print_tidetimes  (char (*p_state)[8], char (*p_time)[6]);
+static void print_tideheights(char (*p_state)[8], int *p_height);
+
+    
+
+
+
+
+  //
+  // entry points  ==============================
+  //
+void gfx_layer_update_callback(Layer *me, GContext* ctx) {
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  gfx_layer_update_callback()");
+
+  if (1){
+    // set stroke colour - here? every time? 
+    graphics_context_set_stroke_color(ctx, colour_fg());
+  
+    draw_box(ctx);
+    draw_tidepoints(ctx); 
+    draw_sinewave(ctx);
+    
+    g_got_tides = 0;
+  }  
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  gfx_layer_update_callback()");
+
+}
+
+void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf){
+  
+  // times
+  print_tidetimes(p_state_buf, p_time_buf);
+  
+  // heights  
+  if (GRAPH_NUM_POINTS  < 4) 
+    print_tideheights (p_state_buf, p_height_buf);
+
+}
+
 
 
 
@@ -48,12 +96,12 @@ static void draw_tidepoints(GContext* ctx){
     for (i=0; i< GRAPH_NUM_POINTS ; i++)
     if ((draw_x[i] > 0) && (draw_y[i] > 0)){
        graphics_fill_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , 3);
-       APP_LOG(APP_LOG_LEVEL_INFO, "draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
+       APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
 }
 
-void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
+static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tidetimes()");
 
     static char text_layer_buffer[128];
@@ -72,7 +120,7 @@ void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
         break;
       case 3:
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
-                 "%s: %s     %s: %s\n       %s: %s       ",
+                 "%s: %s    %s: %s\n         %s: %s       ",
                  p_state[0], p_time[0] ,           p_state[2], p_time[2],
                  p_state[1], p_time[1]  );
         break;
@@ -85,7 +133,24 @@ void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
     APP_LOG(APP_LOG_LEVEL_INFO, "(%s) ", text_layer_buffer);
    
     text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
+
+
 }
+
+static void print_tideheights(char (*p_state)[8], int *p_height){
+    APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
+    static char text_layer_buffer[128];
+    int min_h, max_h;
+    int h_range = calc_y_range(p_state, p_height, &min_h, &max_h);
+
+      // 4 lines max:
+    snprintf(text_layer_buffer, sizeof(text_layer_buffer),
+            " %d.%dm\n  Spring\n \n %d.%dm\n", max_h/10, max_h%10, min_h/10, min_h%10);
+    APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer);
+    text_layer_set_text(s_tideheight_text_layer, text_layer_buffer);
+}
+  
+  
 
 
 // draw sine wave,lamely. Would have been much easier when i was 17 doing a-level maths ;) 
@@ -99,7 +164,7 @@ static void draw_sinewave (GContext* ctx){
 
   // plut two 'full' waves, of 0->pi each
   int x_offset = draw_x[0] - range_x/4;
-  APP_LOG(APP_LOG_LEVEL_WARNING, "layer_update_callback, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
+  APP_LOG(APP_LOG_LEVEL_WARNING, "         draw_sinewave, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
   int flip_y = ((draw_y[0] < (range_y))? -1 : 1);
     
       // wave 1 - lhs graph
@@ -127,7 +192,7 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
 
     xd = TRIG_MAX_ANGLE * (x_rel-range_x) ;
     yd = sin_lookup(xd /(2*f)); 
-    APP_LOG(APP_LOG_LEVEL_WARNING, "xd = %d, yd = %d", (int)xd, (int) yd);
+    APP_LOG(APP_LOG_LEVEL_WARNING, "      xd = %d, yd = %d", (int)xd, (int) yd);
 
     // amplitude : (GRAPH_Y_PX - 20)/GRAPH_Y_PX
     plot_y =  flip_y * ((GRAPH_Y_PX - 20) * (range_y * yd/TRIG_MAX_RATIO))/GRAPH_Y_PX + range_y  ;
@@ -152,26 +217,6 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
 
 
 
-
-  //
-  // entry point - drawing callback  ==============================
-  //
-void layer_update_callback(Layer *me, GContext* ctx) {
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  layer_update_callback()");
-
-  if (1){
-    // set stroke colour - here? every time? 
-    graphics_context_set_stroke_color(ctx, colour_fg());
-  
-    draw_box(ctx);
-    draw_tidepoints(ctx); 
-    draw_sinewave(ctx);
-    
-    g_got_tides = 0;
-  }  
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  layer_update_callback()");
-
-}
 
 
     //
@@ -215,7 +260,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
       //  x point
       int xpos_mins        = tidetime_mins - time_now_mins;
       int xpos_px_relative = GRAPH_X_PX * xpos_mins / GRAPH_X_MINS;
-      APP_LOG(APP_LOG_LEVEL_INFO, "    xpos: mins = %d  px_rel = %d", xpos_mins, xpos_px_relative );
+      APP_LOG(APP_LOG_LEVEL_INFO, "        xpos: mins = %d  px_rel = %d", xpos_mins, xpos_px_relative );
     
 
     
@@ -223,7 +268,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
       static int exaggerate_difference = 4;   // todo - #define
       int ypos_px_absolute = 0;
       int hm = p_height_buf[count_input];
-      APP_LOG(APP_LOG_LEVEL_INFO, "    ypos: Height=%d",p_height_buf[count_input]);
+      APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: Height=%d",p_height_buf[count_input]);
 
       if (!strcmp(p_state_buf[count_input],"hi")){
         ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * exaggerate_difference ;
@@ -234,13 +279,13 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
         APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
         return;
       }
-      APP_LOG(APP_LOG_LEVEL_INFO, "    ypos: %s Tide = %dm",p_state_buf[count_input], hm );
+      APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: %s Tide = %dm",p_state_buf[count_input], hm );
 
     
       // set datapoint for draw routine   
       draw_x[count_output] = xpos_px_relative; 
       draw_y[count_output] = ypos_px_absolute;
-      APP_LOG(APP_LOG_LEVEL_WARNING, "relative tidepoint set as (%d,%d)",draw_x[count_output], draw_y[count_output]);
+//     heavy..  APP_LOG(APP_LOG_LEVEL_WARNING, "relative tidepoint set as (%d,%d)",draw_x[count_output], draw_y[count_output]);
 
       // increment counters
       count_input++;
@@ -293,7 +338,7 @@ static int calc_mins (char *s_hhmm, int *i_prev_mins){
  
   
   if ( (i = strlen(s_hhmm)) != 5){
-    APP_LOG(APP_LOG_LEVEL_ERROR, "calc_mins strlen is %d, expecting 5", i);
+    APP_LOG(APP_LOG_LEVEL_ERROR, "          calc_mins strlen is %d, expecting 5", i);
     return -1;
   }
   
