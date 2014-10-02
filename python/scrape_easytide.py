@@ -157,14 +157,18 @@ for element in array:
 #  Website gives all tides from midnight, discard any in the past
 #
 print " discard todays entries that are < now"
+prevmins=0
 for i in range(0,4):
    t=array[0]["time"]
    print t
-   if (hhmm_to_mins(t) < minsnow ): 
+   tidemins=hhmm_to_mins(t)
+   if (tidemins < minsnow ) and (tidemins > prevmins):  # if its suddenly less we;ve hit midnight
       print "discarding"
       del array[0]
+      prevmins=tidemins
    else:
       print "keeping"
+
 
 
 
