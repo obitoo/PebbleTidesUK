@@ -246,6 +246,9 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   // calc plot points (as relative coords)
   calc_graph_points(state_buf, time_buf, height_buf);
   
+  // update graphics
+  layer_mark_dirty (s_graph_layer);
+  
   APP_LOG(APP_LOG_LEVEL_INFO, "inbox_received_callback()-exit");
 }
 

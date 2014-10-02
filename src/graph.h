@@ -25,23 +25,30 @@
   
 // these dont change whatever the size of the graph window
 #define  GRAPH_Y_PX          45
-#define  GRAPH_NUM_HOZ_LINES 3 // 1 or 3 if you prefer 
+#define  GRAPH_NUM_HOZ_LINES 3 // 1 or 3 if you prefer  
 #define  MAX_X            144
 #define  GRAPH_BORDER_PX     4
 #define  GRAPH_Y_LOWPOINT    6 // from wherever the border is 
 
-  
+#define  NUM_TIDES_BACKGROUND  4
+
   
 // different graph window widths
-    // fullwidth grap 
-#define  GRAPH_NUM_POINTS    4
-#define  GRAPH_X_PX          (MAX_X - (2*GRAPH_BORDER_PX)) 
-#define  GRAPH_X_MINS        1440 // 24 hours 
+//     // fullwidth grap 
+// #define  GRAPH_NUM_POINTS    4
+// #define  GRAPH_X_PX          (MAX_X - (2*GRAPH_BORDER_PX)) 
+// #define  GRAPH_X_MINS        1440 // 24 hours 
   
-    // half width grap 
+      // half width grap 
+#define  GRAPH_NUM_POINTS    3
+#define  GRAPH_X_PX          102
+#define  GRAPH_X_LOGICAL_MAX 144
+#define  GRAPH_X_MINS        (1440 * 3/4) // 12 hours 
+  
+//     // half width grap 
 // #define  GRAPH_NUM_POINTS    2
 // #define  GRAPH_X_PX          70
-// #define  GRAPH_X_MINS        (1440 * 3/4) // 24 hours 
+// #define  GRAPH_X_MINS        (1440 / 2) // 12 hours 
 
 
    // debug 
