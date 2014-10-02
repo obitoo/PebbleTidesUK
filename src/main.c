@@ -15,7 +15,8 @@ static Window      *s_main_window;
 static TextLayer   *s_time_layer;
 static TextLayer   *s_date_layer;
        TextLayer   *s_tidetimes_text_layer;
-       TextLayer   *s_tideheight_text_layer;
+       TextLayer   *s_tideheight_text_layer1;
+       TextLayer   *s_tideheight_text_layer2;
 static GFont        s_time_font;
 static GFont        s_date_font;
 static GFont        s_tidetime_font;
@@ -159,19 +160,26 @@ static void mainwindow_load(Window *window) {
 
   
   //   heights - half and 3/4 graph only  
-      // -ve y - allowed? dodgy?
-  s_tideheight_text_layer = text_layer_create(GRect(GRAPH_X_PX+GRAPH_BORDER_PX, -4, MAX_X, GRAPH_Y_PX + 40));
-   text_layer_set_background_color(s_tideheight_text_layer, colour_bg());
-  text_layer_set_text_color(s_tideheight_text_layer, colour_fg());
-  text_layer_set_font(s_tideheight_text_layer, s_tideheight_font);
-  text_layer_set_text_alignment(s_tideheight_text_layer, GTextAlignmentLeft);
+  s_tideheight_text_layer1 = text_layer_create(GRect(GRAPH_X_PX+GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
+   text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
+  text_layer_set_text_color(s_tideheight_text_layer1, colour_fg());
+  text_layer_set_font(s_tideheight_text_layer1, s_tideheight_font);
+  text_layer_set_text_alignment(s_tideheight_text_layer1, GTextAlignmentLeft);
+  
+  s_tideheight_text_layer2 = text_layer_create(GRect(GRAPH_X_PX+GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
+  text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
+  text_layer_set_text_color(s_tideheight_text_layer2, colour_fg());
+  text_layer_set_font(s_tideheight_text_layer2, s_tideheight_font);
+  text_layer_set_text_alignment(s_tideheight_text_layer2, GTextAlignmentLeft);
     
     
   // Add as child layers to the Window's root layer
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
-  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer));
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer1));
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer2));
+
   
   APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
 }

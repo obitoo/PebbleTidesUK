@@ -29,22 +29,23 @@
 #define  MAX_X            144
 #define  GRAPH_BORDER_PX     4
 #define  GRAPH_Y_LOWPOINT    6 // from wherever the border is 
-
-#define  NUM_TIDES_BACKGROUND  4
+#define  GRAPH_EXAGGERATE_Y  3 // Factor to exaggerate the height differences 
+  
+#define  NUM_TIDES_BACKGROUND  4 // process 4, display less
 
   
-// different graph window widths
-//     // fullwidth grap 
-#define  GRAPH_NUM_POINTS    4
-#define  GRAPH_X_PX          (MAX_X - (2*GRAPH_BORDER_PX)) 
-#define  GRAPH_X_LOGICAL_MAX 144
-#define  GRAPH_X_MINS        1440 // 24 hours 
-  
-      // half width grap 
-// #define  GRAPH_NUM_POINTS    3
-// #define  GRAPH_X_PX          102
+// // different graph window widths
+// //     // fullwidth grap 
+// #define  GRAPH_NUM_POINTS    4
+// #define  GRAPH_X_PX          (MAX_X - (2*GRAPH_BORDER_PX)) 
 // #define  GRAPH_X_LOGICAL_MAX 144
-// #define  GRAPH_X_MINS        (1440 * 3/4) // 12 hours 
+// #define  GRAPH_X_MINS        1440 // 24 hours 
+  
+//       3/4 width grap - with tide heights
+#define  GRAPH_NUM_POINTS    3
+#define  GRAPH_X_PX          102
+#define  GRAPH_X_LOGICAL_MAX 144
+#define  GRAPH_X_MINS        (1440 * 3/4) // 18 hours 
   
 //     // half width grap 
 // #define  GRAPH_NUM_POINTS    2
