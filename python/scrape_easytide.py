@@ -163,6 +163,8 @@ for i in range(0,4):
    if (hhmm_to_mins(t) < minsnow ): 
       print "discarding"
       del array[0]
+   else:
+      print "keeping"
 
 
 
