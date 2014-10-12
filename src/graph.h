@@ -1,18 +1,24 @@
 #pragma once
 
+
+#define MSG_TYPE    0 
   
-#define KEY_STATE_0 0 
-#define  KEY_TIME_0 1
-#define KEY_STATE_1 2
-#define  KEY_TIME_1 3
-#define KEY_STATE_2 4
-#define  KEY_TIME_2 5
-#define KEY_STATE_3 6
-#define  KEY_TIME_3 7
-#define  KEY_HEIGHT_0 8
-#define  KEY_HEIGHT_1 9
-#define  KEY_HEIGHT_2 10
-#define  KEY_HEIGHT_3 11
+#define KEY_STATE_0 1 
+#define  KEY_TIME_0 2
+#define KEY_STATE_1 3
+#define  KEY_TIME_1 4
+#define KEY_STATE_2 5
+#define  KEY_TIME_2 6
+#define KEY_STATE_3 7
+#define  KEY_TIME_3 8
+#define  KEY_HEIGHT_0 9
+#define  KEY_HEIGHT_1 10
+#define  KEY_HEIGHT_2 11
+#define  KEY_HEIGHT_3 12
+  
+#define  CFG_SHOW_HEIGHTS 13
+#define  CFG_INVERT_COL   14
+#define  CFG_SOLID_GRAPH  15
 
   
 #define  MINS_IN_DAY      1440

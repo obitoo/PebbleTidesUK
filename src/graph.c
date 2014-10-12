@@ -27,7 +27,7 @@ static void draw_sinewave (GContext* ctx);
 
 
 static void print_tidetimes  (char (*p_state)[8], char (*p_time)[6]);
-static void print_tideheights(char (*p_state)[8], int *p_height);
+static void print_tideheights(char (*p_state)[8], int *p_height, char *);
 
     
 
@@ -54,14 +54,14 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
 
 }
 
-void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf){
+void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf, char *time_str){
   
   // times
   print_tidetimes(p_state_buf, p_time_buf);
   
   // heights  
   if (GRAPH_NUM_POINTS  < 4) 
-    print_tideheights (p_state_buf, p_height_buf);
+    print_tideheights (p_state_buf, p_height_buf, time_str);
 
 }
 
@@ -138,7 +138,7 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
 }
 
-static void print_tideheights(char (*p_state)[8], int *p_height){
+static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
     static char text_layer_buffer1[32];
     static char text_layer_buffer2[32];
@@ -148,8 +148,10 @@ static void print_tideheights(char (*p_state)[8], int *p_height){
 
       // 3 lines - hi, lo and something in between (spring notification?):
       // need 2 layers to get the vertical alignment right
-    char TODO_info[] = "";
+    char TODO_info[] = "      ";
 //       char TODO_info[] = "Spring";
+    strcpy (TODO_info, p_timestr);
+      
     snprintf(text_layer_buffer1, 
              sizeof(text_layer_buffer1),
             " %d.%dm\n  %s", 
@@ -170,7 +172,7 @@ static void print_tideheights(char (*p_state)[8], int *p_height){
   
 
 
-// draw sine wave,lamely. Would have been much easier when i was 17 doing a-level maths ;) 
+// draw sine wave,lamely. Would have been much easier when i was 17 studying maths ;) 
 // todo - cycles thru all points properly, if first in the past
 static void draw_sinewave (GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
@@ -181,7 +183,7 @@ static void draw_sinewave (GContext* ctx){
 
   // plut two 'full' waves, of 0->pi each
   int x_offset = draw_x[0] - range_x/4;
-  APP_LOG(APP_LOG_LEVEL_WARNING, "         draw_sinewave, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
+  APP_LOG(APP_LOG_LEVEL_INFO, "         draw_sinewave, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
   int flip_y = ((draw_y[0] < (range_y))? -1 : 1);
     
       // wave 1 - lhs graph
@@ -195,7 +197,7 @@ static void draw_sinewave (GContext* ctx){
 
 
 static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int x2, int flip_y, int x_offset){
-  APP_LOG(APP_LOG_LEVEL_WARNING, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
+  APP_LOG(APP_LOG_LEVEL_INFO, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
 
   int     x_rel, plot_x = 0, plot_y;
   int32_t xd, yd;

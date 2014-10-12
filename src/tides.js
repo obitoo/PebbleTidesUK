@@ -1,5 +1,10 @@
 
 
+
+  //
+  //  Init   ======================================
+  //
+
 // Listen for when the watchface is opened
 Pebble.addEventListener('ready', 
   function(e) {
@@ -8,6 +13,51 @@ Pebble.addEventListener('ready',
     getTides();
   }
 );
+
+
+
+  //
+  //  Config   ======================================
+  //
+
+Pebble.addEventListener("showConfiguration", function() {
+  console.log("showing configuration");
+  Pebble.openURL('http://82.69.65.202:8080/config.html');
+});
+
+
+// config page - close
+Pebble.addEventListener("webviewclosed", function(e) {
+  console.log("configuration closed");
+  var config = JSON.parse(decodeURIComponent(e.response));
+  console.log("Options = " + JSON.stringify(config));
+  
+  // Send to Pebble - add MSG_TYPE to allow routing
+  var dictionary = {
+              "MSG_TYPE"        :"config",
+              "CFG_INVERT_COL"  : config.cfg_invert_col,
+              "CFG_SHOW_HEIGHTS": config.cfg_show_heights,
+              "CFG_LINE_GRAPH"  : config.cfg_line_graph
+    
+  };
+  console.log("Message = " + JSON.stringify(dictionary));
+  
+  Pebble.sendAppMessage(dictionary,
+                        function(e) {
+                          console.log("Config sent to Pebble successfully");
+                        },
+                        function(e) {
+                          console.log("Error sending Config to Pebble!");
+                        }
+                       );
+});
+
+
+
+
+  //
+  //  Tides   ============================
+  //
 
 // Listen for when an AppMessage is received
 Pebble.addEventListener('appmessage',
@@ -25,7 +75,6 @@ var xhrRequest = function (url, type, callback) {
   xhr.open(type, url);
   xhr.send();
 };
-
 
 function getTides(pos) {
   // Construct URL - TODO - dns
@@ -66,6 +115,8 @@ function getTides(pos) {
       
             // build dict to send
             var dictionary = {
+              "MSG_TYPE": "tides",
+              
               "KEY_STATE_0": state0,
               "KEY_TIME_0": time0,
               "KEY_HEIGHT_0": height0,
@@ -86,7 +137,7 @@ function getTides(pos) {
             // Send to Pebble
             Pebble.sendAppMessage(dictionary,
                 function(e) {
-                    console.log("Tide info sent to Pebble successfully!");
+                    console.log("Tide info sent to Pebble successfully");
                  },
                 function(e) {
                     console.log("Error sending tides info to Pebble!");
