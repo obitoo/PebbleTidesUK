@@ -19,7 +19,7 @@
 #define  CFG_SHOW_HEIGHTS 13
 #define  CFG_INVERT_COL   14
 #define  CFG_SOLID_GRAPH  15
-
+#define  CFG_PORT         16
   
 #define  MINS_IN_DAY      1440
 #define  TIDE_PHONE_POLL_MINS   30

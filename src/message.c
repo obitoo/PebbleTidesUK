@@ -21,7 +21,9 @@ extern Layer       *s_graph_layer;
 
 static char appmsg_received_time[]="00:00";
 
+static int retry_count_out = 3;
 
+       void message_send_outbox();
 
 //
 //  Callback entry points ====================================================
@@ -42,12 +44,36 @@ void inbox_dropped_callback(AppMessageResult reason, void *context) {
 }
 void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %i - %s", reason, translate_error(reason));
+  // retry 
+  if (--retry_count_out > 0) {
+     APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send RETRY");
+     message_send_outbox();
+  }
 }
 void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send success!");
+  retry_count_out = 3;
 }
 
 
+//
+//  Pebble to phone  
+//
+void message_send_outbox() {
+    // Begin dictionary
+    DictionaryIterator *iter;
+    app_message_outbox_begin(&iter);
+  
+    // Add a key-value pair
+    dict_write_cstring(iter, CFG_PORT, "1234");
+    //                 dict_write_uint8(iter, 0, "1234");
+
+    // end 
+    dict_write_end (iter);
+
+    // Send the message!
+    app_message_outbox_send();
+}
 
 //
 //  Callback logic  - Javascript appmessage 
@@ -63,10 +89,10 @@ static void process_js_msg(DictionaryIterator *iterator, void *context){
 
   // if key isnt msg_type we've got an ordering problem
   // doesnt work cos its only an int lol 
-  if (t->key != MSG_TYPE) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected key - %d", (int)t->key );
-    return;
-  }
+//   if (t->key != MSG_TYPE) {
+//     APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected key - %d", (int)t->key );
+//     return;
+//   }
   
   
   

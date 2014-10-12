@@ -36,7 +36,7 @@ extern void inbox_dropped_callback(AppMessageResult , void *);
 extern void outbox_failed_callback(DictionaryIterator *, AppMessageResult , void *);
 extern void outbox_sent_callback(DictionaryIterator *, void *);
 extern void inbox_received_callback(DictionaryIterator *, void *);
-  
+extern void message_send_outbox();
   
 
 
@@ -180,6 +180,8 @@ static void mainwindow_unload(Window *window) {
   APP_LOG(APP_LOG_LEVEL_INFO, "destroy s_weatherlayer " );
 
   text_layer_destroy(s_tidetimes_text_layer);
+  text_layer_destroy(s_tideheight_text_layer1);
+  text_layer_destroy(s_tideheight_text_layer2);
   
   // Destroy fonts
 
@@ -204,18 +206,14 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   
       update_time();
   
-      // Get tide data from phone every 30 minutes
-      if(tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) {
-        // Begin dictionary
-        DictionaryIterator *iter;
-        app_message_outbox_begin(&iter);
-      
-        // Add a key-value pair
-        dict_write_uint8(iter, 0, 0);
-      
-        // Send the message!
-        app_message_outbox_send();
-                
+      static int first_time = 1;
+  
+      // Get tide data from phone every 30 minutes  TODO not 30 calc it
+      if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) || first_time ){
+        
+        first_time = 0;
+        message_send_outbox();
+        
       }
       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - exit" );
 }

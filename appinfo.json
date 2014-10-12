@@ -2,6 +2,7 @@
     "appKeys": {
         "CFG_INVERT_COL": 13,
         "CFG_LINE_GRAPH": 15,
+        "CFG_PORT": 16,
         "CFG_SHOW_HEIGHTS": 14,
         "KEY_HEIGHT_0": 9,
         "KEY_HEIGHT_1": 10,

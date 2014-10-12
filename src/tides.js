@@ -9,8 +9,6 @@
 Pebble.addEventListener('ready', 
   function(e) {
     console.log("PebbleKit JS ready!");
-    // Get the initial weather
-    getTides();
   }
 );
 
@@ -60,10 +58,30 @@ Pebble.addEventListener("webviewclosed", function(e) {
   //
 
 // Listen for when an AppMessage is received
-Pebble.addEventListener('appmessage',
-  function(e) {
+Pebble.addEventListener('appmessage',   function(e) {
     console.log("AppMessage received!");
-    getTides();
+    var location="0110";
+    
+    if (e.payload.command !== null) {
+        console.log("   got payload");
+        switch (e.payload.command) {
+          case 0:           // port identifier
+            location = e.payload.message;
+            break;
+          case 1:          
+            break;
+          default:
+            console.log("Warning");
+            console.log("Warning - payload.command not recognised:"+e.payload.command);
+            break;
+        }
+    } else {
+        console.log("Warning - empty payload ");
+    }
+
+    // make web request
+    console.log(" calling getTides - "+location);
+    getTides(location);
   }                     
 );
 
@@ -76,13 +94,15 @@ var xhrRequest = function (url, type, callback) {
   xhr.send();
 };
 
-function getTides(pos) {
+function getTides(locn) {
+  console.log("getTides:"+locn);
+
   // Construct URL - TODO - dns
-  var url = "http://82.69.65.202:8080/tides0110.json"; //desktop 8080
+  var url = "http://82.69.65.202:8080/tides"+locn+".json"; //desktop 8080
 
   // Send request to My Server
   
-  // TODO - what if fails?
+  // TODO - what if http get fails? 
   
   xhrRequest(url, 'GET', 
           function(responseText) {
