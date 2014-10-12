@@ -12,7 +12,8 @@ static int draw_y[] = {0,0,0,0,0};
 static int g_got_tides = 0;
 
 extern  TextLayer   *s_tidetimes_text_layer;
-extern  TextLayer   *s_tideheight_text_layer;
+extern  TextLayer   *s_tideheight_text_layer1;
+extern  TextLayer   *s_tideheight_text_layer2;
 
 
 
@@ -26,7 +27,7 @@ static void draw_sinewave (GContext* ctx);
 
 
 static void print_tidetimes  (char (*p_state)[8], char (*p_time)[6]);
-static void print_tideheights(char (*p_state)[8], int *p_height);
+static void print_tideheights(char (*p_state)[8], int *p_height, char *);
 
     
 
@@ -53,14 +54,14 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
 
 }
 
-void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf){
+void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf, char *time_str){
   
   // times
   print_tidetimes(p_state_buf, p_time_buf);
   
   // heights  
   if (GRAPH_NUM_POINTS  < 4) 
-    print_tideheights (p_state_buf, p_height_buf);
+    print_tideheights (p_state_buf, p_height_buf, time_str);
 
 }
 
@@ -137,23 +138,41 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
 }
 
-static void print_tideheights(char (*p_state)[8], int *p_height){
+static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
-    static char text_layer_buffer[128];
+    static char text_layer_buffer1[32];
+    static char text_layer_buffer2[32];
+  
     int min_h, max_h;
-    int h_range = calc_y_range(p_state, p_height, &min_h, &max_h);
+    calc_y_range(p_state, p_height, &min_h, &max_h);
 
-      // 4 lines max:
-    snprintf(text_layer_buffer, sizeof(text_layer_buffer),
-            " %d.%dm\n  Spring\n \n %d.%dm\n", max_h/10, max_h%10, min_h/10, min_h%10);
-    APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer);
-    text_layer_set_text(s_tideheight_text_layer, text_layer_buffer);
+      // 3 lines - hi, lo and something in between (spring notification?):
+      // need 2 layers to get the vertical alignment right
+    char TODO_info[] = "      ";
+//       char TODO_info[] = "Spring";
+    strcpy (TODO_info, p_timestr);
+      
+    snprintf(text_layer_buffer1, 
+             sizeof(text_layer_buffer1),
+            " %d.%dm\n  %s", 
+             max_h/10, max_h % 10, TODO_info);
+    snprintf(text_layer_buffer2, 
+             sizeof(text_layer_buffer2),
+            " %d.%dm\n", 
+             min_h/10, min_h % 10);
+  
+    APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer1);
+    APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer2);
+    text_layer_set_text(s_tideheight_text_layer1, text_layer_buffer1);
+    text_layer_set_text(s_tideheight_text_layer2, text_layer_buffer2);
+  
+    APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
 }
   
   
 
 
-// draw sine wave,lamely. Would have been much easier when i was 17 doing a-level maths ;) 
+// draw sine wave,lamely. Would have been much easier when i was 17 studying maths ;) 
 // todo - cycles thru all points properly, if first in the past
 static void draw_sinewave (GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
@@ -164,7 +183,7 @@ static void draw_sinewave (GContext* ctx){
 
   // plut two 'full' waves, of 0->pi each
   int x_offset = draw_x[0] - range_x/4;
-  APP_LOG(APP_LOG_LEVEL_WARNING, "         draw_sinewave, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
+  APP_LOG(APP_LOG_LEVEL_INFO, "         draw_sinewave, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
   int flip_y = ((draw_y[0] < (range_y))? -1 : 1);
     
       // wave 1 - lhs graph
@@ -178,7 +197,7 @@ static void draw_sinewave (GContext* ctx){
 
 
 static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int x2, int flip_y, int x_offset){
-  APP_LOG(APP_LOG_LEVEL_WARNING, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
+  APP_LOG(APP_LOG_LEVEL_INFO, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
 
   int     x_rel, plot_x = 0, plot_y;
   int32_t xd, yd;
@@ -192,7 +211,7 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
 
     xd = TRIG_MAX_ANGLE * (x_rel-range_x) ;
     yd = sin_lookup(xd /(2*f)); 
-    APP_LOG(APP_LOG_LEVEL_WARNING, "      xd = %d, yd = %d", (int)xd, (int) yd);
+//     APP_LOG(APP_LOG_LEVEL_WARNING, "      xd = %d, yd = %d", (int)xd, (int) yd);
 
     // amplitude : (GRAPH_Y_PX - 20)/GRAPH_Y_PX
     plot_y =  flip_y * ((GRAPH_Y_PX - 20) * (range_y * yd/TRIG_MAX_RATIO))/GRAPH_Y_PX + range_y  ;
@@ -265,16 +284,15 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
 
     
       //  y point
-      static int exaggerate_difference = 4;   // todo - #define
       int ypos_px_absolute = 0;
       int hm = p_height_buf[count_input];
       APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: Height=%d",p_height_buf[count_input]);
 
       if (!strcmp(p_state_buf[count_input],"hi")){
-        ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * exaggerate_difference ;
+        ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * GRAPH_EXAGGERATE_Y ;
       } else 
       if (!strcmp(p_state_buf[count_input],"lo")){
-        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * exaggerate_difference;
+        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * GRAPH_EXAGGERATE_Y;
       } else {
         APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
         return;
@@ -314,14 +332,20 @@ static int calc_localtime_mins(){
 
 
 static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, int *max_y){ 
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:     calc_y_range()" );
+
   int i;
   *min_y=99, *max_y=-1;
-  for (i = 0;  i <= NUM_TIDES_BACKGROUND; i++){
+  for (i = 0;  i < GRAPH_NUM_POINTS; i++){
+      APP_LOG(APP_LOG_LEVEL_INFO, "        %d, h= %d",i, p_height_buf[i]  );
+
       if (!strcmp(p_state_buf[i],"lo") && p_height_buf[i] < *min_y)
         *min_y = p_height_buf[i];
       if (!strcmp(p_state_buf[i],"hi") && p_height_buf[i] > *max_y)
         *max_y = p_height_buf[i];
   }
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:     calc_y_range()  min %d, max %d",*min_y,*max_y );
+
   return *max_y - *min_y;
 }
 

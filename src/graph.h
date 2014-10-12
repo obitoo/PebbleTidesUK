@@ -1,18 +1,24 @@
 #pragma once
 
+
+#define MSG_TYPE    0 
   
-#define KEY_STATE_0 0 
-#define  KEY_TIME_0 1
-#define KEY_STATE_1 2
-#define  KEY_TIME_1 3
-#define KEY_STATE_2 4
-#define  KEY_TIME_2 5
-#define KEY_STATE_3 6
-#define  KEY_TIME_3 7
-#define  KEY_HEIGHT_0 8
-#define  KEY_HEIGHT_1 9
-#define  KEY_HEIGHT_2 10
-#define  KEY_HEIGHT_3 11
+#define KEY_STATE_0 1 
+#define  KEY_TIME_0 2
+#define KEY_STATE_1 3
+#define  KEY_TIME_1 4
+#define KEY_STATE_2 5
+#define  KEY_TIME_2 6
+#define KEY_STATE_3 7
+#define  KEY_TIME_3 8
+#define  KEY_HEIGHT_0 9
+#define  KEY_HEIGHT_1 10
+#define  KEY_HEIGHT_2 11
+#define  KEY_HEIGHT_3 12
+  
+#define  CFG_SHOW_HEIGHTS 13
+#define  CFG_INVERT_COL   14
+#define  CFG_SOLID_GRAPH  15
 
   
 #define  MINS_IN_DAY      1440
@@ -29,22 +35,23 @@
 #define  MAX_X            144
 #define  GRAPH_BORDER_PX     4
 #define  GRAPH_Y_LOWPOINT    6 // from wherever the border is 
-
-#define  NUM_TIDES_BACKGROUND  4
+#define  GRAPH_EXAGGERATE_Y  3 // Factor to exaggerate the height differences 
+  
+#define  NUM_TIDES_BACKGROUND  4 // process 4, display less
 
   
-// different graph window widths
-//     // fullwidth grap 
-#define  GRAPH_NUM_POINTS    4
-#define  GRAPH_X_PX          (MAX_X - (2*GRAPH_BORDER_PX)) 
-#define  GRAPH_X_LOGICAL_MAX 144
-#define  GRAPH_X_MINS        1440 // 24 hours 
-  
-      // half width grap 
-// #define  GRAPH_NUM_POINTS    3
-// #define  GRAPH_X_PX          102
+// // different graph window widths
+// //     // fullwidth grap 
+// #define  GRAPH_NUM_POINTS    4
+// #define  GRAPH_X_PX          (MAX_X - (2*GRAPH_BORDER_PX)) 
 // #define  GRAPH_X_LOGICAL_MAX 144
-// #define  GRAPH_X_MINS        (1440 * 3/4) // 12 hours 
+// #define  GRAPH_X_MINS        1440 // 24 hours 
+  
+//       3/4 width grap - with tide heights
+#define  GRAPH_NUM_POINTS    3
+#define  GRAPH_X_PX          102
+#define  GRAPH_X_LOGICAL_MAX 144
+#define  GRAPH_X_MINS        (1440 * 3/4) // 18 hours 
   
 //     // half width grap 
 // #define  GRAPH_NUM_POINTS    2
