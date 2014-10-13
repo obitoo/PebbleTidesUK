@@ -1,27 +1,30 @@
 
-
-
   //
   //  Init   ======================================
   //
+
+var wait_msg = 0;
+var config_open = 0;
 
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
 Pebble.addEventListener('ready',   function(e) {
     console.log("PebbleKit JS ready!");
     
-    var dictionary = {
-              "MSG_TYPE"        :"ready"};
+//     var dictionary = {
+//               "MSG_TYPE"        :"ready"};
   
-    Pebble.sendAppMessage(dictionary,
-                          function(e) {
-                            console.log("Ready sent to Pebble successfully");
-                          },
-                          function(e) {
-                            console.log("Error sending Ready to Pebble!");
-                          }
-                         );
-     }
+//     MessageQueue.sendAppMessage(dictionary,
+//                           function(e) {
+//                             console.log("Ready sent to Pebble successfully");
+//                           },
+//                           function(e) {
+//                             console.log("Error sending Ready to Pebble!");
+//                           }
+//                          );
+     
+    //  getTides("0110");
+    }
 );
 
 
@@ -32,6 +35,7 @@ Pebble.addEventListener('ready',   function(e) {
 
 Pebble.addEventListener("showConfiguration", function() {
   console.log("showing configuration");
+  config_open = 1;
   Pebble.openURL('http://82.69.65.202:8080/config.html');
 });
 
@@ -50,16 +54,26 @@ Pebble.addEventListener("webviewclosed", function(e) {
               "CFG_LINE_GRAPH"  : config.cfg_line_graph
     
   };
-  console.log("Message = " + JSON.stringify(dictionary));
+  console.log("Message to Pebble = " + JSON.stringify(dictionary));
   
+
+  console.log("webviewclosed, wait_msg = " + wait_msg);
+  wait_msg = 1;
   Pebble.sendAppMessage(dictionary,
-                        function(e) {
+                        function(e) {   //ACK
+                          wait_msg = 0;
                           console.log("Config sent to Pebble successfully");
+                            config_open = 0;
+                          getTides("0110");
                         },
-                        function(e) {
+                        function(e) {   //NACK
+                          wait_msg = 0;
                           console.log("Error sending Config to Pebble!");
+                            config_open = 0;
+                          getTides("0110");
                         }
                        );
+
 });
 
 
@@ -69,56 +83,73 @@ Pebble.addEventListener("webviewclosed", function(e) {
   //  Tides   ============================
   //
 
-// Listen for when an AppMessage is received
+// Listen for when an AppMessage is received. If its the first one since 
+// startup we store the saved config, later we can pass it to the config web 
+// page so it reflects Pebbles state correctly
 Pebble.addEventListener('appmessage',   function(e) {
-    console.log("AppMessage received!");
+    console.log("AppMessage received from Pebble!");
     var location="0110";
     
-    if (e.payload.command !== null) {
+    // config 
+    if (e.payload !== null) {
         console.log("   got payload");
-      console.log("        payload:"+e.payload.CFG_PORT);
-        switch (e.payload.command) {
-          case 0:           // port identifier
-            location = e.payload.message;
-            break;
-          case 1:          
-            break;
-          default:
-            console.log("Warning");
-            console.log("Warning - payload.command not recognised:"+e.payload.command);
-            break;
-        }
-    } else {
-        console.log("Warning - empty payload ");
+        console.log(JSON.stringify(e.payload));
+        console.log("        payload:"+e.payload.CFG_PORT);
+      
+        // port identifier
+        location = e.payload.CFG_PORT;
+        // on/off options
+        console.log("        CFG_SHOW_HEIGHTS:"+e.payload.CFG_SHOW_HEIGHTS);
+        console.log("        CFG_LINE_GRAPH  :"+e.payload.CFG_LINE_GRAPH);
+        console.log("        CFG_INVERT_COL  :"+e.payload.CFG_INVERT_COL);
     }
 
-    // make web request
+    // make web request for tides
     console.log(" calling getTides - "+location);
     getTides(location);
   }                     
 );
 
 var xhrRequest = function (url, type, callback) {
+//   console.log("  xhrRequest : "+url);
+
   var xhr = new XMLHttpRequest();
-  xhr.onload = function () {
-    callback(this.responseText);
-  };
-  xhr.open(type, url);
+  xhr.onload = function () { console.log("onload:"); callback(this.responseText);};
+  xhr.open(type, url, true);
+  xhr.ontimeout = function () { console.log("ontimeout:"); callback(1); };
+  xhr.onreadystatechange = function () { console.log("onreadystatechange:"+xhr.readyState);
+                                         if (xhr.readyState == 4) callback(this.responseTxt);
+                                         if (xhr.readyState == 404) callback(404);};
+  
   xhr.send();
+
 };
+
 
 function getTides(locn) {
   console.log("getTides:"+locn);
 
+  // might work
+  if (config_open == 1){
+    console.log("Config window open, aborting tides request");
+    return;
+  }
+  
   // Construct URL - TODO - dns
   var url = "http://82.69.65.202:8080/tides"+locn+".json"; //desktop 8080
 
-  // Send request to My Server
-  
+  // Send request to my Server
   // TODO - what if http get fails? 
-  
+  console.log("getTides: about to make request:"+url);
   xhrRequest(url, 'GET', 
           function(responseText) {
+            if (responseText == 1){
+                console.log("Timeout!");
+            }
+            if (responseText == 404){
+                console.log("404 not found!");
+            }
+            else {
             // responseText contains a JSON object with weather info
             var json = JSON.parse(responseText);
       
@@ -168,15 +199,20 @@ function getTides(locn) {
             };
       
             // Send to Pebble
+            console.log("getTides, wait_msg = " + wait_msg);
+            if (wait_msg === 0) {
+            wait_msg = 1;
             Pebble.sendAppMessage(dictionary,
                 function(e) {
+                    wait_msg = 0;
                     console.log("Tide info sent to Pebble successfully");
                  },
                 function(e) {
+                    wait_msg = 0;
                     console.log("Error sending tides info to Pebble!");
                 }
             );
-          }      
+            }    } }  //else   
     );
 }
 

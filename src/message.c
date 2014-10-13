@@ -21,7 +21,7 @@ extern Layer       *s_graph_layer;
 static char appmsg_received_time[]="00:00";
 
 static int retry_count_out = 3;
-static int js_initialised = 0; 
+static int js_initialised = 1; 
 
        void message_send_outbox();
 
@@ -78,9 +78,12 @@ void message_send_outbox() {
     DictionaryIterator *iter = NULL;
     app_message_outbox_begin(&iter);
   
-    // Add a key-value pair
-    dict_write_cstring(iter, CFG_PORT, "1234");
-    //                 dict_write_uint8(iter, 0, "1234");
+    // Add key-value pairs
+    dict_write_cstring(iter, CFG_PORT,         "1234");
+    dict_write_cstring(iter, CFG_INVERT_COL,   "off");
+    dict_write_cstring(iter, CFG_LINE_GRAPH,   "on");
+    dict_write_cstring(iter, CFG_SHOW_HEIGHTS, "on");
+    // dict_write_uint8(iter, 0, "1234");
 
     // Dont do this. Really. https://developer.getpebble.com/2/guides/app-phone-communication.html
     //dict_write_end (iter);
@@ -96,7 +99,7 @@ static void process_js_msg(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
 
   //quick hack - remove later
-  //strcpy(appmsg_received_time, p_current_time);
+  strcpy(appmsg_received_time, p_current_time);
     
   // Read first item
   Tuple *t = dict_read_first(iterator);
@@ -208,8 +211,8 @@ static void js_config(DictionaryIterator *iterator, void *context){
       case   CFG_INVERT_COL:
                APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Invert cols: %s", (t->value->cstring));
                break;
-      case   CFG_SOLID_GRAPH:
-              APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Solid Graph: %s", (t->value->cstring));
+      case   CFG_LINE_GRAPH:
+              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Line Graph: %s", (t->value->cstring));
                break;
       
        default:
@@ -220,7 +223,8 @@ static void js_config(DictionaryIterator *iterator, void *context){
     t = dict_read_next(iterator);
   }
   
-  
+  // enable other messaging
+  js_initialised = 1;
   
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
 }
