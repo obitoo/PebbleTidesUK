@@ -22,7 +22,7 @@
 #define  CFG_PORT         16
   
 #define  MINS_IN_DAY      1440
-#define  TIDE_PHONE_POLL_MINS   30
+#define  TIDE_PHONE_POLL_MINS   10  // approx every x-pixel
   
   // display options
 #define  SOLID_GRAPH    0   // if 0, plot a line graph with GRAPH_NUM_POINTS hi/lo points / if 1, plot solid curve

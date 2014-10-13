@@ -37,6 +37,8 @@ extern void outbox_failed_callback(DictionaryIterator *, AppMessageResult , void
 extern void outbox_sent_callback(DictionaryIterator *, void *);
 extern void inbox_received_callback(DictionaryIterator *, void *);
 extern void message_send_outbox();
+extern int  messaging_ready();
+
   
 
 
@@ -52,7 +54,7 @@ static void init() {
   s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
   s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
   s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
-  s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+  s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
 
 
   // Create window, handlers
@@ -208,8 +210,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   
       static int first_time = 1;
   
-      // Get tide data from phone every 30 minutes  TODO not 30 calc it
-      if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) || first_time ){
+      // Get tide data from phone every few minutes  
+      if(((tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) || first_time ) && messaging_ready()){
         
         first_time = 0;
         message_send_outbox();

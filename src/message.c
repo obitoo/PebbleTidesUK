@@ -4,13 +4,12 @@
 extern void calc_graph_points          (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf);
 extern void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf, char *);
 
-
-
 extern char*  p_current_time;
 
 static void process_js_msg (DictionaryIterator *iterator, void *context);
 static void js_tides       (DictionaryIterator *iterator, void *context);
 static void js_config      (DictionaryIterator *iterator, void *context);
+static void js_ready       (DictionaryIterator *iterator, void *context);
 static char *translate_error(AppMessageResult result);
 
 static char state_buf[4][8];   // "hi" | "lo"
@@ -22,6 +21,7 @@ extern Layer       *s_graph_layer;
 static char appmsg_received_time[]="00:00";
 
 static int retry_count_out = 3;
+static int js_initialised = 0; 
 
        void message_send_outbox();
 
@@ -32,16 +32,18 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg entry" );
    
   process_js_msg(iterator, context);
+  
+     // update graphics
   print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time);
   calc_graph_points(state_buf, time_buf, height_buf);
-  
-   // update graphics
   layer_mark_dirty (s_graph_layer);
+  
 }
 
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
 }
+
 void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %i - %s", reason, translate_error(reason));
   // retry 
@@ -50,6 +52,7 @@ void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reaso
      message_send_outbox();
   }
 }
+
 void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send success!");
   retry_count_out = 3;
@@ -57,19 +60,30 @@ void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
 
 
 //
-//  Pebble to phone  
+//  Called from main 
+//
+int messaging_ready(){
+  APP_LOG(APP_LOG_LEVEL_WARNING, "messaging ready? = %d",js_initialised);
+  return js_initialised;
+}
+
+
+//
+//  Pebble to phone - this requests a tide update, passes config at same time
 //
 void message_send_outbox() {
+    APP_LOG(APP_LOG_LEVEL_INFO, "message_send_outbox() - entry" );
+  
     // Begin dictionary
-    DictionaryIterator *iter;
+    DictionaryIterator *iter = NULL;
     app_message_outbox_begin(&iter);
   
     // Add a key-value pair
     dict_write_cstring(iter, CFG_PORT, "1234");
     //                 dict_write_uint8(iter, 0, "1234");
 
-    // end 
-    dict_write_end (iter);
+    // Dont do this. Really. https://developer.getpebble.com/2/guides/app-phone-communication.html
+    //dict_write_end (iter);
 
     // Send the message!
     app_message_outbox_send();
@@ -82,7 +96,7 @@ static void process_js_msg(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
 
   //quick hack - remove later
-  strcpy(appmsg_received_time, p_current_time);
+  //strcpy(appmsg_received_time, p_current_time);
     
   // Read first item
   Tuple *t = dict_read_first(iterator);
@@ -104,7 +118,10 @@ static void process_js_msg(DictionaryIterator *iterator, void *context){
   } else 
   if (!strcmp(t->value->cstring,"config")){
      js_config (iterator, context);
-  } else  {
+  } else 
+  if (!strcmp(t->value->cstring,"ready")){
+     js_ready (iterator, context);
+  } else {
     APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected MSG_TYPE value - %s", t->value->cstring );
   }
   
@@ -208,7 +225,20 @@ static void js_config(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
 }
 
-  
+static void js_ready(DictionaryIterator *iterator, void *context){
+  APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );
+    
+  // consume msg
+  Tuple *t; 
+  do {
+    t = dict_read_next(iterator);
+  } while (t != NULL);
+    
+  js_initialised = 1;
+   
+  APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - exit" );
+}
+ 
   
   
 

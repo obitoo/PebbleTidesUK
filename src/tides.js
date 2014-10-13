@@ -5,11 +5,23 @@
   //  Init   ======================================
   //
 
-// Listen for when the watchface is opened
-Pebble.addEventListener('ready', 
-  function(e) {
+// Listen for when the watchface is opened, then 
+// tell Pebble we're good to start receiving messages. 
+Pebble.addEventListener('ready',   function(e) {
     console.log("PebbleKit JS ready!");
-  }
+    
+    var dictionary = {
+              "MSG_TYPE"        :"ready"};
+  
+    Pebble.sendAppMessage(dictionary,
+                          function(e) {
+                            console.log("Ready sent to Pebble successfully");
+                          },
+                          function(e) {
+                            console.log("Error sending Ready to Pebble!");
+                          }
+                         );
+     }
 );
 
 
@@ -64,6 +76,7 @@ Pebble.addEventListener('appmessage',   function(e) {
     
     if (e.payload.command !== null) {
         console.log("   got payload");
+      console.log("        payload:"+e.payload.CFG_PORT);
         switch (e.payload.command) {
           case 0:           // port identifier
             location = e.payload.message;
