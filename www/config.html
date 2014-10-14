@@ -8,6 +8,7 @@
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
+
   <script>
   $(function() {
     $("#port1").selectmenu();
@@ -36,7 +37,21 @@
         else return results[1];
       };
 
-      function toggle_slider(cfgname, fieldname){
+      function select_port(fieldname, port) {
+           var found = 0;
+           var index = 0;
+
+           $("#"+fieldname+" > option").each(function() {
+alert (fieldname+":"+this.value+"="+this.text);
+              if (port == this.value) { alert ("found:"+index);found = index ; }
+              index = index + 1;
+           });
+ alert("port index is "+found);
+           var myselect = $("select#"+fieldname);
+           myselect[0].selectedIndex = found;
+           myselect.selectmenu("refresh");
+      };
+      function select_slider(cfgname, fieldname){
            var value = getURLVariable(cfgname);
            value = decodeURI(value);
            if (value) {
@@ -44,20 +59,23 @@
            }
       };
 
+      //
+      // decode passed in - previously saved - toggle options
+      //
       $(document).ready(function() {
-            // decode passed in - previously saved - toggle options
-        toggle_slider ("cfg_invert_col", "invert_col");
-        toggle_slider ("cfg_line_graph", "line_graph");
-        toggle_slider ("cfg_show_heights", "show_heights");
 
-            // And the port - bit harder
-        var port = getURLVariable('cfg_port');
-        port = decodeURI(port);
-        if (port) {
-        alert ("port:"+port);
-            $("#port1").val(2);
-            $("#port1").selectmenu("value",port);
-            $("#port2").val(port);
+           // on/off toggles
+        select_slider ("cfg_invert_col", "invert_col");
+        select_slider ("cfg_line_graph", "line_graph");
+        select_slider ("cfg_show_heights", "show_heights");
+
+            // And the port drop downs - one or t'other
+        var cfg_port = getURLVariable('cfg_port');
+        cfg_port = decodeURI(cfg_port);
+
+        if (cfg_port) {
+           select_port ("port1", cfg_port);
+           select_port ("port2", cfg_port);
         }
       });
 
@@ -84,26 +102,7 @@
            <option value="0496">Milford Haven</option>
          </optgroup>
          <optgroup label="Filler">
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
-           <option value="0496">Manchester Haven</option>
+           <option value="0497">Manchester Haven</option>
          </optgroup>
        </select>
 
@@ -112,6 +111,7 @@
           <option value="0"></option>
           <option value="0103">Margate</option>
           <option value="0110">Southend-on-Sea</option>
+          <option value="0112">rejlkre lln-Sea</option>
         </select>
 
 
