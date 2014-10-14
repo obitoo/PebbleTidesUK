@@ -38,15 +38,29 @@
       };
 
       function select_port(fieldname, port) {
-           var found = 0;
-           var index = 0;
+           var index = 0, found = 0;
 
            $("#"+fieldname+" > option").each(function() {
-alert (fieldname+":"+this.value+"="+this.text);
-              if (port == this.value) { alert ("found:"+index);found = index ; }
+              //alert (fieldname+":"+this.value+"="+this.text);
+              if (port == this.value) { found = index ; }
               index = index + 1;
            });
- alert("port index is "+found);
+           //alert("port index is "+found);
+           var myselect = $("select#"+fieldname);
+           myselect[0].selectedIndex = found;
+           myselect.selectmenu("refresh");
+      };
+      function select_port_optgroup(fieldname, cfg_port) {
+           var index = 1, found = 0;
+   
+           $("#"+fieldname+" > optgroup").each(function() {
+              $(this).children("option").each(function(){
+              //   alert ("port1:"+this.value+"="+this.text);
+                 if (cfg_port == this.value) { found = index ; }
+                 index = index + 1;
+               })
+           });
+           //alert("port index is "+found);
            var myselect = $("select#"+fieldname);
            myselect[0].selectedIndex = found;
            myselect.selectmenu("refresh");
@@ -69,13 +83,15 @@ alert (fieldname+":"+this.value+"="+this.text);
         select_slider ("cfg_line_graph", "line_graph");
         select_slider ("cfg_show_heights", "show_heights");
 
-            // And the port drop downs - one or t'other
+            // And the port drop downs
         var cfg_port = getURLVariable('cfg_port');
         cfg_port = decodeURI(cfg_port);
 
         if (cfg_port) {
-           select_port ("port1", cfg_port);
-           select_port ("port2", cfg_port);
+           select_port_optgroup ("port1", cfg_port);
+           select_port          ("port2", cfg_port);
+
+
         }
       });
 
@@ -90,7 +106,6 @@ alert (fieldname+":"+this.value+"="+this.text);
 
       <div data-role="content">
 
-
       <label for="Port1">Select a primary port</label>
         <select name="port1" id="port1">
            <option value="0"></option>
@@ -103,6 +118,8 @@ alert (fieldname+":"+this.value+"="+this.text);
          </optgroup>
          <optgroup label="Filler">
            <option value="0497">Manchester Haven</option>
+           <option value="0498">M22chester Haven</option>
+           <option value="0499">M33chester Haven</option>
          </optgroup>
        </select>
 
