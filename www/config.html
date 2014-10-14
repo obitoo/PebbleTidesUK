@@ -26,6 +26,41 @@
        myselect.selectmenu("refresh");
     });
   });
+
+      function getURLVariable(name)  {
+        name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        var regexS = "[\\?&]"+name+"=([^&#]*)",
+            regex = new RegExp(regexS),
+            results = regex.exec(window.location.href);
+        if (results == null) return "";
+        else return results[1];
+      };
+
+      function toggle_slider(cfgname, fieldname){
+           var value = getURLVariable(cfgname);
+           value = decodeURI(value);
+           if (value) {
+             $("#"+fieldname).val(value).slider('refresh')
+           }
+      };
+
+      $(document).ready(function() {
+            // decode passed in - previously saved - toggle options
+        toggle_slider ("cfg_invert_col", "invert_col");
+        toggle_slider ("cfg_line_graph", "line_graph");
+        toggle_slider ("cfg_show_heights", "show_heights");
+
+            // And the port - bit harder
+        var port = getURLVariable('cfg_port');
+        port = decodeURI(port);
+        if (port) {
+        alert ("port:"+port);
+            $("#port1").val(2);
+            $("#port1").selectmenu("value",port);
+            $("#port2").val(port);
+        }
+      });
+
   </script>
 
   </head>
@@ -38,47 +73,46 @@
       <div data-role="content">
 
 
-    <label for="Port1">Select a primary port</label>
-    <select name="port1" id="port1">
-       <option value="0"></option>
-     <optgroup label="South">
-       <option value="0062">Southampton</option>
-       <option value="0108">Sheerness</option>
-     </optgroup>
-     <optgroup label="North">
-       <option value="0496">Milford Haven</option>
-     </optgroup>
-     <optgroup label="Filler">
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-       <option value="0496">Manchester Haven</option>
-     </optgroup>
-    </select>
+      <label for="Port1">Select a primary port</label>
+        <select name="port1" id="port1">
+           <option value="0"></option>
+         <optgroup label="South">
+           <option value="0062">Southampton</option>
+           <option value="0108">Sheerness</option>
+         </optgroup>
+         <optgroup label="North">
+           <option value="0496">Milford Haven</option>
+         </optgroup>
+         <optgroup label="Filler">
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+           <option value="0496">Manchester Haven</option>
+         </optgroup>
+       </select>
 
-    <label for="Port2">Or select a secondary port</label>
-    <select name="port2" id="port2">
-      <option value="0"></option>
-      <option value="0103">Margate</option>
-      <option value="0110">Southend-on-Sea</option>
-    </select>
-
+       <label for="Port2">Or select a secondary port</label>
+        <select name="port2" id="port2">
+          <option value="0"></option>
+          <option value="0103">Margate</option>
+          <option value="0110">Southend-on-Sea</option>
+        </select>
 
 
         <div data-role="fieldcontain">
@@ -116,9 +150,12 @@
         </div>
       </div>
     </div>
-    <script>
-      function saveOptions() {
 
+
+
+    <script>
+
+      function saveOptions() {
         // Can only have one or the other 
         var port= $("#port1").val();
         if (port == "0") 
@@ -135,24 +172,21 @@
         return options;
       }
 
-      $().ready(function() {
-        $("#b-cancel").click(function() {
+      $("#b-cancel").click(function() {
           console.log("Cancel");
           document.location = "pebblejs://close";
-        });
-        $("#b-submit").click(function() {
+      });
+      $("#b-submit").click(function() {
           console.log("Submit");
           var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(saveOptions()));
           console.log("Warping to: " + location);
           console.log(location);
           document.location = location;
-window.localStorage.setItem('test1', 'DATA');
-        });
-
-        var i = window.localStorage.getItem('test1');
-alert ("local stor:".concat(i));
-
       });
     </script>
+
+
+
+
   </body>
 </html>
