@@ -1,5 +1,6 @@
 #include <pebble.h> 
 #include <graph.h> 
+#include <config.h>   
  
 // TODO  - fix sine logic
 
@@ -88,7 +89,7 @@ static void draw_box(GContext* ctx){
 static void draw_tidepoints(GContext* ctx){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_tidepoints()");
 
-    if (SOLID_GRAPH)
+    if (!config_bool(CFG_LINE_GRAPH))
       return;  
   
     graphics_context_set_fill_color(ctx, colour_fg());
@@ -206,6 +207,7 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
   int     range_y = GRAPH_Y_PX /2 ;
   int     f = x1 - x2;
   
+  int     line_graph = config_bool(CFG_LINE_GRAPH);
 
   for (x_rel = xrel_from; x_rel <= xrel_to; x_rel++){
 
@@ -223,10 +225,11 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
     if ((plot_x > GRAPH_BORDER_PX) && (plot_x < GRAPH_X_PX + GRAPH_BORDER_PX)) {
         GPoint p = (GPoint){plot_x, plot_y+GRAPH_BORDER_PX};
       
-        if (SOLID_GRAPH)
-          graphics_draw_line(ctx, p, (GPoint){plot_x, GRAPH_Y_PX+GRAPH_BORDER_PX});
+        if (line_graph)
+           graphics_draw_pixel(ctx, p);
         else
-          graphics_draw_pixel(ctx, p);
+           graphics_draw_line(ctx, p, (GPoint){plot_x, GRAPH_Y_PX+GRAPH_BORDER_PX});
+
     }
   }
 //   APP_LOG(APP_LOG_LEVEL_INFO, "   last plot: xrel = %d, x=%d",x_rel, plot_x);

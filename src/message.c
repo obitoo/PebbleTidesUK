@@ -84,16 +84,16 @@ void message_send_outbox() {
     char c_heights[]="off";
   
     if (persist_exists(CFG_PORT)) {
-      persist_read_string(CFG_PORT,       c_port,   strlen(c_port));
+      persist_read_string(CFG_PORT,       c_port,   1+strlen(c_port));
     }
     if (persist_exists(CFG_INVERT_COL)) {
-      persist_read_string(CFG_INVERT_COL, c_invert, strlen(c_invert));
+      persist_read_string(CFG_INVERT_COL, c_invert, 1+strlen(c_invert));
     }
     if (persist_exists(CFG_LINE_GRAPH)) {
-      persist_read_string(CFG_LINE_GRAPH, c_line,   strlen(c_line));
+      persist_read_string(CFG_LINE_GRAPH, c_line,   1+strlen(c_line));
     }
     if (persist_exists(CFG_SHOW_HEIGHTS)) {
-      persist_read_string(CFG_SHOW_HEIGHTS, c_heights, strlen(c_heights));
+      persist_read_string(CFG_SHOW_HEIGHTS, c_heights, 1+strlen(c_heights));
     }
   
     // Add key-value pairs

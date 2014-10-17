@@ -25,7 +25,7 @@
 #define  TIDE_PHONE_POLL_MINS   10  // approx every x-pixel
   
   // display options
-#define  SOLID_GRAPH    0   // if 0, plot a line graph with GRAPH_NUM_POINTS hi/lo points / if 1, plot solid curve
+// config #define  SOLID_GRAPH    0   // if 0, plot a line graph with GRAPH_NUM_POINTS hi/lo points / if 1, plot solid curve
 #define  BLACK_ON_WHITE 0   // TODO - 1 doesnt work  
 
   
