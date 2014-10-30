@@ -3,35 +3,45 @@
   //  Init   ======================================
   //
 
-var wait_msg = 0;
-var config_open = 0;
-var config_url= "http://82.69.65.202:8080/config.html?";
+var wait_msg ;
+var config_open ;
+var config_url;
+var config_defaults;
 
-var config_defaults = {
-    cfg_invert_col     : "off",
-    cfg_show_heights   : "on",
-    cfg_line_graph     : "on",
-    cfg_port           : "0110"
-};
 
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
 Pebble.addEventListener('ready',   function(e) {
-    console.log("PebbleKit JS ready!");
+    console.log("--ready event");
     
+    wait_msg = 0;
+    config_open = 0;
+    config_url= "http://82.69.65.202:8080/config.html?";
+    config_defaults = {
+       "cfg_invert_col"     : "off",
+       "cfg_show_heights"   : "on",
+       "cfg_line_graph"     : "on",
+       "cfg_port"           : "0110"
+    };  
+  
+    console.log("  config_defaults= " + JSON.stringify(config_defaults));
+
     var dictionary = {
               "MSG_TYPE"        :"ready"};
+
   
-    Pebble.sendAppMessage(dictionary,
+     Pebble.sendAppMessage(dictionary,
                           function(e) {
-                            console.log("Ready sent to Pebble successfully");
+                            console.log("  Ready sent to Pebble successfully");
                           },
                           function(e) {
-                            console.log("Error sending Ready to Pebble!");
+                            console.log("  Error sending Ready to Pebble!");
                           }
                          );
      
     //  getTides("0110");
+  console.log("--ready event: exit");
+
     }
 );
 
@@ -42,20 +52,33 @@ Pebble.addEventListener('ready',   function(e) {
   //
 
 Pebble.addEventListener("showConfiguration", function() {
-  console.log("showing configuration");
-  config_open = 1;
+  
+  console.log("--showConfiguration event");
+
   
   // Load up the stored options
   var url = config_url;
   for (var key in config_defaults) {
+      console.log ("  key:"+key);
       var val = localStorage.getItem(key);
-      if (val === null || val === 0) { val = config_defaults.getItem(key);
-                                       console.log ("Taken config default of "+val+":"+key);}
+      console.log ("  val:"+val);
+      if (val === null || val === 0) { 
+        console.log("  config_defaults= " + JSON.stringify(config_defaults));
+
+//         val = config_defaults.getItem(key);
+
+        console.log ("  1-Taken config default of "+val+":"+key);}
+      else {
+        console.log ("  1-Taken config stored of "+val+":"+key);
+      }
+    
       url += encodeURIComponent(key) + "=" + encodeURIComponent(val)+"&";
   }
 	
-	console.log("opening "+url);
+  console.log("  opening config:"+url);
   Pebble.openURL(url);
+  config_open = 1; // How do i tell success of prev?
+  console.log("  config is open");
 });
 
 
@@ -63,15 +86,35 @@ Pebble.addEventListener("showConfiguration", function() {
 // config page - closed ======================================
 //
 Pebble.addEventListener("webviewclosed", function(e) {
-  console.log("configuration closed");
-  var config = JSON.parse(decodeURIComponent(e.response));
-  console.log("Options = " + JSON.stringify(config));
+  console.log("--webviewclosed event (config)");
   
-  // save to local storage. 
+  var config = JSON.parse(decodeURIComponent(e.response));
+  console.log("  Options = " + JSON.stringify(config));
+  
+
+  // save to local storage. Might be empty though
   for (var key in config) {
-    localStorage.setItem(key, config[key]);
-    console.log("localstorage:"+key+" = "+config[key]);
+    window.localStorage.setItem(key, config[key]);
+    console.log("  save config to localstorage:"+key+" = "+config[key]);
 	}
+  
+//     var dictionary = {
+//       "MSG_TYPE"        :"config"};
+
+//   // Load up the stored options
+//   for (key in config_defaults) {
+//       console.log (" DEBUG: config_defaults:"+ JSON.stringify(config_defaults));
+//       var val = 0;//localStorage.getItem(key);
+    
+//       if (val === null || val === 0) { 
+//         val = config_defaults.getItem(key);
+//         console.log ("2-Taken config default of "+val+":"+key);}
+//       else {
+//         console.log ("2-Taken config stored of "+val+":"+key);
+//       }
+    
+//       dictionary.add(key, val);
+//   }
   
   // Send to Pebble - add MSG_TYPE to allow routing
   var dictionary = {
@@ -80,27 +123,32 @@ Pebble.addEventListener("webviewclosed", function(e) {
               "CFG_SHOW_HEIGHTS": config.cfg_show_heights,
               "CFG_LINE_GRAPH"  : config.cfg_line_graph,
               "CFG_PORT"        : config.cfg_port
-    
   };
-  console.log("Message to Pebble = " + JSON.stringify(dictionary));
-  console.log("webviewclosed, wait_msg = " + wait_msg);
 
-  wait_msg = 1;
+  console.log("  Message to Pebble = " + JSON.stringify(dictionary));
+  console.log("  config webviewclosed, wait_msg = " + wait_msg);
+
+  wait_msg = 1; // not sure if we still need this, i think the webview was the issue not the messaging
   Pebble.sendAppMessage(dictionary,
                         function(e) {   //ACK
                           wait_msg = 0;
-                          console.log("Config sent to Pebble successfully");
+                          console.log("  Config sent to Pebble - ACK");
                             config_open = 0;
-                          getTides(config.cfg_port);   
+                          console.log("  config_open= 0, calling getTides()");
+                          getTides(window.localStorage.getItem("cfg_port"));   
+                          console.log("  getTides() called");
                         },
                         function(e) {   //NAK
                           wait_msg = 0;
-                          console.log("Error sending Config to Pebble!");
+                          console.log("  ERROR - sending Config to Pebble - NAK");
                             config_open = 0;
-                          getTides(config.cfg_port);
+                          console.log("  config_open= 0, calling getTides()");
+                          getTides(window.localStorage.getItem("cfg_port"));
+                          console.log("  getTides() called");
                         }
                        );
-
+  
+  console.log("--webviewclosed event (config) - exit");
 });
 
 
@@ -121,14 +169,10 @@ Pebble.addEventListener('appmessage',   function(e) {
     if (e.payload !== null) {
         console.log("   got payload");
         console.log(JSON.stringify(e.payload));
-        console.log("        payload:"+e.payload.CFG_PORT);
-      
+     
         // port identifier
         location = e.payload.CFG_PORT;
-        // on/off options
-        console.log("        CFG_SHOW_HEIGHTS:"+e.payload.CFG_SHOW_HEIGHTS);
-        console.log("        CFG_LINE_GRAPH  :"+e.payload.CFG_LINE_GRAPH);
-        console.log("        CFG_INVERT_COL  :"+e.payload.CFG_INVERT_COL);
+
     }
 
     // make web request for tides
@@ -177,7 +221,7 @@ function getTides(locn) {
                 console.log("404 not found!");
             }
             else {
-            // responseText contains a JSON object with weather info
+            // responseText contains a JSON object with tidetime info
             var json = JSON.parse(responseText);
       
             // get next tide

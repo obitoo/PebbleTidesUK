@@ -61,7 +61,7 @@ void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int 
   print_tidetimes(p_state_buf, p_time_buf);
   
   // heights  
-  if (GRAPH_NUM_POINTS  < 4) 
+  if (config_get_intval(CGRAPH_NUM_POINTS)  < 4) 
     print_tideheights (p_state_buf, p_height_buf, time_str);
 
 }
@@ -73,32 +73,37 @@ void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int 
     //  PRESENTATION ======================================================
     //
 static void draw_box(GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
+  APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  draw_box()");
   
+
   // nice border
-  graphics_draw_rect	(	 	ctx, (GRect) {.origin = { GRAPH_BORDER_PX, GRAPH_BORDER_PX }, .size = {GRAPH_X_PX, GRAPH_Y_PX}});
+  int _xpix = config_get_intval(CGRAPH_X_PX);  
+//   APP_LOG(APP_LOG_LEVEL_INFO, "        _xpix is %d", _xpix);
+  
+
+  graphics_draw_rect	(	 	ctx, (GRect) {.origin = { GRAPH_BORDER_PX, GRAPH_BORDER_PX }, .size = { _xpix , GRAPH_Y_PX}});
 
   // midline(s)
   int  y = GRAPH_BORDER_PX;
   for (; y < GRAPH_Y_PX; y += (GRAPH_Y_PX/(1+GRAPH_NUM_HOZ_LINES))  )
     graphics_draw_line(ctx, (GPoint){GRAPH_BORDER_PX, y},
-                            (GPoint){GRAPH_BORDER_PX+GRAPH_X_PX, y} );
+                            (GPoint){GRAPH_BORDER_PX + _xpix, y} );
 
 }
 
 static void draw_tidepoints(GContext* ctx){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_tidepoints()");
 
-    if (!config_bool(CFG_LINE_GRAPH))
+    if (!config_get_bool(CFG_LINE_GRAPH))
       return;  
   
     graphics_context_set_fill_color(ctx, colour_fg());
 
     int i;  
-    for (i=0; i< GRAPH_NUM_POINTS ; i++)
+    for (i=0; i< config_get_intval(CGRAPH_NUM_POINTS) ; i++)
     if ((draw_x[i] > 0) && (draw_y[i] > 0)){
        graphics_fill_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , 3);
-       APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
+//        APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
 }
@@ -109,11 +114,11 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
     static char text_layer_buffer[128];
   
     int i = 0;
-    for (; i < GRAPH_NUM_POINTS; i++)
-      APP_LOG(APP_LOG_LEVEL_INFO, "           print_tidetimes(%d) %d state=%s, time=%s",GRAPH_NUM_POINTS,i,p_state[i], p_time[i]);
+    for (; i < config_get_intval(CGRAPH_NUM_POINTS); i++)
+//       APP_LOG(APP_LOG_LEVEL_INFO, "           print_tidetimes(%d) %d state=%s, time=%s",config_get_intval(CGRAPH_NUM_POINTS),i,p_state[i], p_time[i]);
 
   
-    switch (GRAPH_NUM_POINTS){
+    switch (config_get_intval(CGRAPH_NUM_POINTS)){
       case 4:
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
                  "%s: %s         %s: %s       \n       %s: %s         %s: %s\n",
@@ -162,8 +167,8 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
             " %d.%dm\n", 
              min_h/10, min_h % 10);
   
-    APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer1);
-    APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer2);
+//     APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer1);
+//     APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer2);
     text_layer_set_text(s_tideheight_text_layer1, text_layer_buffer1);
     text_layer_set_text(s_tideheight_text_layer2, text_layer_buffer2);
   
@@ -179,36 +184,37 @@ static void draw_sinewave (GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
   int range_y = GRAPH_Y_PX /2 ;
-  int range_x = GRAPH_X_LOGICAL_MAX /2 ;
+  int range_x = config_get_intval(CGRAPH_X_LOGICAL_MAX) /2 ;
   
 
   // plut two 'full' waves, of 0->pi each
   int x_offset = draw_x[0] - range_x/4;
-  APP_LOG(APP_LOG_LEVEL_INFO, "         draw_sinewave, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
+//   APP_LOG(APP_LOG_LEVEL_INFO, "         draw_sinewave, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
   int flip_y = ((draw_y[0] < (range_y))? -1 : 1);
     
       // wave 1 - lhs graph
   plot_one_wave (ctx, (0-x_offset), range_x, draw_x[1], draw_x[0], flip_y, x_offset);
   
       // wave 2 - rhs
-  plot_one_wave (ctx, range_x,   GRAPH_X_LOGICAL_MAX-x_offset, draw_x[3], draw_x[2], flip_y, x_offset);
+  plot_one_wave (ctx, range_x,   config_get_intval(CGRAPH_X_LOGICAL_MAX)-x_offset, draw_x[3], draw_x[2], flip_y, x_offset);
   
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:    draw_sinewave()");
 }
 
 
 static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int x2, int flip_y, int x_offset){
-  APP_LOG(APP_LOG_LEVEL_INFO, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
+//   APP_LOG(APP_LOG_LEVEL_INFO, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
 
   int     x_rel, plot_x = 0, plot_y;
   int32_t xd, yd;
 
-  int     range_x = GRAPH_X_LOGICAL_MAX /2 ;
+  int     range_x = config_get_intval(CGRAPH_X_LOGICAL_MAX) /2 ;
   int     range_y = GRAPH_Y_PX /2 ;
   int     f = x1 - x2;
   
-  int     line_graph = config_bool(CFG_LINE_GRAPH);
+  int     line_graph = config_get_bool(CFG_LINE_GRAPH);
 
+  int _xpix = config_get_intval(CGRAPH_X_PX);
   for (x_rel = xrel_from; x_rel <= xrel_to; x_rel++){
 
     xd = TRIG_MAX_ANGLE * (x_rel-range_x) ;
@@ -222,7 +228,7 @@ static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int
     //        GRAPH_BORDER_PX  >------------<  GRAPH_BORDER_PX + 136
     plot_x = x_rel + GRAPH_BORDER_PX + x_offset ;
         // only plot if within x-window:
-    if ((plot_x > GRAPH_BORDER_PX) && (plot_x < GRAPH_X_PX + GRAPH_BORDER_PX)) {
+    if ((plot_x > GRAPH_BORDER_PX) && (plot_x < _xpix + GRAPH_BORDER_PX)) {
         GPoint p = (GPoint){plot_x, plot_y+GRAPH_BORDER_PX};
       
         if (line_graph)
@@ -265,8 +271,9 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   
   // calculate height range
   int min_h, max_h;
-  int h_range = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
-  APP_LOG(APP_LOG_LEVEL_INFO, "       miny=%d, maxy=%d, range =%d",min_h, max_h, h_range);
+ // int h_range = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
+  calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
+//   APP_LOG(APP_LOG_LEVEL_INFO, "       miny=%d, maxy=%d, range =%d",min_h, max_h, h_range);
   
   // loop for each input 
   while (count_input < NUM_TIDES_BACKGROUND) {
@@ -281,8 +288,8 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
       
       //  x point
       int xpos_mins        = tidetime_mins - time_now_mins;
-      int xpos_px_relative = GRAPH_X_PX * xpos_mins / GRAPH_X_MINS;
-      APP_LOG(APP_LOG_LEVEL_INFO, "        xpos: mins = %d  px_rel = %d", xpos_mins, xpos_px_relative );
+      int xpos_px_relative = config_get_intval(CGRAPH_X_PX) * xpos_mins / config_get_intval(CGRAPH_X_MINS);
+//       APP_LOG(APP_LOG_LEVEL_INFO, "        xpos: mins = %d  px_rel = %d", xpos_mins, xpos_px_relative );
     
 
     
@@ -300,7 +307,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
         APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
         return;
       }
-      APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: %s Tide = %dm",p_state_buf[count_input], hm );
+//       APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: %s Tide = %dm",p_state_buf[count_input], hm );
 
     
       // set datapoint for draw routine   
@@ -339,8 +346,8 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
 
   int i;
   *min_y=99, *max_y=-1;
-  for (i = 0;  i < GRAPH_NUM_POINTS; i++){
-      APP_LOG(APP_LOG_LEVEL_INFO, "        %d, h= %d",i, p_height_buf[i]  );
+  for (i = 0;  i < config_get_intval(CGRAPH_NUM_POINTS); i++){
+//       APP_LOG(APP_LOG_LEVEL_INFO, "        %d, h= %d",i, p_height_buf[i]  );
 
       if (!strcmp(p_state_buf[i],"lo") && p_height_buf[i] < *min_y)
         *min_y = p_height_buf[i];

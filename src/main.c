@@ -1,6 +1,6 @@
 #include <pebble.h>
 #include <graph.h>
-  
+#include <config.h>  
   
 static void update_time();
 GColor colour_fg();
@@ -107,6 +107,18 @@ GColor colour_bg(){
     return GColorBlack;
 }
 
+
+void main_hide_heights_layer(){
+  if (config_get_bool(CFG_SHOW_HEIGHTS)){
+      layer_set_hidden((Layer *)s_tideheight_text_layer1, false);
+      layer_set_hidden((Layer *)s_tideheight_text_layer2, false);
+  } else {
+      layer_set_hidden((Layer *)s_tideheight_text_layer1, true);
+      layer_set_hidden((Layer *)s_tideheight_text_layer2, true); 
+  }
+}
+
+  
 static void mainwindow_load(Window *window) {
 
   // Create graph layer
@@ -144,13 +156,13 @@ static void mainwindow_load(Window *window) {
 
   
   //   heights - half and 3/4 graph only  
-  s_tideheight_text_layer1 = text_layer_create(GRect(GRAPH_X_PX+GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
+  s_tideheight_text_layer1 = text_layer_create(GRect(config_get_intval(CGRAPH_X_PX)+GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
    text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
   text_layer_set_text_color(s_tideheight_text_layer1, colour_fg());
   text_layer_set_font(s_tideheight_text_layer1, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer1, GTextAlignmentLeft);
   
-  s_tideheight_text_layer2 = text_layer_create(GRect(GRAPH_X_PX+GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
+  s_tideheight_text_layer2 = text_layer_create(GRect(config_get_intval(CGRAPH_X_PX)+GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
   text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
   text_layer_set_text_color(s_tideheight_text_layer2, colour_fg());
   text_layer_set_font(s_tideheight_text_layer2, s_tideheight_font);
@@ -158,11 +170,14 @@ static void mainwindow_load(Window *window) {
     
     
   // Add as child layers to the Window's root layer
+
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer1));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer2));
+  // hide if 3/4 width
+  main_hide_heights_layer();
 
   
   APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
@@ -204,7 +219,7 @@ static void mainwindow_unload(Window *window) {
   //  Callback logic - time
   //
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-      APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - time callback entry" );
+      APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - time callback entry" );
   
       update_time();
   
