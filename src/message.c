@@ -21,7 +21,7 @@ extern Layer       *s_graph_layer;
 static char appmsg_received_time[]="00:00";
 
 static int retry_count_out = 3;
-static int js_initialised = 1; 
+static int js_initialised = 0; 
 
        void message_send_outbox();
 
@@ -78,12 +78,30 @@ void message_send_outbox() {
     DictionaryIterator *iter = NULL;
     app_message_outbox_begin(&iter);
   
+    char c_port[]="0110";
+    char c_invert[]="off";
+    char c_line[]="off";
+    char c_heights[]="off";
+  
+    if (persist_exists(CFG_PORT)) {
+      persist_read_string(CFG_PORT,       c_port,   1+strlen(c_port));
+    }
+    if (persist_exists(CFG_INVERT_COL)) {
+      persist_read_string(CFG_INVERT_COL, c_invert, 1+strlen(c_invert));
+    }
+    if (persist_exists(CFG_LINE_GRAPH)) {
+      persist_read_string(CFG_LINE_GRAPH, c_line,   1+strlen(c_line));
+    }
+    if (persist_exists(CFG_SHOW_HEIGHTS)) {
+      persist_read_string(CFG_SHOW_HEIGHTS, c_heights, 1+strlen(c_heights));
+    }
+  
     // Add key-value pairs
-    dict_write_cstring(iter, CFG_PORT,         "1234");
-    dict_write_cstring(iter, CFG_INVERT_COL,   "off");
-    dict_write_cstring(iter, CFG_LINE_GRAPH,   "on");
-    dict_write_cstring(iter, CFG_SHOW_HEIGHTS, "on");
-    // dict_write_uint8(iter, 0, "1234");
+    dict_write_cstring(iter, CFG_PORT,         c_port); 
+    dict_write_cstring(iter, CFG_INVERT_COL,   c_invert); 
+    dict_write_cstring(iter, CFG_LINE_GRAPH,   c_line );
+    dict_write_cstring(iter, CFG_SHOW_HEIGHTS,  c_heights);
+
 
     // Dont do this. Really. https://developer.getpebble.com/2/guides/app-phone-communication.html
     //dict_write_end (iter);
@@ -98,21 +116,12 @@ void message_send_outbox() {
 static void process_js_msg(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
 
-  //quick hack - remove later
-  strcpy(appmsg_received_time, p_current_time);
+  //quick hack - remove later - doesnt work if called from js ready, cos its null 
+  //strcpy(appmsg_received_time, p_current_time);
     
   // Read first item
   Tuple *t = dict_read_first(iterator);
 
-  // if key isnt msg_type we've got an ordering problem
-  // doesnt work cos its only an int lol 
-//   if (t->key != MSG_TYPE) {
-//     APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected key - %d", (int)t->key );
-//     return;
-//   }
-  
-  
-  
   // route to different msg handlers
   APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - key string=%s" ,t->value->cstring);
 
@@ -205,29 +214,37 @@ static void js_config(DictionaryIterator *iterator, void *context){
   while(t != NULL) {
     APP_LOG(APP_LOG_LEVEL_INFO, "SWITCH %d ",(int) t->key );
     switch(t->key) {
-      case   CFG_SHOW_HEIGHTS:
-               APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Show heights: %s", (t->value->cstring));
-               break;
-      case   CFG_INVERT_COL:
-               APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Invert cols: %s", (t->value->cstring));
-               break;
-      case   CFG_LINE_GRAPH:
-              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Line Graph: %s", (t->value->cstring));
-               break;
-      
+      case CFG_SHOW_HEIGHTS:
+             APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Show heights: %s", (t->value->cstring));
+             persist_write_string(CFG_SHOW_HEIGHTS, t->value->cstring);
+        break;
+      case CFG_INVERT_COL:
+             APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Invert cols: %s", (t->value->cstring));
+             persist_write_string(CFG_INVERT_COL, t->value->cstring);
+             break;
+      case CFG_LINE_GRAPH:
+             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Line Graph: %s", (t->value->cstring));
+             persist_write_string(CFG_LINE_GRAPH, t->value->cstring);
+             break;
+      case CFG_PORT:
+             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Port: %s", (t->value->cstring));
+             persist_write_string(CFG_PORT, t->value->cstring);
+             break;
        default:
-               APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
-               break;
+             APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
+             break;
     }
     // Look for next item
     t = dict_read_next(iterator);
   }
   
-  // enable other messaging
+  // enable other messaging - TODO - really?
   js_initialised = 1;
   
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
 }
+
+
 
 static void js_ready(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );

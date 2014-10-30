@@ -5,23 +5,31 @@
 
 var wait_msg = 0;
 var config_open = 0;
+var config_url= "http://82.69.65.202:8080/config.html?";
+
+var config_defaults = {
+    cfg_invert_col     : "off",
+    cfg_show_heights   : "on",
+    cfg_line_graph     : "on",
+    cfg_port           : "0110"
+};
 
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
 Pebble.addEventListener('ready',   function(e) {
     console.log("PebbleKit JS ready!");
     
-//     var dictionary = {
-//               "MSG_TYPE"        :"ready"};
+    var dictionary = {
+              "MSG_TYPE"        :"ready"};
   
-//     MessageQueue.sendAppMessage(dictionary,
-//                           function(e) {
-//                             console.log("Ready sent to Pebble successfully");
-//                           },
-//                           function(e) {
-//                             console.log("Error sending Ready to Pebble!");
-//                           }
-//                          );
+    Pebble.sendAppMessage(dictionary,
+                          function(e) {
+                            console.log("Ready sent to Pebble successfully");
+                          },
+                          function(e) {
+                            console.log("Error sending Ready to Pebble!");
+                          }
+                         );
      
     //  getTides("0110");
     }
@@ -30,47 +38,66 @@ Pebble.addEventListener('ready',   function(e) {
 
 
   //
-  //  Config   ======================================
+  //  Config page - open ======================================
   //
 
 Pebble.addEventListener("showConfiguration", function() {
   console.log("showing configuration");
   config_open = 1;
-  Pebble.openURL('http://82.69.65.202:8080/config.html');
+  
+  // Load up the stored options
+  var url = config_url;
+  for (var key in config_defaults) {
+      var val = localStorage.getItem(key);
+      if (val === null || val === 0) { val = config_defaults.getItem(key);
+                                       console.log ("Taken config default of "+val+":"+key);}
+      url += encodeURIComponent(key) + "=" + encodeURIComponent(val)+"&";
+  }
+	
+	console.log("opening "+url);
+  Pebble.openURL(url);
 });
 
 
-// config page - close
+//
+// config page - closed ======================================
+//
 Pebble.addEventListener("webviewclosed", function(e) {
   console.log("configuration closed");
   var config = JSON.parse(decodeURIComponent(e.response));
   console.log("Options = " + JSON.stringify(config));
+  
+  // save to local storage. 
+  for (var key in config) {
+    localStorage.setItem(key, config[key]);
+    console.log("localstorage:"+key+" = "+config[key]);
+	}
   
   // Send to Pebble - add MSG_TYPE to allow routing
   var dictionary = {
               "MSG_TYPE"        :"config",
               "CFG_INVERT_COL"  : config.cfg_invert_col,
               "CFG_SHOW_HEIGHTS": config.cfg_show_heights,
-              "CFG_LINE_GRAPH"  : config.cfg_line_graph
+              "CFG_LINE_GRAPH"  : config.cfg_line_graph,
+              "CFG_PORT"        : config.cfg_port
     
   };
   console.log("Message to Pebble = " + JSON.stringify(dictionary));
-  
-
   console.log("webviewclosed, wait_msg = " + wait_msg);
+
   wait_msg = 1;
   Pebble.sendAppMessage(dictionary,
                         function(e) {   //ACK
                           wait_msg = 0;
                           console.log("Config sent to Pebble successfully");
                             config_open = 0;
-                          getTides("0110");
+                          getTides(config.cfg_port);   
                         },
-                        function(e) {   //NACK
+                        function(e) {   //NAK
                           wait_msg = 0;
                           console.log("Error sending Config to Pebble!");
                             config_open = 0;
-                          getTides("0110");
+                          getTides(config.cfg_port);
                         }
                        );
 
