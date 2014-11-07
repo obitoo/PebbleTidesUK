@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 
 
 #
-outfile="/var/www/tides0110.json"
+outfile="/var/www/tides/tides0110.json"
 
 print "----------- starting"
 
