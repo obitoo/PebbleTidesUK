@@ -400,7 +400,8 @@ static int calc_mins (char *s_hhmm, int *i_prev_mins){
   i_mins = i_mins + atoi(s_buf);
 
   // tomorrow?  but allow 60 mins grace, in case we're a bit ahead of the webdata
-  if ((*i_prev_mins - i_mins) > 60 ){
+  while ((*i_prev_mins - i_mins) > 60 ){
+    APP_LOG(APP_LOG_LEVEL_INFO, "      next day - i_mins calculated at %d. Adding %d ", i_mins, MINS_IN_DAY );
     i_mins = i_mins + MINS_IN_DAY;
   }
   *i_prev_mins = i_mins;

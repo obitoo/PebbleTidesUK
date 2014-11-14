@@ -65,7 +65,6 @@ static void init() {
 
   // Create window, handlers
   s_main_window = window_create();
-  window_set_background_color(s_main_window, colour_bg());
 
   window_set_window_handlers(s_main_window, (WindowHandlers) {
                     .load = mainwindow_load,
@@ -127,6 +126,8 @@ void main_hide_heights_layer(){
 void main_set_colours(){
   APP_LOG(APP_LOG_LEVEL_WARNING, "main_set_colours() " );
 
+  window_set_background_color(s_main_window, colour_bg());
+
   text_layer_set_background_color(s_tidetimes_text_layer, colour_bg());
   text_layer_set_text_color(s_tidetimes_text_layer,  colour_fg());
   text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
@@ -158,7 +159,6 @@ static void mainwindow_load(Window *window) {
 
   //   date   
   s_date_layer = text_layer_create(GRect(5, 100, 139, 30));
-
   text_layer_set_font(s_date_layer, s_date_font);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentRight);
   text_layer_set_text(s_date_layer, "Today 10");
