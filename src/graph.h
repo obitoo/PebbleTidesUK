@@ -26,8 +26,7 @@
 
   
   // display options
-// config #define  SOLID_GRAPH    0   // if 0, plot a line graph with GRAPH_NUM_POINTS hi/lo points / if 1, plot solid curve
-#define  BLACK_ON_WHITE 0   // TODO - 1 doesnt work  
+//#define  BLACK_ON_WHITE 1   // TODO - 1 doesnt work  
 
   
 // these dont change whatever the size of the graph window
@@ -40,21 +39,10 @@
 #define  GRAPH_Y_LOWPOINT       6 // from wherever the border is 
 #define  GRAPH_EXAGGERATE_Y     2 // Factor to exaggerate the height differences 
   
-#define  NUM_TIDES_BACKGROUND   4 // process 4, display less
+#define  NUM_TIDES_BACKGROUND   4 // loop to 4 
 
   
-// // different graph window widths
-// //     // fullwidth graph only, no heights at side
-// #define  GRAPH_NUM_POINTS    4
-// #define  GRAPH_X_PX          (MAX_X - (2*GRAPH_BORDER_PX)) 
-// #define  GRAPH_X_LOGICAL_MAX 144
-// #define  GRAPH_X_MINS        1440 // 24 hours 
-  
-//       3/4 width grap - with tide heights
-// #define  GRAPH_NUM_POINTS    3
-// #define  GRAPH_X_PX          102
-// #define  GRAPH_X_LOGICAL_MAX 144
-// #define  GRAPH_X_MINS        (1440 * 3/4) // 18 hours 
+
   
 // these replace the above
 #define  CGRAPH_NUM_POINTS    0

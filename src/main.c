@@ -50,11 +50,17 @@ static void init() {
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   
-  // Create GFontieees
+  // Create GFontieees.  Using Bold when black on white background
   s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
-  s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
-  s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
-  s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+    s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+  
+  if (config_get_bool(CFG_INVERT_COL)){
+    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
+    s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
+  } else {
+    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
+    s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+  }
 
 
   // Create window, handlers
@@ -95,14 +101,14 @@ int main (void){
     //
 
 GColor colour_fg(){
-  if (BLACK_ON_WHITE)
+  if (config_get_bool(CFG_INVERT_COL))
     return GColorBlack;
   else
     return GColorWhite;
 }
 GColor colour_bg(){
-  if (BLACK_ON_WHITE)
-    return GColorClear;
+  if (config_get_bool(CFG_INVERT_COL))
+    return GColorWhite;
   else
     return GColorBlack;
 }
@@ -140,7 +146,7 @@ static void mainwindow_load(Window *window) {
 
   //   date   
   s_date_layer = text_layer_create(GRect(5, 100, 139, 30));
-  text_layer_set_background_color(s_date_layer, colour_bg()); // Clear? White? 
+  text_layer_set_background_color(s_date_layer, colour_bg());  
   text_layer_set_text_color(s_date_layer, colour_fg());
   text_layer_set_font(s_date_layer, s_date_font);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentRight);
@@ -172,10 +178,11 @@ static void mainwindow_load(Window *window) {
   // Add as child layers to the Window's root layer
 
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
-  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
+
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer1));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer2));
+    layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
   // hide if 3/4 width
   main_hide_heights_layer();
 

@@ -7,7 +7,7 @@ var wait_msg ;
 var config_open ;
 var config_url;
 var config_defaults;
-
+var webserver="http://li646-227.members.linode.com/tides";
 
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
@@ -16,7 +16,7 @@ Pebble.addEventListener('ready',   function(e) {
     
     wait_msg = 0;
     config_open = 0;
-    config_url= "http://82.69.65.202:8080/config.html?";
+    config_url= webserver+"/config.html?";
     config_defaults = {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "on",
@@ -188,9 +188,11 @@ var xhrRequest = function (url, type, callback) {
   xhr.onload = function () { console.log("onload:"); callback(this.responseText);};
   xhr.open(type, url, true);
   xhr.ontimeout = function () { console.log("ontimeout:"); callback(1); };
-  xhr.onreadystatechange = function () { console.log("onreadystatechange:"+xhr.readyState);
-                                         if (xhr.readyState == 4) callback(this.responseTxt);
-                                         if (xhr.readyState == 404) callback(404);};
+  xhr.onreadystatechange = function () { console.log("onreadystatechange:"+xhr.readyState+"   reponseTxt="+this.responseTxt);
+                                         if (xhr.readyState == 4) {
+                                           if (xhr.status == 404) 
+                                             callback(404); 
+                                         }};
   
   xhr.send();
 
@@ -207,69 +209,87 @@ function getTides(locn) {
   }
   
   // Construct URL - TODO - dns
-  var url = "http://82.69.65.202:8080/tides"+locn+".json"; //desktop 8080
+  var url = webserver+"/tides"+locn+".json"; //desktop 8080
 
   // Send request to my Server
   // TODO - what if http get fails? 
   console.log("getTides: about to make request:"+url);
   xhrRequest(url, 'GET', 
           function(responseText) {
+            console.log("xhrRequest Callback. responsText = "+responseText);
+            var dictionary;
             if (responseText == 1){
                 console.log("Timeout!");
+                dictionary = {  
+                  "MSG_TYPE": "tides",
+                  "KEY_STATE_0" : "1",
+                  "KEY_TIME_0"  : locn,
+                  "KEY_HEIGHT_0": "0.0"
+                };
             }
-            if (responseText == 404){
+            else if (responseText == 404){
                 console.log("404 not found!");
+                dictionary = {  
+                  "MSG_TYPE": "tides",
+                  "KEY_STATE_0" : "404",
+                  "KEY_TIME_0"  : locn,
+                  "KEY_HEIGHT_0": "0.0"
+                };
             }
             else {
             // responseText contains a JSON object with tidetime info
-            var json = JSON.parse(responseText);
-      
-            // get next tide
-            var state0  = json.tides[0].state;
-            var state1  = json.tides[1].state;
-            var state2  = json.tides[2].state;
-            var state3  = json.tides[3].state;
-
-            var time0   = json.tides[0].time;
-            var time1   = json.tides[1].time;
-            var time2   = json.tides[2].time;
-            var time3   = json.tides[3].time;
+                var json;
+                try {
+                  json = JSON.parse(responseText);
+                } catch(e){
+                  console.log(e);
+                  return;
+                }
+          
+                // get next tide
+                var state0  = json.tides[0].state;
+                var state1  = json.tides[1].state;
+                var state2  = json.tides[2].state;
+                var state3  = json.tides[3].state;
+    
+                var time0   = json.tides[0].time;
+                var time1   = json.tides[1].time;
+                var time2   = json.tides[2].time;
+                var time3   = json.tides[3].time;
+                
+                var height0 = json.tides[0].height;            
+                var height1 = json.tides[1].height;            
+                var height2 = json.tides[2].height;
+                var height3 = json.tides[3].height;
+    
+                console.log("0 - state is " + state0 + "time is "+time0 + "height is "+height0);
+                console.log("1 - state is " + state1 + "time is "+time1 + "height is "+height1);
+                console.log("2 - state is " + state2 + "time is "+time2 + "height is "+height2);
+                console.log("3 - state is " + state3 + "time is "+time3 + "height is "+height3);
+          
+                // build dict to send
+                dictionary = {
+                  "MSG_TYPE": "tides",
+                  
+                  "KEY_STATE_0": state0,
+                  "KEY_TIME_0": time0,
+                  "KEY_HEIGHT_0": height0,
+                  
+                  "KEY_STATE_1": state1,
+                  "KEY_TIME_1": time1,
+                  "KEY_HEIGHT_1": height1,
+                  
+                  "KEY_STATE_2": state2,
+                  "KEY_TIME_2": time2,
+                  "KEY_HEIGHT_2": height2,
+                  
+                  "KEY_STATE_3": state3,
+                  "KEY_TIME_3": time3,
+                  "KEY_HEIGHT_3": height3
+                };
+            } 
             
-            var height0 = json.tides[0].height;            
-            var height1 = json.tides[1].height;            
-            var height2 = json.tides[2].height;
-            var height3 = json.tides[3].height;
-
-
-            
-            console.log("0 - state is " + state0 + "time is "+time0 + "height is "+height0);
-            console.log("1 - state is " + state1 + "time is "+time1 + "height is "+height1);
-            console.log("2 - state is " + state2 + "time is "+time2 + "height is "+height2);
-            console.log("3 - state is " + state3 + "time is "+time3 + "height is "+height3);
- 
-      
-            // build dict to send
-            var dictionary = {
-              "MSG_TYPE": "tides",
-              
-              "KEY_STATE_0": state0,
-              "KEY_TIME_0": time0,
-              "KEY_HEIGHT_0": height0,
-              
-              "KEY_STATE_1": state1,
-              "KEY_TIME_1": time1,
-              "KEY_HEIGHT_1": height1,
-              
-              "KEY_STATE_2": state2,
-              "KEY_TIME_2": time2,
-              "KEY_HEIGHT_2": height2,
-              
-              "KEY_STATE_3": state3,
-              "KEY_TIME_3": time3,
-              "KEY_HEIGHT_3": height3
-            };
-      
-            // Send to Pebble
+            // aaand send to Pebble
             console.log("getTides, wait_msg = " + wait_msg);
             if (wait_msg === 0) {
             wait_msg = 1;
@@ -283,7 +303,7 @@ function getTides(locn) {
                     console.log("Error sending tides info to Pebble!");
                 }
             );
-            }    } }  //else   
+         }}
     );
 }
 

@@ -19,6 +19,7 @@ int config_get_bool(int conf_item){
   return v;
 }
 
+
 char *config_get_string(int conf_item){
 //     APP_LOG(APP_LOG_LEVEL_INFO, "config_get_string() - entry");
 

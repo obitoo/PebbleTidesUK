@@ -113,6 +113,21 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
     static char text_layer_buffer[128];
   
+    // handle server errors, 
+    if (!strcmp (p_state[0],"404")){
+      snprintf(text_layer_buffer, sizeof(text_layer_buffer), "Error: 404 (port %s)",p_time[0]);
+      APP_LOG(APP_LOG_LEVEL_INFO, "404 Not found ");
+      text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
+      return;
+    }
+    if (!strcmp (p_state[0],"1")){
+      snprintf(text_layer_buffer, sizeof(text_layer_buffer), "%s","Server Error: timeout");
+      APP_LOG(APP_LOG_LEVEL_INFO, "Server timeout error");
+      text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
+      return;
+    }
+  
+    // All ok, so write out the data
     int i = 0;
     for (; i < config_get_intval(CGRAPH_NUM_POINTS); i++)
 //       APP_LOG(APP_LOG_LEVEL_INFO, "           print_tidetimes(%d) %d state=%s, time=%s",config_get_intval(CGRAPH_NUM_POINTS),i,p_state[i], p_time[i]);
