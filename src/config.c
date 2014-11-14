@@ -76,7 +76,7 @@ int config_get_intval (int conf_item){
       
       case   CGRAPH_X_PX          :  
           retval = (full_width ? (MAX_X - (2*GRAPH_BORDER_PX))  : 102); 
-          APP_LOG(APP_LOG_LEVEL_WARNING, "config_get_intval, full_width = %d, xpix = %d)", full_width, retval );
+//           APP_LOG(APP_LOG_LEVEL_WARNING, "config_get_intval, full_width = %d, xpix = %d)", full_width, retval );
 
           break;
       

@@ -55,8 +55,8 @@ static void init() {
     s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
   
   if (config_get_bool(CFG_INVERT_COL)){
-    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
-    s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
+    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
+    s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
   } else {
     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
@@ -124,7 +124,21 @@ void main_hide_heights_layer(){
   }
 }
 
-  
+void main_set_colours(){
+  APP_LOG(APP_LOG_LEVEL_WARNING, "main_set_colours() " );
+
+  text_layer_set_background_color(s_tidetimes_text_layer, colour_bg());
+  text_layer_set_text_color(s_tidetimes_text_layer,  colour_fg());
+  text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
+  text_layer_set_text_color(s_tideheight_text_layer2, colour_fg());
+  text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
+  text_layer_set_text_color(s_tideheight_text_layer1, colour_fg());
+  text_layer_set_background_color(s_time_layer, colour_bg());
+  text_layer_set_text_color(s_time_layer, colour_fg());
+  text_layer_set_background_color(s_date_layer, colour_bg());  
+  text_layer_set_text_color(s_date_layer, colour_fg());
+}
+
 static void mainwindow_load(Window *window) {
 
   // Create graph layer
@@ -138,51 +152,42 @@ static void mainwindow_load(Window *window) {
   
   // Create text times Layer
   s_tidetimes_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX , 144, 50));
-  text_layer_set_background_color(s_tidetimes_text_layer, colour_bg());
-  text_layer_set_text_color(s_tidetimes_text_layer,  colour_fg());
   text_layer_set_text(s_tidetimes_text_layer, "Loading...");
   text_layer_set_font(s_tidetimes_text_layer, s_tidetime_font);
   text_layer_set_text_alignment(s_tidetimes_text_layer, GTextAlignmentLeft);
 
   //   date   
   s_date_layer = text_layer_create(GRect(5, 100, 139, 30));
-  text_layer_set_background_color(s_date_layer, colour_bg());  
-  text_layer_set_text_color(s_date_layer, colour_fg());
+
   text_layer_set_font(s_date_layer, s_date_font);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentRight);
   text_layer_set_text(s_date_layer, "Today 10");
   
   //   time  
-    s_time_layer = text_layer_create(GRect(5, 118, 139, 50));
-
-     text_layer_set_background_color(s_time_layer, colour_bg());
-  text_layer_set_text_color(s_time_layer, colour_fg());
+  s_time_layer = text_layer_create(GRect(5, 118, 139, 50));
   text_layer_set_font(s_time_layer, s_time_font);
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   
   //   heights - half and 3/4 graph only  
   s_tideheight_text_layer1 = text_layer_create(GRect(config_get_intval(CGRAPH_X_PX)+GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
-   text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
-  text_layer_set_text_color(s_tideheight_text_layer1, colour_fg());
   text_layer_set_font(s_tideheight_text_layer1, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer1, GTextAlignmentLeft);
-  
   s_tideheight_text_layer2 = text_layer_create(GRect(config_get_intval(CGRAPH_X_PX)+GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
-  text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
-  text_layer_set_text_color(s_tideheight_text_layer2, colour_fg());
   text_layer_set_font(s_tideheight_text_layer2, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer2, GTextAlignmentLeft);
-    
+  
+  // set colours - inverted ornot
+  main_set_colours();
+  
     
   // Add as child layers to the Window's root layer
 
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
-
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer1));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer2));
-    layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
   // hide if 3/4 width
   main_hide_heights_layer();
 

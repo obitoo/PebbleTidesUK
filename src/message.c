@@ -26,6 +26,9 @@ static int js_initialised = 0;
 
        void message_send_outbox();
 
+extern void main_set_colours();
+
+
 //
 //  Callback entry points ====================================================
 //
@@ -206,6 +209,9 @@ static void js_config(DictionaryIterator *iterator, void *context){
       case CFG_INVERT_COL:
              APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Invert cols: %s", (t->value->cstring));
              config_save_string(CFG_INVERT_COL,   t->value->cstring);
+             // redraw the colours - expensive? 
+             main_set_colours();
+
              break;
       case CFG_LINE_GRAPH:
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Line Graph: %s", (t->value->cstring));
