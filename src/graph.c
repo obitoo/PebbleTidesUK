@@ -100,10 +100,13 @@ static void draw_tidepoints(GContext* ctx){
     graphics_context_set_fill_color(ctx, colour_fg());
 
     int i;  
+
+
+    int blob_radius = 3;
     for (i=0; i< config_get_intval(CGRAPH_NUM_POINTS) ; i++)
-    if ((draw_x[i] > 0) && (draw_y[i] > 0)){
-       graphics_fill_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , 3);
-//        APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
+        if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX) - blob_radius)){
+           graphics_fill_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , blob_radius);      
+//            APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
 }
@@ -208,16 +211,34 @@ static void draw_sinewave (GContext* ctx){
   int flip_y = ((draw_y[0] < (range_y))? -1 : 1);
     
       // wave 1 - lhs graph
-  plot_one_wave (ctx, (0-x_offset), range_x, draw_x[1], draw_x[0], flip_y, x_offset);
+  plot_one_wave (ctx, 
+                (0-x_offset), 
+                 range_x, 
+                 draw_x[1], 
+                 draw_x[0], 
+                 flip_y, 
+                 x_offset);
   
       // wave 2 - rhs
-  plot_one_wave (ctx, range_x,   config_get_intval(CGRAPH_X_LOGICAL_MAX)-x_offset, draw_x[3], draw_x[2], flip_y, x_offset);
+  plot_one_wave (ctx, 
+                 range_x,   
+                 config_get_intval(CGRAPH_X_LOGICAL_MAX)-x_offset, 
+                 draw_x[3], 
+                 draw_x[2], 
+                 flip_y, 
+                 x_offset);
   
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:    draw_sinewave()");
 }
 
 
-static void plot_one_wave(GContext* ctx, int xrel_from, int xrel_to, int x1, int x2, int flip_y, int x_offset){
+static void plot_one_wave(GContext* ctx, 
+                          int xrel_from, 
+                          int xrel_to, 
+                          int x1, 
+                          int x2, 
+                          int flip_y, 
+                          int x_offset){
 //   APP_LOG(APP_LOG_LEVEL_INFO, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
 
   int     x_rel, plot_x = 0, plot_y;
