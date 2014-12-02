@@ -65,8 +65,8 @@ Pebble.addEventListener("showConfiguration", function() {
       if (val === null || val === 0) { 
         console.log("  config_defaults= " + JSON.stringify(config_defaults));
 
-//         val = config_defaults.getItem(key);
-
+        //val = config_defaults.getItem(key);  // ios issue here I think 
+        val = config_defaults[key];  // ios issue here I think 
         console.log ("  1-Taken config default of "+val+":"+key);}
       else {
         console.log ("  1-Taken config stored of "+val+":"+key);
