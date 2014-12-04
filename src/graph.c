@@ -55,7 +55,10 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
 
 }
 
-void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf, char *time_str){
+void print_tide_text_layers (char (*p_state_buf)[8], 
+                             char (*p_time_buf)[6], 
+                             int *p_height_buf, 
+                             char *time_str) {
   
   // times
   print_tidetimes(p_state_buf, p_time_buf);

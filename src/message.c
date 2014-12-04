@@ -103,8 +103,9 @@ void message_send_outbox() {
 static void process_js_msg(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
 
-  //quick hack - remove later - doesnt work if called from js ready, cos its null 
-  //strcpy(appmsg_received_time, p_current_time);
+  //quick +dirty - gets set by time handler in main - remove later  
+  if (p_current_time != NULL)
+      strcpy(appmsg_received_time, p_current_time);
     
   // Read first item
   Tuple *t = dict_read_first(iterator);
