@@ -31,8 +31,9 @@ static void print_tidetimes  (char (*p_state)[8], char (*p_time)[6]);
 static void print_tideheights(char (*p_state)[8], int *p_height, char *);
 
     
-
-
+static int graph_data_stale();
+      void graph_data_stale_set(int);
+static int lost_messaging_to_phone = 0;
 
 
   //
@@ -108,7 +109,11 @@ static void draw_tidepoints(GContext* ctx){
     int blob_radius = 3;
     for (i=0; i< config_get_intval(CGRAPH_NUM_POINTS) ; i++)
         if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX) - blob_radius)){
-           graphics_fill_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , blob_radius);      
+           if (graph_data_stale())
+              graphics_draw_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , blob_radius);      
+          else
+              graphics_fill_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , blob_radius);   
+      
 //            APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
@@ -169,16 +174,13 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
     static char text_layer_buffer1[32];
     static char text_layer_buffer2[32];
+    char TODO_info[] = "      ";   //       char TODO_info[] = "Spring";
   
     int min_h, max_h;
     calc_y_range(p_state, p_height, &min_h, &max_h);
 
-      // 3 lines - hi, lo and something in between (spring notification?):
-      // need 2 layers to get the vertical alignment right
-    char TODO_info[] = "      ";
-//       char TODO_info[] = "Spring";
-    strcpy (TODO_info, p_timestr);
-      
+    // 3 lines - hi, lo heights plus a line in the middle (spring notification?? ):
+    // need 2 layers to get the vertical alignment right
     snprintf(text_layer_buffer1, 
              sizeof(text_layer_buffer1),
             " %d.%dm\n  %s", 
@@ -188,8 +190,12 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
             " %d.%dm\n", 
              min_h/10, min_h % 10);
   
-//     APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer1);
-//     APP_LOG(APP_LOG_LEVEL_INFO, "    heights:  %sm  ", text_layer_buffer2);
+    // If we've lost comms to the phone, show last good update time
+    if (graph_data_stale()){ 
+        snprintf (text_layer_buffer1, sizeof(text_layer_buffer1),"Stale\n  %s",p_timestr);
+        strcpy (text_layer_buffer2, "");
+    }
+
     text_layer_set_text(s_tideheight_text_layer1, text_layer_buffer1);
     text_layer_set_text(s_tideheight_text_layer2, text_layer_buffer2);
   
@@ -254,7 +260,9 @@ static void plot_one_wave(GContext* ctx,
   int     line_graph = config_get_bool(CFG_LINE_GRAPH);
 
   int _xpix = config_get_intval(CGRAPH_X_PX);
-  for (x_rel = xrel_from; x_rel <= xrel_to; x_rel++){
+  
+  int x_step = graph_data_stale() ? 3: 1;  // indicate stale data with a dashed graph
+  for (x_rel = xrel_from; x_rel <= xrel_to; x_rel=x_rel+x_step){
 
     xd = TRIG_MAX_ANGLE * (x_rel-range_x) ;
     yd = sin_lookup(xd /(2*f)); 
@@ -432,6 +440,15 @@ static int calc_mins (char *s_hhmm, int *i_prev_mins){
   
   APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", i_mins );
   return i_mins;
+}
+
+// Utils - stale data 
+static int graph_data_stale(){
+  return lost_messaging_to_phone;
+}
+
+void graph_data_stale_set (int status){
+  lost_messaging_to_phone = status;
 }
 
 

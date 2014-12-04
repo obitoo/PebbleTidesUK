@@ -27,6 +27,7 @@ static int js_initialised = 0;
        void message_send_outbox();
 
 extern void main_set_colours();
+extern void graph_data_stale_set(int);
 
 
 //
@@ -38,14 +39,17 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   process_js_msg(iterator, context);
   
      // update graphics
+  graph_data_stale_set(0);
   print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time);
   calc_graph_points(state_buf, time_buf, height_buf);
   layer_mark_dirty (s_graph_layer);
+  
   
 }
 
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
+  graph_data_stale_set(1);
 }
 
 void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
@@ -55,6 +59,7 @@ void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reaso
      APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send RETRY");
      message_send_outbox();
   }
+  graph_data_stale_set(1);
 }
 
 void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
