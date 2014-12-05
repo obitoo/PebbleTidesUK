@@ -192,7 +192,7 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
   
     // If we've lost comms to the phone, show last good update time
     if (graph_data_stale()){ 
-        snprintf (text_layer_buffer1, sizeof(text_layer_buffer1),"Stale\n  %s",p_timestr);
+        snprintf (text_layer_buffer1, sizeof(text_layer_buffer1)," Stale\n %s",p_timestr);
         strcpy (text_layer_buffer2, "");
     }
 
