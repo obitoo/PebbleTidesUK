@@ -50,6 +50,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
   graph_data_stale_set(1);
+  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time); // 'Stale' msg
 }
 
 void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
@@ -60,6 +61,7 @@ void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reaso
      message_send_outbox();
   }
   graph_data_stale_set(1);
+  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time); // 'Stale' msg
 }
 
 void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
