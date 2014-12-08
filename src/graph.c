@@ -113,7 +113,7 @@ static void draw_tidepoints(GContext* ctx){
           else
               graphics_fill_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , blob_radius);   
       
-//            APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
+           APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
 }
@@ -215,7 +215,6 @@ static void draw_sinewave (GContext* ctx){
 
   // plut two 'full' waves, of 0->pi each
   int x_offset = draw_x[0] - range_x/4;
-//   APP_LOG(APP_LOG_LEVEL_INFO, "         draw_sinewave, draw_x[0] =%d, x_offset = %d ", draw_x[0], x_offset );
   int flip_y = ((draw_y[0] < (range_y))? -1 : 1);
     
       // wave 1 - lhs graph
@@ -261,31 +260,28 @@ static void plot_one_wave(GContext* ctx,
   int _xpix = config_get_intval(CGRAPH_X_PX);
   
   int x_step = graph_data_stale() ? 3: 1;  // indicate stale data with a dashed graph
+
   for (x_rel = xrel_from; x_rel <= xrel_to; x_rel=x_rel+x_step){
-
-    xd = TRIG_MAX_ANGLE * (x_rel-range_x) ;
-    yd = sin_lookup(xd /(2*f)); 
-//     APP_LOG(APP_LOG_LEVEL_WARNING, "      xd = %d, yd = %d", (int)xd, (int) yd);
-
-    // amplitude : (GRAPH_Y_PX - 20)/GRAPH_Y_PX
-    plot_y =  flip_y * ((GRAPH_Y_PX - 20) * (range_y * yd/TRIG_MAX_RATIO))/GRAPH_Y_PX + range_y  ;
-
-    // draw                 0 >--------------< 144
-    //        GRAPH_BORDER_PX  >------------<  GRAPH_BORDER_PX + 136
-    plot_x = x_rel + GRAPH_BORDER_PX + x_offset ;
-        // only plot if within x-window:
-    if ((plot_x > GRAPH_BORDER_PX) && (plot_x < _xpix + GRAPH_BORDER_PX)) {
-        GPoint p = (GPoint){plot_x, plot_y+GRAPH_BORDER_PX};
-      
-        if (line_graph)
-           graphics_draw_pixel(ctx, p);
-        else
-           graphics_draw_line(ctx, p, (GPoint){plot_x, GRAPH_Y_PX+GRAPH_BORDER_PX});
-
-    }
+        xd = TRIG_MAX_ANGLE * (x_rel-range_x) ;
+        yd = sin_lookup(xd /(2*f)); 
+    
+        // amplitude : (GRAPH_Y_PX - 20)/GRAPH_Y_PX
+        plot_y =  flip_y * ((GRAPH_Y_PX - 20) * (range_y * yd/TRIG_MAX_RATIO))/GRAPH_Y_PX + range_y  ;
+    
+        // draw                 0 >--------------< 144
+        //        GRAPH_BORDER_PX  >------------<  GRAPH_BORDER_PX + 136
+        plot_x = x_rel + GRAPH_BORDER_PX + x_offset ;
+            // only plot if within x-window:
+        if ((plot_x > GRAPH_BORDER_PX) && (plot_x < _xpix + GRAPH_BORDER_PX)) {
+            GPoint p = (GPoint){plot_x, plot_y+GRAPH_BORDER_PX};
+          
+            if (line_graph)
+               graphics_draw_pixel(ctx, p);
+            else
+               graphics_draw_line(ctx, p, (GPoint){plot_x, GRAPH_Y_PX+GRAPH_BORDER_PX});
+    
+        }
   }
-//   APP_LOG(APP_LOG_LEVEL_INFO, "   last plot: xrel = %d, x=%d",x_rel, plot_x);
-
 }
 
 
