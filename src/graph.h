@@ -22,11 +22,6 @@
 #define  CFG_PORT         16
   
   
-  
-
-  
-  // display options
-//#define  BLACK_ON_WHITE 1   // TODO - 1 doesnt work  
 
   
 // these dont change whatever the size of the graph window

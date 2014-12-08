@@ -19,8 +19,8 @@ Pebble.addEventListener('ready',   function(e) {
     config_url= webserver+"/config.html?";
     config_defaults = {
        "cfg_invert_col"     : "off",
-       "cfg_show_heights"   : "on",
-       "cfg_line_graph"     : "on",
+       "cfg_show_heights"   : "off",
+       "cfg_line_graph"     : "off",
        "cfg_port"           : "0110"
     };  
   

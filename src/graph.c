@@ -2,7 +2,6 @@
 #include <graph.h> 
 #include <config.h>   
  
-// TODO  - fix sine logic
 
 static int calc_mins (char *, int *);
 extern GColor colour_fg();
