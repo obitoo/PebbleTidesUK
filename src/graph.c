@@ -24,6 +24,7 @@ static int calc_localtime_mins();
 static void draw_box(GContext* ctx);
 static void draw_tidepoints(GContext* ctx);
 static void draw_sinewave (GContext* ctx);
+static void draw_sawtooth (GContext* ctx);
 
 
 static void print_tidetimes  (char (*p_state)[8], char (*p_time)[6]);
@@ -47,7 +48,8 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
   
     draw_box(ctx);
     draw_tidepoints(ctx); 
-    draw_sinewave(ctx);
+    //draw_sinewave(ctx);
+    draw_sawtooth(ctx);
     
     g_got_tides = 0;
   }  
@@ -108,10 +110,11 @@ static void draw_tidepoints(GContext* ctx){
     int blob_radius = 3;
     for (i=0; i< config_get_intval(CGRAPH_NUM_POINTS) ; i++)
         if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX) - blob_radius)){
-           if (graph_data_stale())
-              graphics_draw_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , blob_radius);      
+           // TESTING TODO if (graph_data_stale())
+         if (1)
+              graphics_draw_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);      
           else
-              graphics_fill_circle(ctx, (GPoint){draw_x[i] + GRAPH_BORDER_PX , draw_y[i]} , blob_radius);   
+              graphics_fill_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);   
       
            APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
@@ -201,8 +204,25 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
 }
   
-  
+static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2); // TODO - move
+static void draw_sawtooth (GContext* ctx){
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
+  plot_quarter_line(ctx,
+                    draw_x[0], 
+                    draw_y[0],
+                    draw_x[1],
+                    draw_y[1]);
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_eit :  draw_sinewave()");
+}
+
+static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
+  
+  graphics_draw_line(ctx, 
+                     (GPoint){x1, y1}, 
+                     (GPoint){x2, y2}    );
+    
+}
 
 // draw sine wave,lamely. Would have been much easier when i was 17 studying maths ;) 
 // todo - cycles thru all points properly, if first in the past
@@ -352,8 +372,8 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
 //       APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: %s Tide = %dm",p_state_buf[count_input], hm );
 
     
-      // set datapoint for draw routine   
-      draw_x[count_output] = xpos_px_relative; 
+      // set datapoint for draw routine. draw_x and draw_y are absp;ute screen coords
+      draw_x[count_output] = xpos_px_relative + GRAPH_BORDER_PX ; 
       draw_y[count_output] = ypos_px_absolute;
 //     heavy..  APP_LOG(APP_LOG_LEVEL_WARNING, "relative tidepoint set as (%d,%d)",draw_x[count_output], draw_y[count_output]);
 
