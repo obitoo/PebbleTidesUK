@@ -16,15 +16,13 @@ extern  TextLayer   *s_tideheight_text_layer1;
 extern  TextLayer   *s_tideheight_text_layer2;
 
 
-
-static void plot_one_wave(GContext*, int, int, int , int , int , int);
+static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2); // TODO - move
 static int calc_y_range (char (*p_state_buf)[8],  int *p_height_buf, int *min_y, int *max_y);
 static int calc_localtime_mins();
 
 static void draw_box(GContext* ctx);
 static void draw_tidepoints(GContext* ctx);
 static void draw_sinewave (GContext* ctx);
-static void draw_sawtooth (GContext* ctx);
 
 
 static void print_tidetimes  (char (*p_state)[8], char (*p_time)[6]);
@@ -49,7 +47,7 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
     draw_box(ctx);
     draw_tidepoints(ctx); 
     //draw_sinewave(ctx);
-    draw_sawtooth(ctx);
+    draw_sinewave(ctx);
     
     g_got_tides = 0;
   }  
@@ -110,8 +108,7 @@ static void draw_tidepoints(GContext* ctx){
     int blob_radius = 3;
     for (i=0; i< config_get_intval(CGRAPH_NUM_POINTS) ; i++)
         if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX) - blob_radius)){
-           // TESTING TODO if (graph_data_stale())
-         if (1)
+          if (graph_data_stale())
               graphics_draw_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);      
           else
               graphics_fill_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);   
@@ -204,10 +201,11 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
 }
   
-static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2); // TODO - move
 
-static void draw_sawtooth (GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sawtooth()");
+
+
+static void draw_sinewave (GContext* ctx){
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
   int x = 0;
   for (;x<=4; x++) 
@@ -246,133 +244,42 @@ static void draw_sawtooth (GContext* ctx){
 }
 
 
-static void plot_pixel_viewable (GContext* ctx, int xpix, int x, int y) {
+
+
+static void plot_pixel_viewable (GContext* ctx, int xpix, int line_graph, int x, int y) {
+      const int LINE_GRAPH_WIDTH = 2;
+  
       if ((x > GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
-        graphics_draw_pixel(ctx, (GPoint){x, y});
-        graphics_draw_pixel(ctx, (GPoint){x, y+1});
-        graphics_draw_pixel(ctx, (GPoint){x, y+2});
+        if (line_graph) 
+            graphics_draw_line(ctx, (GPoint){x, y}, (GPoint){x, y+LINE_GRAPH_WIDTH} );
+        else 
+            graphics_draw_line(ctx, (GPoint){x, y},(GPoint){x, GRAPH_Y_PX+GRAPH_BORDER_PX} );
       }
 }
+
 
 static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry :  plot_quarter_line(%d,%d - %d,%d)",x1,y1,x2,y2);
 
+  int _xpix       = config_get_intval(CGRAPH_X_PX);
+  int line_graph  = config_get_bool(CFG_LINE_GRAPH);
+
   
-//   graphics_draw_line(ctx, 
-//                      (GPoint){x1, y1}, 
-//                      (GPoint){x2, y2}    );
-
-  int _xpix = config_get_intval(CGRAPH_X_PX);
-       
   int32_t x, y;
-  int range_x=x2-x1;
-  int range_y=y2-y1;
-  const int half_pi=TRIG_MAX_ANGLE/4;
-  const int      pi=TRIG_MAX_ANGLE/2;
-
-  const int one_point_five_pi=TRIG_MAX_ANGLE*3/8;
+  int range_x       = x2 -x1;
+  int range_y       = y2 -y1;
+  const int half_pi = TRIG_MAX_ANGLE/4;
+  const int      pi = TRIG_MAX_ANGLE/2;
   
   for (x = 0; x < range_x; x++ ){
       y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
-      APP_LOG(APP_LOG_LEVEL_INFO, "         plot: %d,%d",(int)x,(int)y);  
-      plot_pixel_viewable (ctx, _xpix, x1 + x, y1 + y);
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
   }
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// draw sine wave,lamely. Would have been much easier when i was 17 studying maths ;) 
-// todo - cycles thru all points properly, if first in the past
-static void draw_sinewave (GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
-
-  int range_y = GRAPH_Y_PX /2 ;
-  int range_x = config_get_intval(CGRAPH_X_LOGICAL_MAX) /2 ;
-  
-
-  // plut two 'full' waves, of 0->pi each
-  int x_offset = draw_x[0] - range_x/4;
-  int flip_y = ((draw_y[0] < (range_y))? -1 : 1);
-    
-      // wave 1 - lhs graph
-  plot_one_wave (ctx, 
-                (0-x_offset), 
-                 range_x, 
-                 draw_x[1], 
-                 draw_x[0], 
-                 flip_y, 
-                 x_offset);
-  
-      // wave 2 - rhs
-  plot_one_wave (ctx, 
-                 range_x,   
-                 config_get_intval(CGRAPH_X_LOGICAL_MAX)-x_offset, 
-                 draw_x[3], 
-                 draw_x[2], 
-                 flip_y, 
-                 x_offset);
-  
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:    draw_sinewave()");
-}
-
-
-static void plot_one_wave(GContext* ctx, 
-                          int xrel_from, 
-                          int xrel_to, 
-                          int x1, 
-                          int x2, 
-                          int flip_y, 
-                          int x_offset){
-//   APP_LOG(APP_LOG_LEVEL_INFO, "plot_one_wave %d, %d, %d, %d, %d, %d ", xrel_from, xrel_to, x1, x2, flip_y, x_offset );
-
-  int     x_rel, plot_x = 0, plot_y;
-  int32_t xd, yd;
-
-  int     range_x = config_get_intval(CGRAPH_X_LOGICAL_MAX) /2 ;
-  int     range_y = GRAPH_Y_PX /2 ;
-  int     f = x1 - x2;
-  
-  int     line_graph = config_get_bool(CFG_LINE_GRAPH);
-
-  int _xpix = config_get_intval(CGRAPH_X_PX);
-  
-  int x_step = graph_data_stale() ? 3: 1;  // indicate stale data with a dashed graph
-
-  for (x_rel = xrel_from; x_rel <= xrel_to; x_rel=x_rel+x_step){
-        xd = TRIG_MAX_ANGLE * (x_rel-range_x) ;
-        yd = sin_lookup(xd /(2*f)); 
-    
-        // amplitude : (GRAPH_Y_PX - 20)/GRAPH_Y_PX
-        plot_y =  flip_y * ((GRAPH_Y_PX - 20) * (range_y * yd/TRIG_MAX_RATIO))/GRAPH_Y_PX + range_y  ;
-    
-        // draw                 0 >--------------< 144
-        //        GRAPH_BORDER_PX  >------------<  GRAPH_BORDER_PX + 136
-        plot_x = x_rel + GRAPH_BORDER_PX + x_offset ;
-            // only plot if within x-window:
-        if ((plot_x > GRAPH_BORDER_PX) && (plot_x < _xpix + GRAPH_BORDER_PX)) {
-            GPoint p = (GPoint){plot_x, plot_y+GRAPH_BORDER_PX};
-          
-            if (line_graph)
-               graphics_draw_pixel(ctx, p);
-            else
-               graphics_draw_line(ctx, p, (GPoint){plot_x, GRAPH_Y_PX+GRAPH_BORDER_PX});
-    
-        }
-  }
-}
 
 
 
