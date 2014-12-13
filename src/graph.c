@@ -205,24 +205,94 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
 }
   
 static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2); // TODO - move
-static void draw_sawtooth (GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
+static void draw_sawtooth (GContext* ctx){
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sawtooth()");
+
+  int x = 0;
+  for (;x<=4; x++) 
+      APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
+ 
+  // this one is offscreen, so we guess a bit
+  plot_quarter_line(ctx, 
+                    draw_x[0]-draw_x[2]+draw_x[1], 
+                    draw_y[1],
+                    draw_x[0],
+                    draw_y[0]);
   plot_quarter_line(ctx,
                     draw_x[0], 
                     draw_y[0],
                     draw_x[1],
                     draw_y[1]);
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_eit :  draw_sinewave()");
+  plot_quarter_line(ctx,
+                    draw_x[1], 
+                    draw_y[1],
+                    draw_x[2],
+                    draw_y[2]);
+  plot_quarter_line(ctx,
+                    draw_x[2], 
+                    draw_y[2],
+                    draw_x[3],
+                    draw_y[3]);
+  // this one is offscreen, so we guess a bit
+  plot_quarter_line(ctx,
+                    draw_x[3], 
+                    draw_y[3],
+                    draw_x[3] + draw_x[2] - draw_x[1],
+                    draw_y[2]);
+
+  
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit :  draw_sinewave()");
+}
+
+
+static void plot_pixel_viewable (GContext* ctx, int xpix, int x, int y) {
+      if ((x > GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
+        graphics_draw_pixel(ctx, (GPoint){x, y});
+        graphics_draw_pixel(ctx, (GPoint){x, y+1});
+        graphics_draw_pixel(ctx, (GPoint){x, y+2});
+      }
 }
 
 static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   
-  graphics_draw_line(ctx, 
-                     (GPoint){x1, y1}, 
-                     (GPoint){x2, y2}    );
-    
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry :  plot_quarter_line(%d,%d - %d,%d)",x1,y1,x2,y2);
+
+  
+//   graphics_draw_line(ctx, 
+//                      (GPoint){x1, y1}, 
+//                      (GPoint){x2, y2}    );
+
+  int _xpix = config_get_intval(CGRAPH_X_PX);
+       
+  int32_t x, y;
+  int range_x=x2-x1;
+  int range_y=y2-y1;
+  const int half_pi=TRIG_MAX_ANGLE/4;
+  const int      pi=TRIG_MAX_ANGLE/2;
+
+  const int one_point_five_pi=TRIG_MAX_ANGLE*3/8;
+  
+  for (x = 0; x < range_x; x++ ){
+      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+      APP_LOG(APP_LOG_LEVEL_INFO, "         plot: %d,%d",(int)x,(int)y);  
+      plot_pixel_viewable (ctx, _xpix, x1 + x, y1 + y);
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // draw sine wave,lamely. Would have been much easier when i was 17 studying maths ;) 
 // todo - cycles thru all points properly, if first in the past
