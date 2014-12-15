@@ -52,15 +52,15 @@ static void init() {
   
   // Create GFontieees.  Using Bold when black on white background
   s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
-    s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+  s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
   
-  if (config_get_bool(CFG_INVERT_COL)){
-    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
-    s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-  } else {
+//   if (config_get_bool(CFG_INVERT_COL)){
+//     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
+//     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+//   } else {
     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-  }
+//   }
 
 
   // Create window, handlers
@@ -83,8 +83,9 @@ static void init() {
 }
 
 static void deinit() {
-    APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
+  APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
   window_destroy(s_main_window);
+  APP_LOG(APP_LOG_LEVEL_INFO, "deinit() done");
 }
 
 int main (void){

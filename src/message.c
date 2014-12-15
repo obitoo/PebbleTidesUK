@@ -44,7 +44,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   calc_graph_points(state_buf, time_buf, height_buf);
   layer_mark_dirty (s_graph_layer);
   
-  
+  APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished" );
 }
 
 void inbox_dropped_callback(AppMessageResult reason, void *context) {

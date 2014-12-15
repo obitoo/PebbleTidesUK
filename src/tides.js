@@ -163,16 +163,19 @@ Pebble.addEventListener("webviewclosed", function(e) {
 // page so it reflects Pebbles state correctly
 Pebble.addEventListener('appmessage',   function(e) {
     console.log("AppMessage received from Pebble!");
-    var location="0110";
+    var location="0110"; // failsafe
     
     // config 
     if (e.payload !== null) {
         console.log("   got payload");
         console.log(JSON.stringify(e.payload));
      
-        // port identifier
+        window.localStorage.setItem("cfg_invert_col", e.payload.CFG_INVERT_COL);
+        window.localStorage.setItem("cfg_show_heights", e.payload.CFG_SHOW_HEIGHTS);
+        window.localStorage.setItem("cfg_line_graph", e.payload.CFG_LINE_GRAPH);
+        window.localStorage.setItem("cfg_port", e.payload.CFG_PORT);
+      
         location = e.payload.CFG_PORT;
-
     }
 
     // make web request for tides

@@ -272,7 +272,9 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   const int half_pi = TRIG_MAX_ANGLE/4;
   const int      pi = TRIG_MAX_ANGLE/2;
   
-  for (x = 0; x < range_x; x++ ){
+  int x_step = graph_data_stale() ? 3: 1;  // indicate stale data with a dashed graph
+
+  for (x = 0; x < range_x; x = x + x_step ){
       y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
   }
@@ -440,6 +442,7 @@ static int graph_data_stale(){
 }
 
 void graph_data_stale_set (int status){
+  APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  graph_data_stale_set, lost_messaging = %d", status );
   lost_messaging_to_phone = status;
 }
 
