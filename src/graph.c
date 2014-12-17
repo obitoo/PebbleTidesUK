@@ -46,7 +46,6 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
   
     draw_box(ctx);
     draw_tidepoints(ctx); 
-    //draw_sinewave(ctx);
     draw_sinewave(ctx);
     
     g_got_tides = 0;
@@ -107,7 +106,7 @@ static void draw_tidepoints(GContext* ctx){
 
     int blob_radius = 3;
     for (i=0; i< config_get_intval(CGRAPH_NUM_POINTS) ; i++)
-        if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX) - blob_radius)){
+        if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX))){//} - blob_radius)){
           if (graph_data_stale())
               graphics_draw_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);      
           else
@@ -247,11 +246,10 @@ static void draw_sinewave (GContext* ctx){
 
 
 static void plot_pixel_viewable (GContext* ctx, int xpix, int line_graph, int x, int y) {
-      const int LINE_GRAPH_WIDTH = 2;
   
       if ((x > GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
         if (line_graph) 
-            graphics_draw_line(ctx, (GPoint){x, y}, (GPoint){x, y+LINE_GRAPH_WIDTH} );
+            graphics_draw_line(ctx, (GPoint){x, y}, (GPoint){x, y+LINE_GRAPH_WIDTH_PX} );
         else 
             graphics_draw_line(ctx, (GPoint){x, y},(GPoint){x, GRAPH_Y_PX+GRAPH_BORDER_PX} );
       }
