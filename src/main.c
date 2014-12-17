@@ -236,15 +236,12 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   
       update_time();
   
-      static int first_time = 1;
+
   
       // Get tide data from phone every few minutes  
-      if(((tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) || first_time ) && messaging_ready()){
-        APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - first time:%d",first_time );
-
-        first_time = 0;
+      if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) && messaging_ready()){
+        APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
         message_send_outbox();
-        
       }
       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - exit" );
 }

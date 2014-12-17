@@ -113,7 +113,7 @@ static void draw_tidepoints(GContext* ctx){
           else
               graphics_fill_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);   
       
-           APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
+//            APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
 }
@@ -161,12 +161,12 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
         break;     
     }
  
-    APP_LOG(APP_LOG_LEVEL_INFO, "text_layer_set_text: ");
-    APP_LOG(APP_LOG_LEVEL_INFO, "(%s) ", text_layer_buffer);
+//     APP_LOG(APP_LOG_LEVEL_INFO, "text_layer_set_text: ");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "(%s) ", text_layer_buffer);
    
     text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
 
-
+    APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit :  print_tidetimes()");
 }
 
 static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
@@ -207,9 +207,9 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
 static void draw_sinewave (GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
-  int x = 0;
-  for (;x<=4; x++) 
-      APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
+//   int x = 0;
+//   for (;x<=4; x++) 
+//       APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
  
   // this one is offscreen, so we guess a bit
   plot_quarter_line(ctx, 
@@ -307,7 +307,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   int time_now_mins = calc_localtime_mins();
       prev_mins = time_now_mins;
 
-  APP_LOG(APP_LOG_LEVEL_INFO, "      time_now_mins=%d",time_now_mins);
+//   APP_LOG(APP_LOG_LEVEL_INFO, "      time_now_mins=%d",time_now_mins);
 
   
   // calculate height range
@@ -337,7 +337,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
       //  y point
       int ypos_px_absolute = 0;
       int hm = p_height_buf[count_input];
-      APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: Height=%d",p_height_buf[count_input]);
+//       APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: Height=%d",p_height_buf[count_input]);
 
       if (!strcmp(p_state_buf[count_input],"hi")){
         ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * GRAPH_EXAGGERATE_Y ;
@@ -427,7 +427,7 @@ static int calc_mins (char *s_hhmm, int *i_prev_mins){
 
   // tomorrow?  but allow 60 mins grace, in case we're a bit ahead of the webdata
   while ((*i_prev_mins - i_mins) > 60 ){
-    APP_LOG(APP_LOG_LEVEL_INFO, "      next day - i_mins calculated at %d. Adding %d ", i_mins, MINS_IN_DAY );
+//     APP_LOG(APP_LOG_LEVEL_INFO, "      next day - i_mins calculated at %d. Adding %d ", i_mins, MINS_IN_DAY );
     i_mins = i_mins + MINS_IN_DAY;
   }
   *i_prev_mins = i_mins;
