@@ -9,7 +9,6 @@ extern GColor colour_bg();
   
 static int draw_x[] = {0,0,0,0,0};  // relative  // GRAPH_NUM_POINTS
 static int draw_y[] = {0,0,0,0,0};
-static int g_got_tides = 0;
 
 extern  TextLayer   *s_tidetimes_text_layer;
 extern  TextLayer   *s_tideheight_text_layer1;
@@ -48,7 +47,6 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
     draw_tidepoints(ctx); 
     draw_sinewave(ctx);
     
-    g_got_tides = 0;
   }  
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  gfx_layer_update_callback()");
 
@@ -360,8 +358,6 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   }  
     
 
-  g_got_tides = 1;
-  
   
   APP_LOG(APP_LOG_LEVEL_INFO, "do_graph_calc() - exit ");
 }

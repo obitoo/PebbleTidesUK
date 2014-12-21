@@ -116,16 +116,18 @@ GColor colour_bg(){
 
 void main_hide_heights_layer(){
   if (config_get_bool(CFG_SHOW_HEIGHTS)){
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Showing Heights layer-----------------");
       layer_set_hidden((Layer *)s_tideheight_text_layer1, false);
       layer_set_hidden((Layer *)s_tideheight_text_layer2, false);
   } else {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Hiding Heights layer-------------------");
       layer_set_hidden((Layer *)s_tideheight_text_layer1, true);
       layer_set_hidden((Layer *)s_tideheight_text_layer2, true); 
   }
 }
 
 void main_set_colours(){
-  APP_LOG(APP_LOG_LEVEL_WARNING, "main_set_colours() " );
+  APP_LOG(APP_LOG_LEVEL_INFO, "main_set_colours() " );
 
   window_set_background_color(s_main_window, colour_bg());
 
@@ -170,11 +172,11 @@ static void mainwindow_load(Window *window) {
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   
-  //   heights - half and 3/4 graph only  
-  s_tideheight_text_layer1 = text_layer_create(GRect(config_get_intval(CGRAPH_X_PX)+GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
+  //   heights - 3/4 width graph only  
+  s_tideheight_text_layer1 = text_layer_create(GRect(102 +GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
   text_layer_set_font(s_tideheight_text_layer1, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer1, GTextAlignmentLeft);
-  s_tideheight_text_layer2 = text_layer_create(GRect(config_get_intval(CGRAPH_X_PX)+GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
+  s_tideheight_text_layer2 = text_layer_create(GRect(102 +GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
   text_layer_set_font(s_tideheight_text_layer2, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer2, GTextAlignmentLeft);
   
