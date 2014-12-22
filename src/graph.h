@@ -36,6 +36,7 @@
   
 #define  NUM_TIDES_BACKGROUND   4 // loop to 4 
 
+#define LINE_GRAPH_WIDTH_PX     1
   
 
   

@@ -7,10 +7,10 @@ extern void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6
 extern void main_hide_heights_layer();
 extern char*  p_current_time;
 
-static void process_js_msg (DictionaryIterator *iterator, void *context);
-static void js_tides       (DictionaryIterator *iterator, void *context);
-static void js_config      (DictionaryIterator *iterator, void *context);
-static void js_ready       (DictionaryIterator *iterator, void *context);
+static int process_js_msg (DictionaryIterator *iterator, void *context);
+static int js_tides       (DictionaryIterator *iterator, void *context);
+static int js_config      (DictionaryIterator *iterator, void *context);
+static int js_ready       (DictionaryIterator *iterator, void *context);
 static char *translate_error(AppMessageResult result);
 
 static char state_buf[4][8];   // "hi" | "lo"
@@ -36,15 +36,16 @@ extern void graph_data_stale_set(int);
 void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg entry" );
    
-  process_js_msg(iterator, context);
+  int update = process_js_msg(iterator, context);
   
      // update graphics
-  graph_data_stale_set(0);
-  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time);
-  calc_graph_points(state_buf, time_buf, height_buf);
-  layer_mark_dirty (s_graph_layer);
-  
-  
+  if (update) {
+      graph_data_stale_set(0);
+      print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time);
+      calc_graph_points(state_buf, time_buf, height_buf);
+      layer_mark_dirty (s_graph_layer); // only place we do this
+  }
+  APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished (ACK)" );
 }
 
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
@@ -107,9 +108,11 @@ void message_send_outbox() {
 //
 //  Callback logic  - Javascript appmessage 
 //
-static void process_js_msg(DictionaryIterator *iterator, void *context){
+static int process_js_msg(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
 
+  int update_gfx = 0;
+  
   //quick +dirty - gets set by time handler in main - remove later  
   if (p_current_time != NULL)
       strcpy(appmsg_received_time, p_current_time);
@@ -118,28 +121,28 @@ static void process_js_msg(DictionaryIterator *iterator, void *context){
   Tuple *t = dict_read_first(iterator);
 
   // route to different msg handlers
-  APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - key string=%s" ,t->value->cstring);
+//   APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - key string=%s" ,t->value->cstring);
 
   if (!strcmp(t->value->cstring,"tides")){
-     js_tides (iterator, context);
+     update_gfx = js_tides (iterator, context);
   } else 
   if (!strcmp(t->value->cstring,"config")){
-     js_config (iterator, context);
+     update_gfx = js_config (iterator, context);
   } else 
   if (!strcmp(t->value->cstring,"ready")){
-     js_ready (iterator, context);
+     update_gfx = js_ready (iterator, context);
   } else {
     APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected MSG_TYPE value - %s", t->value->cstring );
   }
   
-  return;
+  return update_gfx;
 }
       
       
 //
 //  Message Handlers 
 //  
-static void js_tides(DictionaryIterator *iterator, void *context){
+static int js_tides(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
 
   // first item already read
@@ -147,7 +150,7 @@ static void js_tides(DictionaryIterator *iterator, void *context){
 
   // For all items
   while(t != NULL) {
-    APP_LOG(APP_LOG_LEVEL_INFO, "SWITCH %d ",(int)t->key);
+//     APP_LOG(APP_LOG_LEVEL_INFO, "SWITCH %d ",(int)t->key);
     switch(t->key) {
         case   KEY_STATE_0:
                snprintf(state_buf[0], sizeof(state_buf[0]), "%s", t->value->cstring);
@@ -196,17 +199,19 @@ static void js_tides(DictionaryIterator *iterator, void *context){
   }
   
   APP_LOG(APP_LOG_LEVEL_INFO, "js_tides()-exit");
+  
+  return 1;
 }
 
 
-static void js_config(DictionaryIterator *iterator, void *context){
+static int js_config(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
   
   Tuple *t = dict_read_next(iterator);
 
   // For all items
   while(t != NULL) {
-    APP_LOG(APP_LOG_LEVEL_INFO, "SWITCH %d ",(int) t->key );
+//     APP_LOG(APP_LOG_LEVEL_INFO, "SWITCH %d ",(int) t->key );
     switch(t->key) {
       case CFG_SHOW_HEIGHTS:
              APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Show heights: %s", (t->value->cstring));
@@ -241,11 +246,13 @@ static void js_config(DictionaryIterator *iterator, void *context){
   js_initialised = 1;
   
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
+  
+  return 1;
 }
 
 
 
-static void js_ready(DictionaryIterator *iterator, void *context){
+static int js_ready(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );
     
   // consume msg
@@ -258,9 +265,9 @@ static void js_ready(DictionaryIterator *iterator, void *context){
 
   // Send tides request
   message_send_outbox();
-
    
   APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - exit" );
+  return 0;
 }
  
   

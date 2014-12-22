@@ -52,15 +52,15 @@ static void init() {
   
   // Create GFontieees.  Using Bold when black on white background
   s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
-    s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+  s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
   
-  if (config_get_bool(CFG_INVERT_COL)){
-    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
-    s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-  } else {
+//   if (config_get_bool(CFG_INVERT_COL)){
+//     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
+//     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+//   } else {
     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-  }
+//   }
 
 
   // Create window, handlers
@@ -83,8 +83,9 @@ static void init() {
 }
 
 static void deinit() {
-    APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
+  APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
   window_destroy(s_main_window);
+  APP_LOG(APP_LOG_LEVEL_INFO, "deinit() done");
 }
 
 int main (void){
@@ -115,16 +116,18 @@ GColor colour_bg(){
 
 void main_hide_heights_layer(){
   if (config_get_bool(CFG_SHOW_HEIGHTS)){
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Showing Heights layer-----------------");
       layer_set_hidden((Layer *)s_tideheight_text_layer1, false);
       layer_set_hidden((Layer *)s_tideheight_text_layer2, false);
   } else {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Hiding Heights layer-------------------");
       layer_set_hidden((Layer *)s_tideheight_text_layer1, true);
       layer_set_hidden((Layer *)s_tideheight_text_layer2, true); 
   }
 }
 
 void main_set_colours(){
-  APP_LOG(APP_LOG_LEVEL_WARNING, "main_set_colours() " );
+  APP_LOG(APP_LOG_LEVEL_INFO, "main_set_colours() " );
 
   window_set_background_color(s_main_window, colour_bg());
 
@@ -169,11 +172,11 @@ static void mainwindow_load(Window *window) {
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   
-  //   heights - half and 3/4 graph only  
-  s_tideheight_text_layer1 = text_layer_create(GRect(config_get_intval(CGRAPH_X_PX)+GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
+  //   heights - 3/4 width graph only  
+  s_tideheight_text_layer1 = text_layer_create(GRect(102 +GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
   text_layer_set_font(s_tideheight_text_layer1, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer1, GTextAlignmentLeft);
-  s_tideheight_text_layer2 = text_layer_create(GRect(config_get_intval(CGRAPH_X_PX)+GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
+  s_tideheight_text_layer2 = text_layer_create(GRect(102 +GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
   text_layer_set_font(s_tideheight_text_layer2, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer2, GTextAlignmentLeft);
   
@@ -235,15 +238,12 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   
       update_time();
   
-      static int first_time = 1;
+
   
       // Get tide data from phone every few minutes  
-      if(((tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) || first_time ) && messaging_ready()){
-        APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - first time:%d",first_time );
-
-        first_time = 0;
+      if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) && messaging_ready()){
+        APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
         message_send_outbox();
-        
       }
       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - exit" );
 }
