@@ -303,14 +303,12 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   int time_now_mins = calc_localtime_mins();
       prev_mins = time_now_mins;
 
-//   APP_LOG(APP_LOG_LEVEL_INFO, "      time_now_mins=%d",time_now_mins);
 
   
   // calculate height range
   int min_h, max_h;
  // int h_range = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
   calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
-//   APP_LOG(APP_LOG_LEVEL_INFO, "       miny=%d, maxy=%d, range =%d",min_h, max_h, h_range);
   
   // loop for each input 
   while (count_input < NUM_TIDES_BACKGROUND) {
@@ -321,19 +319,14 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
           APP_LOG(APP_LOG_LEVEL_ERROR, "calc_mins_failed (%s)", p_time_buf[count_input]);
           return;
       }  
-//       APP_LOG(APP_LOG_LEVEL_INFO, "tidetime_mins = %d", time_now_mins );
       
       //  x point
       int xpos_mins        = tidetime_mins - time_now_mins;
       int xpos_px_relative = config_get_intval(CGRAPH_X_PX) * xpos_mins / config_get_intval(CGRAPH_X_MINS);
-//       APP_LOG(APP_LOG_LEVEL_INFO, "        xpos: mins = %d  px_rel = %d", xpos_mins, xpos_px_relative );
-    
-
     
       //  y point
       int ypos_px_absolute = 0;
       int hm = p_height_buf[count_input];
-//       APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: Height=%d",p_height_buf[count_input]);
 
       if (!strcmp(p_state_buf[count_input],"hi")){
         ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * GRAPH_EXAGGERATE_Y ;
@@ -344,13 +337,10 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
         APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
         return;
       }
-//       APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: %s Tide = %dm",p_state_buf[count_input], hm );
-
     
-      // set datapoint for draw routine. draw_x and draw_y are absp;ute screen coords
+      // set datapoint for draw routine. draw_x and draw_y are absolute screen coords
       draw_x[count_output] = xpos_px_relative + GRAPH_BORDER_PX ; 
       draw_y[count_output] = ypos_px_absolute;
-//     heavy..  APP_LOG(APP_LOG_LEVEL_WARNING, "relative tidepoint set as (%d,%d)",draw_x[count_output], draw_y[count_output]);
 
       // increment counters
       count_input++;
@@ -382,7 +372,6 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
   int i;
   *min_y=99, *max_y=-1;
   for (i = 0;  i < config_get_intval(CGRAPH_NUM_POINTS); i++){
-//       APP_LOG(APP_LOG_LEVEL_INFO, "        %d, h= %d",i, p_height_buf[i]  );
 
       if (!strcmp(p_state_buf[i],"lo") && p_height_buf[i] < *min_y)
         *min_y = p_height_buf[i];
@@ -416,12 +405,10 @@ static int calc_mins (char *s_hhmm, int *i_prev_mins){
   i_mins = atoi(s_buf) * 60;
   //mins
   strncpy (s_buf, s_hhmm+3, 2); 
-//   APP_LOG(APP_LOG_LEVEL_INFO, "  calc_mins mins string is %s", s_hhmm+3 );
   i_mins = i_mins + atoi(s_buf);
 
   // tomorrow?  but allow 60 mins grace, in case we're a bit ahead of the webdata
   while ((*i_prev_mins - i_mins) > 60 ){
-//     APP_LOG(APP_LOG_LEVEL_INFO, "      next day - i_mins calculated at %d. Adding %d ", i_mins, MINS_IN_DAY );
     i_mins = i_mins + MINS_IN_DAY;
   }
   *i_prev_mins = i_mins;

@@ -121,8 +121,6 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   Tuple *t = dict_read_first(iterator);
 
   // route to different msg handlers
-//   APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - key string=%s" ,t->value->cstring);
-
   if (!strcmp(t->value->cstring,"tides")){
      update_gfx = js_tides (iterator, context);
   } else 
@@ -150,7 +148,6 @@ static int js_tides(DictionaryIterator *iterator, void *context){
 
   // For all items
   while(t != NULL) {
-//     APP_LOG(APP_LOG_LEVEL_INFO, "SWITCH %d ",(int)t->key);
     switch(t->key) {
         case   KEY_STATE_0:
                snprintf(state_buf[0], sizeof(state_buf[0]), "%s", t->value->cstring);
@@ -211,7 +208,6 @@ static int js_config(DictionaryIterator *iterator, void *context){
 
   // For all items
   while(t != NULL) {
-//     APP_LOG(APP_LOG_LEVEL_INFO, "SWITCH %d ",(int) t->key );
     switch(t->key) {
       case CFG_SHOW_HEIGHTS:
              APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Show heights: %s", (t->value->cstring));
