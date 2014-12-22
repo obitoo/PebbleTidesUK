@@ -1,6 +1,6 @@
 Pebble Tides Watchface
 
-UK Only
+UK Only - tide info scraped from Easytide
 
 SDK 2.6, Python serverside 
 
