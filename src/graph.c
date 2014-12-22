@@ -9,7 +9,6 @@ extern GColor colour_bg();
   
 static int draw_x[] = {0,0,0,0,0};  // relative  // GRAPH_NUM_POINTS
 static int draw_y[] = {0,0,0,0,0};
-static int g_got_tides = 0;
 
 extern  TextLayer   *s_tidetimes_text_layer;
 extern  TextLayer   *s_tideheight_text_layer1;
@@ -46,10 +45,8 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
   
     draw_box(ctx);
     draw_tidepoints(ctx); 
-    //draw_sinewave(ctx);
     draw_sinewave(ctx);
     
-    g_got_tides = 0;
   }  
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  gfx_layer_update_callback()");
 
@@ -107,13 +104,13 @@ static void draw_tidepoints(GContext* ctx){
 
     int blob_radius = 3;
     for (i=0; i< config_get_intval(CGRAPH_NUM_POINTS) ; i++)
-        if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX) - blob_radius)){
+        if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX))){//} - blob_radius)){
           if (graph_data_stale())
               graphics_draw_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);      
           else
               graphics_fill_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);   
       
-           APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
+//            APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
 }
@@ -161,12 +158,12 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
         break;     
     }
  
-    APP_LOG(APP_LOG_LEVEL_INFO, "text_layer_set_text: ");
-    APP_LOG(APP_LOG_LEVEL_INFO, "(%s) ", text_layer_buffer);
+//     APP_LOG(APP_LOG_LEVEL_INFO, "text_layer_set_text: ");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "(%s) ", text_layer_buffer);
    
     text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
 
-
+    APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit :  print_tidetimes()");
 }
 
 static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
@@ -207,9 +204,9 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
 static void draw_sinewave (GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
-  int x = 0;
-  for (;x<=4; x++) 
-      APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
+//   int x = 0;
+//   for (;x<=4; x++) 
+//       APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
  
   // this one is offscreen, so we guess a bit
   plot_quarter_line(ctx, 
@@ -247,11 +244,10 @@ static void draw_sinewave (GContext* ctx){
 
 
 static void plot_pixel_viewable (GContext* ctx, int xpix, int line_graph, int x, int y) {
-      const int LINE_GRAPH_WIDTH = 2;
   
       if ((x > GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
         if (line_graph) 
-            graphics_draw_line(ctx, (GPoint){x, y}, (GPoint){x, y+LINE_GRAPH_WIDTH} );
+            graphics_draw_line(ctx, (GPoint){x, y}, (GPoint){x, y+LINE_GRAPH_WIDTH_PX} );
         else 
             graphics_draw_line(ctx, (GPoint){x, y},(GPoint){x, GRAPH_Y_PX+GRAPH_BORDER_PX} );
       }
@@ -307,7 +303,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   int time_now_mins = calc_localtime_mins();
       prev_mins = time_now_mins;
 
-  APP_LOG(APP_LOG_LEVEL_INFO, "      time_now_mins=%d",time_now_mins);
+//   APP_LOG(APP_LOG_LEVEL_INFO, "      time_now_mins=%d",time_now_mins);
 
   
   // calculate height range
@@ -337,7 +333,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
       //  y point
       int ypos_px_absolute = 0;
       int hm = p_height_buf[count_input];
-      APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: Height=%d",p_height_buf[count_input]);
+//       APP_LOG(APP_LOG_LEVEL_INFO, "       ypos: Height=%d",p_height_buf[count_input]);
 
       if (!strcmp(p_state_buf[count_input],"hi")){
         ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * GRAPH_EXAGGERATE_Y ;
@@ -362,8 +358,6 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   }  
     
 
-  g_got_tides = 1;
-  
   
   APP_LOG(APP_LOG_LEVEL_INFO, "do_graph_calc() - exit ");
 }
@@ -427,7 +421,7 @@ static int calc_mins (char *s_hhmm, int *i_prev_mins){
 
   // tomorrow?  but allow 60 mins grace, in case we're a bit ahead of the webdata
   while ((*i_prev_mins - i_mins) > 60 ){
-    APP_LOG(APP_LOG_LEVEL_INFO, "      next day - i_mins calculated at %d. Adding %d ", i_mins, MINS_IN_DAY );
+//     APP_LOG(APP_LOG_LEVEL_INFO, "      next day - i_mins calculated at %d. Adding %d ", i_mins, MINS_IN_DAY );
     i_mins = i_mins + MINS_IN_DAY;
   }
   *i_prev_mins = i_mins;
