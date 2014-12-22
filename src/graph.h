@@ -1,6 +1,7 @@
 #pragma once
 
-
+#define  RELEASE_VSN   1.0
+  
 #define MSG_TYPE    0 
   
 // js message keys  

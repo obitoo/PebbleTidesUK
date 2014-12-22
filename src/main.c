@@ -258,7 +258,7 @@ static void update_time() {
       static char dateString[] = "wednesday 99 ";
   
       // for other fns to use
-      p_current_time = buffer;  
+      p_current_time = buffer;    
      
       APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - entry" );
     
