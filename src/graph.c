@@ -229,7 +229,7 @@ static void draw_sinewave (GContext* ctx){
   // this one is offscreen, so we guess a bit
   plot_quarter_line(ctx, 
                     draw_x[0]-draw_x[2]+draw_x[1], 
-                    draw_y[1],
+                    draw_y[3],
                     draw_x[0],
                     draw_y[0]);
   plot_quarter_line(ctx,
