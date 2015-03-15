@@ -27,6 +27,7 @@
     "resources": {
         "media": []
     },
+    "sdkVersion": "2",
     "shortName": "TidesUK",
     "uuid": "3dee6d28-1e53-4d0b-b0f6-f6f6ffdbb4dc",
     "versionCode": 1,
