@@ -27,6 +27,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/tides";
+webserver="http://192.168.7.175/tides";
 
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 

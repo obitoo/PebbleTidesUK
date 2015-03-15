@@ -315,19 +315,16 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   for (i=0; i <= NUM_TIDES_BACKGROUND; i++){
     draw_x[i] = draw_y[i] = 0;
   }
-    
   
   //  current time, in minutes from midnight
   int time_now_mins = calc_localtime_mins();
       prev_mins = time_now_mins;
-
-
   
   // calculate height range
   int min_h, max_h;
- // int h_range = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
-  calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
-  
+  int range_y = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
+  APP_LOG(APP_LOG_LEVEL_WARNING, "        got y range %d ", range_y);
+ 
   // loop for each input 
   while (count_input < NUM_TIDES_BACKGROUND) {
       
@@ -347,10 +344,14 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
       int hm = p_height_buf[count_input];
 
       if (!strcmp(p_state_buf[count_input],"hi")){
-        ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * GRAPH_EXAGGERATE_Y ;
+//        ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * GRAPH_EXAGGERATE_Y;
+          ypos_px_absolute =  0 +         GRAPH_BORDER_PX + (max_h - hm) * GRAPH_Y_PX/range_y ;
+
       } else 
       if (!strcmp(p_state_buf[count_input],"lo")){
-        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * GRAPH_EXAGGERATE_Y;
+//        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * GRAPH_EXAGGERATE_Y;
+        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * GRAPH_Y_PX/range_y ;
+
       } else {
         APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
         return;
@@ -389,12 +390,14 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
 
   int i;
   *min_y=99, *max_y=-1;
-  for (i = 0;  i < config_get_intval(CGRAPH_NUM_POINTS); i++){
+  for (i = 0;  i < NUM_TIDES_BACKGROUND ; i++){
 
       if (!strcmp(p_state_buf[i],"lo") && p_height_buf[i] < *min_y)
         *min_y = p_height_buf[i];
       if (!strcmp(p_state_buf[i],"hi") && p_height_buf[i] > *max_y)
         *max_y = p_height_buf[i];
+      APP_LOG(APP_LOG_LEVEL_WARNING, "loop %d   (%s)  height is %d    min/max = %d / %d ", i, p_state_buf[i],p_height_buf[i] , *min_y, *max_y  );
+
   }
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:     calc_y_range()  min %d, max %d",*min_y,*max_y );
 
