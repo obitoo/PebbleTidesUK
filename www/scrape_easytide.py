@@ -7,6 +7,7 @@
 # TODO - cope with only 3 tides a day - done
 # remove . from height string, for little pebbles sake 
 # 03Dec14 - multiple ports
+# 15Mar15 - 3 digit heights
 #
 
 import urllib2
@@ -31,7 +32,7 @@ def scrape_and_create_json_file (port):
      if port == "0":
           return
 
-     outfile=outdir+"tides"+port+".json"
+     outfile=g_outdir+"tides"+port+".json"
      
      url='http://www.ukho.gov.uk/easytide/EasyTide/ShowPrediction.aspx?PortID='+port+'&PredictionLength=7'
      print "opening ",url
@@ -66,6 +67,9 @@ def scrape_and_create_json_file (port):
      
          # either th or td
          for th in tr.findAll('th', {'class':'HWLWTableHWLWCell'}):
+            #
+            # ---- hi/lo indicators
+            #
             line={}
             #debug print "A",i,th.string
             if th.string == 'LW':
@@ -77,14 +81,27 @@ def scrape_and_create_json_file (port):
      
          for td in tr.findAll('td', {'class':'HWLWTableCell'}):
             #debug print "B",i,td.string
-     
-            if "m" in td.string:  # height
-               #debug print i
-               hm=td.string[:3].encode("ascii")
+            #
+            # ---- height
+            #
+            if "m" in td.string:  
+               print "loop",i
+               print td
+
+               # example:   <td class="HWLWTableCell">0.5 m</td>
+               hm=td.string[:-2].encode("ascii")
+               print hm
+
                # remove .
-               array[i]['height']=hm.replace(".","")
+               # zero pad front to 3 chars
+               array[i]['height']=hm.replace(".","").zfill(3)
+
+               print array[i]['height']
      
-            if ":" in td.string:  # time
+            #
+            # ---- times 
+            #
+            if ":" in td.string: 
                array[i]['time']=td.string[1:].encode("ascii")
             i = i + 1
        imax=i
@@ -179,27 +196,54 @@ def scrape_and_create_json_file (port):
      print "finished @", london.strftime('%m/%d/%Y %H:%M:%S %Z')
 
 
+def run_scrape_for_all_ports():
+   # parse config file for list of possible ports
+   htmldoc= urllib2.urlopen(g_configfile).read()
+   soup = BeautifulSoup(htmldoc)
 
-# MAIN
+   portlist1 = [str(x['value']) for x in soup.find(id=["port1"]).find_all('option')]
+   portlist2 = [str(x['value']) for x in soup.find(id=["port2"]).find_all('option')]
+   
+   print portlist1
+   print portlist2
+   
+   #loop for each primary port
+   for port in portlist1:
+        scrape_and_create_json_file(port)
+   
+   #loop for each secondary port
+   for port in portlist2:
+        scrape_and_create_json_file(port)
+
+
+
+
+#
+# MAIN # # # # # # # # # # # # # # ##
+#
 print "----------- starting"
 
-outdir="/var/www/tides/"
-configfile="file:///var/www/tides/config.html"
+g_outdir="/var/www/tides/"
+g_configfile="file:///var/www/tides/config.html"
 
 
-# parse config file for list of possible ports
-htmldoc= urllib2.urlopen(configfile).read()
-soup = BeautifulSoup(htmldoc)
-portlist1 = [str(x['value']) for x in soup.find(id=["port1"]).find_all('option')]
-portlist2 = [str(x['value']) for x in soup.find(id=["port2"]).find_all('option')]
+#
+# options:   -p <port no> : testrun for one port
+#
+import optparse
+parser = optparse.OptionParser("usage: %prog [options] ")
+parser.add_option("-p",  dest="port", type="string", 
+                  help = "port number, run for single ")
+(options, args) = parser.parse_args()
 
-print portlist1
-print portlist2
 
-#loop for each primary port
-for port in portlist1:
-     scrape_and_create_json_file(port)
+#
+#  Run for a single port, or look at config file to get list of all ports to scrape. 
+#
 
-#loop for each secondary port
-for port in portlist2:
-     scrape_and_create_json_file(port)
+if options.port:
+   print "Single port TESTMODE:", options.port
+   scrape_and_create_json_file(options.port)
+else:
+   run_scrape_for_all_ports() 
+
