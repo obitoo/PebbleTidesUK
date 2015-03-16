@@ -46,7 +46,7 @@
 // these dont change whatever the size of the graph window
 #define  MINS_IN_DAY            1440    
 #define  TIDE_PHONE_POLL_MINS   10  // approx every x-pixel
-#define  GRAPH_Y_PX             40
+#define  GRAPH_Y_PX             45
 #define  GRAPH_NUM_HOZ_LINES    3 // 1 or 3 if you prefer  
 #define  MAX_X                  144
 #define  GRAPH_BORDER_PX        4
