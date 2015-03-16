@@ -345,12 +345,12 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
 
       if (!strcmp(p_state_buf[count_input],"hi")){
 //        ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * GRAPH_EXAGGERATE_Y;
-          ypos_px_absolute =  0 +         GRAPH_BORDER_PX + (max_h - hm) * GRAPH_Y_PX/range_y ;
+          ypos_px_absolute =  0 +         GRAPH_BORDER_PX + GRAPH_Y_LOWPOINT + (max_h - hm) * (GRAPH_Y_PX-GRAPH_Y_LOWPOINT)/range_y ;
 
       } else 
       if (!strcmp(p_state_buf[count_input],"lo")){
 //        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * GRAPH_EXAGGERATE_Y;
-        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * GRAPH_Y_PX/range_y ;
+        ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * (GRAPH_Y_PX-GRAPH_Y_LOWPOINT)/range_y ;
 
       } else {
         APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
@@ -396,8 +396,6 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
         *min_y = p_height_buf[i];
       if (!strcmp(p_state_buf[i],"hi") && p_height_buf[i] > *max_y)
         *max_y = p_height_buf[i];
-      APP_LOG(APP_LOG_LEVEL_WARNING, "loop %d   (%s)  height is %d    min/max = %d / %d ", i, p_state_buf[i],p_height_buf[i] , *min_y, *max_y  );
-
   }
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:     calc_y_range()  min %d, max %d",*min_y,*max_y );
 
