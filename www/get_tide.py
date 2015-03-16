@@ -16,12 +16,21 @@
 import json
 import tidedata
 import cgi, cgitb, os, sys
+import optparse
 
 
 #
-#  default 
+# test cmdline options:   -p <port no> : testrun for one port
 #
-port="0110"
+parser = optparse.OptionParser("usage: %prog [options] ")
+parser.add_option("-p",  dest="port", type="string", 
+                  help = "port number, run for single ")
+(options, args) = parser.parse_args()
+
+if options.port:
+   port = options.port
+
+
 
 #
 #  Init 
@@ -41,7 +50,7 @@ for field in form.keys():
        time = form[field].value
 
 #
-# Create a tidesdata object 
+# Create a tidesdata request object 
 #
 tides = tidedata.public(port)
 
@@ -50,6 +59,14 @@ tides = tidedata.public(port)
 # Scrape data
 #
 tides.scrape()
+if tides.error: 
+   sys.stderr.write(tides.error+"\n")
+   print "Status: 404 Not Found\r\n"
+   print "Content-Type: text/html\r\n\r\n"
+   print "<h1>404 File not found!</h1>"
+
+   sys.exit(1)
+
 
 #
 # Return json 
