@@ -113,6 +113,16 @@ void message_send_outbox() {
     dict_write_cstring(iter, CFG_INVERT_COL,   config_get_string(CFG_INVERT_COL)); 
     dict_write_cstring(iter, CFG_LINE_GRAPH,   config_get_string(CFG_LINE_GRAPH));
     dict_write_cstring(iter, CFG_SHOW_HEIGHTS, config_get_string(CFG_SHOW_HEIGHTS));
+  
+    // Pass watch time and version no
+    // (slight duplication of work in main.c - but i always want this in 24h fmt)
+    time_t temp = time(NULL); 
+    struct tm *tick_time = localtime(&temp);
+    char hhmm[] = "00:00";
+    strftime(hhmm, sizeof("00:00"), "%H:%M", tick_time);
+
+    dict_write_cstring(iter, CFG_TIME,         hhmm      );  
+    dict_write_cstring(iter, CFG_VERSION,      APPVERSION);
 
     // Dont do this. Really. https://developer.getpebble.com/2/guides/app-phone-communication.html
     //dict_write_end (iter);
