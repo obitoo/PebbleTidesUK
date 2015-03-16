@@ -6,52 +6,58 @@
 #                           Params:     port=<4 char string>
 #                                       time=hh:mm
 #                                       vsn=<client version no>
-#                           
-#                           
+#  TODO
+#    -error handling         
 #                           
 # 16Mar15 - Created
 #
+#
 
-import urllib2
-import sys
-import pprint
 import json
-from bs4 import BeautifulSoup
-
 import tidedata
-
-
-
-
-def scrape_and_create_json_file (port):
-     if port == "0":
-          return
-
-     tides = tidedata.public(port)
-     tides.scrape()
-     tides.dump_to_file(g_outdir)
-
-     
-     
-
-
-#
-# MAIN # # # # # # # # # # # # # # ##
-#
-print "----------- starting"
-
-g_outdir="/var/www/tides/"
-
 import cgi, cgitb, os, sys
+
+
+#
+#  default 
+#
+port="0110"
+
+#
+#  Init 
+#
 cgitb.enable(); # formats errors in HTML
-
-
 form = cgi.FieldStorage()
 
+
+
+#
+# Parse params. Ignore version for now, we can see it in the logs
+#
 for field in form.keys():
-    print "<tr><td>%s<td>%s" % (field, form[field].value)
+    if field == "port":
+       port = form[field].value
+    if field == "time":
+       time = form[field].value
+
+#
+# Create a tidesdata object 
+#
+tides = tidedata.public(port)
+
+
+#
+# Scrape data
+#
+tides.scrape()
+
+#
+# Return json 
+#
+print "Content-type: application/json"
+print
+tides.dump()
 
 
 
-#   scrape_and_create_json_file(options.port)
-
+# EOF
