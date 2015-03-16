@@ -50,7 +50,7 @@
 #define  GRAPH_NUM_HOZ_LINES    3 // 1 or 3 if you prefer  
 #define  MAX_X                  144
 #define  GRAPH_BORDER_PX        4
-#define  GRAPH_Y_LOWPOINT       0 // from wherever the border is 
+#define  GRAPH_Y_LOWPOINT       4 // from wherever the border is 
 #define  GRAPH_EXAGGERATE_Y     4 // TODO 
   
 #define  NUM_TIDES_BACKGROUND   4 // loop to 4 
