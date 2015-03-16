@@ -20,12 +20,12 @@ class public():
 
    def __init__ (self,port):
      self.port = port
+     self.error = None
 
 
    def scrape(self):
      
      url='http://www.ukho.gov.uk/easytide/EasyTide/ShowPrediction.aspx?PortID='+self.port+'&PredictionLength=7'
-     print url
      html_doc = urllib2.urlopen(url)#.read()
      
      soup = BeautifulSoup(html_doc)
@@ -119,6 +119,13 @@ class public():
         element["time"]=result_str
      
      
+     #
+     # Exit and warn if nothing scraped. 
+     #
+     if len (array) == 0: 
+        self.error="No tide data scraped for port ("+self.port+")"
+        return
+ 
      
      #
      #  Website gives all tides from midnight, discard any in the past
@@ -136,7 +143,6 @@ class public():
      # 
      self.tides_array = array
   
-     
 
 
 
