@@ -16,6 +16,12 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ---------------------------------------------------------*/
+  // History
+  //  16 Mar - new cgi script
+  //
+  //
+  // TODO 
+  //   time, vsn in Url
 
 
 
@@ -26,8 +32,9 @@ var wait_msg ;
 var config_open ;
 var config_url;
 var config_defaults;
-var webserver="http://li646-227.members.linode.com/tides";
- webserver="http://192.168.7.175/tides";
+var webserver="http://li646-227.members.linode.com/";
+//    webserver="http://192.168.7.175/";   // Dev DONT FORGET
+
 
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
@@ -36,7 +43,7 @@ Pebble.addEventListener('ready',   function(e) {
     
     wait_msg = 0;
     config_open = 0;
-    config_url= webserver+"/config.html?";
+    config_url= webserver+"/tides/config.html?";
     config_defaults = {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "off",
@@ -231,9 +238,10 @@ function getTides(locn) {
     return;
   }
   
-  // Construct URL - TODO - dns
-  var url = webserver+"/tides"+locn+".json"; //desktop 8080
-
+  // Construct URL - 
+  // eg: http://192.168.7.175/cgi-bin/tides/get_tide.py?port=5678&vsn=2&time=14:27 
+  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn+"&vsn=2.0&time=13:37";
+  
   // Send request to my Server
   // TODO - what if http get fails? 
   console.log("getTides: about to make request:"+url);
