@@ -118,17 +118,65 @@ int main (void){
     //  LAYOUT ======================================================
     //
 
+// http://developer.getpebble.com/tools/color-picker/#FFFFAA 
+
+// NEON - green and pink
+#define FG_COL GColorGreen
+#define FG_COL_DIM GColorFashionMagenta
+  
+// SAND
+//#define FG_COL GColorYellow
+//#define FG_COL_DIM GColorChromeYellow
+  
+// BLUE
+//#define FG_COL GColorElectricUltramarine
+//#define FG_COL_DIM GColorCyan 
+
+    
 GColor colour_fg(){
-  if (config_get_bool(CFG_INVERT_COL))
-    return GColorBlack;
-  else
-    return GColorWhite;
+    #ifdef PBL_COLOR
+        if (config_get_bool(CFG_INVERT_COL)) 
+          return GColorBlack;
+        else
+          return FG_COL;
+    #else
+       if (config_get_bool(CFG_INVERT_COL))
+          return GColorBlack;
+       else
+          return GColorWhite;
+    #endif
 }
+
+GColor colour_fg_dim(){
+    #ifdef PBL_COLOR
+        if (config_get_bool(CFG_INVERT_COL)) 
+      return FG_COL;
+        else
+          return FG_COL_DIM;
+        
+    #else
+       if (config_get_bool(CFG_INVERT_COL))
+          return GColorBlack;
+       else
+          return GColorWhite;
+    #endif
+}
+
+ 
+
+
 GColor colour_bg(){
-  if (config_get_bool(CFG_INVERT_COL))
-    return GColorWhite;
-  else
-    return GColorBlack;
+    #ifdef PBL_COLOR
+      if (config_get_bool(CFG_INVERT_COL))
+          return FG_COL_DIM;
+      else
+          return GColorBlack;
+    #else
+      if (config_get_bool(CFG_INVERT_COL))
+        return GColorWhite;
+      else
+        return GColorBlack;
+    #endif
 }
 
 
@@ -151,12 +199,16 @@ void main_set_colours(){
 
   text_layer_set_background_color(s_tidetimes_text_layer, colour_bg());
   text_layer_set_text_color(s_tidetimes_text_layer,  colour_fg());
-  text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
-  text_layer_set_text_color(s_tideheight_text_layer2, colour_fg());
-  text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
-  text_layer_set_text_color(s_tideheight_text_layer1, colour_fg());
+  
+  // does nothing? 
+  //text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
+  //text_layer_set_text_color(s_tideheight_text_layer2,       colour_fg_dim());
+  //text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
+  //text_layer_set_text_color(s_tideheight_text_layer1,       colour_fg_dim());
+  
   text_layer_set_background_color(s_time_layer, colour_bg());
   text_layer_set_text_color(s_time_layer, colour_fg());
+  
   text_layer_set_background_color(s_date_layer, colour_bg());  
   text_layer_set_text_color(s_date_layer, colour_fg());
 }

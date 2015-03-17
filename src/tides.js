@@ -16,12 +16,18 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ---------------------------------------------------------*/
-  // History
+ /* 
+  // Construct URL - 
+  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn+"&vsn="+version+"&time="+timestring;
+*/
+
+// History
   //  16 Mar - new cgi script
+  //         - times and version no
+  //         - config2.html
   //
-  //
-  // TODO 
-  //   time, vsn in Url
+  //   
+  //   
 
 
 
@@ -33,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
-    //webserver="http://192.168.7.175/";   // Dev DONT FORGET
+  //  webserver="http://192.168.7.175/";   // Dev DONT FORGET
 
 
 // Listen for when the watchface is opened, then 
@@ -43,7 +49,7 @@ Pebble.addEventListener('ready',   function(e) {
     
     wait_msg = 0;
     config_open = 0;
-    config_url= webserver+"/tides/config.html?";
+    config_url= webserver+"/tides/config.html?";   // NB!
     config_defaults = {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "off",

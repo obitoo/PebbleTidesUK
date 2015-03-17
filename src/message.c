@@ -145,8 +145,10 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   if (p_current_time != NULL)
       strcpy(appmsg_received_time, p_current_time);
     
-  // Read first item
+  // Read first item. Update: key 0 not always first on Basalt emulator. So loop
   Tuple *t = dict_read_first(iterator);
+  while (t->key != MSG_TYPE)
+       t = dict_read_next(iterator);
 
   // route to different msg handlers
   if (!strcmp(t->value->cstring,"tides")){
@@ -171,8 +173,8 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
 static int js_tides(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
 
-  // first item already read
-  Tuple *t = dict_read_next(iterator);
+  // start again, in case order was jumbled
+  Tuple *t = dict_read_first(iterator);
 
   // For all items
   while(t != NULL) {
@@ -214,7 +216,8 @@ static int js_tides(DictionaryIterator *iterator, void *context){
         case   KEY_HEIGHT_3:
                height_buf[3] = atoi(t->value->cstring);
                break;
-      
+        case   MSG_TYPE:
+               break;
         default:
                APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
                break;
@@ -232,7 +235,7 @@ static int js_tides(DictionaryIterator *iterator, void *context){
 static int js_config(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
   
-  Tuple *t = dict_read_next(iterator);
+  Tuple *t = dict_read_first(iterator);
 
   // For all items
   while(t != NULL) {
@@ -258,6 +261,8 @@ static int js_config(DictionaryIterator *iterator, void *context){
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Port: %s", (t->value->cstring));
              config_save_string(CFG_PORT,         t->value->cstring);
              break;
+      case MSG_TYPE:
+             break;
        default:
              APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
              break;
@@ -279,7 +284,7 @@ static int js_config(DictionaryIterator *iterator, void *context){
 static int js_ready(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );
     
-  // consume msg
+  // consume msg. Necessary?
   Tuple *t; 
   do {
     t = dict_read_next(iterator);

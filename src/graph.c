@@ -23,6 +23,8 @@
 
 static int calc_mins (char *, int *);
 extern GColor colour_fg();
+extern GColor colour_fg_dim();
+
 extern GColor colour_bg();
   
 static int draw_x[] = {0,0,0,0,0};  // relative  // GRAPH_NUM_POINTS
@@ -59,7 +61,7 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
 
   if (1){
     // set stroke colour - here? every time? 
-    graphics_context_set_stroke_color(ctx, colour_fg());
+    //graphics_context_set_stroke_color(ctx, colour_fg_dim());
   
     draw_box(ctx);
     draw_tidepoints(ctx); 
@@ -75,6 +77,9 @@ void print_tide_text_layers (char (*p_state_buf)[8],
                              int *p_height_buf, 
                              char *time_str) {
   
+  // colour - setting it in main_set_colours() doesnt work for some reason
+  text_layer_set_text_color(s_tidetimes_text_layer, colour_fg());
+
   // times
   print_tidetimes(p_state_buf, p_time_buf);
   
@@ -93,6 +98,7 @@ void print_tide_text_layers (char (*p_state_buf)[8],
 static void draw_box(GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  draw_box()");
   
+  graphics_context_set_stroke_color(ctx, colour_fg());
 
   // nice border
   int _xpix = config_get_intval(CGRAPH_X_PX);  
@@ -226,6 +232,8 @@ static void draw_sinewave (GContext* ctx){
 //   for (;x<=4; x++) 
 //       APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
  
+  graphics_context_set_stroke_color(ctx, colour_fg_dim());
+
   // this one is offscreen, so we guess a bit
   plot_quarter_line(ctx, 
                     draw_x[0]-draw_x[2]+draw_x[1], 
@@ -323,7 +331,6 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   // calculate height range
   int min_h, max_h;
   int range_y = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
-  APP_LOG(APP_LOG_LEVEL_WARNING, "        got y range %d ", range_y);
  
   // loop for each input 
   while (count_input < NUM_TIDES_BACKGROUND) {

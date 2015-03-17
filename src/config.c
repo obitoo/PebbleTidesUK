@@ -32,6 +32,9 @@ int config_get_bool(int conf_item){
       persist_read_string(conf_item, value, 1+strlen(value));
   }
 
+//  if (CFG_INVERT_COL == conf_item)
+//       APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_bool CFG_INVERT_COL is %d",strcmp (value, "off"));
+
   return strcmp (value, "off");
 }
 
