@@ -10,24 +10,6 @@
 
 
   <script>
-  $(function() {
-    $("#port1").selectmenu();
-
-    $("#port2").selectmenu();
-    
-    $("#port1").change(function() {
-       var myselect = $("select#port2");
-       myselect[0].selectedIndex = 0;
-       myselect.selectmenu("refresh");
-    });
-
-    $("#port2").change(function() {
-       var myselect = $("select#port1");
-       myselect[0].selectedIndex = 0;
-       myselect.selectmenu("refresh");
-    });
-  });
-
 
       // 
       // param decoding 
@@ -73,6 +55,7 @@
            myselect[0].selectedIndex = found;
            myselect.selectmenu("refresh");
       };
+      
       function select_slider(cfgname, fieldname){
            var value = getURLVariable(cfgname);
            value = decodeURI(value);
@@ -105,7 +88,7 @@
                       $('#'+list_target_id).html(top_line+output);
                          // Get port number and select it
                       var port_country = get_port_and_country();
-                      select_list_item ("list-port", port_country.port);
+                      select_list_item_optgroup ("list-port", port_country.port);
 
                   },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -119,13 +102,13 @@
       //    -->  country=7,  port = 6148
       //
       function get_port_and_country(){
-          var default_country = 4;      // backwards compat - default to UK - TODO
+          var default_country = 263;      // backwards compat - default to UK - TODO
 
           results = { port: 0, country: 0};
 
           var cfg_country = "";
           var cfg_port = getURLVariable('cfg_port');
-          cfg_port = decodeURI(cfg_port);
+          cfg_port = decodeURIComponent(cfg_port);
 
             // extract country, if passed - otherwise default to UK
           if (cfg_port.indexOf(":") > -1){
@@ -133,6 +116,7 @@
              cfg_country=res[0];
              cfg_port   =res[1];
           }
+//alert ("cfg_port = "+cfg_port);
 
           if (cfg_country == "") { 
              cfg_country =default_country;
@@ -167,7 +151,7 @@
           var port_country = get_port_and_country();
         
           if (port_country.country) {
-              select_list_item     ("list-country", port_country.country);
+              select_list_item_optgroup     ("list-country", port_country.country);
               populate_second_list (port_country.country);
           }
 
@@ -203,10 +187,15 @@
 
         <select name="list-country" id="list-country">
              <option value="">Please select a Country..</option>
-             <option value="4">Netherlands</option>
-             <option value="5">Bali</option>
-             <option value="7">Australia</option>
-             <option value="water">water</option>
+         <optgroup label="Europe">
+             <option value="74">France</option>
+             <option value="107">Italy</option>
+             <option value="167">Netherlands</option>
+             <option value="263">United Kingdom</option>
+         <optgroup label="Americas">
+             <option value="255">United States</option>
+         <optgroup label="Rest of World">
+             <option value="13">Australia</option>
         </select>
  
         <select name="list-port" id="list-port"></select>

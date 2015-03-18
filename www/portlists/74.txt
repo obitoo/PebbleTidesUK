@@ -1,0 +1,124 @@
+1568,DUNKERQUE 
+1569,Gravelines 
+1570,CALAIS 
+1571,Wissant 
+1572,BOULOGNE-SUR-MER 
+1573,Le Touquet (Etaples) 
+1574,Berck Plage - Fort Mahon 
+1575,Le Hourdel 
+1576,St. Valery 
+1577,Cayeux 
+1578,Le Treport 
+1579,DIEPPE 
+1580,St. Valery-En-Caux 
+1581,Fecamp 
+1582,LE HAVRE 
+1583,Honfleur 
+1584,Tancarville 
+1585,Quillebeuf 
+1586,Vatteville 
+1587,Caudebec 
+1588,Duclair 
+1589,Rouen 
+1590,Trouville 
+1591,Dives 
+1592,Ouistreham 
+1593,Courseulles-Sur-Mer 
+1594,Arromanches 
+1595,Port-En-Bessin 
+1596,Rade De La Capelle 
+1597,Iles Saint Marcouf 
+1598,St. Vaast-La-Hougue 
+1599,Barfleur 
+1600,CHERBOURG 
+1601,Omonville 
+1602,Goury 
+1609,Iles Chausey 
+1610,Dielette 
+1611,Carteret 
+1612,Granville 
+1613,Cancale 
+1614,ST. MALO 
+1615,Erquy 
+1616,Dahouet 
+1617,Le Legue (Buoy) 
+1618,Binic 
+1619,Portrieux 
+1620,Paimpol 
+1621,Ile De Brehat 
+1622,Les Heaux De Brehat 
+1623,Lezardrieux 
+1624,Port Beni 
+1625,Treguier 
+1626,Ploumanac'h 
+1628,Trebeurden 
+1629,Morlaix (Chateau Du Taureau) 
+1630,Roscoff 
+1631,Ile De Batz 
+1632,L'aber-Wrac'h 
+1633,L'aber Benoit 
+1634,Ile D'ouessant (Baie De Lampaul) 
+1635,Molene 
+1636,Le Conquet 
+1637,Le Trez Hir 
+1638,BREST 
+1639,Camaret 
+1640,Douarnenez 
+1641,Ile De Sein 
+1642,Anse De Feunteun Aod 
+1643,Audierne 
+1644,Le Guilvinec 
+1645,Loctudy 
+1646,Benodet 
+1647,Corniguel 
+1648,Concarneau 
+1649,Ile De Penfret 
+1650,Port Louis (Locmalo) 
+1651,Lorient (Arsenal) 
+1652,Port Tudy 
+1653,Port Haliguen 
+1654,Le Palais 
+1655,La Trinite-Sur-Mer 
+1656,Port Navalo 
+1657,Auray 
+1658,Vannes 
+1659,Ile De Hoedic 
+1660,Penerf 
+1661,Le Croisic 
+1662,Le Pouliguen 
+1663,Le Grand-Charpentier 
+1664,St. Nazaire 
+1665,Donges 
+1666,Le Pellerin 
+1667,Nantes (Chantenay) 
+1668,Pornic 
+1669,L'herbaudiere 
+1670,Fromentine 
+1671,Port Joinville 
+1672,St. Gilles-Croix-De-Vie 
+1673,Les Sables D'olonne 
+1674,St. Martin 
+1675,La Pallice 
+1676,La Rochelle 
+1677,Ile D'aix 
+1678,Rochefort 
+1679,Le Chapus 
+1680,Royan 
+1681,POINTE DE GRAVE 
+1682,Richard 
+1683,Lamena 
+1684,Pauillac 
+1685,La Reuille 
+1686,Le Marquis 
+1687,Bordeaux 
+1689,Libourne 
+1690,Cap Ferret 
+1691,Arcachon (Eyrac) 
+1692,Boucau 
+1693,Socoa 
+1782,Port Vendres 
+1783,Sete 
+1785,Marseille 
+1786,Toulon 
+1789,Nice 
+2448,Fort De France 

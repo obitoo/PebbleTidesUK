@@ -1,0 +1,31 @@
+1850,Imperia 
+1851,Genova (Genoa) 
+1852,Livorno (Leghorn) 
+1853,Civitavecchia 
+1854,Gaeta 
+1855,Napoli (Naples) 
+1856,Ischia 
+1857,Tropea 
+1860,Villa San Giovanni 
+1861,Reggio Calabria 
+1862,Taormina 
+1863,Messina 
+1864,Capo Peloro 
+1865,Lipari 
+1866,Milazzo 
+1867,Palermo 
+1868,Marsala 
+1869,Mazara Del Vallo 
+1870,Porto Empedocle 
+1871,Catania 
+1885,Taranto 
+1886,Brindisi 
+1887,Vieste 
+1888,Ortona 
+1889,Ancona 
+1890,Pesaro 
+1891,Chioggia 
+1892,Malamocco 
+1894,VENEZIA (VENICE) 
+1895,Grado 
+1896,Trieste 

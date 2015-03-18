@@ -1,0 +1,328 @@
+2584,Padre Island 
+2585,Port Isabel 
+2586,Port Aransas (Caldwell Pier) 
+2587,Pass Cavallo 
+2588,Freeport Harbour Entrance 
+2589,Galveston Bay Entrance 
+2590,GALVESTON 
+2591,Morgans Point 
+2592,Sabine Pass 
+2593,Calcasieu Pass 
+2594,Mermentau River 
+2595,Lighthouse Point 
+2596,Weeks Bay 
+2597,Eugene Island 
+2598,Ship Shoal Light 
+2599,Wine Island 
+2600,Grand Isle, East Point 
+2601,Southwest Pass 
+2602,Port Eads 
+2603,Chandeleur Light 
+2604,Cat Island 
+2605,Biloxi 
+2607,Mobile Point 
+2608,Mobile 
+2609,Pensacola 
+2610,The Narrows 
+2611,Panama City Beach 
+2612,Panama City 
+2613,Port St. Joe 
+2614,Apalachicola 
+2615,St. Marks Light 
+2616,Deadman Bay 
+2617,Cedar Key 
+2618,Shark River 
+2619,Tuckers Island 
+2620,Clearwater Beach 
+2621,ST. PETERSBURG 
+2622,South Boca Grande 
+2623,Punta Rassa 
+2624,Barron River 
+2626,Cape Sable (East Cape) 
+2627,Grassy Key 
+2628,Sawyer Key 
+2630,Tortugas Harbour 
+2633,Sand Key 
+2634,Key West 
+2636,Sombrero Key 
+2637,Alligator Reef 
+2640,Miami Harbor 
+2641,Port Everglades 
+2642,Palm Beach (Port) 
+2643,Fort Pierce Inlet 
+2644,Port Canaveral 
+2645,Daytona Beach 
+2646,St. Augustine Inlet 
+2647,St. Johns River Entrance 
+2648,Mayport (Bar Pilots Dock) 
+2649,Dames Point 
+2650,Jacksonville (Long Branch) 
+2651,Green Cove Springs 
+2652,Palatka 
+2653,St. Mary's Entrance 
+2654,Fernandina Beach 
+2656,St. Simons Sound Bar 
+2657,Brunswick 
+2658,Sapelo Sound 
+2659,Fort Pulaski 
+2660,Savannah 
+2662,Beaufort 
+2663,Fripp Inlet 
+2664,CHARLESTON 
+2665,Cape Romain 
+2666,Winyah Bay Entrance 
+2667,Georgetown (Winyah Bay) 
+2668,Myrtle Beach (Springmaid Pier) 
+2670,Southport (Cape Fear River) 
+2671,Reaves Point 
+2672,Wilmington 
+2673,New River Inlet 
+2674,Cape Lookout 
+2675,Cape Hatteras 
+2676,Oregon Inlet Marina 
+2678,Cape Henry 
+2679,Kiptopeke Beach 
+2680,Cape Charles Harbour 
+2681,Old Point Comfort 
+2682,HAMPTON ROADS 
+2683,Portsmouth (James River) 
+2684,Hog Point 
+2685,City Point 
+2686,Richmond (Chesapeake Bay) 
+2687,York Spit Light 
+2688,Yorktown 
+2689,West Point (York River) 
+2690,Wolf Trap Light 
+2692,Urbanna 
+2693,Tappahannock 
+2694,Great Wicomico River Light 
+2696,Watts Island 
+2698,Holland Island Bar Light 
+2700,Point Lookout 
+2701,Piney Point 
+2702,Liverpool Point 
+2703,Washington 
+2705,Hooper Island Light 
+2706,Solomons Island 
+2707,Benedict 
+2709,Cambridge 
+2710,Rhode River 
+2711,Thomas Point Shoal Light 
+2712,Annapolis 
+2713,Love Point 
+2716,BALTIMORE 
+2718,Tolchester Beach 
+2719,Havre De Grace 
+2721,Chesapeake City 
+2723,Wachapreague 
+2724,Ocean City 
+2726,Indian River Inlet (Coast Guard Station) 
+2727,Lewes (Breakwater Harbour) 
+2729,Ship John Shoal 
+2730,Reedy Point 
+2731,Marcus Hook 
+2732,Philadelphia 
+2733,Trenton 
+2734,Cape May Ferry Terminal 
+2735,Longport 
+2736,Atlantic City 
+2737,Barnegat Inlet 
+2738,Shark River Island 
+2740,SANDY HOOK 
+2741,South Amboy 
+2742,Port Newark Terminal 
+2743,Fort Hamilton 
+2744,Spuyten Duyvil Creek Entrance 
+2746,Tivoli 
+2747,Albany (Hudson River) 
+2748,Horns Hook 
+2749,College Point 
+2751,Norton Point 
+2753,Jones Inlet 
+2754,Fire Island Coast Guard Station 
+2755,Moriches Inlet 
+2756,Montauk 
+2757,Montauk Point Light 
+2758,South Jamesport 
+2759,Greenport 
+2761,Little Gull Island 
+2762,Plum Island 
+2763,Mattituck Inlet 
+2765,Port Jefferson 
+2767,Lloyd Harbour 
+2768,Kings Point 
+2769,Willets Point 
+2771,Stamford 
+2772,Bridgeport 
+2773,New Haven Harbour 
+2775,Saybrook Jetty 
+2776,New London 
+2777,Watch Hill Point 
+2779,Block Island (Old Harbour) 
+2780,Point Judith 
+2781,Newport (Rhode Island) 
+2782,Quonset Point 
+2783,Providence 
+2784,Bristol 
+2785,Sakonnet 
+2786,New Bedford 
+2787,Cape Cod Canal W. Entrance 
+2790,Woods Hole (Great Harbour) 
+2791,Hyannis Port 
+2794,Gay Head 
+2798,Great Point 
+2799,Nantucket 
+2800,Muskeget Island 
+2802,Chatham (Cape Cod) 
+2803,Provincetown 
+2805,Cape Cod Canal E. Entrance 
+2806,Plymouth Harbour 
+2807,Cohasset Harbour 
+2809,BOSTON 
+2810,Lynn Harbour 
+2811,Salem 
+2812,Gloucester Harbour 
+2813,Newburyport 
+2814,Seavey Island 
+2815,Cape Porpoise 
+2816,Portland (Casco Bay) 
+2817,Peaks Island 
+2818,Potts Harbour 
+2819,Fort Popham 
+2820,Bath (Kennebec River) 
+2823,Boothbay Harbour 
+2824,Monhegan Island 
+2825,Tenants Harbour 
+2827,Matinicus Harbour 
+2828,Vinalhaven 
+2829,Pulpit Harbour 
+2831,Rockland 
+2832,Belfast (Penobscot Bay) 
+2833,Bangor (Penobscot River) 
+2835,Centre Harbour 
+2837,Blue Hill Harbour 
+2838,Bar Harbour 
+2840,Prospect Harbour 
+2842,Head Harbour Island 
+2843,Cutler (Little River) 
+2846,Eastport 
+9143,Blaine 
+9144,Ferndale 
+9145,Point Migley 
+9147,Bellingham 
+9149,Anacortes 
+9151,Aleck Bay 
+9152,Strawberry Bay 
+9153,Peavine Pass 
+9155,Echo Bay 
+9156,Patos Island (Alden Point) 
+9158,Turn Point 
+9159,Friday Harbour 
+9160,Kanaka Bay 
+9163,Yokeko Point 
+9169,Point Partridge 
+9172,Everett 
+9174,Seattle 
+9176,Tacoma 
+9178,Steilacoom 
+9180,Olympia 
+9183,Vaughn 
+9186,Bremerton 
+9187,Tracyton 
+9191,Point No Point 
+9193,Bangor (Puget Sound) 
+9194,Seabeck 
+9196,Union 
+9197,Port Ludlow 
+9199,Port Townsend 
+9201,Discovery Bay (Puget Sound) 
+9203,Dungeness Bay 
+9204,Port Angeles 
+9206,Crescent Bay 
+9208,Clallam Bay 
+9210,Neah Bay 
+9211,Cape Flattery 
+9214,Union Seamount 
+9215,Destruction Island 
+9218,Point Grenville 
+9220,Point Chehalis 
+9222,Aberdeen (Grays Harbour) 
+9223,Toke Point 
+9224,Raymond 
+9225,Cobb Seamount 
+9226,Columbia River Entrance (Jetty "A") 
+9227,Youngs Bay 
+9228,Astoria (Tongue Point) 
+9229,Harrington Point 
+9230,Eagle Cliff 
+9231,Saint Helens 
+9232,Vancouver (Colombia River) 
+9233,Portland (Columbia River) 
+9236,Garibaldi 
+9238,Nestucca Bay Entrance 
+9239,Depoe Bay 
+9241,Newport (Yaquina River) 
+9242,Yaquina 
+9243,Waldport 
+9245,Siuslaw River Entrance 
+9246,Florence 
+9249,Umpqua River Entrance 
+9250,Gardiner 
+9252,Charleston (Coos Bay) 
+9253,Port Of Coos Bay 
+9254,Bandon 
+9256,Port Orford 
+9259,Wedderburn 
+9262,Chetco Cove 
+9264,Crescent City 
+9268,Trinidad Harbour 
+9270,North Spit 
+9271,Eureka (Humboldt Bay) 
+9281,Shelter Cove 
+9284,Fort Bragg Landing 
+9287,Point Arena 
+9288,Arena Cove 
+9290,Fort Ross Cove 
+9293,Point Reyes 
+9295,South East Farallon Island 
+9296,Point San Quentin 
+9297,Mare Island 
+9298,Benicia 
+9299,Collinsville 
+9300,Three Mile Slough (Sacramento River) 
+9303,Three Mile Slough (San Joaquin River) 
+9304,Stockton 
+9305,SAN FRANCISCO (GOLDEN GATE) 
+9306,Oakland (Grove Street) 
+9307,Coyote Point Marina 
+9308,Dumbarton Bridge 
+9309,Alameda 
+9312,Halfmoon Bay 
+9315,Ano Nuevo Island 
+9318,Santa Cruz (Monterey Bay) 
+9319,Kirby Park 
+9320,Monterey 
+9321,Carmel Bay 
+9326,San Simeon 
+9331,Port San Luis 
+9335,Point Arguello 
+9336,Oil Platform Harvest 
+9338,Santa Barbara 
+9342,Port Hueneme 
+9345,Cuyler Harbour 
+9346,Bechers Bay 
+9347,Prisoners Harbour 
+9349,Santa Monica 
+9350,El Sugundo 
+9351,Los Angeles Harbour 
+9352,San Nicholas Island 
+9353,Santa Barbara Island 
+9354,Catalina Harbour 
+9355,Wilson Cove 
+9357,Newport Beach 
+9362,La Jolla 
+9364,Point Loma 
+9365,SAN DIEGO 
+9366,Quarantine Station 
+9367,National City 
+9368,Imperial Beach 
