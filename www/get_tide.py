@@ -12,6 +12,8 @@
 #
 # Southend:
 # http://192.168.7.175//cgi-bin/tides/get_tide.py?port=0110&time=20:47
+# Baltimore:
+# http://192.168.7.175//cgi-bin/tides/get_tide.py?port=2716&time=20:47
 #                           
 # 16Mar15 - Created
 # 17Mar15 - use time param

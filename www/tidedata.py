@@ -4,7 +4,7 @@
 # Owen Bullock - UK Tides - UKHO Easytide webscrape.
 #
 # 16 Mar 15 - Created this file
-# 17Mar      - DST  
+# 17Mar      - DST, ish. Add date to array
 #
 
 import urllib2
@@ -44,25 +44,35 @@ class public():
      # tide times
      #  
      array=[]
+     
      imax=0
      
      for first in  soup.find_all('table', {'class':'HWLWTable'} ):  # also picks up 'HWLWTable first' it seems?
        for tr in first.find_all('tr'):
          i = imax
-     
+
+         for th in tr.findAll('th', {'class':'HWLWTableHeaderCell'}):
+            # ---- dates  ----------
+            # assume: day is chars 4-5. TODO - test on 1 Apr
+            day=th.string[4:][:-4]
+
          # either th or td
          for th in tr.findAll('th', {'class':'HWLWTableHWLWCell'}):
-            # ---- hi/lo indicators ----------
-            line={}
+
+            #
+            # ---- hi/lo indicators
+            #
+            line={'day': day }
             if th.string == 'LW':
                line['state']='lo'
             else:
                line['state']='hi'
             array.append(line)
-            i = i + 1
      
          for td in tr.findAll('td', {'class':'HWLWTableCell'}):
-            # ---- height ----------
+            #
+            # ---- height
+            #
             if "m" in td.string:  
 
                # example:   <td class="HWLWTableCell">0.5 m</td>
@@ -71,12 +81,17 @@ class public():
                # remove .
                # zero pad front to 3 chars
                array[i]['height']=hm.replace(".","").zfill(3)
+
      
-            # ---- times  ----------
+            #
+            # ---- times 
+            #
             if ":" in td.string: 
                array[i]['time']=td.string[1:].encode("ascii")
             i = i + 1
+
        imax=i
+     
      
      # Exit and warn if nothing scraped. 
      if len (array) == 0: 
