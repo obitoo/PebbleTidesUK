@@ -200,11 +200,10 @@ void main_set_colours(){
   text_layer_set_background_color(s_tidetimes_text_layer, colour_bg());
   text_layer_set_text_color(s_tidetimes_text_layer,  colour_fg());
   
-  // does nothing? 
-  //text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
-  //text_layer_set_text_color(s_tideheight_text_layer2,       colour_fg_dim());
-  //text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
-  //text_layer_set_text_color(s_tideheight_text_layer1,       colour_fg_dim());
+  text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
+  text_layer_set_text_color(s_tideheight_text_layer2,       colour_fg_dim());
+  text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
+  text_layer_set_text_color(s_tideheight_text_layer1,       colour_fg_dim());
   
   text_layer_set_background_color(s_time_layer, colour_bg());
   text_layer_set_text_color(s_time_layer, colour_fg());

@@ -190,6 +190,19 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit :  print_tidetimes()");
 }
 
+/* 
+-11 -> -1.1
+010 ->  1.0 
+-01 -> -0.1
+*/
+static char* left_side_of_string(char* dest, int h){
+  if ( h < 0)
+    snprintf (dest,4,"-%d",h/10);
+  else
+    snprintf (dest,4,"%d",h/10);
+  return dest;
+}
+
 static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
     static char text_layer_buffer1[32];
@@ -201,14 +214,15 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
 
     // 3 lines - hi, lo heights plus a line in the middle (spring notification?? ):
     // need 2 layers to get the vertical alignment right
+    char left[4];
     snprintf(text_layer_buffer1, 
              sizeof(text_layer_buffer1),
-            " %d.%dm\n  %s", 
-             max_h/10, max_h % 10, TODO_info);
+             " %s.%dm\n  %s", 
+             left_side_of_string(left, max_h), abs(max_h%10), TODO_info);
     snprintf(text_layer_buffer2, 
              sizeof(text_layer_buffer2),
-            " %d.%dm\n", 
-             min_h/10, min_h % 10);
+             " %s.%dm\n", 
+             left_side_of_string(left,min_h), abs(min_h%10));
   
     // If we've lost comms to the phone, show last good update time
     if (graph_data_stale()){ 
