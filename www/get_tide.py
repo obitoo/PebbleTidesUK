@@ -17,6 +17,7 @@
 #                           
 # 16Mar15 - Created
 # 17Mar15 - use time param
+# 18Mar15 - strip country from port
 #
 #
 
@@ -50,8 +51,6 @@ if options.time:
 
 
 
-
-
 #
 # Parse url params. Ignore version for now, we can see it in the apache logs
 #
@@ -67,6 +66,13 @@ if time == 0:
    print "Content-Type: text/html\r\n\r\n"
    print "<h1>406 Missing param: time</h1>"
    sys.exit(1)
+
+
+#
+# Port can have an optional country code, its only for the config screen, so strip off
+#
+if ":" in port:
+   port = port.split(":")[1]
 
 
 #
