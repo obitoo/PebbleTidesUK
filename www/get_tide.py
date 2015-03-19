@@ -18,6 +18,7 @@
 # 16Mar15 - Created
 # 17Mar15 - use time param
 # 18Mar15 - strip country from port
+# 19Mar15 - date logic
 #
 #
 
@@ -42,6 +43,8 @@ parser.add_option("-p",  dest="port", type="string",
                   help = "port number, run for single ")
 parser.add_option("-t",  dest="time", type="string", 
                   help = "current (local) time in HH:MM")
+parser.add_option("-d",  dest="date", type="int", 
+                  help = "Day of month  ")
 (options, args) = parser.parse_args()
 
 if options.port:
@@ -103,6 +106,11 @@ if (int(port) < 801):
 #
 tides.delete_in_past(time)
 
+#
+# In addition to the above, for tz's ahead of UTC easytide will still return yesterdays data. 
+#
+if options.date:
+   tides.delete_in_past_day(options.date)
 
 #
 # Return json 

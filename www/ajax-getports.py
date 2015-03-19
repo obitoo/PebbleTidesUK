@@ -3,6 +3,7 @@
 # 
 # Owen Bullock - UK Tides - UKHO Easytide webscrape. 
 #                           
+# http://192.168.7.175////cgi-bin/tides/ajax-getports.py?country=167
 #
 # >> more portlists/5.txt 
 # 5379,Buleleng 

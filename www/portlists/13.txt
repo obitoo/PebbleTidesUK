@@ -1,3 +1,4 @@
+optgroup, Australia 
 5770,Norfolk Island 
 5772,Lord Howe Island 
 5774,Middleton Reef 
@@ -38,6 +39,7 @@
 5847,Frederick Point 
 5850,Harrington Reef 
 5854,Raine Island 
+optgroup, Australia East Coast
 5855,Turtle Head Island 
 5857,Cairncross Island 
 5859,Hannibal Island 
@@ -182,6 +184,7 @@
 6081,Apollo Bay 
 6083,Seal  Bay 
 6084,Grassy 
+optgroup, Australia South Coast
 6136,Port Campbell 
 6138,Warrnambool 
 6141,Portland, Australia 
@@ -260,6 +263,7 @@
 6240,Coral Bay 
 6241,Norwegian Bay 
 6242,Tantabiddi 
+optgroup, Australia North Coast
 6243,Point Murat 
 6244,Y Island 
 6245,North Muiron Island 

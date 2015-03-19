@@ -56,6 +56,13 @@ class public():
             # assume: day is chars 4-5. TODO - test on 1 Apr
             day=th.string[4:][:-4]
 
+            #testing
+            #if int(day)==19:
+            #   day="31"
+            #if int(day)==20:
+            #   day="1"
+        
+
          # either th or td
          for th in tr.findAll('th', {'class':'HWLWTableHWLWCell'}):
 
@@ -136,26 +143,38 @@ class public():
         element["time"]=result_str
      
  
-     
-     
   
 
    #
-   #  Website gives all tides from midnight, discard any in the past
+   #  Website gives all tides from midnight, discard any in the past. 
    #
    def delete_in_past(self, time_hhmm):
      prevmins=0
      minsnow=self._hhmm_to_mins(time_hhmm)
      for i in range(0,4):
-        t=self.tides_array[0]["time"]
+        t=self.tides_array[0]["time"]   # always zero :) 
         tidemins=self._hhmm_to_mins(t)
         if (tidemins < minsnow ) and (tidemins > prevmins):  # if its suddenly less we;ve hit midnight
            del self.tides_array[0]
            prevmins=tidemins
 
+   #
+   # similarly for date. TODO: 1st of month
+   #
+   def delete_in_past_day(self, day):
+     for i in range(0,4):
+        if int(self.tides_array[0]["day"]) < day:
+           del self.tides_array[0]
+        if day == 1 and int(self.tides_array[0]["day"]) >= 27:
+           del self.tides_array[0]
+
+
+
+
+
 
    #
-   # Output file - max 5 entries
+   # file - max 5 entries
    #
    def dump_to_file(self, outdir):
      outfile=outdir+"tides"+self.port+".json"
