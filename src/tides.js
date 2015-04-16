@@ -39,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
-    //webserver="http://192.168.7.175/";   // Dev DONT FORGET
+//    webserver="http://192.168.7.175/";   // Dev DONT FORGET
 
 
 // Listen for when the watchface is opened, then 
@@ -49,7 +49,7 @@ Pebble.addEventListener('ready',   function(e) {
     
     wait_msg = 0;
     config_open = 0;
-    config_url= webserver+"/tides/config.html?";   // NB - version2 TODO?
+    config_url= webserver+"/tides/config3.html?";   // NB - version2 TODO?
     config_defaults = {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "off",
