@@ -4,6 +4,7 @@
 # Owen Bullock - UK Tides - UKHO Easytide webscrape.
 #
 # 16 Mar 15 - Created this file
+# 17Mar      - DST, ish. Add date to array
 #
 
 import urllib2
@@ -23,6 +24,9 @@ class public():
      self.error = None
 
 
+   #
+   # pull from easytide, parse and store
+   #
    def scrape(self):
      
      url='http://www.ukho.gov.uk/easytide/EasyTide/ShowPrediction.aspx?PortID='+self.port+'&PredictionLength=7'
@@ -30,13 +34,10 @@ class public():
      
      soup = BeautifulSoup(html_doc)
      
-     #
-     # parse,and build json
-     #
      
-       #
-       # Port details/name - TODO
-       #
+     #
+     # Port details/name - TODO
+     #
      
      
      #
@@ -49,19 +50,31 @@ class public():
      for first in  soup.find_all('table', {'class':'HWLWTable'} ):  # also picks up 'HWLWTable first' it seems?
        for tr in first.find_all('tr'):
          i = imax
-     
+
+         for th in tr.findAll('th', {'class':'HWLWTableHeaderCell'}):
+            # ---- dates  ----------
+            # assume: day is chars 4-5. TODO - test on 1 Apr
+            day=th.string[4:][:-4]
+
+            #testing
+            #if int(day)==19:
+            #   day="31"
+            #if int(day)==20:
+            #   day="1"
+        
+
          # either th or td
          for th in tr.findAll('th', {'class':'HWLWTableHWLWCell'}):
+
             #
             # ---- hi/lo indicators
             #
-            line={}
+            line={'day': day }
             if th.string == 'LW':
                line['state']='lo'
             else:
                line['state']='hi'
             array.append(line)
-            i = i + 1
      
          for td in tr.findAll('td', {'class':'HWLWTableCell'}):
             #
@@ -83,16 +96,28 @@ class public():
             if ":" in td.string: 
                array[i]['time']=td.string[1:].encode("ascii")
             i = i + 1
+
        imax=i
      
      
+     # Exit and warn if nothing scraped. 
+     if len (array) == 0: 
+        self.error="No tide data scraped for port ("+self.port+")"
+        return
+
+     # save
+     self.tides_array = array
      
-     #
-     #  Get current UK time - use tz to get BST/GMT depending
-     #
-     def hhmm_to_mins(timestr):
+     
+
+
+   def _hhmm_to_mins(self, timestr):
        return int(timestr[:2])*60+int(timestr[3:])
-     
+
+   #
+   #  Get current UK time - use tz to get BST/GMT depending
+   #
+   def adjust_bst(self):
      from datetime import datetime
      from dateutil import tz
      
@@ -106,49 +131,51 @@ class public():
      # Convert time zone
      utc = utc.replace(tzinfo=from_zone)
      self.london = utc.astimezone(to_zone)
-     minsnow=hhmm_to_mins(self.london.strftime("%H:%M"))
+     minsnow=self._hhmm_to_mins(self.london.strftime("%H:%M"))
      
-     #
+
      # Modify all tidetimes to local 
-     #
-     for element in array:
+     for element in self.tides_array:
         utc_str= element["time"]
         result = utc.replace(hour=int(utc_str[:2]), minute=int(utc_str[3:]))
         result=result.astimezone(to_zone)
         result_str=result.strftime("%H:%M")
         element["time"]=result_str
      
-     
-     #
-     # Exit and warn if nothing scraped. 
-     #
-     if len (array) == 0: 
-        self.error="No tide data scraped for port ("+self.port+")"
-        return
  
-     
-     #
-     #  Website gives all tides from midnight, discard any in the past
-     #
-     prevmins=0
-     for i in range(0,4):
-        t=array[0]["time"]
-        tidemins=hhmm_to_mins(t)
-        if (tidemins < minsnow ) and (tidemins > prevmins):  # if its suddenly less we;ve hit midnight
-           del array[0]
-           prevmins=tidemins
-     
-     # 
-     # save
-     # 
-     self.tides_array = array
   
 
+   #
+   #  Website gives all tides from midnight, discard any in the past. 
+   #
+   def delete_in_past(self, time_hhmm):
+     prevmins=0
+     minsnow=self._hhmm_to_mins(time_hhmm)
+     for i in range(0,4):
+        t=self.tides_array[0]["time"]   # always zero :) 
+        tidemins=self._hhmm_to_mins(t)
+        if (tidemins < minsnow ) and (tidemins > prevmins):  # if its suddenly less we;ve hit midnight
+           del self.tides_array[0]
+           prevmins=tidemins
+
+   #
+   # similarly for date. TODO: 1st of month
+   #
+   def delete_in_past_day(self, day):
+     for i in range(0,4):
+        if int(self.tides_array[0]["day"]) < day:
+           del self.tides_array[0]
+        if day == 1 and int(self.tides_array[0]["day"]) >= 27:
+           del self.tides_array[0]
 
 
 
 
-     # Output file - max 5 entries
+
+
+   #
+   # file - max 5 entries
+   #
    def dump_to_file(self, outdir):
      outfile=outdir+"tides"+self.port+".json"
      f=open(outfile, 'w')

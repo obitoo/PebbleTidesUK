@@ -1,0 +1,33 @@
+1476,Delfzijl 
+1477,Schiermonnikoog 
+1478,Lauwersoog 
+1480,Nes 
+1483,West Terschelling 
+1484,Oost Vlieland 
+1485,Harlingen 
+1486,Kornwerderzand 
+1487,Den Oever 
+1488,Oudeschild 
+1489,Den Helder 
+1493,Noordwinning (Platform K13-A) 
+1500,Petten (South) 
+1501,Ijmuiden 
+1503,Scheveningen 
+1504,Europlatform 
+1505,HOEK VAN HOLLAND 
+1506,Maassluis 
+1507,Vlaardingen 
+1508,ROTTERDAM 
+1509,Krimpen Aan De Lek 
+1511,Schoonhoven 
+1512,Spijkenisse 
+1517,Dordrecht 
+1520,Werkendam 
+1521,Haringvlietsluizen 
+1522,Brouwershavensche Gat 
+1528,Roompot Buiten 
+1529,Stavenisse 
+1534,VLISSINGEN (FLUSHING) 
+1536,Terneuzen 
+1537,Hansweert 
+1538,Bath 

@@ -16,12 +16,18 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ---------------------------------------------------------*/
-  // History
+ /* 
+  // Construct URL - 
+  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn+"&vsn="+version+"&time="+timestring;
+*/
+
+// History
   //  16 Mar - new cgi script
+  //         - times and version no
+  //         - config2.html
   //
-  //
-  // TODO 
-  //   time, vsn in Url
+  //   
+  //   
 
 
 
@@ -33,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
-    //webserver="http://192.168.7.175/";   // Dev DONT FORGET
+//    webserver="http://192.168.7.175/";   // Dev DONT FORGET
 
 
 // Listen for when the watchface is opened, then 
@@ -43,12 +49,12 @@ Pebble.addEventListener('ready',   function(e) {
     
     wait_msg = 0;
     config_open = 0;
-    config_url= webserver+"/tides/config.html?";
+    config_url= webserver+"/tides/config3.html?";   // NB - version2 TODO?
     config_defaults = {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "off",
        "cfg_line_graph"     : "off",
-       "cfg_port"           : "0110"
+       "cfg_port"           : "0110" 
     };  
   
     console.log("  config_defaults= " + JSON.stringify(config_defaults));
@@ -66,9 +72,7 @@ Pebble.addEventListener('ready',   function(e) {
                           }
                          );
      
-    //  getTides("0110");
-  console.log("--ready event: exit");
-
+     console.log("--ready event: exit");
     }
 );
 
@@ -121,7 +125,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
 
   // save to local storage. Might be empty though
   for (var key in config) {
-    window.localStorage.setItem(key, config[key]);
+    localStorage.setItem(key, config[key]);
     console.log("  save config to localstorage:"+key+" = "+config[key]);
 	}
   
@@ -162,7 +166,9 @@ Pebble.addEventListener("webviewclosed", function(e) {
                           console.log("  Config sent to Pebble - ACK");
                             config_open = 0;
                           console.log("  config_open= 0, calling getTides()");
-                          getTides(window.localStorage.getItem("cfg_port"));   
+                          getTides(localStorage.getItem("cfg_port"),
+                                   localStorage.getItem("cfg_version"), 
+                                   localStorage.getItem("cfg_time"));   
                           console.log("  getTides() called");
                         },
                         function(e) {   //NAK
@@ -170,7 +176,9 @@ Pebble.addEventListener("webviewclosed", function(e) {
                           console.log("  ERROR - sending Config to Pebble - NAK");
                             config_open = 0;
                           console.log("  config_open= 0, calling getTides()");
-                          getTides(window.localStorage.getItem("cfg_port"));
+                          getTides(localStorage.getItem("cfg_port"),
+                                   localStorage.getItem("cfg_version"), 
+                                   localStorage.getItem("cfg_time"));   
                           console.log("  getTides() called");
                         }
                        );
@@ -197,17 +205,25 @@ Pebble.addEventListener('appmessage',   function(e) {
         console.log("   got payload");
         console.log(JSON.stringify(e.payload));
      
-        window.localStorage.setItem("cfg_invert_col", e.payload.CFG_INVERT_COL);
-        window.localStorage.setItem("cfg_show_heights", e.payload.CFG_SHOW_HEIGHTS);
-        window.localStorage.setItem("cfg_line_graph", e.payload.CFG_LINE_GRAPH);
-        window.localStorage.setItem("cfg_port", e.payload.CFG_PORT);
+        localStorage.setItem("cfg_invert_col", e.payload.CFG_INVERT_COL);
+        localStorage.setItem("cfg_show_heights", e.payload.CFG_SHOW_HEIGHTS);
+        localStorage.setItem("cfg_line_graph", e.payload.CFG_LINE_GRAPH);
+        localStorage.setItem("cfg_port", e.payload.CFG_PORT);
+        localStorage.setItem("cfg_time",    e.payload.CFG_TIME);
+        localStorage.setItem("cfg_version", e.payload.CFG_VERSION);
       
-        location = e.payload.CFG_PORT;
+        location=e.payload.CFG_PORT;
     }
 
     // make web request for tides
-    console.log(" calling getTides - "+location);
-    getTides(location);
+    console.log(" calling getTides - "+e.payload.CFG_PORT);
+    getTides(location, e.payload.CFG_VERSION, e.payload.CFG_TIME);
+  
+    var offsetMinutes = new Date().getTimezoneOffset() * 60;
+    console.log("  TIMEZONEEE========= offsetMinutes= "+offsetMinutes);
+
+  
+  
   }                     
 );
 
@@ -229,7 +245,7 @@ var xhrRequest = function (url, type, callback) {
 };
 
 
-function getTides(locn) {
+function getTides(locn, version, timestring) {
   console.log("getTides:"+locn);
 
   // might work
@@ -239,8 +255,7 @@ function getTides(locn) {
   }
   
   // Construct URL - 
-  // eg: http://192.168.7.175/cgi-bin/tides/get_tide.py?port=5678&vsn=2&time=14:27 
-  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn+"&vsn=2.0&time=13:37";
+  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn+"&vsn="+version+"&time="+timestring;
   
   // Send request to my Server
   // TODO - what if http get fails? 

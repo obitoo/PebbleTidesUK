@@ -113,6 +113,25 @@ void message_send_outbox() {
     dict_write_cstring(iter, CFG_INVERT_COL,   config_get_string(CFG_INVERT_COL)); 
     dict_write_cstring(iter, CFG_LINE_GRAPH,   config_get_string(CFG_LINE_GRAPH));
     dict_write_cstring(iter, CFG_SHOW_HEIGHTS, config_get_string(CFG_SHOW_HEIGHTS));
+  
+    // Pass watch time and version no
+    // (slight duplication of work in main.c - but i always want this in 24h fmt)
+    time_t epoch = time(NULL); 
+    struct tm *tick_time = localtime(&epoch);
+
+    time_t local = mktime (tick_time);
+  
+    APP_LOG(APP_LOG_LEVEL_ERROR, "             epoch: %u " , (size_t) epoch);
+    APP_LOG(APP_LOG_LEVEL_ERROR, "             local: %u " , (size_t)local);
+
+  
+    char hhmm[] = "00:00";
+    strftime(hhmm, sizeof("00:00"), "%H:%M", tick_time);
+
+    dict_write_cstring(iter, CFG_TIME,         hhmm      );  
+    dict_write_cstring(iter, CFG_VERSION,      APPVERSION);
+
+    APP_LOG(APP_LOG_LEVEL_ERROR, "                     - sending time of %s", hhmm );
 
     // Dont do this. Really. https://developer.getpebble.com/2/guides/app-phone-communication.html
     //dict_write_end (iter);
@@ -135,8 +154,10 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   if (p_current_time != NULL)
       strcpy(appmsg_received_time, p_current_time);
     
-  // Read first item
+  // Read first item. Update: key 0 not always first on Basalt emulator. So loop
   Tuple *t = dict_read_first(iterator);
+  while (t->key != MSG_TYPE)
+       t = dict_read_next(iterator);
 
   // route to different msg handlers
   if (!strcmp(t->value->cstring,"tides")){
@@ -161,8 +182,8 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
 static int js_tides(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
 
-  // first item already read
-  Tuple *t = dict_read_next(iterator);
+  // start again, in case order was jumbled
+  Tuple *t = dict_read_first(iterator);
 
   // For all items
   while(t != NULL) {
@@ -204,7 +225,8 @@ static int js_tides(DictionaryIterator *iterator, void *context){
         case   KEY_HEIGHT_3:
                height_buf[3] = atoi(t->value->cstring);
                break;
-      
+        case   MSG_TYPE:
+               break;
         default:
                APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
                break;
@@ -222,7 +244,7 @@ static int js_tides(DictionaryIterator *iterator, void *context){
 static int js_config(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
   
-  Tuple *t = dict_read_next(iterator);
+  Tuple *t = dict_read_first(iterator);
 
   // For all items
   while(t != NULL) {
@@ -248,6 +270,8 @@ static int js_config(DictionaryIterator *iterator, void *context){
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Port: %s", (t->value->cstring));
              config_save_string(CFG_PORT,         t->value->cstring);
              break;
+      case MSG_TYPE:
+             break;
        default:
              APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
              break;
@@ -269,7 +293,7 @@ static int js_config(DictionaryIterator *iterator, void *context){
 static int js_ready(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );
     
-  // consume msg
+  // consume msg. Necessary?
   Tuple *t; 
   do {
     t = dict_read_next(iterator);

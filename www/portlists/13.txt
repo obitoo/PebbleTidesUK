@@ -1,0 +1,355 @@
+optgroup, Australia 
+5770,Norfolk Island 
+5772,Lord Howe Island 
+5774,Middleton Reef 
+5775,Cato Island 
+5781,Marion Reef 
+5782,Mellish Reef 
+5784,East Diamond Island 
+5785,Willis Islands 
+5790,Murray Islands 
+5793,Bramble Cay 
+5794,Darnley Island 
+5798,Rennel Island 
+5800,Dungeness Reef 
+5801,Talab Island 
+5802,Saibai Island 
+5803,Gabba Island 
+5804,Yam Island 
+5807,Coconut Island 
+5808,Suarji Island 
+5809,Hawkesbury Island 
+5810,TWIN ISLAND 
+5811,East Strait Island 
+5814,Ince Point (Wednesday Island) 
+5817,THURSDAY ISLAND 
+5818,Turtle Head 
+5819,Round Island 
+5820,GOOD'S ISLAND 
+5821,White Rocks 
+5823,BOOBY ISLAND 
+5824,Proudfoot Shoal 
+5825,Turu Cay 
+5828,Bampfield Head 
+5830,Tarilag Island 
+5833,Crab Island 
+5834,Herald Camp 
+5836,Red Island 
+5839,Possession Island 
+5847,Frederick Point 
+5850,Harrington Reef 
+5854,Raine Island 
+optgroup, Australia East Coast
+5855,Turtle Head Island 
+5857,Cairncross Island 
+5859,Hannibal Island 
+5860,Shelburne Bay 
+5861,Cape Grenville 
+5863,Sir Charles Hardy Islands 
+5865,Piper Island 
+5866,Portland Road 
+5867,Restoration Island 
+5868,Chapman Island 
+5869,Ham Reef 
+5871,Night Island 
+5872,Suchen Reef 
+5873,Morris Island 
+5874,Creech Reef 
+5875,Fife Island 
+5876,Pelican Island, Queensland 
+5878,Normanby River 
+5880,Flinders Islands (Owen Channel) 
+5882,Pipon Islands 
+5887,Leggatt Island 
+5889,Lizard Island 
+5890,Cape Flattery, Australia 
+5891,Low Wooded Isle 
+5894,Cooktown 
+5899,Bailay Creek 
+5903,Low Islets 
+5904,Port Douglas 
+5905,Michaelmas Cay 
+5906,Cairns 
+5907,Green Island 
+5909,Fitzroy Island 
+5910,Sudbury Cay 
+5912,High Island 
+5913,Russell Island 
+5914,Mourilyan Harbour 
+5916,Clump Point 
+5917,Dunk Island 
+5918,Goold Island 
+5919,Cardwell 
+5920,Lucinda 
+5921,Pith Reef 
+5922,Rib Reef 
+5923,Albino Rock 
+5925,TOWNSVILLE 
+5926,Cape Ferguson 
+5930,Abbot Point 
+5932,Bowen 
+5934,Hayman Island 
+5936,Double Bay 
+5938,Molle Island 
+5939,Shute Harbour 
+5940,Hook Island 
+5944,East Repulse Island 
+5945,Bugatti Reef 
+5946,Carlisle Island 
+5948,St. Bees Island 
+5949,Scawfell Island 
+5950,Penrith Island 
+5951,MACKAY 
+5952,Hay Point 
+5953,Prudhoe Island 
+5954,Middle Island 
+5955,Bell Cay 
+5958,Flock Pigeon Island 
+5959,Mcewen Islet 
+5961,Osborn Islet 
+5962,High Peak Island 
+5963,Marquis Island 
+5965,Port Clinton 
+5966,Rosslyn Bay 
+5969,PORT ALMA 
+5971,Cape Capricorn 
+5972,Tryon Island 
+5973,Heron Island 
+5974,Gatcombe Head 
+5975,Gladstone 
+5977,Clews Point 
+5978,Lady Musgrave Island 
+5979,Lady Elliot Island 
+5982,Bundaberg (Burnett Heads) 
+5983,Elliot Heads 
+5985,Urangan 
+5989,Ungowa 
+5990,Breaksea Spit 
+5991,Waddy Point 
+5992,Elbow Point 
+5994,Noosa Head 
+5995,Mooloolaba 
+5996,Caloundra Head 
+5997,Bribie 
+5998,BRISBANE RIVER BAR 
+6000,Brisbane 
+6001,Beacon M2 (Moreton Bay) 
+6002,Tangalooma Point 
+6004,Runaway Bay 
+6005,Gold Coast Seaway 
+6006,Bundall 
+6007,Point Danger 
+6008,Brunswick Heads 
+6009,Ballina 
+6013,Yamba 
+6017,N.W. Solitary Island 
+6018,Coffs Harbour 
+6020,South West Rocks 
+6022,Port Macquarie 
+6023,Camden Haven 
+6024,Harrington Inlet 
+6025,Forster 
+6027,Broughton Island, Australia 
+6029,Nelson Bay 
+6030,Salamander Bay 
+6031,NEWCASTLE 
+6032,Ettalong 
+6033,Little Patonga 
+6034,Pittwater 
+6037,SYDNEY (FORT DENISON) 
+6039,BOTANY BAY 
+6040,Port Hacking 
+6042,Port Kembla 
+6044,Jervis Bay 
+6046,Ulladulla Harbour 
+6047,Batemans Bay 
+6048,Moruya River Bar 
+6050,Bermagui 
+6053,Eden 
+6055,Gabo Island 
+6056,Lakes Entrance (Inner) 
+6057,Port Welshpool 
+6061,Rabbit Island 
+6062,Hogan Island 
+6063,Deal Island (Garden Cove) 
+6064,Bass Pyramid 
+6065,Curtis Island 
+6066,East Monceour Island 
+6068,Waratah Bay 
+6071,Western Port (Stony Point) 
+6073,PORT PHILLIP HEADS (POINT LONSDALE) 
+6077,Geelong 
+6078,MELBOURNE (WILLIAMSTOWN) 
+6080,Lorne 
+6081,Apollo Bay 
+6083,Seal  Bay 
+6084,Grassy 
+optgroup, Australia South Coast
+6136,Port Campbell 
+6138,Warrnambool 
+6141,Portland, Australia 
+6143,Port Macdonnell 
+6145,Beachport 
+6146,Robe (Offshore) 
+6147,Kingston 
+6149,Victor Harbour 
+6151,Vivonne Bay 
+6152,Emu Bay 
+6153,Kingscote 
+6154,American River 
+6155,Penneshaw 
+6156,Cape Jervis 
+6157,Second Valley 
+6158,Port Noarlunga 
+6159,Brighton (S.Australia) 
+6160,PORT ADELAIDE (OUTER HARBOUR) 
+6165,Ardrossan (S. Australia) 
+6167,Port Vincent 
+6168,Port Giles 
+6169,Edithburgh 
+6173,Stenhouse Bay 
+6174,Pondalowie Bay 
+6175,Port Turton 
+6176,Port Victoria (Spencer Gulf) 
+6177,Cape Elizabeth 
+6178,WALLAROO 
+6179,Port Broughton 
+6180,Port Pirie 
+6182,Redcliff 
+6183,Port Augusta 
+6184,WHYALLA 
+6185,Franklin Harbour 
+6186,Arno Bay 
+6188,Port Neill 
+6190,PORT LINCOLN 
+6191,Taylors Landing 
+6193,Wedge Island 
+6194,Greenly Island 
+6195,Elliston 
+6196,Pearson Island 
+6198,Blanche Port 
+6200,Thevenard 
+6201,Saint Francis Island 
+6202,Port Eyre 
+6204,Eucla 
+6206,Goose Island 
+6208,Esperance 
+6210,Mary Ann Haven 
+6211,Bremer Bay 
+6212,ALBANY 
+6214,Windy Harbour 
+6215,Flinders Bay 
+6216,Cape Hamelin 
+6217,Cowaramup 
+6218,Busselton 
+6219,Bunbury 
+6220,Mandurah 
+6221,Warnbro Sound 
+6223,Fremantle 
+6224,Two Rocks Marina 
+6225,Lancelin 
+6226,Cervantes 
+6227,Jurien Bay 
+6228,Port Denison 
+6229,Geraldton 
+6230,Easter Group 
+6231,Port Gregory 
+6232,Kalbarri 
+6233,Withnell Point 
+6234,Useless Loop 
+6235,Hamelin Pool 
+6236,Monkey Mia 
+6237,CARNARVON 
+6240,Coral Bay 
+6241,Norwegian Bay 
+6242,Tantabiddi 
+optgroup, Australia North Coast
+6243,Point Murat 
+6244,Y Island 
+6245,North Muiron Island 
+6246,Serrurier (Long) Island 
+6247,Onslow (Beadon Point) 
+6248,Large Islet 
+6249,WAPET LANDING 
+6250,Trimouille Island 
+6251,North Sandy Island 
+6252,Fortescue Road 
+6254,Dampier (Hampton Harbour) 
+6256,Port Walcott 
+6257,Depuch Island 
+6259,PORT HEDLAND 
+6261,Bedout Island 
+6263,Lagrange Bay 
+6265,Broome 
+6268,Red Bluff 
+6272,Lynher Bank 
+6273,Scott Reef 
+6274,Ashmore Reef (West Islet) 
+6275,Karrakatta Bay 
+6276,Point Usborne 
+6278,Derby 
+6284,Bedford Island 
+6286,Yampi Sound (Koolan Island) 
+6288,Macleay Island 
+6289,Adele Island 
+6290,Browse Island 
+6291,Shale Island 
+6292,Hall Point 
+6293,Degerando Island 
+6296,Skua Well No.4 
+6298,Jabiru 
+6299,Cape Voltaire 
+6300,Baudin Island 
+6301,Port Warrender 
+6302,Jar Island 
+6303,Carronade Island 
+6304,Lesueur Island 
+6305,Reveley Island 
+6306,Lacrosse Island 
+6307,Adolphus Island 
+6308,Pender Point 
+6309,Wyndham 
+6310,Pelican Island 
+6311,Turtle Point 
+6316,Pearce Point, Australia 
+6317,Port Keats 
+6318,North Peron Island 
+6319,Point Jenny 
+6320,Tapa Bay 
+6321,Burge Point 
+6322,Night Cliff 
+6323,DARWIN 
+6324,Hancox Shoal 
+6325,Cape Hotham 
+6327,West Alligator Head 
+6328,Two Hills Bay 
+6330,Camp Point 
+6332,Newby Shoal 
+6333,St. Asaph Bay 
+6334,Snake Bay 
+6335,Echo Shoal 
+6336,Cape Don 
+6337,Port Essington, Australia 
+6339,Cape Croker 
+6340,Copeland Island 
+6341,North Goulburn Island 
+6342,Paxie Shoal 
+6343,Entrance Island (Liverpool River) 
+6344,Yabooma Island 
+6345,Guluwuru Island 
+6346,Two Island Bay 
+6347,Mallison Island 
+6348,GOVE 
+6349,Cape Arnhem 
+6350,Hawk Island 
+6351,Port Langdon 
+6352,West Island 
+6353,Centre Island 
+6354,Mornington Island 
+6355,Bountiful Island 
+6356,Sweers Island 
+6358,KARUMBA 
+6361,Archer River 
+6362,WEIPA 
+6363,Pennefather River 
+6364,Cullen Point 

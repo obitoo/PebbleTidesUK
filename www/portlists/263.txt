@@ -1,0 +1,433 @@
+optgroup, England
+0001,St. Mary's 
+0002,Penzance (Newlyn) 
+0003,Lizard Point 
+0004,Coverack 
+0005,FALMOUTH 
+0007,Mevagissey 
+0008,Fowey 
+0011,Looe 
+0012,Whitsand Bay 
+0014,PLYMOUTH (DEVONPORT) 
+0015,Turnchapel 
+0017,River Yealm Entrance 
+0020,Salcombe 
+0021,Start Point 
+0023,DARTMOUTH 
+0025,TORQUAY 
+0026,Teignmouth (Approaches) 
+0027,Exmouth Dock 
+0028,Lyme Regis 
+0029,Bridport (West Bay) 
+0030,Chesil Beach 
+0031,Chesil Cove 
+0033,PORTLAND 
+0034,Lulworth Cove 
+0035,Swanage 
+0036,Poole (Entrance) 
+0037,Bournemouth 
+0038,Christchurch (Entrance) 
+0039,Hurst Point 
+0040,Lymington 
+0042,Bucklers Hard 
+0043,Stansore Point 
+0045,Yarmouth 
+0046,Totland Bay 
+0048,Freshwater Bay 
+0051,Ventnor 
+0053,Sandown 
+0054,Bembridge Harbour 
+0058,Ryde 
+0060,COWES 
+0061,Calshot Castle 
+0062,SOUTHAMPTON 
+0063,Redbridge 
+0064,Lee-On-The-Solent 
+0065,PORTSMOUTH 
+0066,Langstone Harbour 
+0068,CHICHESTER HARBOUR (ENTRANCE) 
+0069,Selsey Bill 
+0070,Nab Tower 
+0072,Pagham 
+0073,Bognor Regis 
+0074,Littlehampton 
+0075,Worthing 
+0081,SHOREHAM 
+0082,Brighton Marina 
+0083,Newhaven 
+0084,Eastbourne 
+0085,Hastings 
+0086,Rye (Approaches) 
+0087,Dungeness 
+0088,Folkestone 
+0089,DOVER 
+0098,Deal 
+0099,Richborough 
+0102,Ramsgate 
+0103,MARGATE 
+0104,Herne Bay 
+0105,Whitstable Approaches 
+0106,Grovehurst Jetty 
+0107,Faversham 
+0108,SHEERNESS 
+0109,Chatham (Lock Approaches) 
+0110,Southend-On-Sea 
+0111,TILBURY 
+0112,North Woolwich 
+0113,LONDON BRIDGE (TOWER PIER) 
+0114,Albert Bridge 
+0115,Hammersmith Bridge 
+0116,Richmond Lock 
+0117,S.E. Long Sand 
+0121,Whitaker Beacon 
+0122,Burnham-On-Crouch 
+0123,Bradwell Waterside 
+0124,West Mersea 
+0126,Brightlingsea 
+0127,Colchester 
+0128,Clacton-On-Sea 
+0129,WALTON-ON-THE-NAZE 
+0130,Sunk Head 
+0131,HARWICH 
+0132,Mistley 
+0133,Ipswich 
+0134,Woodbridge Haven 
+0135,Bawdsey 
+0136,Orford Haven Bar 
+0137,Orford Ness 
+0139,Aldeburgh 
+0140,Southwold 
+0141,LOWESTOFT 
+0142,Gorleston-On-Sea 
+0143,Caister-On-Sea 
+0144,Winterton-On-Sea 
+0154,Cromer 
+0155,Blakeney Bar 
+0157,Wells Bar 
+0158,Burnham (Overy Staithe) 
+0161,Hunstanton 
+0162,King's Lynn 
+0163,Outer Westmark Knock 
+0164,Port Sutton Bridge 
+0165,Tabs Head 
+0166,Boston, England 
+0167,Skegness 
+0168,Inner Dowsing Light 
+0171,SPURN HEAD 
+0172,Grimsby 
+0173,IMMINGHAM 
+0174,Hull (King George Dock) 
+0175,Hull (Albert Dock) 
+0176,Humber Bridge 
+0177,Burton Stather 
+0178,Keadby 
+0179,Blacktoft 
+0180,Goole 
+0181,Bridlington 
+0182,Filey Bay 
+0183,Scarborough 
+0184,Whitby 
+0185,RIVER TEES ENTRANCE 
+0186,Middlesbrough (Dock Entrance) 
+0187,Tees (Newport) Bridge 
+0188,Hartlepool 
+0189,Seaham 
+0190,Sunderland 
+0202,RIVER TYNE (NORTH SHIELDS) 
+0203,Newcastle-Upon-Tyne 
+0204,Blyth 
+0205,Coquet Island 
+0206,Amble 
+0207,North Sunderland (Northumberland) 
+0208,Holy Island 
+0209,Berwick 
+0432,Silloth 
+0433,Maryport 
+0434,Workington 
+0435,Whitehaven 
+0436,Tarn Point 
+0437,Duddon Bar 
+0439,BARROW (RAMSDEN DOCK) 
+0440,Ulverston 
+0441,Heysham 
+0442,Glasson Dock 
+0443,Wyre Lighthouse 
+0444,Fleetwood 
+0445,Blackpool 
+0446,Preston 
+0447,Southport 
+0448,Formby 
+0451,LIVERPOOL (GLADSTONE DOCK) 
+0452,Liverpool (Alfred Dock) 
+0453,Eastham 
+0455,Hale Head 
+0456,Widnes 
+0461,Hilbre Island 
+0462,Chester 
+0518,Beachley (Aust) 
+0519,Inward Rocks 
+0520,Narlwood Rocks 
+0521,White House 
+0522,Berkeley 
+0523,PORT OF BRISTOL (AVONMOUTH) 
+0524,Cumberland Basin Entrance 
+0525,Clevedon 
+0526,English And Welsh Grounds 
+0527,Weston-Super-Mare 
+0528,Burnham-On-Sea 
+0529,Bridgwater 
+0530,Hinkley Point 
+0531,Watchet 
+0532,Minehead 
+0533,Porlock Bay 
+0534,Lynmouth 
+0535,Ilfracombe 
+0536,Appledore 
+0537,Yelland Marsh 
+0538,Fremington 
+0539,Barnstaple 
+0540,Bideford 
+0541,Clovelly 
+0542,Lundy 
+0543,Bude 
+0544,Boscastle 
+0545,Padstow 
+0546,Newquay 
+0547,St. Ives 
+0548,Sennen Cove 
+optgroup, Wales
+0463,Connah's Quay 
+0464,Mostyn Docks 
+0470,Colwyn Bay 
+0471,Llandudno 
+0472,Beaumaris 
+0473,Menai Bridge 
+0474,Port Dinorwic 
+0475,Caernarfon 
+0476,Trwyn Dinmor 
+0477,Amlwch 
+0478,HOLYHEAD 
+0479,Trearddur Bay 
+0480,Llanddwyn Island 
+0481,Porth Dinllaen 
+0482,Bardsey Island 
+0483,Pwllheli 
+0484,Porthmadog 
+0485,Barmouth 
+0486,Aberdovey 
+0487,Aberystwyth 
+0488,New Quay 
+0489,Port Cardigan 
+0490,FISHGUARD 
+0491,Porthgain 
+0492,Ramsey Sound 
+0493,Martin's Haven 
+0494,Skomer Island 
+0495,Dale Roads 
+0496,MILFORD HAVEN 
+0497,Neyland 
+0498,Black Tar 
+0499,Haverfordwest 
+0501,Stackpole Quay 
+0502,Tenby 
+0504,Ferryside 
+0505,Burry Port 
+0508,Mumbles 
+0509,SWANSEA 
+0510,Port Talbot 
+0512,Porthcawl 
+0513,Barry 
+0514,Cardiff 
+0515,Newport 
+0516,Chepstow 
+0517,Sudbrook 
+optgroup, Scotland
+0221,Eyemouth 
+0222,Dunbar 
+0223,Fidra 
+0224,Cockenzie 
+0225,LEITH 
+0226,Granton 
+0227,ROSYTH 
+0228,Grangemouth 
+0229,Kincardine 
+0230,Burntisland 
+0231,Kirkcaldy 
+0232,Methil 
+0233,Anstruther Easter 
+0235,River Tay Bar 
+0236,Dundee 
+0241,Arbroath 
+0242,Montrose 
+0243,Stonehaven 
+0244,ABERDEEN 
+0245,Peterhead 
+0246,Fraserburgh 
+0247,Banff 
+0248,Buckie 
+0249,Lossiemouth 
+0250,Burghead 
+0253,Nairn 
+0254,Mcdermott Base 
+0255,Fortrose 
+0256,Inverness 
+0258,Cromarty 
+0259,INVERGORDON 
+0260,Dingwall (Cromarty Firth) 
+0261,Portmahomack 
+0262,Meikle Ferry 
+0264,Golspie 
+0265,Helmsdale 
+0267,WICK 
+0268,Duncansby Head 
+0270,Muckle Skerry 
+0271,Burray Ness 
+0272,Deer Sound 
+0273,Kirkwall 
+0274,Loth 
+0275,Kettletoft Pier 
+0276,Rapness 
+0277,Pierowall 
+0279,Tingwall 
+0280,Stromness 
+0281,St. Mary's (Scapa Flow) 
+0282,Widewall Bay 
+0285,Fair Isle 
+0287,LERWICK 
+0288,Dury Voe 
+0289,Out Skerries 
+0290,Burra Voe (Yell Sound) 
+0291,Burra Firth 
+0292,Bluemull Sound 
+0293,SULLOM VOE 
+0294,Hillswick 
+0295,Scalloway 
+0296,Bay Of Quendale 
+0297,Stroma 
+0298,Scrabster 
+0299,Sule Skerry 
+0300,Portnancon 
+0301,Kyle Of Durness 
+0304,Rona 
+0308,STORNOWAY 
+0309,Loch Shell 
+0310,E. Loch Tarbert 
+0311,Loch Maddy 
+0312,Loch Skiport 
+0313,Loch Boisdale 
+0314,Barra (North Bay) 
+0316,Barra Head 
+0317,Shillay 
+0318,Balivanich 
+0320,West Loch Tarbert 
+0321,Little Bernera 
+0322,St. Kilda 
+0323,Flannan Isles 
+0324,Rockall 
+0327,Kinlochbervie 
+0328,Loch Laxford 
+0329,Badcall Bay 
+0330,Loch Nedd 
+0332,Loch Inver 
+0333,Tanera Mor 
+0334,ULLAPOOL 
+0336,Mellon Charles 
+0337,Gairloch 
+0338,Shieldaig 
+0339,Plockton 
+0340,Loch A' Bhraige 
+0341,Broadford Bay 
+0342,Portree 
+0343,Loch Snizort (Uig Bay) 
+0344,Loch Dunvegan 
+0345,Loch Harport 
+0346,Camus Nan Gall 
+0349,Kyle Of Lochalsh 
+0351,Glenelg Bay 
+0352,Loch Hourn 
+0353,Inverie Bay 
+0354,Bay Of Laig 
+0355,Loch Moidart 
+0356,Loch Eatharna 
+0357,Gott Bay 
+0359,Carsaig Bay (Mull) 
+0360,Iona 
+0361,Bunessan 
+0362,Sound Of Ulva 
+0363,Salen 
+0364,Tobermory 
+0365,Loch Aline 
+0367,Corran 
+0368,Corpach 
+0369,Loch Leven Head 
+0370,Port Appin 
+0371,Dunstaffnage Bay 
+0372,OBAN 
+0373,Seil Sound 
+0374,Scalasaig 
+0375,Glengarrisdale Bay 
+0377,Rubh' A' Mhail 
+0378,Ardnave Point 
+0379,Orsay 
+0380,Bruichladdich 
+0381,Port Ellen 
+0382,Port Askaig 
+0383,Craighouse 
+0384,Loch Beag 
+0387,Carsaig Bay 
+0389,Sound Of Gigha 
+0390,Machrihanish 
+0391,Southend (Kintyre) 
+0393,Campbeltown 
+0394,East Loch Tarbert 
+0395,Inveraray 
+0396,Rubha A' Bhodaich 
+0398,Millport 
+0399,Rothesay Bay 
+0401,Arrochar 
+0402,Rosneath 
+0403,Helensburgh 
+0404,GREENOCK 
+0405,Port Glasgow 
+0406,Bowling 
+0407,Glasgow 
+0408,Brodick Bay 
+0409,Lamlash 
+0410,Ardrossan 
+0411,Irvine 
+0412,Troon 
+0413,Ayr 
+0414,Girvan 
+0415,Portpatrick 
+0419,Drummore 
+0420,Luce Bay (Offshore Platform) 
+0421,Isle Of Whithorn 
+0422,Garlieston 
+0424,Hestan Island 
+0425,Southerness Point 
+0426,Annan Waterfoot 
+0430,Torduff Point 
+0431,Redkirk 
+optgroup, Northern Ireland
+0627,Cranfield Point 
+0628,Warrenpoint 
+0629,Kilkeel 
+0630,Newcastle (N.Ireland) 
+0631,Ardglass 
+0632,Killard Point 
+0633,Strangford 
+0634,Killyleagh 
+0635,South Rock 
+0636,Portavogie 
+0637,Donaghadee 
+0638,BELFAST 
+0639,Carrickfergus 
+0641,LARNE 
+0643,Red Bay 
+0644,Cushendun 
+0651,Ballycastle Bay 
+0652,Portrush 
+0653,Coleraine 
+0657,Culmore Point 
+0658,RIVER FOYLE (LISAHALLY) 
+0659,Londonderry 

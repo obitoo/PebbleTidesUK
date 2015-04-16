@@ -23,6 +23,8 @@
 
 static int calc_mins (char *, int *);
 extern GColor colour_fg();
+extern GColor colour_fg_dim();
+
 extern GColor colour_bg();
   
 static int draw_x[] = {0,0,0,0,0};  // relative  // GRAPH_NUM_POINTS
@@ -59,7 +61,7 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
 
   if (1){
     // set stroke colour - here? every time? 
-    graphics_context_set_stroke_color(ctx, colour_fg());
+    //graphics_context_set_stroke_color(ctx, colour_fg_dim());
   
     draw_box(ctx);
     draw_tidepoints(ctx); 
@@ -75,6 +77,9 @@ void print_tide_text_layers (char (*p_state_buf)[8],
                              int *p_height_buf, 
                              char *time_str) {
   
+  // colour - setting it in main_set_colours() doesnt work for some reason
+  text_layer_set_text_color(s_tidetimes_text_layer, colour_fg());
+
   // times
   print_tidetimes(p_state_buf, p_time_buf);
   
@@ -93,6 +98,7 @@ void print_tide_text_layers (char (*p_state_buf)[8],
 static void draw_box(GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  draw_box()");
   
+  graphics_context_set_stroke_color(ctx, colour_fg());
 
   // nice border
   int _xpix = config_get_intval(CGRAPH_X_PX);  
@@ -184,6 +190,19 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit :  print_tidetimes()");
 }
 
+/* 
+-11 -> -1.1
+010 ->  1.0 
+-01 -> -0.1
+*/
+static char* left_side_of_string(char* dest, int h){
+  if ( h < 0)
+    snprintf (dest,4,"-%d",h/10);
+  else
+    snprintf (dest,4,"%d",h/10);
+  return dest;
+}
+
 static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
     static char text_layer_buffer1[32];
@@ -195,14 +214,15 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
 
     // 3 lines - hi, lo heights plus a line in the middle (spring notification?? ):
     // need 2 layers to get the vertical alignment right
+    char left[4];
     snprintf(text_layer_buffer1, 
              sizeof(text_layer_buffer1),
-            " %d.%dm\n  %s", 
-             max_h/10, max_h % 10, TODO_info);
+             " %s.%dm\n  %s", 
+             left_side_of_string(left, max_h), abs(max_h%10), TODO_info);
     snprintf(text_layer_buffer2, 
              sizeof(text_layer_buffer2),
-            " %d.%dm\n", 
-             min_h/10, min_h % 10);
+             " %s.%dm\n", 
+             left_side_of_string(left,min_h), abs(min_h%10));
   
     // If we've lost comms to the phone, show last good update time
     if (graph_data_stale()){ 
@@ -226,6 +246,8 @@ static void draw_sinewave (GContext* ctx){
 //   for (;x<=4; x++) 
 //       APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
  
+  graphics_context_set_stroke_color(ctx, colour_fg_dim());
+
   // this one is offscreen, so we guess a bit
   plot_quarter_line(ctx, 
                     draw_x[0]-draw_x[2]+draw_x[1], 
@@ -323,7 +345,6 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   // calculate height range
   int min_h, max_h;
   int range_y = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
-  APP_LOG(APP_LOG_LEVEL_WARNING, "        got y range %d ", range_y);
  
   // loop for each input 
   while (count_input < NUM_TIDES_BACKGROUND) {

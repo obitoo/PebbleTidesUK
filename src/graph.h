@@ -39,6 +39,8 @@
 #define  CFG_SHOW_HEIGHTS 14
 #define  CFG_LINE_GRAPH   15
 #define  CFG_PORT         16
+#define  CFG_TIME         17
+#define  CFG_VERSION      18
   
   
 
