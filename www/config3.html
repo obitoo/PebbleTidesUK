@@ -4,12 +4,63 @@
     <title>Tides</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 
+  <style>
+.ui-selectmenu.ui-popup .ui-input-search {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+.ui-selectmenu.ui-dialog .ui-content {
+    padding-top: 0;
+}
+.ui-selectmenu.ui-dialog .ui-selectmenu-list {
+    margin-top: 0;
+}
+.ui-selectmenu.ui-popup .ui-selectmenu-list li.ui-first-child .ui-btn {
+    border-top-width: 1px;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+.ui-selectmenu.ui-dialog .ui-header {
+    border-bottom-width: 1px;
+}
+  </style>
   <script>
+
+<!-- http://demos.jquerymobile.com/1.4.5/selectmenu-custom-filter/#&ui-state=dialog&ui-state=dialog&ui-state=dialog --!>
+<!-- Works but not in pebble js sandbox FFS                                                                          --!>
+
+
+$(document).on("pagecreate", "#list-port-dialog", function (e) {
+    var form = $("<form><input data-type='search'/></form>"),
+        page = $(this);
+    
+    if (!form) {
+       return;
+    }
+    $(".ui-content", this)
+        .prepend(form);
+    
+    form.enhanceWithin()
+        .on("keyup", "input", function () {
+        var data = $(this).val().toLowerCase();
+        $("li", page).addClass("ui-screen-hidden")
+            .filter(function (i, v) {
+            return $(this).text().toLowerCase().indexOf(data) > -1;
+        }).removeClass("ui-screen-hidden");
+    });
+    
+    $(document).on("pagecontainerhide", function () {
+        $("#list-port-menu li").removeClass("ui-screen-hidden");
+        $("input", form).val("");
+    });
+    
+});
+
 
       // 
       // param decoding 
@@ -37,20 +88,26 @@
            //alert("port index is "+found);
            var myselect = $("select#"+fieldname);
            myselect[0].selectedIndex = found;
-           myselect.selectmenu("refresh");
+        //   myselect.selectmenu("refresh");
       };
-         // as above but deals with optgroups getting in the way
+         // as above but deals with optgroup as first entry
       function select_list_item_optgroup(fieldname, cfg_port) {
            var index = 1, found = 0;
    
            $("#"+fieldname+" > optgroup").each(function() {
               $(this).children("option").each(function(){
-              //   alert ("port1:"+this.value+"="+this.text);
+                 //alert ("port1:"+this.value+"="+this.text);
                  if (cfg_port == this.value) { found = index ; }
                  index = index + 1;
                })
            });
            //alert("port index is "+found);
+
+           if (found == 0) { 
+              select_list_item (fieldname, cfg_port);
+              return;
+           }
+
            var myselect = $("select#"+fieldname);
            myselect[0].selectedIndex = found;
            myselect.selectmenu("refresh");
@@ -69,12 +126,11 @@
       // Ajax call
       //
       function populate_second_list(country) {
-
           var list_target_id = 'list-port'; 
           var selectvalue = country;
 
           //Display 'loading' status in the target select list
-          $('#'+list_target_id).html('<option value="">Loading...</option>');
+//          $('#'+list_target_id).html('<option value="">Loading...</option>');
 
           if (selectvalue == "") {
               //Display initial prompt in target select if blank value selected
@@ -82,13 +138,44 @@
           } else {
             //Make AJAX request, using the selected value as the GET
             $.ajax({url: '../../cgi-bin/tides/ajax-getports.py?country='+selectvalue,
-                   success: function(output) {
-                      // alert(output);
-                      var top_line = '<option value="">Now select a port...</option>'; 
-                      $('#'+list_target_id).html(top_line+output);
-                         // Get port number and select it
-                      var port_country = get_port_and_country();
-                      select_list_item_optgroup ("list-port", port_country.port);
+                   success: 
+                   function(output) {
+                        var top_line = '<option value="">Now select a port...</option>'; 
+                        $('#'+list_target_id).html(top_line);
+                        $('#'+list_target_id).append(output);
+
+                           // Get port number and select it
+                        var port_country = get_port_and_country();
+                        select_list_item_optgroup ("list-port", port_country.port);
+
+                        //--- search box --------------
+                        var input,
+                            selectmenu = $( "#list-port" ),
+                            list = $( "#" + selectmenu.attr( "id" ) + "-menu" ),
+                            form = list.jqmData( "filter-form" );
+
+                        if ( !form ) {
+                            input = $( "<input data-type='search'></input>" );
+                            form = $( "<form></form>" ).append( input );
+                            input.textinput();
+                            list
+                                .before( form )
+                                .jqmData( "filter-form", form ) ;
+                            form.jqmData( "listview", list );
+                        }
+
+                        selectmenu
+                            .filterable({
+                                input: input,
+                                children: "> option[value]"
+                            })
+                            // Rebuild the custom select menu's list items to reflect the results of the filtering
+                            // done on the select menu.
+                        .on( "filterablefilter", function() {
+                                selectmenu.selectmenu( "refresh" );
+                            });
+
+                        //--- /search box --------------
 
                   },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -116,7 +203,6 @@
              cfg_country=res[0];
              cfg_port   =res[1];
           }
-//alert ("cfg_port = "+cfg_port);
 
           if (cfg_country == "") { 
              cfg_country =default_country;
@@ -185,7 +271,7 @@
       <div data-role="content">
 
 
-        <select name="list-country" id="list-country">
+        <select name="list-country" id="list-country" data-native-menu="false" >
              <option value="">Please select a Country..</option>
          <optgroup label="Europe">
              <option value="74">France</option>
@@ -198,36 +284,7 @@
              <option value="13">Australia</option>
         </select>
  
-        <select name="list-port" id="list-port"></select>
-
-        <select name="list-offset" id="list-offset">
-             <option value="60">-60</option>
-             <option value="55">-55</option>
-             <option value="50">-50</option>
-             <option value="45">-45</option>
-             <option value="40">-40</option>
-             <option value="35">-35</option>
-             <option value="20">-30</option>
-             <option value="25">-25</option>
-             <option value="20">-20</option>
-             <option value="15">-15</option>
-             <option value="10">-10</option>
-             <option value="5">-5</option>
-             <option value="0">No Offset</option>
-             <option value="5">+5</option>
-             <option value="10">+10</option>
-             <option value="15">+15</option>
-             <option value="20">+20</option>
-             <option value="25">+25</option>
-             <option value="20">+30</option>
-             <option value="35">+35</option>
-             <option value="40">+40</option>
-             <option value="45">+45</option>
-             <option value="50">+50</option>
-             <option value="55">+55</option>
-             <option value="60">+60</option>
-        </select>
-
+        <select name="list-port" id="list-port" data-native-menu="false" class="filterable-select"></select>
 
 
         <div data-role="fieldcontain">
