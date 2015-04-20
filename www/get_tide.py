@@ -109,7 +109,7 @@ if (int(port) < 801):
 # - only on v3 client
 if (int(float(str(version))) >= 3):
 
-   sys.stderr.write ("version 3")
+   #sys.stderr.write ("version 3")
       # Use passed localtime to only show tides > now
    tides.delete_in_past(time)
       # In addition to the above, for tz's ahead of UTC easytide will still return yesterdays data. 
@@ -118,7 +118,7 @@ if (int(float(str(version))) >= 3):
 else:
    from datetime import datetime
    from dateutil import tz
-   sys.stderr.write ("version 2")
+   #sys.stderr.write ("version 2")
    from_zone = tz.gettz('UTC')
    to_zone = tz.gettz('Europe/London')
    utc = datetime.utcnow()
