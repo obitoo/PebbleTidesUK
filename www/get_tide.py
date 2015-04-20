@@ -19,7 +19,7 @@
 # 17Mar15 - use time param
 # 18Mar15 - strip country from port
 # 19Mar15 - date logic
-#
+# 16Apr   - default time for v2 client
 #
 
 import json
@@ -32,8 +32,9 @@ import optparse
 #
 cgitb.enable(); # formats errors in HTML
 form = cgi.FieldStorage()
-port = 0
-time = 0
+port   = 0
+time   = 0
+version= 0
 
 #
 # test cmdline options:   -p <port no> : testrun for one port
@@ -62,6 +63,8 @@ for field in form.keys():
        port = form[field].value
     if field == "time":
        time = form[field].value
+    if field == "vsn":
+       version = form[field].value
 
 if time == 0:
    sys.stderr.write("No time param passed \n")  #// apache errors.log
@@ -103,14 +106,25 @@ if (int(port) < 801):
 
 #
 # Use passed localtime to only show tides > now
-#
-tides.delete_in_past(time)
+# - only on v3 client
+if (int(float(str(version))) >= 3):
 
-#
-# In addition to the above, for tz's ahead of UTC easytide will still return yesterdays data. 
-#
-if options.date:
-   tides.delete_in_past_day(options.date)
+   sys.stderr.write ("version 3")
+      # Use passed localtime to only show tides > now
+   tides.delete_in_past(time)
+      # In addition to the above, for tz's ahead of UTC easytide will still return yesterdays data. 
+   if options.date:
+      tides.delete_in_past_day(options.date)
+else:
+   from datetime import datetime
+   from dateutil import tz
+   sys.stderr.write ("version 2")
+   from_zone = tz.gettz('UTC')
+   to_zone = tz.gettz('Europe/London')
+   utc = datetime.utcnow()
+   utc = utc.replace(tzinfo=from_zone)
+   london = utc.astimezone(to_zone)
+   tides.delete_in_past(london.strftime("%H:%M"))
 
 #
 # Return json 
