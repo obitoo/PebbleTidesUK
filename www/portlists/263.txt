@@ -431,3 +431,15 @@ optgroup, Northern Ireland
 0657,Culmore Point 
 0658,RIVER FOYLE (LISAHALLY) 
 0659,Londonderry 
+optgroup, Channel Islands
+1603,Braye 
+1604,ST. PETER PORT 
+1605,ST. HELIER 
+1606,St. Catherine Bay 
+1607,Les Ecrehou 
+1608,Les Minquiers 
+optgroup, Isle of Man
+0466,Peel 
+0467,Ramsey 
+0468,Douglas 
+0469,Calf Sound 
