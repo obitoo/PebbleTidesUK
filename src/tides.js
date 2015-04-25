@@ -54,7 +54,7 @@ Pebble.addEventListener('ready',   function(e) {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "off",
        "cfg_line_graph"     : "off",
-       "cfg_port"           : "0110" 
+      "cfg_port"           : "263:0110" 
     };  
   
     console.log("  config_defaults= " + JSON.stringify(config_defaults));
