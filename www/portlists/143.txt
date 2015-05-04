@@ -1,0 +1,6 @@
+optgroup, Libya
+1994,Mina Bardiyah 
+1995,Tubruq 
+1996,Marsa Al Burayqah 
+1997,Misratah 
+1998,Tarabulus (Tripoli) 

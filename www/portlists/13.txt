@@ -1,4 +1,4 @@
-optgroup, Australia 
+optgroup, Australia
 5770,Norfolk Island 
 5772,Lord Howe Island 
 5774,Middleton Reef 
@@ -184,85 +184,6 @@ optgroup, Australia East Coast
 6081,Apollo Bay 
 6083,Seal  Bay 
 6084,Grassy 
-optgroup, Australia South Coast
-6136,Port Campbell 
-6138,Warrnambool 
-6141,Portland, Australia 
-6143,Port Macdonnell 
-6145,Beachport 
-6146,Robe (Offshore) 
-6147,Kingston 
-6149,Victor Harbour 
-6151,Vivonne Bay 
-6152,Emu Bay 
-6153,Kingscote 
-6154,American River 
-6155,Penneshaw 
-6156,Cape Jervis 
-6157,Second Valley 
-6158,Port Noarlunga 
-6159,Brighton (S.Australia) 
-6160,PORT ADELAIDE (OUTER HARBOUR) 
-6165,Ardrossan (S. Australia) 
-6167,Port Vincent 
-6168,Port Giles 
-6169,Edithburgh 
-6173,Stenhouse Bay 
-6174,Pondalowie Bay 
-6175,Port Turton 
-6176,Port Victoria (Spencer Gulf) 
-6177,Cape Elizabeth 
-6178,WALLAROO 
-6179,Port Broughton 
-6180,Port Pirie 
-6182,Redcliff 
-6183,Port Augusta 
-6184,WHYALLA 
-6185,Franklin Harbour 
-6186,Arno Bay 
-6188,Port Neill 
-6190,PORT LINCOLN 
-6191,Taylors Landing 
-6193,Wedge Island 
-6194,Greenly Island 
-6195,Elliston 
-6196,Pearson Island 
-6198,Blanche Port 
-6200,Thevenard 
-6201,Saint Francis Island 
-6202,Port Eyre 
-6204,Eucla 
-6206,Goose Island 
-6208,Esperance 
-6210,Mary Ann Haven 
-6211,Bremer Bay 
-6212,ALBANY 
-6214,Windy Harbour 
-6215,Flinders Bay 
-6216,Cape Hamelin 
-6217,Cowaramup 
-6218,Busselton 
-6219,Bunbury 
-6220,Mandurah 
-6221,Warnbro Sound 
-6223,Fremantle 
-6224,Two Rocks Marina 
-6225,Lancelin 
-6226,Cervantes 
-6227,Jurien Bay 
-6228,Port Denison 
-6229,Geraldton 
-6230,Easter Group 
-6231,Port Gregory 
-6232,Kalbarri 
-6233,Withnell Point 
-6234,Useless Loop 
-6235,Hamelin Pool 
-6236,Monkey Mia 
-6237,CARNARVON 
-6240,Coral Bay 
-6241,Norwegian Bay 
-6242,Tantabiddi 
 optgroup, Australia North Coast
 6243,Point Murat 
 6244,Y Island 
@@ -353,3 +274,82 @@ optgroup, Australia North Coast
 6362,WEIPA 
 6363,Pennefather River 
 6364,Cullen Point 
+optgroup, Australia South Coast
+6136,Port Campbell 
+6138,Warrnambool 
+6141,Portland, Australia 
+6143,Port Macdonnell 
+6145,Beachport 
+6146,Robe (Offshore) 
+6147,Kingston 
+6149,Victor Harbour 
+6151,Vivonne Bay 
+6152,Emu Bay 
+6153,Kingscote 
+6154,American River 
+6155,Penneshaw 
+6156,Cape Jervis 
+6157,Second Valley 
+6158,Port Noarlunga 
+6159,Brighton (S.Australia) 
+6160,PORT ADELAIDE (OUTER HARBOUR) 
+6165,Ardrossan (S. Australia) 
+6167,Port Vincent 
+6168,Port Giles 
+6169,Edithburgh 
+6173,Stenhouse Bay 
+6174,Pondalowie Bay 
+6175,Port Turton 
+6176,Port Victoria (Spencer Gulf) 
+6177,Cape Elizabeth 
+6178,WALLAROO 
+6179,Port Broughton 
+6180,Port Pirie 
+6182,Redcliff 
+6183,Port Augusta 
+6184,WHYALLA 
+6185,Franklin Harbour 
+6186,Arno Bay 
+6188,Port Neill 
+6190,PORT LINCOLN 
+6191,Taylors Landing 
+6193,Wedge Island 
+6194,Greenly Island 
+6195,Elliston 
+6196,Pearson Island 
+6198,Blanche Port 
+6200,Thevenard 
+6201,Saint Francis Island 
+6202,Port Eyre 
+6204,Eucla 
+6206,Goose Island 
+6208,Esperance 
+6210,Mary Ann Haven 
+6211,Bremer Bay 
+6212,ALBANY 
+6214,Windy Harbour 
+6215,Flinders Bay 
+6216,Cape Hamelin 
+6217,Cowaramup 
+6218,Busselton 
+6219,Bunbury 
+6220,Mandurah 
+6221,Warnbro Sound 
+6223,Fremantle 
+6224,Two Rocks Marina 
+6225,Lancelin 
+6226,Cervantes 
+6227,Jurien Bay 
+6228,Port Denison 
+6229,Geraldton 
+6230,Easter Group 
+6231,Port Gregory 
+6232,Kalbarri 
+6233,Withnell Point 
+6234,Useless Loop 
+6235,Hamelin Pool 
+6236,Monkey Mia 
+6237,CARNARVON 
+6240,Coral Bay 
+6241,Norwegian Bay 
+6242,Tantabiddi 

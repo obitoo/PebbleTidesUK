@@ -1,0 +1,26 @@
+optgroup, Bahama Islands
+2531,Mathew Town 
+2532,Little Inagua 
+2534,Low Point (Start Point) 
+2536,Datum Bay 
+2539,San Salvador 
+2541,Nurse Channel 
+2543,Long Island, Bahamas 
+2545,Exuma Harbour 
+2546,Wide Opening 
+2547,Ship Channel 
+2549,The Bight 
+2550,Eleuthera Island 
+2551,Royal Island Harbour 
+2553,Nassau 
+2554,Fresh Creek 
+2555,Great Stirrup Cay 
+2556,Cat Cay 
+2557,South Riding Rock 
+2559,Elbow Cay 
+2561,Pelican Harbour 
+2562,Green Turtle Cay 
+2563,Pensacola Cay 
+2564,Walker Cay 
+2566,Freeport Harbour 
+2567,Settlement Point 

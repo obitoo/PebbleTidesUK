@@ -1,0 +1,53 @@
+optgroup, Spain
+1694,Pasajes 
+1695,San Sebastian 
+1696,Getaria 
+1697,Lequeitio 
+1698,Bermeo 
+1699,Abra De Bilbao 
+1700,Portugalete (Bilbao) 
+1701,Castro Urdiales 
+1702,Ria De Santona 
+1703,Santander 
+1704,Ria De Suances 
+1705,San Vicente De La Barquera 
+1706,Ria De Tina Mayor 
+1707,Ribadesella 
+1708,Gijon 
+1709,Luanco 
+1710,Aviles 
+1711,San Esteban De Pravia 
+1712,Luarca 
+1713,Ribadeo 
+1714,Cillero (Ria De Vivero) 
+1715,Santa Marta De Ortigueira 
+1716,Ferrol (La Grana) 
+1717,A CORUNA 
+1718,Ria De Corme E Laxe 
+1719,Camarinas 
+1720,Corcubion 
+1721,Muros 
+1722,Villagarcia (Ria De Arousa) 
+1723,Marin 
+1724,Vigo 
+1725,Baiona 
+1726,La Guardia 
+1754,Ria De Huelva Bar 
+1755,Huelva, Muelle De Levante 
+1756,Rio Guadalquivir Bar (Chipiona) 
+1757,Bonanza 
+1758,Corta De Los Jeronimos 
+1759,Sevilla 
+1760,Rota 
+1761,Puerto De Santa Maria 
+1763,CADIZ 
+1764,La Carraca 
+1765,Cabo Trafalgar 
+1766,Punta Camarinal 
+1768,Tarifa 
+1769,Algeciras 
+1773,Malaga 
+1774,Alicante 
+1775,Valencia 
+1776,Barcelona 
+1780,Palma De Mallorca 

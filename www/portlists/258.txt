@@ -1,0 +1,15 @@
+optgroup, Venezuela
+2308,Isla Tercera 
+2312,Rio Pedernales (Lagoven Jetty) 
+2314,Punta Gorda 
+2315,Guanoco 
+2316,Carapita 
+2318,Puerto De Hierro 
+2344,Puerto Carupano 
+2347,Cumana 
+2360,Puerto El Roque 
+2362,Puerto La Guaira 
+2373,Amuay 
+2379,MALECON (ISLA ZAPARA) 
+2381,Bahia El Tablazo 
+2382,Punta De Palmas 

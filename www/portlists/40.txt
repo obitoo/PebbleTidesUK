@@ -1,0 +1,12 @@
+optgroup, Cape Verde Islands
+3490,Ponta Do Sol 
+3491,Baie Do Tarrafal (Santo Antao) 
+3492,Porto Grande De S. Vicente 
+3493,Santa Lucia 
+3494,Porto De Preguica 
+3495,Ilha Do Sal Bahia De Palmeira 
+3496,Porto De Sal Rei 
+3497,Porto Do Maio 
+3498,Porto Da Praia 
+3499,Baie Do Tarrafal 
+3501,Porto De Faja 

@@ -1,0 +1,9 @@
+optgroup, Kenya
+4015,Wasini Island 
+4017,KILINDINI 
+4022,Kilifi 
+4024,Malindi 
+4026,Mwamba Wa Ziwaiu 
+4027,Ziwa La Juu 
+4028,Shela 
+4031,Kiunga 

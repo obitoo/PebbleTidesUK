@@ -1,0 +1,42 @@
+optgroup, Germany
+1423,Hornum 
+1425,Amrum-Hafen 
+1426,Dagebull 
+1427,Pellworm, Anleger 
+1428,Suderoogsand 
+1429,Nordstrand, Strucklahnungshorn 
+1430,Husum 
+1431,HELGOLAND 
+1436,Busum 
+1437,Grosser Vogelsand 
+1438,CUXHAVEN 
+1439,Brunsbuttel Mole 1 
+1440,Gluckstadt 
+1441,Stadersand 
+1442,Schulau 
+1443,Seemannshoeft 
+1444,Hamburg 
+1445,Harburg 
+1449,Alte Weser Lighthouse 
+1450,Dwarsgat 
+1451,Bremerhaven 
+1452,Nordenham 
+1453,Brake 
+1454,Elsfleth 
+1455,Vegesack 
+1456,Bremen 
+1458,Wangerooge East 
+1459,Wangerooge West 
+1460,Schillig 
+1461,Hooksielplate 
+1463,WILHELMSHAVEN 
+1466,Spiekeroog 
+1467,Neuharlingersiel 
+1468,Langeoog 
+1469,Norderney (Riffgat) 
+1470,Norddeich Hafen 
+1471,Memmert 
+1472,Borkum (Fischerbalje) 
+1473,Emshorn 
+1474,Knock 
+1475,Emden 

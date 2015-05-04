@@ -1,0 +1,7 @@
+optgroup, Kuwait
+4261,MINA AZ ZAWR (MINA SAUD) 
+4262,MINA AL AHMADI 
+4263,ASH SHUWAYKH 
+4264,Mina Ad Dawhah 
+4265,Ras Al Barshah (Beacon No. 2) 
+4266,Hadd Warbah 

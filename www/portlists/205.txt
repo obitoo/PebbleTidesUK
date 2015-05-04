@@ -1,0 +1,28 @@
+optgroup, Sarawak
+5140,Punang 
+5141,Kuala Limbang 
+5146,Kuala Baram 
+5147,MIRI 
+5148,Kuala Niah 
+5149,Kuala Similajau 
+5150,Kuala Bintulu 
+5151,Kuala Tatau 
+5152,Kuala Balingian 
+5153,Kuala Mukah 
+5154,Kuala Igan 
+5155,Kuala Matu 
+5156,Kuala Paloh 
+5158,Sarikei 
+5159,Sibu 
+5160,Kabong 
+5162,Pusa 
+5164,Triso Darat 
+5167,Kuala Sadong 
+5168,Sungai Esengei 
+5169,Simunjan 
+5170,Pending 
+5172,SUNGAI SARAWAK (PULAU LAKEI) 
+5173,Santubong 
+5174,Pulau Satang Besar 
+5175,Sematan 
+5176,Tanjung Serabang 

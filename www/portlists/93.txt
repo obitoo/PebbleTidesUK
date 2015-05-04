@@ -1,0 +1,59 @@
+optgroup, Iceland
+0810,Heimaey 
+0812,Stokkseyri 
+0813,Eyrarbakki 
+0814,Grindavik 
+0815,Sandgerdhi 
+0817,Keflavik 
+0818,Hafnarfjordhur 
+0819,REYKJAVIK 
+0820,Grundartangi 
+0821,Hvammsvik 
+0822,Akranes 
+0823,Borgarnes 
+0825,Rif 
+0826,Grundarfjordhur 
+0827,Stykkisholmur 
+0828,Flatey (Breidafjordhur) 
+0829,Vatneyri 
+0830,Sveinseyri 
+0831,Bildudalur 
+0832,Thingeyri 
+0833,Flateyri 
+0834,Sudhureyri 
+0835,Bolungavik 
+0836,Alftafjordhur 
+0837,Arngerdharseyri 
+0838,Veidileysufjordhur 
+0839,Latravik 
+0840,Reykjarfjordhur 
+0841,Holmavik 
+0842,Hrutafjordhur 
+0843,Skagastrond 
+0844,Saudarkrokur 
+0845,Hofsos 
+0846,Haganesvik 
+0847,Siglufjordhur 
+0848,Olafsfjordhur 
+0849,Akureyri 
+0850,Flatey (Skjalfanda) 
+0851,Husavik 
+0852,Raufarhofn 
+0853,Thorshofn 
+0854,Bakkafjordhur 
+0855,Vopnafjordhur 
+0856,Nes Farm 
+0858,Vestdalseyri 
+0859,Dalatangi 
+0860,Brekka 
+0861,Nordfjordhur (Nes) 
+0862,Hellisfjordhur 
+0864,Eskifjordhur 
+0865,Budareyri 
+0866,Faskrudsfjordhur 
+0867,Breidhdalsvik 
+0868,Papey 
+0870,Hvanney 
+0871,Kalfafellstadir 
+0872,Ingolfshofdi 
+0875,Vik 

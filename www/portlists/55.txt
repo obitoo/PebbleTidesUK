@@ -1,0 +1,11 @@
+optgroup, Costa Rica
+2402,Puerto Limon 
+9456,Bahia Elena 
+9457,Puerto Culebra 
+9460,PUNTARENAS 
+9462,Puerto Herradura 
+9463,Quepos 
+9464,Bahia Uvita 
+9467,Bahia Del Rincon 
+9468,Golfito 
+9470,Chatham Bay 

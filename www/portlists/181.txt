@@ -1,0 +1,17 @@
+optgroup, Panama
+2394,Puerto Caledonia 
+2396,Puerto Mandinga 
+2398,COLON 
+2400,Escudo De Veragua 
+2401,Boca Del Toro 
+9471,Puerto Armuelles 
+9474,Isla Parida 
+9477,Bahia Honda (Panama) 
+9478,Isla Coiba 
+9480,Isla Cebaco 
+9484,Punta Mala 
+9487,BALBOA 
+9488,Rio Chepo 
+9492,Punta Garachine 
+9493,Bahia San Telmo 
+9496,Bahia Pina 

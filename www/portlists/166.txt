@@ -1,0 +1,7 @@
+optgroup, Namibia
+3760,Swakopmund 
+3761,Walvis Bay 
+3762,Sandwich Harbour 
+3765,Ichaboe Island 
+3766,Luderitz 
+3767,Prince Of Wales Bay 

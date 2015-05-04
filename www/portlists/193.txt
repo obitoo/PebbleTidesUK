@@ -1,0 +1,16 @@
+optgroup, Qatar
+4233,Jazirat Shara'iwah 
+4234,Jazirat Halul 
+4235,Ras Abu Qumayyis 
+4236,MESAIEED OUTER CHANNEL ENTRANCE 
+4237,Mesaieed (Musay'id) 
+4238,Al Wakrah 
+4239,DOHA (AD DAWHAH) 
+4240,Sumaysimah 
+4241,Khawr Shaqiq 
+4242,RAS LAFFAN 
+4243,Jabal Al Fuwayrit 
+4244,Ar Ru'ays 
+4245,Fasht Al Dibal 
+4246,Ras ' Ushayriq 
+4247,Nagiyah 

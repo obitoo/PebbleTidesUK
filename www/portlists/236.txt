@@ -1,0 +1,24 @@
+optgroup, Tasmania
+6087,Stack Island 
+6088,Three Hummock Island 
+6090,Stanley (Circular Head) 
+6091,Burnie (Emu Bay) 
+6093,MERSEY RIVER (DEVONPORT) 
+6094,Low Head 
+6097,Launceston 
+6103,Big River Cove 
+6109,Lady Barron Harbour 
+6111,Swan Island, Tasmania 
+6112,Eddystone Point 
+6113,Bicheno 
+6117,Spring Bay 
+6118,Pirates Bay 
+6120,Parsons Bay 
+6121,Impression Bay 
+6122,Hobart 
+6126,Recherche Bay 
+6127,Maatsuyker Island 
+6128,Bramble Cove 
+6130,Cape Sorell (Pilot Bay) 
+6131,Granville Harbour 
+6132,Pieman River 

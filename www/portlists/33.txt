@@ -1,0 +1,46 @@
+optgroup, Burma
+4520,Sittwe 
+4525,Kyaukpyu 
+4526,Searle Point 
+4529,Sagu Kyun 
+4532,Andrew Bay 
+4534,Gwa Bay 
+4536,Chaungtha Kyun 
+4537,Goyangyi Kyun 
+4539,BASSEIN RIVER ENTRANCE 
+4540,Chaunggwa 
+4541,Bassein 
+4542,Pyinsalu 
+4543,Ama 
+4544,Pymbong Beacon 
+4545,Tinmahlwe 
+4546,Dagon (Old Light) 
+4547,SIN MIN POINT (ELEPHANT POINT) 
+4548,Yangon (Rangoon) 
+4552,Kyaikkami (Amherst) 
+4553,Feronia Crossing 
+4555,Moulmein 
+4556,Double Island 
+4558,Bentinck Sound 
+4559,Wa Kyun (Stag Island) 
+4560,Sidaw Point 
+4561,Ye Town 
+4562,Heinze Chaung 
+4563,Heinze Bok (Long Island) 
+4566,Myinkwa-Aw 
+4568,Sinbyubyin 
+4569,Tavoy 
+4571,Mali Kyun (Fisher Bay) 
+4573,Padaw-Aw 
+4574,MYEIK (MERGUI) 
+4576,Port Maria 
+4579,Thar Myar Ami 
+4580,Jack Island 
+4581,Myauk Gaung Island 
+4582,Thatchaung 
+4584,Pawei Kyun 
+4585,Ka Mar Island 
+4587,Kyunn Tann Shey (Bulet-Aw) 
+4589,Hastings Harbour 
+4590,Za Det Gyi Island (South Bay) 
+4592,Pulau Besin 

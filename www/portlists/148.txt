@@ -1,0 +1,50 @@
+optgroup, Madagascar
+3864,Baie Ambavanibe 
+3865,Baie Du Courrier 
+3868,Nosy Mitsio 
+3871,Andoany (Hellville) 
+3873,Anarontsangana 
+3876,Nosy Lava 
+3877,Baie De Moramba 
+3878,Pointe Ambararata 
+3879,Nosy Longany 
+3880,Marosakoa 
+3881,MAHAJANGA 
+3882,Pointe Maroloha 
+3883,Maravoai 
+3884,Nosy Makamby 
+3886,Baie De Baly 
+3888,Cap Saint Andre 
+3891,Ile Juan De Nova 
+3894,Maintirano 
+3895,Nosy Maroantaly 
+3898,Ilot Indien 
+3899,Morondava 
+3900,Cap Ankarana 
+3902,Nosy Andriangory 
+3903,Nosy Andriamitaroka 
+3904,Baie De Ampasilava 
+3906,Morombe 
+3907,Nosy Andrahombava 
+3909,Nosy Hao 
+3910,Ile Europa 
+3912,Toliara 
+3913,St. Augustine Bay 
+3916,Androka 
+3917,Cap Ste. Marie 
+3919,Fort-Dauphin 
+3920,Ste. Luce 
+3923,Farafangana 
+3925,Manakara 
+3930,Vatomandry 
+3932,Toamasina 
+3934,Fenerive 
+3937,Baie De Tintingue 
+3938,Mananara 
+3939,Maroantsetra 
+3941,Rade D'angontsy 
+3942,Rade D'antalaha 
+3944,Vohemar 
+3945,Port Leven 
+3946,Baie De Rigny 
+3948,ANTSIRANANA (DIEGO SUAREZ) 

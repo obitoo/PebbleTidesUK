@@ -1,0 +1,59 @@
+optgroup, Chile
+9594,Arica 
+9597,Caleta Junin 
+9599,Iquique 
+9601,Caleta Lobos 
+9604,Tocopilla 
+9606,Rada De Cobija 
+9608,Mejillones Del Sur 
+9610,Antofagasta 
+9612,Caleta Blanco Encalada 
+9614,Rada Paposo 
+9615,Puerto Taltal 
+9619,Isla San Felix 
+9620,Chanaral De Las Animas 
+9622,Puerto Caldera 
+9624,Caleta Barranquillas 
+9626,Carrizal Bajo 
+9627,Puerto Huasco 
+9632,Caleta Totoralillo 
+9634,Coquimbo 
+9635,Bahia Tongoy 
+9638,Caleta Oscuro 
+9640,Rada Tablas 
+9642,Puerto Papudo 
+9644,VALPARAISO 
+9646,Puerto San Antonio, Santiago 
+9648,Isla Robinson Crusoe 
+9650,Rada Topocalma 
+9652,Rada De Llico 
+9654,Puerto Constitucion 
+9656,Rada Curanipe 
+9657,Rada Buchupureo 
+9660,TALCAHUANO 
+9662,Coronel 
+9665,Puerto Lebu 
+9667,Caleta La Hacienda 
+9668,Rio Imperial 
+9670,Caleta Queule 
+9671,Puerto Corral 
+9672,Valdivia 
+9675,Caleta Mansa 
+9678,Maullin 
+9680,Bahia De Ancud 
+9682,Caleta Quintil 
+9686,Puerto San Pedro 
+9688,Puerto Queilen 
+9690,Dalcahue 
+9693,Quemchi 
+9694,Bahia Linao 
+9695,Carelmapu 
+9697,Puerto Chacao 
+9700,PUERTO MONTT 
+9706,Puerto Yelcho 
+9708,Bahia Tictoc 
+9709,Punta Caleta 
+9736,Estero Balladares 
+9738,Puerto Refugio 
+9742,Caleta Pascuas 
+9745,Puerto Slight 

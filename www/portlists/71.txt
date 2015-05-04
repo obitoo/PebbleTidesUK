@@ -1,0 +1,19 @@
+optgroup, Falkland Islands
+2065,Fanny Cove Creek 
+2066,Adventure Sound 
+2067,Lively Settlement 
+2068,STANLEY 
+2069,Berkeley Sound 
+2070,Port Salvador Entrance 
+2072,Port San Carlos 
+2073,Ajax Bay 
+2074,North West Islands 
+2075,Great Island 
+2076,Speedwell Island 
+2077,Fox Bay 
+2078,Dyke Island 
+2079,New Island 
+2081,Chartres 
+2082,Westpoint Island 
+2083,Golding Island 
+2084,Tamar Pass 

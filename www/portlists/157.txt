@@ -1,0 +1,59 @@
+optgroup, Mexico
+9371,Ensenada 
+9374,Bahia Colnett 
+9377,Bahia San Quintin, Mexico 
+9379,Bahia Rosario 
+9380,Guadalupe Island 
+9381,Bahia Playa Maria 
+9384,Isla Cedros 
+9385,Bahia Tortugas 
+9387,Punta Abreojos 
+9389,Bahia San Juanico 
+9391,San Carlos, Mexico 
+9392,Bahia Magdalena 
+9393,Isla Santa Margarita 
+9395,CABO SAN LUCAS 
+9396,Bahia San Jose Del Cabo 
+9399,La Paz 
+9401,Loreto 
+9402,Bahia Concepcion 
+9404,Santa Rosalia 
+9407,Bahia De Los Angeles 
+9410,Rio Colorado Entrance 
+9411,Puerto Penasco 
+9412,Bahia De Tepoca 
+9415,Guaymas 
+9417,Yavaros 
+9418,Topolobampo 
+9420,Mazatlan 
+9422,San Blas 
+9424,Puerto Vallarta 
+9425,Bahia De Chamela 
+9426,Manzanillo 
+9427,Isla Socorro 
+9429,Puerto Lazaro Cardenas 
+9430,Bahia De Zihuatanejo 
+9432,Acapulco 
+9433,Maldonado 
+9434,Puerto Angel 
+9435,Puerto Sacrificios 
+9436,Puerto Salina Cruz 
+9437,Puerto Arista (La Puerta) 
+9438,Soconusco Bar 
+9439,Puerto Chiapas 
+optgroup, Mexico (Caribbean)
+2430,Bahia Espiritu Santo 
+2431,Isla Cozumel 
+2432,Puerto De Mujeres 
+2433,Cabo Catoche 
+optgroup, Mexico (Gulf)
+2573,Progreso 
+2575,Campeche 
+2576,Ciudad Del Carmen 
+2577,Frontera (Alvaro Obregon) 
+2578,Coatzacoalcos (Puerto Mexico) 
+2579,Alvarado 
+2580,Vera Cruz 
+2581,Tuxpan 
+2582,Tampico 
+2583,Matamaros 

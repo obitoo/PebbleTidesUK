@@ -1,0 +1,23 @@
+optgroup, Thailand
+6851,Bang Nara (Narathiwat) 
+6854,Laem Ta Chi 
+6857,Songkhla 
+6862,Pak Phun 
+6869,Ko Prap 
+6871,Lang Suan 
+6873,Ko Mattaphon 
+6876,Ko Lak (Prachuap Khiri Khan) 
+6878,Hua Hin 
+6880,Mae Klong 
+6881,Samut Sakhon (Ta Chin) 
+6882,BANGKOK BAR 
+6883,Bangkok 
+6884,BAN BANG PAKONG 
+6886,Ko Si Chang 
+6888,Chong Khram 
+6889,Ao Sattahip 
+6890,Pak Nam Rayong 
+6891,Chong Samet 
+6894,Laem Sing 
+6895,Ko Mak 
+6896,Ao Muang Trat 

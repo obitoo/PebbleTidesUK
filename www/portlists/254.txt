@@ -1,0 +1,29 @@
+optgroup, United Arab Emirates
+4192,KHAWR FAKKAN 
+4200,Saqr Port (Mina Saqr) 
+4201,Ras Al Khaymah 
+4202,Al Jazeera Port 
+4203,Umm Al-Qaiwain 
+4204,AJMAN 
+4205,SHARJAH 
+4206,Dubai (Al Maktoum Bridge) 
+4207,JEBEL ALI 
+4208,Khawr Ghanadah 
+4209,Khawr Sa'diyat 
+4210,MINA ZAYID 
+4211,Sir Abu Nu'ayr 
+4212,Ras Al Ghaf 
+4213,Abu Al Abyad 
+4214,HALAT AL MUBARRAZ 
+4215,Zaqqum Oilfield (Platform Zws) 
+4219,Zirku 
+4220,Zirku Terminal 
+4221,Jazirat Das 
+4222,Jabal Az Zannah 
+4223,Sir Bani Yas 
+4224,Jazirat Arzanah 
+4228,Jazirat Shuwayhat 
+4229,Jazirat Dalma 
+4230,Jazair Al Yasat 
+4231,Umm Al Hatab 
+4232,Jazair Ghaghah 

@@ -1,0 +1,26 @@
+optgroup, Peru
+9547,Caleta Zorritos 
+9548,Lobitos 
+9549,Bahia De Talara 
+9551,Puerto De Paita 
+9553,Puerto Bayovar 
+9555,Lobos De Afuera 
+9557,Puerto Eten 
+9560,Puerto Malabrigo 
+9562,SALAVERRY 
+9563,Chimbote 
+9564,Bahia Ferrol 
+9566,Bahia Huarmey 
+9568,Bahia Barmejo 
+9570,Puerto Huacho 
+9573,CALLAO 
+9575,Pucusana 
+9577,Cerro Azul 
+9579,PISCO 
+9580,Bahia Independencia 
+9583,San Juan 
+9584,Punta Lomas 
+9586,Rada Atico 
+9588,Caleta Quilca 
+9589,Matarani 
+9591,PUERTO ILO 

@@ -1,0 +1,6 @@
+optgroup, Belgium
+1539,ANTWERP (PROSPERPOLDER) 
+1540,Cadzand (Wielingen Sluis) 
+1562,ZEEBRUGGE 
+1564,Oostende 
+1565,Nieuwpoort 

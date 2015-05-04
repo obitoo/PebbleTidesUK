@@ -1,0 +1,9 @@
+optgroup, French Guiana
+2268,Montagne D'argent 
+2269,Degrad Des Cannes 
+2270,Le Larivot 
+2271,Iles Du Salut 
+2272,Ilot Brigandin 
+2273,Sinnamary 
+2274,Pte. Francaise (Les Hattes) 
+2275,Saint Laurent Du Maroni 

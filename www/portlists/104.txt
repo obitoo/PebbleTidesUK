@@ -1,0 +1,98 @@
+optgroup, Ireland
+0607,Courtown 
+0611,Arklow 
+0613,Wicklow 
+0614,Greystones 
+0615,Dun Laoghaire 
+0616,Dublin Bar 
+0617,DUBLIN (NORTH WALL) 
+0618,Howth 
+0621,Malahide 
+0622,Balbriggan 
+0623,River Boyne Bar 
+0624,Dunany Point 
+0625,Soldiers Point 
+0626,Greenore 
+0654,Warren Lighthouse 
+0655,Moville 
+0656,Quigley's Point 
+0660,Culdaff Bay 
+0661,Inishtrahull 
+0662,Bulbinbeg 
+0663,Trawbreaga Bay 
+0664,Rathmullan 
+0665,Mulroy Bay Bar 
+0666,Fanny's Bay 
+0667,Seamount Bay 
+0668,Cranford Bay 
+0671,Downies Bay 
+0672,Inishbofin Bay 
+0681,Gweedore Harbour 
+0682,Burtonport 
+0683,Loughros More Bay 
+0685,Killybegs 
+0686,Donegal Harbour (Salt Hill Quay) 
+0688,Mullaghmore 
+0689,Sligo Harbour (Oyster Island) 
+0690,Ballysadare Bay (Culleenamore) 
+0692,Killala Bay (Inishcrone) 
+0693,Ballyglass (Broadhaven) 
+0694,Blacksod Quay 
+0695,Inishbiggle 
+0696,Clare Island 
+0697,Inishgort 
+0700,Roonah Quay 
+0701,Killary Harbour 
+0702,Bofin Harbour 
+0703,Clifden Bay 
+0704,Slyne Head 
+0705,Roundstone Bay 
+0706,Kilkieran Cove 
+0707,Inishmore (Killeany Bay) 
+0709,GALWAY 
+0711,Liscannor 
+0712,Seafield Point 
+0713,Kilbaha Bay 
+0714,Kilrush 
+0715,TARBERT ISLAND 
+0716,Foynes Island 
+0717,Mellon Point 
+0718,Limerick Dock 
+0719,Coney Island 
+0721,Fenit Pier 
+0722,Smerwick Harbour 
+0723,Dingle Harbour 
+0724,Cromane Point 
+0725,Knights Town 
+0726,Ballinskelligs Bay Castle 
+0727,West Cove 
+0728,Dunkerron Harbour 
+0731,Ballycrovane Harbour 
+0732,Black Ball Harbour 
+0733,Castletown Bearhaven 
+0734,Bantry 
+0736,Dunbeacon Harbour 
+0737,Dunmanus Harbour 
+0741,Crookhaven 
+0742,Schull 
+0743,Baltimore, Ireland 
+0744,Castletownshend 
+0745,Clonakilty Bay 
+0746,Courtmacsherry 
+0747,Kinsale 
+0748,Roberts Cove 
+0750,COBH 
+0751,Ringaskiddy 
+0752,Marino Point 
+0753,Cork City 
+0754,Ballycotton 
+0755,Youghal 
+0756,Dungarvan Harbour 
+0761,Dunmore East 
+0762,Waterford 
+0763,New Ross 
+0764,Baginbun Head 
+0765,Great Saltee 
+0766,Carnsore Point 
+0767,ROSSLARE EUROPORT 
+0768,Wexford Harbour 

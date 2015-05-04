@@ -1,0 +1,197 @@
+optgroup, England
+0001,St. Mary's 
+0002,Penzance (Newlyn) 
+0003,Lizard Point 
+0004,Coverack 
+0005,FALMOUTH 
+0007,Mevagissey 
+0008,Fowey 
+0011,Looe 
+0012,Whitsand Bay 
+0014,PLYMOUTH (DEVONPORT) 
+0015,Turnchapel 
+0017,River Yealm Entrance 
+0020,Salcombe 
+0021,Start Point 
+0023,DARTMOUTH 
+0025,TORQUAY 
+0026,Teignmouth (Approaches) 
+0027,Exmouth Dock 
+0028,Lyme Regis 
+0029,Bridport (West Bay) 
+0030,Chesil Beach 
+0031,Chesil Cove 
+0033,PORTLAND 
+0034,Lulworth Cove 
+0035,Swanage 
+0036,Poole (Entrance) 
+0037,Bournemouth 
+0038,Christchurch (Entrance) 
+0039,Hurst Point 
+0040,Lymington 
+0042,Bucklers Hard 
+0043,Stansore Point 
+0045,Yarmouth 
+0046,Totland Bay 
+0048,Freshwater Bay 
+0051,Ventnor 
+0053,Sandown 
+0054,Bembridge Harbour 
+0058,Ryde 
+0060,COWES 
+0061,Calshot Castle 
+0062,SOUTHAMPTON 
+0063,Redbridge 
+0064,Lee-On-The-Solent 
+0065,PORTSMOUTH 
+0066,Langstone Harbour 
+0068,CHICHESTER HARBOUR (ENTRANCE) 
+0069,Selsey Bill 
+0070,Nab Tower 
+0072,Pagham 
+0073,Bognor Regis 
+0074,Littlehampton 
+0075,Worthing 
+0081,SHOREHAM 
+0082,Brighton Marina 
+0083,Newhaven 
+0084,Eastbourne 
+0085,Hastings 
+0086,Rye (Approaches) 
+0087,Dungeness 
+0088,Folkestone 
+0089,DOVER 
+0098,Deal 
+0099,Richborough 
+0102,Ramsgate 
+0103,MARGATE 
+0104,Herne Bay 
+0105,Whitstable Approaches 
+0106,Grovehurst Jetty 
+0107,Faversham 
+0108,SHEERNESS 
+0109,Chatham (Lock Approaches) 
+0110,Southend-On-Sea 
+0111,TILBURY 
+0112,North Woolwich 
+0113,LONDON BRIDGE (TOWER PIER) 
+0114,Albert Bridge 
+0115,Hammersmith Bridge 
+0116,Richmond Lock 
+0117,S.E. Long Sand 
+0121,Whitaker Beacon 
+0122,Burnham-On-Crouch 
+0123,Bradwell Waterside 
+0124,West Mersea 
+0126,Brightlingsea 
+0127,Colchester 
+0128,Clacton-On-Sea 
+0129,WALTON-ON-THE-NAZE 
+0130,Sunk Head 
+0131,HARWICH 
+0132,Mistley 
+0133,Ipswich 
+0134,Woodbridge Haven 
+0135,Bawdsey 
+0136,Orford Haven Bar 
+0137,Orford Ness 
+0139,Aldeburgh 
+0140,Southwold 
+0141,LOWESTOFT 
+0142,Gorleston-On-Sea 
+0143,Caister-On-Sea 
+0144,Winterton-On-Sea 
+0154,Cromer 
+0155,Blakeney Bar 
+0157,Wells Bar 
+0158,Burnham (Overy Staithe) 
+0161,Hunstanton 
+0162,King's Lynn 
+0163,Outer Westmark Knock 
+0164,Port Sutton Bridge 
+0165,Tabs Head 
+0166,Boston, England 
+0167,Skegness 
+0168,Inner Dowsing Light 
+0171,SPURN HEAD 
+0172,Grimsby 
+0173,IMMINGHAM 
+0174,Hull (King George Dock) 
+0175,Hull (Albert Dock) 
+0176,Humber Bridge 
+0177,Burton Stather 
+0178,Keadby 
+0179,Blacktoft 
+0180,Goole 
+0181,Bridlington 
+0182,Filey Bay 
+0183,Scarborough 
+0184,Whitby 
+0185,RIVER TEES ENTRANCE 
+0186,Middlesbrough (Dock Entrance) 
+0187,Tees (Newport) Bridge 
+0188,Hartlepool 
+0189,Seaham 
+0190,Sunderland 
+0202,RIVER TYNE (NORTH SHIELDS) 
+0203,Newcastle-Upon-Tyne 
+0204,Blyth 
+0205,Coquet Island 
+0206,Amble 
+0207,North Sunderland (Northumberland) 
+0208,Holy Island 
+0209,Berwick 
+0432,Silloth 
+0433,Maryport 
+0434,Workington 
+0435,Whitehaven 
+0436,Tarn Point 
+0437,Duddon Bar 
+0439,BARROW (RAMSDEN DOCK) 
+0440,Ulverston 
+0441,Heysham 
+0442,Glasson Dock 
+0443,Wyre Lighthouse 
+0444,Fleetwood 
+0445,Blackpool 
+0446,Preston 
+0447,Southport 
+0448,Formby 
+0451,LIVERPOOL (GLADSTONE DOCK) 
+0452,Liverpool (Alfred Dock) 
+0453,Eastham 
+0455,Hale Head 
+0456,Widnes 
+0461,Hilbre Island 
+0462,Chester 
+0518,Beachley (Aust) 
+0519,Inward Rocks 
+0520,Narlwood Rocks 
+0521,White House 
+0522,Berkeley 
+0523,PORT OF BRISTOL (AVONMOUTH) 
+0524,Cumberland Basin Entrance 
+0525,Clevedon 
+0526,English And Welsh Grounds 
+0527,Weston-Super-Mare 
+0528,Burnham-On-Sea 
+0529,Bridgwater 
+0530,Hinkley Point 
+0531,Watchet 
+0532,Minehead 
+0533,Porlock Bay 
+0534,Lynmouth 
+0535,Ilfracombe 
+0536,Appledore 
+0537,Yelland Marsh 
+0538,Fremington 
+0539,Barnstaple 
+0540,Bideford 
+0541,Clovelly 
+0542,Lundy 
+0543,Bude 
+0544,Boscastle 
+0545,Padstow 
+0546,Newquay 
+0547,St. Ives 
+0548,Sennen Cove 

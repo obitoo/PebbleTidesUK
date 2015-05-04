@@ -1,0 +1,69 @@
+optgroup, Brazil
+2179,Rio Grande 
+2181,Tramandai 
+2183,Laguna 
+2184,Imbituba 
+2186,Florianopolis 
+2188,Porto Belo 
+2189,Itajai 
+2190,Sao Francisco Do Sul 
+2191,Barra De Paranagua 
+2192,Cananeia 
+2193,SANTOS 
+2194,Sao Sebastiao 
+2195,Parati 
+2197,Angra Dos Reis 
+2198,Itacuruca 
+2199,Punta Do Imbui 
+2200,RIO DE JANEIRO 
+2201,Ilha De Brocoio 
+2202,Cabo Frio 
+2203,Porto Buzios 
+2204,Macae (Imbetiba) 
+2205,Atafona 
+2206,Itapemirim 
+2208,Terminal Da Ponta Do Ubu 
+2209,Martin Vaz Islets 
+2210,Ilha Da Trinidade 
+2211,Vitoria 
+2212,Ilhas Dos Abrolhos 
+2213,Nova Vicosa 
+2214,Cumuruxatiba 
+2215,Porto Seguro 
+2216,Canavieiras 
+2217,Ilheus 
+2219,Morro De Sao Paulo 
+2221,Ponta Do Alambique 
+2222,Salvador 
+2225,Aracaju 
+2226,Rio Sao Francisco Bar 
+2227,Maceio 
+2228,Tamandare 
+2229,RECIFE 
+2230,Tambau 
+2231,Cabedelo 
+2233,Porto De Natal 
+2234,Atol Das Rocas 
+2235,Fernando De Noronha 
+2238,Macau 
+2239,Areia Branca (Salineiro Terminal) 
+2240,Barra Do Jaguaribe (Aracati) 
+2242,Porto De Mucuripe 
+2243,Acarau 
+2244,Camocim 
+2245,Barra Do Timonha 
+2246,Luis Correia 
+2247,Tutoia 
+2248,Ilha De Santana 
+2249,Sao Luis 
+2250,Ilhas De Sao Joao 
+2251,Salinopolis 
+2252,Ilha Dos Guaras 
+2253,BELEM 
+2254,Porto De Breves 
+2256,Barra Norte (Ilha Do Brigue) 
+2257,Limao 
+2258,Macapa 
+2259,Porto De Santana 
+2262,Rio Cunani 
+2263,Cabo Cassipore 

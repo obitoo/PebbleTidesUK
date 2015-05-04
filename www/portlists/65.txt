@@ -1,0 +1,21 @@
+optgroup, Ecuador
+9517,Bahia Darwin 
+9519,Caleta Iguana 
+9520,Santa Cruz (Galapagos Is) 
+9521,Caleta Aeolian 
+9522,Bahia De Correo 
+9524,San Cristobal 
+9525,San Lorenzo 
+9527,Esmeraldas 
+9528,Bahia Atacames 
+9530,Muisne 
+9533,Cabo Pasado 
+9534,Bahia De Caraquez 
+9535,Manta 
+9538,Puerto Lopez 
+9539,La Libertad 
+9540,Posorja 
+9541,Isla Santa Clara 
+9543,Puna 
+9544,Guayaquil 
+9545,PUERTO BOLIVAR 

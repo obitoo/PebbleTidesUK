@@ -1,0 +1,12 @@
+optgroup, Croatia
+1898,Rijeka (Fiume) 
+1899,Senj 
+1900,Mali Losinj 
+1901,Zaliv Pantera 
+1902,Zadar 
+1904,Sibenik 
+1905,Rogoznica 
+1906,Split 
+1907,Komiza 
+1908,Otok Svetac 
+1909,Dubrovnik (Luka Gruz) 

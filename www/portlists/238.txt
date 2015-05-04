@@ -1,0 +1,14 @@
+optgroup, Thailand West Coast
+4630,Pak Nam Ranong 
+4632,Ko Surin 
+4634,Chang Ko Phra Thong 
+4636,Ko Miang 
+4637,Ao Kaulak 
+4639,Ko Taphao Noi (Phuket) 
+4640,Ao Nang (Krabi) 
+4643,Pak Nam Trang 
+4645,Ko Sukon 
+4646,Ko Phetra 
+4648,Ko Don 
+4649,Ko Lela 
+4650,Ko Butang 

@@ -1,0 +1,82 @@
+optgroup, Alaska
+8390,Port Clarence 
+8393,Nome 
+8398,St. Michael 
+8402,Kwikluak Pass 
+8419,Apokak 
+8422,Goodnews Bay 
+8425,Estus Point (Hagmeister Strait) 
+8426,Hagmeister Island 
+8427,Black Rock 
+8430,Protection Point 
+8432,Clarks Point 
+8441,St. Paul Island (Pribilof Islands) 
+8514,Morzhovoi Bay 
+8516,King Cove 
+8518,Dolgoi Island 
+8521,Popof Island 
+8524,Nagai Island 
+8525,Sutwik Island 
+8538,Kanatak Lagoon 
+8540,Katmai Bay 
+8543,Uganik Passage 
+8544,Uyak Bay 
+8547,Lazy Bay 
+8548,Olga Bay 
+8551,Three Saints Bay 
+8553,Ugak Bay 
+8554,Kodiak (Womens Bay) 
+8559,Shuyak Strait 
+8561,Malina Bay 
+8563,Iliamna Bay 
+8564,Snug Harbour 
+8565,DRIFT RIVER 
+8567,North Foreland 
+8569,Fire Island 
+8570,Anchorage (Knik Arm) 
+8573,Nikiski 
+8574,Kenai River Entrance 
+8575,Cape Ninilchik 
+8576,Homer 
+8577,Seldovia 
+8578,Port Chatham 
+8579,Ushagat Island 
+8581,Picnic Harbour 
+8583,Nuka Passage 
+8585,Two Arm Bay 
+8587,Seward (Resurrection Bay) 
+8589,Port Bainbridge (Hogg Bay) 
+8590,Macleod Harbour 
+8591,Port Chalmers (Prince William Sound) 
+8594,Chenega Island 
+8596,Smith Island 
+8599,Whittier 
+8604,Rocky Point 
+8605,Valdez 
+8608,Windy Bay 
+8610,Port Etches 
+8612,Gravel Point 
+8613,Cordova 
+8614,Middleton Island 
+8617,Controller Bay 
+8622,Yakutat Bay 
+8626,Lituya Bay 
+8628,Cape Spencer 
+8629,Surveyor Seamount 
+8633,Bartlett Cove 
+8636,Swanson Harbour 
+8639,William Henry Bay 
+8641,Pyramid Harbour 
+8643,Skagway 
+8648,Fritz Cove 
+8649,Juneau 
+8651,Taku Point 
+8652,Taku Harbour 
+8655,Windham Bay 
+8656,Cleveland Passage 
+optgroup, Alaska (North)
+3372,Chamisso Island 
+3374,Point Barrow 
+3375,Prudhoe Bay 
+3376,Flaxman Island 
+3377,Herschel Island 

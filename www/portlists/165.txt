@@ -1,0 +1,36 @@
+optgroup, Mozambique
+3803,Baixos Da Inhaca 
+3804,MAPUTO 
+3805,Matola 
+3806,Limpopo River Bar 
+3807,Inhampura 
+3811,Linga-Linga 
+3812,Inhambane 
+3815,Bazaruto 
+3816,Porto De Bartolomeu Dias 
+3818,Porto De Chiloane 
+3820,Porto De Sofala 
+3822,Pungue River Bar 
+3823,BEIRA 
+3824,Mapanda 
+3826,Inhamissengo Entrance 
+3827,Porto De Chinde 
+3828,Mchenga 
+3831,Morrubune 
+3832,Quelimane 
+3833,Macuse 
+3834,Maquivale 
+3836,Porto De Pebane 
+3838,Porto De Moebase 
+3840,Moma River Bar 
+3841,Moma 
+3843,Angoche (Canal Do Sul) 
+3844,Porto De Angoche 
+3847,Mocambo 
+3848,Porto De Mozambique 
+3850,NACALA 
+3852,Port Simuco 
+3855,PEMBA 
+3857,Porto Do Ibo 
+3860,Mocimboa Da Praia 
+3862,Palma (Baia De Tungue) 

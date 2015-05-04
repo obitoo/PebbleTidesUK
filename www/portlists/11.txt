@@ -1,0 +1,74 @@
+optgroup, Argentina
+2086,Caleta Brent 
+2087,Puerto Vancouver 
+2088,Puerto San Juan Del Salvamento 
+2089,Isla Observatorio 
+2090,Bahia Crossley 
+2092,Bahia Buen Suceso 
+2093,Bahia Thetis 
+2094,Caleta San Pablo 
+2096,Rio Grande Entrance, Argentina 
+2097,Rio Grande (Puerto) 
+2098,Caleta La Mision 
+2099,Bahia San Sebastian 
+2100,Cabo Virgenes 
+2101,PUNTA LOYOLA (PUERTO GALLEGOS) 
+2102,Ria Coig 
+2103,Puerto Santa Cruz Bar 
+2104,Punta Quilla 
+2105,Muelle Frigorifico 
+2106,Bahia Laura 
+2107,Bahia De Los Nodales 
+2108,Bahia Oso Marino 
+2109,Puerto Deseado 
+2110,Bahia Uruguay 
+2111,Cabo Blanco 
+2114,Comodoro Rivadavia 
+2115,Bahia Bustamante 
+2116,Isla Tova 
+2117,Puerto Melo 
+2118,Bahia Gil 
+2119,Caleta Leones 
+2120,Caleta Carolina 
+2121,Puerto Santa Elena 
+2122,Bahia Janssen 
+2123,Isla Escondida 
+2124,Bahia Engano (Puerto Rawson) 
+2125,Punta Ninfas 
+2126,PUERTO MADRYN 
+2127,Puerto Piramide 
+2128,Punta Delgada 
+2129,Caleta Valdes 
+2130,Punta Norte 
+2131,San Roman 
+2132,Pueyrredon 
+2133,La Argentina 
+2135,Puerto Punta Colorado 
+2136,Puerto San Antonio 
+2137,Caleta De Los Loros 
+2138,Punta Redonda 
+2139,Segunda Barranca 
+2140,Puerto San Blas 
+2141,Islote N.W. 
+2143,Punta Laberinto 
+2144,Romero Chico 
+2145,Punta Lobos 
+2146,Puerto Rosales 
+2147,PUERTO BELGRANO 
+2148,Puerto Ingeniero White 
+2149,Puerto Cuatreros 
+2150,Punta Tejada 
+2151,Monte Hermoso 
+2152,Recalada 
+2153,Quequen 
+2154,Mar Del Plata 
+2155,Pinamar 
+2156,Punta Medanos 
+2157,Cabo San Antonio 
+2160,Punta Piedras 
+2161,Canal Punta Indio (East) 
+2162,Canal Punta Indio (West) 
+2163,Banco Chico 
+2164,Puerto La Plata 
+2165,BUENOS AIRES 
+2166,Isla Martin Garcia 

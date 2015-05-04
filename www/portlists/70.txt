@@ -1,0 +1,16 @@
+optgroup, Faeroe Islands
+0780,Hvannesund 
+0782,Klaksvik 
+0783,Eide 
+0784,Nordskali 
+0785,Oyndarfjordur 
+0786,Fuglafjordur 
+0787,Gotuvik (Nordragota) 
+0792,Torshavn 
+0793,Vestmanna 
+0795,Sorvagur 
+0796,Midvagur 
+0798,Skopun 
+0799,Sandur 
+0800,Trongisvagur 
+0801,Vagur 

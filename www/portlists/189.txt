@@ -1,0 +1,24 @@
+optgroup, Portugal
+1730,Viana Do Castelo 
+1731,Esposende 
+1732,Povoa De Varzim 
+1733,Porto De Leixoes 
+1734,Rio Douro Entrance 
+1735,Oporto (Porto) 
+1736,Porto De Aveiro 
+1737,Figueira Da Foz 
+1738,Nazare 
+1739,Peniche 
+1740,Cascais 
+1741,LISBON 
+1743,Sesimbra 
+1744,Setubal (Troia) 
+1745,Sines 
+1746,Milfontes 
+1747,Arrifana 
+1748,Enseada De Belixe 
+1749,Lagos 
+1750,Ponta Do Altar 
+1751,Enseada De Albufeira 
+1752,Porto De Faro-Olhao 
+1753,Vila Real De Santo Antonio 

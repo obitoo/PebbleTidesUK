@@ -1,0 +1,9 @@
+optgroup, Senegal
+3534,St. Louis 
+3535,DAKAR 
+3536,Mbour 
+3538,Pointe De Sangomar 
+3539,Foundiougne (Fundiun) 
+3540,Fatick 
+3552,Pointe De Diogue 
+3554,Ziguinchor 

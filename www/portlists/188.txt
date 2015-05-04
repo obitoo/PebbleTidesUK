@@ -1,0 +1,128 @@
+optgroup, Philippine Islands
+4920,Balabac 
+4922,Eran Bay 
+4923,Ulugan Bay 
+4924,Pankol 
+4925,Paly Island 
+4926,Puerto Princesa 
+4927,Island Bay 
+4929,Linapakan Island 
+4930,Halsey Harbour 
+4931,Coron 
+4932,Cuyo Island 
+4934,Apo Island 
+4935,San Jose 
+4937,Paluan 
+4938,Calapan 
+4939,Mansalay 
+4940,Port Balanacan 
+4941,Maestre De Campo Island 
+4942,Looc 
+4943,Romblon Island 
+4945,Tibiao 
+4946,Anini-Y 
+4947,Iloilo 
+4948,Banate 
+4949,Estancia 
+4950,Capiz Landing 
+4952,Cadiz (Philippines) 
+4953,Bacolod 
+4954,Himamaylan 
+4955,Campomanes Bay 
+4956,Bonbonon 
+4957,Bais 
+4958,San Carlos 
+4959,Bantayan Island 
+4960,Balamban Bay 
+4961,Moalbual 
+4962,Bolhoon 
+4963,CEBU 
+4964,Bogo Bay 
+4966,Garcia Hernandez 
+4967,Cogton 
+4968,Larena 
+4969,Cataingan 
+4970,Nin Bay 
+4971,Port Barrera 
+4972,San Pascual 
+4973,Batuan Bay 
+4974,Butag Bay 
+4975,Bagatao Island 
+4976,Sorsogon 
+4978,Pasacao 
+4979,Guinayangan 
+4980,Port Pusgo 
+4981,Aguasa Bay 
+4983,Lucena 
+4984,Anilao 
+4985,Port Tilic 
+4986,Corregidor Island 
+4987,MANILA 
+4988,Olongapo 
+4990,Port Masinloc 
+4991,Santa Cruz (Luzon) 
+4993,Bolinao 
+4994,Sual 
+4996,SAN FERNANDO (LUZON) 
+4999,Salomague Harbour 
+5001,Nagabungan Bay 
+5002,Claveria Bay 
+5004,Aparri 
+5005,Port S. Vicente 
+5007,Basco 
+5009,Babuyan Island 
+5012,Musa Bay 
+5013,Port San Pio Quinto 
+5014,Patunungan Bay 
+5016,Port Bicobian 
+5018,Diapitan Bay 
+5019,Busok Busok 
+5020,Baler Bay 
+5021,Umiray River Entrance 
+5022,Hook Bay 
+5023,Burdeos Bay 
+5025,Port Lampon (Real Port) 
+5026,Antimonan 
+5027,Port Jose Panganiban 
+5028,Kabgan Island 
+5029,Sisiran Bay 
+5030,Port Anajao 
+5031,Tabaco 
+5032,LEGASPI 
+5034,Biri Island 
+5035,Santa Rita 
+5036,Catbalogan 
+5039,Laoang 
+5040,Hilaban Island 
+5042,Santa Elena River 
+5043,Tacloban 
+5045,Hinunangan Bay 
+5046,Liloan 
+5048,Maasin 
+5049,Baybay 
+5050,Palompon 
+5052,Puerto Princesa (Dinagat) 
+5053,Port Pilar 
+5054,Surigao 
+5055,Dahikan Bay 
+5056,Tandag 
+5057,Hinatuan 
+5059,Caraga 
+5060,Mati 
+5061,Sigaboy 
+5062,DAVAO 
+5063,SARANGANI ISLAND 
+5064,Port Lebak 
+5065,Pollok Harbour 
+5066,Margosatubig 
+5067,Tikauan Point 
+5068,Zamboanga 
+5069,Sibuco Bay 
+5070,Port S. Maria 
+5071,Dapitan 
+5072,Plaridel 
+5073,Ozamiz 
+5074,Iligan 
+5075,Cagayan De Oro 
+5076,Mambajao 
+5077,Nasipit Harbour 

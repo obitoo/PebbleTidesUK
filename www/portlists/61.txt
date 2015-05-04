@@ -1,0 +1,18 @@
+optgroup, Denmark
+1386,Kobenhavn 
+1387,Korsor 
+1390,Gedser 
+1392,Slipshavn 
+1395,Fredericia 
+1399,Arhus 
+1409,Frederikshavn 
+1411,Skagen 
+1412,Hirtshals 
+1413,Thyboron 
+1414,Thorsminde 
+1415,Hvide Sande 
+1416,Blavands Huk 
+1417,ESBJERG 
+1418,Gradyb Bar 
+1419,Havneby 
+1420,Hojer 

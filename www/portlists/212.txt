@@ -1,0 +1,38 @@
+optgroup, Siberia
+8150,Furugel'ma Island 
+8154,VLADIVOSTOK 
+8157,Bukhta Nakhodka 
+8160,Bukhta Sokolovskaya 
+8163,St. Olga Bay 
+8164,TIUTCHO BAY 
+8171,Cape Vystryechni 
+8173,SOVETSKAYA 
+8174,BUKHTA VANINO 
+8176,Starka Bay 
+8178,De Kastri Bay 
+8179,Cape Sushcheva 
+8180,Cape Chikhacheva 
+8181,Cape Muraveva 
+8182,Cape Lazareva 
+8184,Uyuzyut Island 
+8186,Cheushi Island 
+8187,Baidukov Island 
+8297,Bukhta Abrek 
+8300,Guba Lebyazh'ya 
+8301,Udskaya Guba 
+8304,Zaliv Ayan 
+8310,Magadan 
+8314,Zaliv Udacha 
+8319,Bukhta Matuga 
+8323,Mys Astronomicheski 
+8340,PETROPAVLOVSK 
+8342,Bukhta Morzhovaya 
+8346,Mys Osypnoy 
+8347,Nikolskoye 
+8357,Gavan Sibir 
+8359,Bukhta Lavrova 
+8363,Bukhta Glubokaya 
+8369,Anadyr 
+8373,Bukhta Engaugin 
+8377,Bukhta Slavyanka (Reyd Plover) 
+8383,Mys Uelen 

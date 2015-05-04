@@ -1,0 +1,282 @@
+optgroup, Canada
+2847,Outer Wood Island 
+2849,North Head 
+2853,Welshpool 
+2858,St. Andrews 
+2860,Back Bay 
+2862,Lepreau Bay 
+2863,West Dipper Harbour 
+2864,SAINT JOHN, N.B. 
+2866,St. Martins 
+2869,Herring Cove 
+2871,Grindstone Island 
+2872,Hopewell Cape 
+2874,Moncton 
+2875,Salisbury 
+2877,Amherst Harbour 
+2878,Joggins 
+2880,Cape Capstan 
+2881,Ile Haute 
+2883,West Advocate 
+2884,Port Greville 
+2885,Parrsboro 
+2886,Five Islands 
+2888,Truro (Minas Basin) 
+2891,Burntcoat Head 
+2893,Hantsport 
+2894,Windsor 
+2897,Scots Bay 
+2899,Margaretsville 
+2900,Parkers Cove 
+2901,Digby 
+2902,Annapolis Royal 
+2904,Tiverton 
+2905,Westport (St. Mary Bay) 
+2906,Meteghan 
+2907,Weymouth 
+2910,Yarmouth (Bay Of Fundy) 
+2912,Woods Harbour 
+2913,Flat Island 
+2914,Clark's Harbour 
+2915,Barrington Passage 
+2917,Shelburne 
+2919,Lockeport 
+2922,Port Mouton 
+2923,Liverpool, Nova Scotia 
+2926,Krout Point 
+2927,Bridgewater 
+2928,Lunenburg 
+2929,Mahone Harbour 
+2930,Chester, Canada 
+2932,Indian Harbour 
+2935,HALIFAX 
+2939,Jeddore Harbour 
+2940,Murphy Cove 
+2942,Sheet Harbour 
+2946,Sonora 
+2948,Isaac's Harbour 
+2950,Larry's River 
+2952,Sable Island 
+2954,Canso Harbour 
+2956,Guysborough 
+2958,Port Hastings 
+2959,Point Tupper 
+2960,Arichat 
+2961,Cannes 
+2964,Gabarus 
+2965,Louisburg 
+2968,Glace Bay 
+2969,North Sydney 
+2972,St Anns Harbour 
+2974,Ingonish Island 
+2976,Dingwall 
+2977,St. Paul Island (Cabot Strait) 
+2980,Grande Entree 
+2983,Cap-Aux-Meules 
+2984,Havre Aubert 
+2986,La Pointe 
+2988,Broad Cove Marsh 
+2990,Port Hood 
+2992,Aulds Cove 
+2993,Cape Jack 
+2994,Antigonish 
+2995,Ballantynes Cove 
+2997,PICTOU 
+3001,Pugwash Harbour 
+3003,Cape Tormentine 
+3005,Shediac Bay 
+3010,Summerside 
+3011,Borden 
+3014,Charlottetown 
+3017,Murray Harbour 
+3018,Georgetown (Prince Edward Island) 
+3019,Souris 
+3021,Savage Harbour 
+3023,Rustico 
+3025,Malpeque 
+3026,Alberton 
+3027,Tignish 
+3030,Richibucto Cape 
+3032,Escuminac 
+3035,Portage Island 
+3036,Neguac 
+3038,Shippegan Gully 
+3039,Caraquet 
+3040,Bathurst 
+3041,Belledune 
+3042,Dalhousie 
+3043,Campbellton 
+3045,Paspebiac 
+3046,Port Daniel 
+3047,Grande Riviere 
+3048,POINTE ST. PIERRE 
+3049,Gaspe 
+3052,Pointe Heath 
+3054,Pointe Du Sud Ouest 
+3055,Port Menier 
+3057,Riviere-Au-Renard 
+3059,Grande Vallee 
+3060,Mont Louis 
+3062,Ste. Anne Des Monts 
+3064,Matane 
+3067,POINTE-AU-PERE 
+3068,Les Escoumins 
+3069,Trois-Pistoles 
+3070,Tadoussac 
+3071,Port Alfred, Canada 
+3072,Chicoutimi 
+3074,Riviere Du Loup 
+3076,Pointe Au Pic 
+3078,Pointe Aux Orignaux 
+3080,St. Joseph De La Rive 
+3082,St. Jean Port Joli 
+3083,Sault-Au-Cochon 
+3084,Chenal De Beaujeu 
+3087,La Grosse Ile 
+3089,St. Francois 
+3090,St. Laurent (St. Lawrence Estuary) 
+3092,QUEBEC 
+3095,Neuville 
+3096,Batiscan 
+3098,Baie Comeau 
+3099,Pointe Des Monts 
+3100,Iles Du Caouis 
+3101,Port Cartier 
+3102,Sept Iles 
+3103,Rivierre-Au-Tonnerre 
+3107,Havre St. Pierre 
+3108,Baie-Johan-Beetz 
+3110,Natashquan 
+3112,La Romaine 
+3114,HARRINGTON HARBOUR 
+3117,Mistanoque 
+3120,Blanc Sablon 
+3121,Forteau Bay 
+3122,Pinware Bay 
+3123,Red Bay, Canada 
+8839,Stewart 
+8840,Kumeon Bay 
+8842,Kincolith 
+8844,Granby Bay 
+8848,Port Simpson 
+8850,PRINCE RUPERT 
+8851,Port Edward 
+8852,Morse Basin 
+8883,Lawyer Islands 
+8884,Kitkatla Island 
+8886,Humpback Bay 
+8887,Qlawdzeet Anchorage 
+8888,Khyex Point 
+8891,Claxton Creek 
+8892,Seabreeze Point 
+8894,Lowe Inlet 
+8898,Mink Trap Bay 
+8899,Port Stephens, Canada 
+8900,Port Canaveral, Canada 
+8906,Griffith Harbour 
+8907,Gillen Harbour 
+8908,Block Islands 
+8912,Hartley Bay 
+8913,Kitimat 
+8915,Kemano Bay 
+8921,Barnard Harbour 
+8922,Surf Inlet 
+8924,Butedale 
+8926,Borrowman Bay 
+8927,Mckenney Islands 
+8928,Milne Island 
+8929,Klemtu Passage 
+8934,Griffin Passage 
+8935,Tom Bay 
+8936,Port Blackney 
+8937,Bella Bella 
+8939,Ocean Falls 
+8942,Bella Coola 
+8943,Namu 
+8944,Addenbroke Island 
+8946,Wadhams 
+8947,Kildala 
+8952,Gosling Island 
+8954,Adams (Welcome) Harbour 
+8960,Egg Island 
+8961,Treadwell Bay 
+8962,Johnson Point 
+8964,Raynor Group 
+8967,Jessie Point 
+8971,Sunday Harbour 
+8972,Lagoon Cove 
+8973,Glendale Cove 
+8974,Root Point 
+8978,Farewell Harbour 
+8984,Port Harvey 
+8986,Port Neville 
+8988,Yorke Island 
+8989,Salmon River (Kelsey Bay) 
+8990,Helmcken Island (Billygoat Bay) 
+8993,Knox Bay 
+8998,Chatham Point 
+8999,Carterer Point 
+9000,Sidney Bay 
+9003,Cordero Islands 
+9004,Shoal Bay 
+9005,Mermaid Bay 
+9009,Owen Bay 
+9012,Brown Bay 
+9097,Seymour Narrows (Discovery Passage) 
+9100,Cape Mudge 
+9105,Whaletown Bay 
+9107,Redonda Bay 
+9111,Waddington Harbour 
+9113,Lund 
+9122,Egmont 
+9123,SECHELT (PORPOISE BAY) 
+9125,Pender Harbour 
+9129,Squamish 
+9131,Point Atkinson 
+9132,False Creek 
+9133,VANCOUVER 
+9134,Lake Buntzen 
+9135,Port Moody 
+9136,Sand Heads 
+9138,New Westminster 
+9139,Port Coquitlam 
+9140,Port Haney 
+9141,Sumas 
+9142,Tsawwassen 
+optgroup, Vancouver Island
+optgroup, Canadian Arctic
+3311,Brevoort Harbour 
+3312,Cumberland Sound 
+3313,Cape Dyer 
+3314,Cape Hooper 
+3319,Arctic Bay 
+3322,Baffin 
+3323,Dundas Harbour 
+3324,Rigby Bay 
+3325,Erebus Bay 
+3328,Northumberland Sound 
+3334,Resolute 
+3338,Driftwood Bay 
+3340,Cape Capel 
+3341,Byam Martin Island 
+3343,Dealy Island 
+3344,Winter Harbour (Melville Sound) 
+3356,Fort Ross 
+3360,False Strait 
+3362,Shepherd Bay 
+3378,Tuktoyaktuk 
+3379,Paulatuk 
+3380,Pearce Point 
+3381,Bernard Harbour 
+3384,Cambridge Bay 
+3389,Princess Royal Island 
+3393,Cape Kellett 
+3395,Mercy Bay 
+3396,Mould Bay 
+3398,Isachsen 
+3400,Eureka 
+3402,Pim Island 
+3404,Cape Lawrence 
+3406,Discovery Harbour 
+3407,Cape Sheridan 
+3408,Cape Columbia 

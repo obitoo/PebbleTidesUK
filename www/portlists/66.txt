@@ -1,0 +1,16 @@
+optgroup, Egypt
+1991,Port Said (Bur Sa'id) 
+1992,Al Iskandariyah (Alexandria) 
+1993,As Sallum 
+4094,Marsa Sha'b 
+4095,Barnis (Berenice) 
+4098,Al Qusayr 
+4100,Hurghada (Al Ghardaqah) 
+4101,Jazirat Shakir 
+4103,Juzur Ashrafi 
+4105,At Tur 
+4106,Ra's Gharib 
+4110,Ra's Za'faranah 
+4112,SUEZ (AS SUWAYS) 
+4115,Sharm Ash Shaykh (Sharm El Sheikh) 
+4117,Khalij Al Qarah (Dhahab) 

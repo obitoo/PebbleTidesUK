@@ -1,0 +1,36 @@
+optgroup, Papua New Guinea
+5543,Bristow Island 
+5544,Daru 
+5546,Bamu River Entrance 
+5547,Umuda Island 
+5548,Goaribari Island 
+5549,Omati 
+5551,Kikori 
+5552,Port Romilly 
+5553,Kerema 
+5555,Cape Possession 
+5556,Hall Sound 
+5558,PORT MORESBY 
+5560,Kaligola Point 
+5561,Dedele Point 
+5562,Bonarua Island 
+5563,Delami Island 
+5564,South Cape 
+5565,Bonarua (Brumer) Island 
+5566,Samarai Island 
+5591,Aigura Point 
+5592,Iasi-Iasi Anchorage 
+5593,Mapamoiwa 
+5594,Tufi Harbour 
+5595,Port Harvey, Papa New Guinea 
+5596,Eve Shoal 
+5597,Caution Point 
+5598,LAE 
+5599,Dreger Harbour 
+5600,Finsch Harbour 
+5601,Umboi Island 
+5603,Madang Harbour 
+5605,Bogia 
+5606,Sepik River 
+5607,Wewak 
+5610,Vanimo 

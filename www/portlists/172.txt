@@ -1,0 +1,10 @@
+optgroup, Nicaragua
+2403,Greytown 
+2404,Bluefields Bluff 
+2405,Great Corn Island 
+2407,Pearl Cays 
+2409,Old Providence 
+2410,Puerto Cabezas 
+2412,Cabo Gracias A Dios 
+9453,Puerto Corinto 
+9455,San Juan Del Sur 

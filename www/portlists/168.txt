@@ -1,0 +1,89 @@
+optgroup, New Caledonia
+5745,Pam Bay 
+5746,Port Puebo 
+5747,Port Hienghene 
+5748,Touho 
+5749,Baie De Poro 
+5750,Baie D'amata 
+5751,Baie Ouinne 
+5752,Yate 
+5754,Kuto 
+5755,Goro 
+5756,Baie Du Prony 
+5757,Ire 
+5758,Amedee Lighthouse 
+5759,Noumea 
+5760,Baie St. Vincent 
+5761,Passe D'isie 
+5762,Baie D'ouarai 
+5763,Bourail 
+5764,Baie De La Poya 
+5765,Baie De Gomen 
+5766,Paagoumene Bay 
+5767,Banare Bay 
+5768,Aue Bay 
+optgroup, New Zealand North Island
+6366,Port Taranaki 
+6367,Waitara River Entrance 
+6369,Kawhia 
+6370,Aotea Harbour 
+6371,Raglan 
+6372,Waikato River Entrance 
+6373,Paratutae Island 
+6374,Cornwallis 
+6375,Onehunga 
+6376,Island Point 
+6377,Pouto Point 
+6378,Shelly Beach 
+6379,Tinopai 
+6380,Te Kopuru 
+6381,Opononi 
+6382,Kohukohu 
+6384,Ahipara Bay 
+6385,Great Island (Three Kings Islands) 
+6386,Cape Maria Van Diemen 
+6387,Parengarenga Harbour (Ngatehe Point) 
+6388,Scheigis Rock 
+6389,Mangonui 
+6390,Whangaroa 
+6391,Russell 
+6392,Whangaruru Harbour 
+6393,Tutukaka Harbour 
+6394,Marsden Point 
+6395,Port Whangarei 
+6396,Burgess Island (Pokohinu) 
+6397,Mansion House Bay 
+6398,Mahurangi Harbour 
+6399,Weiti River Entrance 
+6400,AUCKLAND 
+6401,Man O'war Bay 
+6404,Rocky Point (Thames) 
+6405,Coromandel Harbour 
+6406,Nagle Cove 
+6407,Tryphena 
+6408,Port Jackson 
+6411,Whitianga 
+6412,Tairua 
+6415,Tauranga 
+6417,Motuhora Island 
+6418,Port Ohope Wharf 
+6419,Umaio Bay (Motunui Island) 
+6421,Hicks Bay 
+6422,East Cape 
+6423,Waipiro Bay 
+6424,Tolaga Bay 
+6425,Gisborne 
+6428,Portland Island 
+6429,Waikokopu 
+6430,Wairoa River Entrance 
+6432,Napier 
+6436,Castlepoint 
+6438,Cape Palliser 
+6439,WELLINGTON 
+6441,Cape Terawhiti (Oteranga Bay) 
+6442,Makara Beach 
+6443,Porirua Harbour (Mana Cruising Club) 
+6445,Manawatu River Entrance 
+6447,Wanganui River Entrance 
+6449,Patea 
+6451,Opunake Bay 

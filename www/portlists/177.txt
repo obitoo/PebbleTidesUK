@@ -1,0 +1,31 @@
+optgroup, Oman
+4167,Dhalqut 
+4168,PORT SALALAH 
+4169,Marbat 
+4170,Al Hallaniyah 
+4171,Ras Al Madrakah 
+4172,Hamr An Nafur 
+4173,Ras Sarab 
+4174,Ghubbat Hashish 
+4175,Mahawt 
+4176,Ras Hilf 
+4178,Ras Sheiblah 
+4179,Al Ashkhara 
+4180,Ras Al Hadd 
+4181,Khawr Al Hajar 
+4182,Sur 
+4183,Dhagmar 
+4184,Quryat 
+4185,Bandar Khayran 
+4186,Khawr Masqat 
+4187,Sib 
+4188,Ras Suwadi 
+4189,Wudam 
+4190,Suhar 
+4191,Shinas 
+4194,Mina Diba 
+4195,Khawr Habalayn 
+4196,Ras Dillah 
+4197,Didamar 
+4198,Khawr Al Quway 
+4199,Khasab 

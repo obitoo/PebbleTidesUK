@@ -1,0 +1,18 @@
+optgroup, Japan
+7606,Sasuna Ko 
+7608,Tsuna 
+7610,Tsutsu 
+7611,Izuhara 
+7613,Takeshiki Ko 
+7615,Oshika 
+7618,Gonoura 
+7619,Katsumoto 
+7621,Ashibe 
+7622,Konoura 
+7625,Arikawa 
+7626,Tai-No-Ura 
+7628,Wakamatsu (Goto Retto) 
+7631,Fukue (Goto Retto) 
+7632,Tomie 
+7633,Tamanoura 
+7636,Me Shima 

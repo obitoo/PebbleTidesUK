@@ -1,0 +1,17 @@
+optgroup, Grecian Archipelago
+1972,Nisos Leros 
+1973,Nisos Astipalaia 
+1974,Nisos Kos 
+1975,Nisos Symi 
+1976,Rodos 
+1977,Lindos 
+1981,Megisti (Kastellorizo) 
+optgroup, Greece
+1920,Pandeleimon 
+1921,Galaxidi 
+1922,Korinthos (Corinth) 
+1940,Chalkis (S. Of Bridge) 
+1941,Chalkis (N. Of Bridge) 
+1942,Steno Knimidas 
+1943,Volos 
+1946,Thessaloniki 

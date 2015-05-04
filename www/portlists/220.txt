@@ -1,0 +1,13 @@
+optgroup, Sri Lanka
+4427,Kalpitiya 
+4428,COLOMBO 
+4430,Galle 
+4431,Mirissa 
+4432,Hambantota 
+4435,Batticaloa Roads 
+4437,TRINCOMALEE 
+4439,Point Pedro 
+4440,Jaffna 
+4441,Kayts Lagoon 
+4443,Delft Island 
+4444,Kachchaitivu 

@@ -1,0 +1,25 @@
+optgroup, Hawaiian Islands
+6622,Hilo Bay 
+6623,Honuapo 
+6624,Napoopoo (Napupu) 
+6625,Mahukona 
+6627,Kihei 
+6628,Lahaina 
+6629,Kahului 
+6631,Kaumalapau 
+6632,Pukoo Harbour 
+6633,Kamalo Harbour 
+6634,Kolo 
+6636,HONOLULU 
+6637,Waianae 
+6638,Waialua Bay 
+6639,Laie Bay 
+6640,Moku O Loe 
+6641,Waimanalo Bay 
+6642,Nawiliwili 
+6643,Waimea Bay 
+6644,Hanalei Bay 
+6645,Nonopapa 
+6649,French Frigate Shoals 
+6651,Laysan Island 
+6654,Sand Island 

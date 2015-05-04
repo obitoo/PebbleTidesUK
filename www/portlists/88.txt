@@ -1,0 +1,18 @@
+optgroup, Guyana
+2287,New Amsterdam 
+2288,Belfield 
+2289,Demarara Light Buoy 
+2290,GEORGETOWN 
+2291,Linden 
+2292,Bluejacket Beacon 
+2293,Parika 
+2294,Fort Island 
+2296,Wakenaam 
+2297,Karia Karia 
+2298,Aliki 
+2299,Stampa Island 
+2300,Makauria 
+2301,Bartica 
+2302,Pomerun River Mouth 
+2303,Charity 
+2305,Punta Waini 

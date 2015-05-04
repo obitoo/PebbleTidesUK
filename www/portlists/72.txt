@@ -1,0 +1,31 @@
+optgroup, Fiji Islands
+6705,SUVA HARBOUR 
+6706,Rukua 
+6707,Lautoka 
+6708,Manuqila Bay 
+6709,Manava Cay 
+6710,Ellington Wharf 
+6711,Tailevu 
+6713,Levuka 
+6714,Nairai Island 
+6715,Waikama 
+6716,Koro Island 
+6717,Naboulwalu 
+6718,Yadua Island 
+6719,Navidamu 
+6720,Malau 
+6721,Visonggo 
+6722,Natewa 
+6723,Vunikura 
+6724,Nakama Creek 
+6725,Muanicula 
+6726,Veitalacagi Point 
+6728,Welagilala Island 
+6729,Vanua Balavu Island 
+6730,Tubou 
+6732,Herald Sound 
+6733,Naroi 
+6734,Matuku Harbour 
+6735,Galoa Harbour 
+6739,Iles Wallis (Mata-Utu) 
+6740,Rotuma Island 

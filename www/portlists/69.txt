@@ -1,0 +1,6 @@
+optgroup, Eritrea
+4072,Aseb 
+4074,Ed 
+4076,Anfile Bay 
+4079,Harmil Island 
+4082,Mits'iwa 

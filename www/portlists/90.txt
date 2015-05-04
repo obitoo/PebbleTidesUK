@@ -1,0 +1,10 @@
+optgroup, Halmahera
+5449,Ternate 
+5450,Asimiro 
+5452,Teluk Galela 
+5453,Kau 
+5454,Buli 
+5455,Bicoli 
+5456,Tepeleu 
+5457,Patani 
+5459,Teluk Gane 

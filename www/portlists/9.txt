@@ -1,0 +1,47 @@
+optgroup, Antarctica
+2001,Breivika 
+2002,Marion Island 
+2004,Baie De L'oiseau 
+2005,Anse Betsy 
+2006,Port-Aux-Francais 
+2007,Port Jeanne D'arc 
+2008,St. Paul Island 
+2009,Mawson 
+2010,Heard Island 
+2011,Davis Islands 
+2012,Gauss Station 
+2013,Dumont D'urville Base 
+2014,Cape Denison 
+2018,Scott Base 
+2019,Kainan Bay 
+2020,Eklund Islands 
+2021,Stonington 
+2022,Rothera Point 
+2023,Detaille Island 
+2024,Prospect Point 
+2026,Marina Point 
+2028,Port Circumcision 
+2030,Booth Island (Port Charcot) 
+2032,Wiencke Island (Port Lockroy) 
+2033,Dorian Bay 
+2034,Lemaire Island (Caleta Gloria) 
+2036,Gerlache Strait (Nansen Island) 
+2037,Melchior Islands 
+2038,Deception Island 
+2039,Discovery Bay 
+2040,Admiralty Bay 
+2041,Potter Cove 
+2042,Elephant Island 
+2043,Hope Bay 
+2044,Pastorizo Bay 
+2045,Ronne Ice Shelf 
+2046,Shackleton Base 
+2050,Moltke Harbour 
+2051,King Edward Cove 
+2052,Leith Harbour 
+2053,Elsehul 
+2055,Scotia Bay 
+2056,Signy Island 
+2058,Southern Thule 
+2059,Gough Island 
+2060,Tristan Da Cunha 

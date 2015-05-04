@@ -1,0 +1,24 @@
+optgroup, Cuba
+2500,Guantanamo Bay 
+2501,Santiago 
+2502,Puerto Pilon 
+2503,Manzanillo, Cuba 
+2505,Casilda 
+2506,Cienfuegos 
+2507,Carapachibey 
+2508,Los Arroyos 
+2509,Bahia Honda 
+2510,Habana 
+2511,Matanzas 
+2512,Cardenas 
+2513,Isabela 
+2515,Cayo Paredon Grande 
+2516,Bahia Nuevitas Entrance 
+2517,Nuevitas 
+2518,Puerto Padre 
+2519,Puerto Gibara 
+2520,Punta Caranero 
+2521,Antilla 
+2522,Puerto Tanamo 
+2524,Baracoa 
+2525,Punta  Maisi 
