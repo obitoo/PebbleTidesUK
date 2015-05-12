@@ -39,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
-    webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
+//    webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
 
 
 // Listen for when the watchface is opened, then 
@@ -57,7 +57,7 @@ Pebble.addEventListener('ready',   function(e) {
       "cfg_port"           : "263:0110",
       "cfg_show_portname"   : "off",
       "cfg_enable_dst"      : "off",
-      "cfg_offset"          : "60"
+      "cfg_offset"          : "0"
     };  
   
     console.log("  config_defaults= " + JSON.stringify(config_defaults));
