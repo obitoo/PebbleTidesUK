@@ -40,7 +40,8 @@
            //alert("port index is "+found);
            var myselect = $("select#"+fieldname);
            myselect[0].selectedIndex = found;
-           myselect.selectmenu("refresh");
+//           myselect.selectmenu("refresh");
+  $("."+fieldname).select2();
       };
          // as above but deals with optgroups getting in the way
       function select_list_item_optgroup(fieldname, cfg_port) {
@@ -183,7 +184,7 @@
 
           // magic bollocks
   $('list-offset').select2();
-  //$('.list-country').select2();
+  //$(".list-country").select2();
 
       });
   </script>
@@ -206,7 +207,8 @@
 
 
       <label for="list-country">Select a country</label>
-        <select name="list-country" id="list-country" class="list-country"  >
+        <select name="list-country" id="list-country" class="list-country"  type='text' data-role='none'>
+
 
              <option value="">Please select a Country..</option>
              <option value="2">Alaska</option>
@@ -352,6 +354,7 @@
              <option value="259">Vietnam</option>
         </select>
 
+      <p>
       <label for="list-port">Select a port (tap to search)</label>
         <select class="list-port" name="list-port" id="list-port" type='text' data-role='none' >
         </select>
