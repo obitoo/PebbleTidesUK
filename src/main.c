@@ -34,10 +34,13 @@ static TextLayer   *s_date_layer;
        TextLayer   *s_tidetimes_text_layer;
        TextLayer   *s_tideheight_text_layer1;
        TextLayer   *s_tideheight_text_layer2;
+       TextLayer   *s_portname_text_layer;
 static GFont        s_time_font;
 static GFont        s_date_font;
 static GFont        s_tidetime_font;
 static GFont        s_tideheight_font;
+static GFont        s_portname_font;
+
        Layer       *s_graph_layer;
 //static GBitmap     *s_background_bitmap;
 
@@ -77,6 +80,7 @@ static void init() {
 //     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 //   } else {
     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
+    s_portname_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 //   }
 
@@ -200,6 +204,9 @@ void main_set_colours(){
   text_layer_set_background_color(s_tidetimes_text_layer, colour_bg());
   text_layer_set_text_color(s_tidetimes_text_layer,  colour_fg());
   
+  text_layer_set_background_color(s_portname_text_layer, colour_bg());
+  text_layer_set_text_color(s_portname_text_layer,  colour_fg());
+    
   text_layer_set_background_color(s_tideheight_text_layer2, colour_bg());
   text_layer_set_text_color(s_tideheight_text_layer2,       colour_fg_dim());
   text_layer_set_background_color(s_tideheight_text_layer1, colour_bg());
@@ -228,6 +235,13 @@ static void mainwindow_load(Window *window) {
   text_layer_set_text(s_tidetimes_text_layer, "Loading...");
   text_layer_set_font(s_tidetimes_text_layer, s_tidetime_font);
   text_layer_set_text_alignment(s_tidetimes_text_layer, GTextAlignmentLeft);
+  
+  // Portname Layer
+  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 38, 144, 20));
+  text_layer_set_text(s_portname_text_layer, "A Portname");
+  text_layer_set_font(s_portname_text_layer, s_portname_font);
+  text_layer_set_text_alignment(s_portname_text_layer, GTextAlignmentRight);
+   
 
   //   date   
   s_date_layer = text_layer_create(GRect(5, 100, 139, 30));
@@ -260,6 +274,8 @@ static void mainwindow_load(Window *window) {
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer1));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer2));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_portname_text_layer));
+
   // hide if 3/4 width
   main_hide_heights_layer();
 
