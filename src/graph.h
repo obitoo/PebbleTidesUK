@@ -41,6 +41,11 @@
 #define  CFG_PORT         16
 #define  CFG_TIME         17
 #define  CFG_VERSION      18
+#define  CFG_PORTNAME     19
+#define  CFG_DST          20
+#define  CFG_OFFSET       21
+
+  
   
   
 
