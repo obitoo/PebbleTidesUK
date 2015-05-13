@@ -18,7 +18,7 @@
  ---------------------------------------------------------*/
 #pragma once
 
-#define  RELEASE_VSN   1.0
+#define  RELEASE_VSN   3.0
   
 #define MSG_TYPE    0 
   
@@ -44,6 +44,8 @@
 #define  CFG_PORTNAME     19
 #define  CFG_DST          20
 #define  CFG_OFFSET       21
+#define  KEY_PORTNAME     22
+  
 
   
   

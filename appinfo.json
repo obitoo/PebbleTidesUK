@@ -13,6 +13,7 @@
         "KEY_HEIGHT_1": 10,
         "KEY_HEIGHT_2": 11,
         "KEY_HEIGHT_3": 12,
+        "KEY_PORTNAME": 22,
         "KEY_STATE_0": 1,
         "KEY_STATE_1": 3,
         "KEY_STATE_2": 5,

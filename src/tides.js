@@ -39,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
-  //  webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
+ //   webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
 
 
 // Listen for when the watchface is opened, then 
@@ -55,7 +55,7 @@ Pebble.addEventListener('ready',   function(e) {
        "cfg_show_heights"   : "off",
        "cfg_line_graph"     : "off",
       "cfg_port"           : "263:0110",
-      "cfg_show_portname"   : "off",
+      "cfg_show_portname"   : "on",
       "cfg_enable_dst"      : "off",
       "cfg_offset"          : "0"
     };  
@@ -159,7 +159,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
               "CFG_SHOW_HEIGHTS": config.cfg_show_heights,
               "CFG_LINE_GRAPH"  : config.cfg_line_graph,
               "CFG_PORT"        : config.cfg_port,
-              "CFG_PORTNAME"    : config.cfg_portname,
+              "CFG_PORTNAME"    : config.cfg_show_portname,
               "CFG_DST"         : config.cfg_dst,
               "CFG_OFFSET"      : config.cfg_offset,
   };
@@ -219,7 +219,7 @@ Pebble.addEventListener('appmessage',   function(e) {
         localStorage.setItem("cfg_port", e.payload.CFG_PORT);
         localStorage.setItem("cfg_time",    e.payload.CFG_TIME);
         localStorage.setItem("cfg_version", e.payload.CFG_VERSION);
-        localStorage.setItem("cfg_portname", e.payload.CFG_PORTNAME);
+        localStorage.setItem("cfg_show_portname", e.payload.CFG_PORTNAME);
         localStorage.setItem("cfg_dst"     , e.payload.CFG_DST);
         localStorage.setItem("cfg_offset"  , e.payload.CFG_OFFSET);
       
@@ -343,7 +343,9 @@ function getTides(locn, version, timestring) {
                   
                   "KEY_STATE_3": state3,
                   "KEY_TIME_3": time3,
-                  "KEY_HEIGHT_3": height3
+                  "KEY_HEIGHT_3": height3,
+                  
+                  "KEY_PORTNAME": json.portname
                 };
             } 
             

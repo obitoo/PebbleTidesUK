@@ -33,6 +33,8 @@ static int draw_y[] = {0,0,0,0,0};
 extern  TextLayer   *s_tidetimes_text_layer;
 extern  TextLayer   *s_tideheight_text_layer1;
 extern  TextLayer   *s_tideheight_text_layer2;
+extern  TextLayer   *s_portname_text_layer;
+
 
 
 static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2); // TODO - move
@@ -75,7 +77,8 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
 void print_tide_text_layers (char (*p_state_buf)[8], 
                              char (*p_time_buf)[6], 
                              int *p_height_buf, 
-                             char *time_str) {
+                             char *time_str, 
+                             char *p_portname) {
   
   // colour - setting it in main_set_colours() doesnt work for some reason
   text_layer_set_text_color(s_tidetimes_text_layer, colour_fg());
@@ -86,7 +89,13 @@ void print_tide_text_layers (char (*p_state_buf)[8],
   // heights  
   if (config_get_intval(CGRAPH_NUM_POINTS)  < 4) 
     print_tideheights (p_state_buf, p_height_buf, time_str);
-
+  
+  // Portname
+  if (config_get_bool(CFG_PORTNAME))
+     text_layer_set_text(s_portname_text_layer, p_portname);
+  else
+     text_layer_set_text(s_portname_text_layer, "");
+      
 }
 
 
