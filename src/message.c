@@ -21,7 +21,7 @@
 #include <config.h>
 
 extern void calc_graph_points          (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf);
-extern void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf, char *);
+extern void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf, char *, char *);
 extern void main_hide_heights_layer();
 extern char*  p_current_time;
 
@@ -34,6 +34,8 @@ static char *translate_error(AppMessageResult result);
 static char state_buf[4][8];   // "hi" | "lo"
 static char time_buf[4][6];    // "23:44"
 static int  height_buf[5];    // "56"  = 5.6m 
+static char portname_buf[31];    //   "Southend-on-sea"
+
 
 extern Layer       *s_graph_layer;
 
@@ -59,7 +61,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
      // update graphics
   if (update) {
       graph_data_stale_set(0);
-      print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time);
+      print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf);
       calc_graph_points(state_buf, time_buf, height_buf);
       layer_mark_dirty (s_graph_layer); // only place we do this
   }
@@ -69,7 +71,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
   graph_data_stale_set(1);
-  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time); // 'Stale' msg
+  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf); // 'Stale' msg
 }
 
 void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
@@ -80,7 +82,7 @@ void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reaso
      message_send_outbox();
   }
   graph_data_stale_set(1);
-  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time); // 'Stale' msg
+  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf); // 'Stale' msg
 }
 
 void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
@@ -154,10 +156,13 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   if (p_current_time != NULL)
       strcpy(appmsg_received_time, p_current_time);
     
-  // Read first item. Update: key 0 not always first on Basalt emulator. So loop
-  Tuple *t = dict_read_first(iterator);
-  while (t->key != MSG_TYPE)
-       t = dict_read_next(iterator);
+  // Can't assume order
+  //Tuple *t = dict_read_first(iterator);
+  Tuple *t = dict_find(iterator, MSG_TYPE);
+  if (t == NULL ){
+       APP_LOG(APP_LOG_LEVEL_ERROR, "     Missing MSG_TYPE key" );
+       return 0;
+  }
 
   // route to different msg handlers
   if (!strcmp(t->value->cstring,"tides")){
@@ -182,12 +187,14 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
 static int js_tides(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
 
-  // start again, in case order was jumbled
+  // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
 
   // For all items
   while(t != NULL) {
     switch(t->key) {
+        case   MSG_TYPE:
+               break;
         case   KEY_STATE_0:
                snprintf(state_buf[0], sizeof(state_buf[0]), "%s", t->value->cstring);
                break;
@@ -225,7 +232,8 @@ static int js_tides(DictionaryIterator *iterator, void *context){
         case   KEY_HEIGHT_3:
                height_buf[3] = atoi(t->value->cstring);
                break;
-        case   MSG_TYPE:
+        case   KEY_PORTNAME:
+               snprintf(portname_buf, sizeof(portname_buf), "%s", t->value->cstring);
                break;
         default:
                APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
@@ -244,6 +252,7 @@ static int js_tides(DictionaryIterator *iterator, void *context){
 static int js_config(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
   
+  // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
 
   // For all items
@@ -269,6 +278,10 @@ static int js_config(DictionaryIterator *iterator, void *context){
       case CFG_PORT:
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Port: %s", (t->value->cstring));
              config_save_string(CFG_PORT,         t->value->cstring);
+             break;
+      case CFG_PORTNAME:
+             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Show Portname: %s", (t->value->cstring));
+             config_save_string(CFG_PORTNAME,     t->value->cstring);
              break;
       case MSG_TYPE:
              break;

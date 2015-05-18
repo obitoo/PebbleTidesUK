@@ -40,10 +40,12 @@ int config_get_bool(int conf_item){
 
 
 char *config_get_string(int conf_item){
-    static char c_port[]   ="0110";
+    static char c_port[]   ="0263:0110";
     static char c_invert[] ="off";
     static char c_line[]   ="off";
     static char c_heights[]="off";
+    static char c_portname[]="on ";
+
   
     char *tmp= NULL;
   
@@ -62,6 +64,10 @@ char *config_get_string(int conf_item){
       
       case CFG_SHOW_HEIGHTS:
           tmp = c_heights;
+          break;
+      
+      case CFG_PORTNAME:
+          tmp = c_portname;
           break;
       
       default:

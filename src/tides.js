@@ -25,7 +25,7 @@
   //  16 Mar - new cgi script
   //         - times and version no
   //         - config2.html
-  //
+  //  12May - config3, offsets and portname
   //   
   //   
 
@@ -39,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
-//    webserver="http://192.168.7.175/";   // Dev DONT FORGET
+ //   webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
 
 
 // Listen for when the watchface is opened, then 
@@ -49,12 +49,15 @@ Pebble.addEventListener('ready',   function(e) {
     
     wait_msg = 0;
     config_open = 0;
-    config_url= webserver+"/tides/config3.html?";   // NB - version2 TODO?
+    config_url= webserver+"/tides/config3.html?";   
     config_defaults = {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "off",
        "cfg_line_graph"     : "off",
-      "cfg_port"           : "263:0110" 
+      "cfg_port"           : "263:0110",
+      "cfg_show_portname"   : "on",
+      "cfg_enable_dst"      : "off",
+      "cfg_offset"          : "0"
     };  
   
     console.log("  config_defaults= " + JSON.stringify(config_defaults));
@@ -91,11 +94,13 @@ Pebble.addEventListener("showConfiguration", function() {
   var url = config_url;
   for (var key in config_defaults) {
       console.log ("  key:"+key);
-      var val = localStorage.getItem(key);
+    
+      //var val = localStorage.getItem(key);
+      var val = localStorage[key];
+    
       console.log ("  val:"+val);
-      if (val === null || val === 0) { 
+      if (val === null || (val == 'undefined')){
         console.log("  config_defaults= " + JSON.stringify(config_defaults));
-
         //val = config_defaults.getItem(key);  // ios issue here I think 
         val = config_defaults[key];  // ios issue here I think 
         console.log ("  1-Taken config default of "+val+":"+key);}
@@ -153,7 +158,10 @@ Pebble.addEventListener("webviewclosed", function(e) {
               "CFG_INVERT_COL"  : config.cfg_invert_col,
               "CFG_SHOW_HEIGHTS": config.cfg_show_heights,
               "CFG_LINE_GRAPH"  : config.cfg_line_graph,
-              "CFG_PORT"        : config.cfg_port
+              "CFG_PORT"        : config.cfg_port,
+              "CFG_PORTNAME"    : config.cfg_show_portname,
+              "CFG_DST"         : config.cfg_dst,
+              "CFG_OFFSET"      : config.cfg_offset,
   };
 
   console.log("  Message to Pebble = " + JSON.stringify(dictionary));
@@ -211,6 +219,10 @@ Pebble.addEventListener('appmessage',   function(e) {
         localStorage.setItem("cfg_port", e.payload.CFG_PORT);
         localStorage.setItem("cfg_time",    e.payload.CFG_TIME);
         localStorage.setItem("cfg_version", e.payload.CFG_VERSION);
+        localStorage.setItem("cfg_show_portname", e.payload.CFG_PORTNAME);
+        localStorage.setItem("cfg_dst"     , e.payload.CFG_DST);
+        localStorage.setItem("cfg_offset"  , e.payload.CFG_OFFSET);
+      
       
         location=e.payload.CFG_PORT;
     }
@@ -331,7 +343,9 @@ function getTides(locn, version, timestring) {
                   
                   "KEY_STATE_3": state3,
                   "KEY_TIME_3": time3,
-                  "KEY_HEIGHT_3": height3
+                  "KEY_HEIGHT_3": height3,
+                  
+                  "KEY_PORTNAME": json.portname
                 };
             } 
             
