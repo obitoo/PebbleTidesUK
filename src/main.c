@@ -80,7 +80,7 @@ static void init() {
 //     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 //   } else {
     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
-    s_portname_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
+    s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 //   }
 
@@ -237,7 +237,7 @@ static void mainwindow_load(Window *window) {
   text_layer_set_text_alignment(s_tidetimes_text_layer, GTextAlignmentLeft);
   
   // Portname Layer - left aligned with date 
-  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 38, 139, 20)); 
+  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 38, 139, 24));  // 36,139,26 >>> for 21 font
   text_layer_set_text(s_portname_text_layer, "");
   text_layer_set_font(s_portname_text_layer, s_portname_font);
   text_layer_set_text_alignment(s_portname_text_layer, GTextAlignmentRight);

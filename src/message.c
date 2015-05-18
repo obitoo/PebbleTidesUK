@@ -269,7 +269,6 @@ static int js_config(DictionaryIterator *iterator, void *context){
              config_save_string(CFG_INVERT_COL,   t->value->cstring);
              // redraw the colours - expensive? 
              main_set_colours();
-
              break;
       case CFG_LINE_GRAPH:
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Line Graph: %s", (t->value->cstring));
