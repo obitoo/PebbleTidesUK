@@ -5,6 +5,7 @@
 #
 # 16 Mar 15 - Created this file
 # 17Mar      - DST, ish. Add date to array
+# 12May      - return port name
 #
 
 import urllib2
@@ -14,6 +15,7 @@ import json
 from bs4 import BeautifulSoup
 
 
+Max_Portname_Length=30
 
 
 
@@ -36,9 +38,11 @@ class public():
      
      
      #
-     # Port details/name - TODO
+     # Port details/name 
      #
-     
+     rows =  soup.find_all('span', {'class':'PortName'})
+     self.portname = rows[0].get_text()[:Max_Portname_Length]
+        
      
      #
      # tide times
@@ -197,6 +201,7 @@ class public():
 
    def dump(self):
      print ( "{"               ),
+
      print ( '"tides":['       )
 
      first=True
@@ -207,6 +212,7 @@ class public():
         first=False
     
      print  ( "]"              ),
+     print ( ',"portname":"'+self.portname+'"')
      print  ( "}"              )
     
     
