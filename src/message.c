@@ -135,8 +135,13 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   if (p_current_time != NULL)
       strcpy(appmsg_received_time, p_current_time);
     
-  // Read first item
-  Tuple *t = dict_read_first(iterator);
+  // Can't assume order
+  //Tuple *t = dict_read_first(iterator);
+  Tuple *t = dict_find(iterator, MSG_TYPE);
+  if (t == NULL ){
+       APP_LOG(APP_LOG_LEVEL_ERROR, "     Missing MSG_TYPE key" );
+       return 0;
+  }
 
   // route to different msg handlers
   if (!strcmp(t->value->cstring,"tides")){
@@ -161,12 +166,14 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
 static int js_tides(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
 
-  // first item already read
-  Tuple *t = dict_read_next(iterator);
+  // Start again. Necessary? 
+  Tuple *t = dict_read_first(iterator);
 
   // For all items
   while(t != NULL) {
     switch(t->key) {
+        case   MSG_TYPE:
+               break;
         case   KEY_STATE_0:
                snprintf(state_buf[0], sizeof(state_buf[0]), "%s", t->value->cstring);
                break;
@@ -222,11 +229,14 @@ static int js_tides(DictionaryIterator *iterator, void *context){
 static int js_config(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
   
-  Tuple *t = dict_read_next(iterator);
+  // Start again. Necessary? 
+  Tuple *t = dict_read_first(iterator);
 
   // For all items
   while(t != NULL) {
     switch(t->key) {
+      case   MSG_TYPE:
+               break;
       case CFG_SHOW_HEIGHTS:
              APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Show heights: %s", (t->value->cstring));
              config_save_string(CFG_SHOW_HEIGHTS, t->value->cstring);
