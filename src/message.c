@@ -156,10 +156,13 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   if (p_current_time != NULL)
       strcpy(appmsg_received_time, p_current_time);
     
-  // Read first item. Update: key 0 not always first on Basalt emulator. So loop
-  Tuple *t = dict_read_first(iterator);
-  while (t->key != MSG_TYPE)
-       t = dict_read_next(iterator);
+  // Can't assume order
+  //Tuple *t = dict_read_first(iterator);
+  Tuple *t = dict_find(iterator, MSG_TYPE);
+  if (t == NULL ){
+       APP_LOG(APP_LOG_LEVEL_ERROR, "     Missing MSG_TYPE key" );
+       return 0;
+  }
 
   // route to different msg handlers
   if (!strcmp(t->value->cstring,"tides")){
@@ -184,12 +187,14 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
 static int js_tides(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
 
-  // start again, in case order was jumbled
+  // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
 
   // For all items
   while(t != NULL) {
     switch(t->key) {
+        case   MSG_TYPE:
+               break;
         case   KEY_STATE_0:
                snprintf(state_buf[0], sizeof(state_buf[0]), "%s", t->value->cstring);
                break;
@@ -227,8 +232,6 @@ static int js_tides(DictionaryIterator *iterator, void *context){
         case   KEY_HEIGHT_3:
                height_buf[3] = atoi(t->value->cstring);
                break;
-        case   MSG_TYPE:
-               break;
         case   KEY_PORTNAME:
                snprintf(portname_buf, sizeof(portname_buf), "%s", t->value->cstring);
                break;
@@ -249,6 +252,7 @@ static int js_tides(DictionaryIterator *iterator, void *context){
 static int js_config(DictionaryIterator *iterator, void *context){
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
   
+  // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
 
   // For all items
