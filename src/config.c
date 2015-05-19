@@ -45,29 +45,34 @@ char *config_get_string(int conf_item){
     static char c_line[]   ="off";
     static char c_heights[]="off";
     static char c_portname[]="on ";
+    static char c_dst[]     ="off";
+    static char c_offset[]  ="0  ";
 
   
     char *tmp= NULL;
   
     switch(conf_item){
+
       case CFG_PORT:
           tmp = c_port;
           break;
-      
       case CFG_LINE_GRAPH:
           tmp = c_line;
           break;
-      
       case CFG_INVERT_COL:
           tmp = c_invert;
           break;
-      
       case CFG_SHOW_HEIGHTS:
           tmp = c_heights;
           break;
-      
       case CFG_PORTNAME:
           tmp = c_portname;
+          break;
+      case CFG_DST:
+          tmp = c_dst;
+          break;
+      case CFG_OFFSET:
+          tmp = c_offset;
           break;
       
       default:
