@@ -26,7 +26,7 @@
   //         - times and version no
   //         - config2.html
   //  12May - config3, offsets and portname
-  //   
+  //  18May - 'undefined' defaults for vsn and time
   //   
 
 
@@ -39,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
- //   webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
+   // webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
 
 
 // Listen for when the watchface is opened, then 
@@ -264,6 +264,14 @@ function getTides(locn, version, timestring) {
   if (config_open == 1){
     console.log("Config window open, aborting tides request");
     return;
+  }
+  
+  // default values - after fresh install 
+  if (version == 'undefined') {
+    version ='2.0';
+  }
+  if (timestring == 'undefined'){
+    timestring = '13:37';
   }
   
   // Construct URL - 

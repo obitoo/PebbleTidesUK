@@ -48,6 +48,7 @@ static void draw_sinewave (GContext* ctx);
 
 static void print_tidetimes  (char (*p_state)[8], char (*p_time)[6]);
 static void print_tideheights(char (*p_state)[8], int *p_height, char *);
+static void print_portname   (char *p_portname);
 
     
 static int graph_data_stale();
@@ -91,11 +92,8 @@ void print_tide_text_layers (char (*p_state_buf)[8],
     print_tideheights (p_state_buf, p_height_buf, time_str);
   
   // Portname
-  if (config_get_bool(CFG_PORTNAME))
-     text_layer_set_text(s_portname_text_layer, p_portname);
-  else
-     text_layer_set_text(s_portname_text_layer, "");
-      
+  print_portname (p_portname);
+  
 }
 
 
@@ -104,6 +102,20 @@ void print_tide_text_layers (char (*p_state_buf)[8],
     //
     //  PRESENTATION ======================================================
     //
+
+static void print_portname(char *p_portname)
+{
+  static char display_str[1+PORTNAME_MAX_CHARS];
+
+  if (config_get_bool(CFG_PORTNAME)) 
+     text_layer_set_text(s_portname_text_layer, strncpy(display_str, p_portname,PORTNAME_MAX_CHARS ));
+  else
+     text_layer_set_text(s_portname_text_layer, "");
+}
+                               
+
+
+
 static void draw_box(GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  draw_box()");
   
