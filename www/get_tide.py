@@ -20,6 +20,7 @@
 # 18Mar15 - strip country from port
 # 19Mar15 - date logic
 # 16Apr   - default time for v2 client
+# 19May   - offsets. Handle undefined param
 #
 
 import json
@@ -34,7 +35,8 @@ cgitb.enable(); # formats errors in HTML
 form = cgi.FieldStorage()
 port   = 0
 time   = 0
-version= 0
+version= 3.1
+offset = 0
 
 #
 # test cmdline options:   -p <port no> : testrun for one port
@@ -46,12 +48,16 @@ parser.add_option("-t",  dest="time", type="string",
                   help = "current (local) time in HH:MM")
 parser.add_option("-d",  dest="date", type="int", 
                   help = "Day of month  ")
+parser.add_option("-o",  dest="offset", type="int", 
+                  help = "Offset (minutes)")
 (options, args) = parser.parse_args()
 
 if options.port:
    port = options.port
 if options.time:
    time = options.time
+if options.offset:
+   offset = options.offset
 
 
 
@@ -59,19 +65,23 @@ if options.time:
 # Parse url params. Ignore version for now, we can see it in the apache logs
 #
 for field in form.keys():
-    if field == "port":
+    if field == "port" :
        port = form[field].value
-    if field == "time":
+    if field == "time"   and form[field].value != 'undefined':
        time = form[field].value
-    if field == "vsn":
+    if field == "vsn"    and form[field].value != 'undefined':
        version = form[field].value
+    if field == "offset" and form[field].value != 'undefined':
+       offset = int(form[field].value)
 
 if time == 0:
-   sys.stderr.write("No time param passed \n")  #// apache errors.log
-   print "Status: 406 Not Acceptable\r\n"
-   print "Content-Type: text/html\r\n\r\n"
-   print "<h1>406 Missing param: time</h1>"
-   sys.exit(1)
+   time="13:37"
+   version="2.2"
+   #sys.stderr.write("No time param passed \n")  #// apache errors.log
+   #print "Status: 406 Not Acceptable\r\n"
+   #print "Content-Type: text/html\r\n\r\n"
+   #print "<h1>406 Missing param: time</h1>"
+   #sys.exit(1)
 
 
 #
@@ -103,6 +113,12 @@ if tides.error:
 #
 if (int(port) < 801):
    tides.adjust_bst()
+
+#
+# ..which we handle here
+#
+if (offset != 0):
+   tides.adjust_offset(offset)
 
 #
 # Use passed localtime to only show tides > now

@@ -13,6 +13,8 @@ import sys
 import pprint
 import json
 from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
+from dateutil import tz
 
 
 Max_Portname_Length=30
@@ -115,15 +117,38 @@ class public():
      
 
 
+   #
+   #  util
+   #
    def _hhmm_to_mins(self, timestr):
        return int(timestr[:2])*60+int(timestr[3:])
 
+
+
+   #
+   #  User defined time offset - used for non UK DST or manual port adjustment
+   #
+   def adjust_offset(self, offset):
+      for element in self.tides_array:
+         date_object = datetime.strptime('Jan '+element["day"]+' 2001 ' +element["time"], '%b %d %Y %H:%M')
+         date_object = date_object + timedelta(minutes = offset)
+         
+         element["time"] = date_object.strftime("%H:%M")
+         element["day"]  = date_object.strftime("%d")
+
+      # append to portname
+      if offset > 0: 
+         self.portname = self.portname + '+' + str(offset) 
+      if offset < 0: 
+         self.portname = self.portname + str(offset) 
+
+
+
+   
    #
    #  Get current UK time - use tz to get BST/GMT depending
    #
    def adjust_bst(self):
-     from datetime import datetime
-     from dateutil import tz
      
      # timezone - magic!
      from_zone = tz.gettz('UTC')

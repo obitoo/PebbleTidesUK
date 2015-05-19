@@ -175,9 +175,9 @@
           select_slider ("cfg_line_graph"   , "line_graph");
           select_slider ("cfg_show_heights" , "show_heights");
           select_slider ("cfg_show_portname", "show_portname");
-          select_slider ("cfg_enable_dst"   , "enable_dst");
+          select_slider ("cfg_dst"          , "enable_dst");
 
-            // Time offset
+            // Time manual offset
           var cfg_offset = getURLVariable('cfg_offset');
           cfg_offset = decodeURIComponent(cfg_offset);
           if (cfg_offset != "")
@@ -493,11 +493,6 @@
         // Encode the country into the port
         var port= $("#list-country").val()+":"+$("#list-port").val();
 
-        // DST is +60 mins
-        var offset = parseInt($("#list-offset").val());
-        if ($("#enable_dst").val() == "on") 
-           offset=offset+60;
-
         // These get mapped again in tides.js
         var options = {
           'name': $("#name").val(),
@@ -506,7 +501,8 @@
           'cfg_show_heights' : $("#show_heights").val(),
           'cfg_show_portname': $("#show_portname").val(),
           'cfg_port'         : port,
-          'cfg_offset'       : offset
+          'cfg_dst'          : $("#enable_dst").val(),
+          'cfg_offset'       : $("#list-offset").val()
         }
         return options;
       }
