@@ -30,28 +30,34 @@ int config_get_bool(int conf_item){
   char value[4];
   strcpy (value, config_get_string (conf_item));
 
-//   if (CFG_PORTNAME == conf_item)
-//        APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_bool CFG_PORTNAME is %d",strcmp (value, "off"));
+  if (CFG_PORTNAME == conf_item)
+       APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_bool CFG_PORTNAME is %s which is %d",value,strcmp (value, "off"));
 
   return strcmp (value, "off");
 }
 
 
 char *config_get_string(int conf_item){
-    static char c_port[]   ="263:0110";
+    static char c_port[10];
     static char c_invert[] ="off";
     static char c_line[]   ="off";
     static char c_heights[]="off";
-    static char c_portname[]="on";
+    static char c_portname[4];
     static char c_dst[]     ="off";
+  
+    strcpy (c_port    , "263:0110");
+    strcpy (c_portname, "on");
+    
 
   
     char *tmp= NULL;
+    int  maxlen = 4;
   
     switch(conf_item){
 
       case CFG_PORT:
           tmp = c_port;
+          maxlen = 10;
           break;
       case CFG_LINE_GRAPH:
           tmp = c_line;
@@ -73,7 +79,7 @@ char *config_get_string(int conf_item){
     }
   
     if (persist_exists(conf_item)) {
-             persist_read_string(conf_item,  tmp, 1+strlen(tmp));
+             persist_read_string(conf_item,  tmp, maxlen);
     }
     return tmp;
 }
@@ -125,6 +131,9 @@ int config_get_intval (int conf_item){
 void config_save_string (int conf_item, char *value){
   persist_write_string(conf_item, value);
   APP_LOG(APP_LOG_LEVEL_WARNING, "config string saved (%d = %s)",conf_item, value );
+  APP_LOG(APP_LOG_LEVEL_ERROR  , "config string check: (%d = %s)",conf_item, config_get_string(conf_item) );
+
+  
 }
 void config_save_int (int conf_item, int value){
   persist_write_int(conf_item, value);
