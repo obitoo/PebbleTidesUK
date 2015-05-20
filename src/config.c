@@ -73,6 +73,8 @@ char *config_get_string(int conf_item){
           break;
       case CFG_OFFSET:
           tmp = c_offset;
+                APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_string: CFG_OFFSET:%s",tmp);
+
           break;
       
       default:

@@ -259,7 +259,7 @@ function getTides(locn, version, timestring, dst_string, offset_val) {
   
   // default values - after fresh install / upgrade
   if (version === undefined) {
-    version ='2.0';
+    version ='2.1';
   }
   if (timestring === undefined){
     timestring = '13:37';
