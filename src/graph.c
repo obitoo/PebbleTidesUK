@@ -108,7 +108,6 @@ static void print_portname(char *p_portname)
   static char display_str[1+PORTNAME_MAX_CHARS];
   int offset = config_get_intval(CFG_OFFSET); 
   
-  APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  portname=%s,offset=%d",p_portname,offset);
 
   
   // append offset time to portname 
@@ -120,10 +119,14 @@ static void print_portname(char *p_portname)
     snprintf (display_str,PORTNAME_MAX_CHARS,"%s",p_portname );
 
   // output
-  if (config_get_bool(CFG_PORTNAME)) 
-     text_layer_set_text(s_portname_text_layer, display_str);
-  else
+  if (config_get_bool(CFG_PORTNAME)) {
+      text_layer_set_text(s_portname_text_layer, display_str);
+      APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  showing portname=%s,offset=%d",p_portname,offset);
+  }
+  else {
      text_layer_set_text(s_portname_text_layer, "");
+     APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  HIDING portname=%s,offset=%d",p_portname,offset);
+  }
 }
                                
 

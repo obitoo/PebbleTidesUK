@@ -20,20 +20,18 @@
 #include <pebble.h>
 #include <graph.h>
   
-  
+char *config_get_string(int );
+
   
 // on: return 1
-// off: return 0 - default
+// off: return 0   (defaults defined in next fn)
 int config_get_bool(int conf_item){
   
-  char value[]="off"; 
-  
-  if (persist_exists(conf_item)) {
-      persist_read_string(conf_item, value, 1+strlen(value));
-  }
+  char value[4];
+  strcpy (value, config_get_string (conf_item));
 
-//  if (CFG_INVERT_COL == conf_item)
-//       APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_bool CFG_INVERT_COL is %d",strcmp (value, "off"));
+//   if (CFG_PORTNAME == conf_item)
+//        APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_bool CFG_PORTNAME is %d",strcmp (value, "off"));
 
   return strcmp (value, "off");
 }
