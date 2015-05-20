@@ -40,13 +40,12 @@ int config_get_bool(int conf_item){
 
 
 char *config_get_string(int conf_item){
-    static char c_port[]   ="0263:0110";
+    static char c_port[]   ="263:0110";
     static char c_invert[] ="off";
     static char c_line[]   ="off";
     static char c_heights[]="off";
-    static char c_portname[]="on ";
+    static char c_portname[]="on";
     static char c_dst[]     ="off";
-    static char c_offset[]  ="0  ";
 
   
     char *tmp= NULL;
@@ -71,12 +70,6 @@ char *config_get_string(int conf_item){
       case CFG_DST:
           tmp = c_dst;
           break;
-      case CFG_OFFSET:
-          tmp = c_offset;
-                APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_string: CFG_OFFSET:%s",tmp);
-
-          break;
-      
       default:
           APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_string: Unknown conf_item:%d",conf_item);
     }
@@ -96,6 +89,9 @@ int config_get_intval (int conf_item){
     //   tide heights to the right.)
     int full_width = (config_get_bool(CFG_SHOW_HEIGHTS) ? 0 : 1);
     int retval = 0;
+  
+    static int c_offset  =0;
+
     
     switch(conf_item){
       case   CGRAPH_NUM_POINTS    :
@@ -114,7 +110,13 @@ int config_get_intval (int conf_item){
       case   CGRAPH_X_MINS        :
           retval = (full_width ? 1440 : (1440 * 3/4) ); 
           break;
+     
+      case CFG_OFFSET:
+          retval = ( persist_exists(conf_item) ? persist_read_int(conf_item) :c_offset);
+          APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_int: CFG_OFFSET:%d",retval);
+          break;
       
+
       default:
           APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_intval:  Unknown conf_item:%d",conf_item);
     }
@@ -126,4 +128,9 @@ void config_save_string (int conf_item, char *value){
   persist_write_string(conf_item, value);
   APP_LOG(APP_LOG_LEVEL_WARNING, "config string saved (%d = %s)",conf_item, value );
 }
+void config_save_int (int conf_item, int value){
+  persist_write_int(conf_item, value);
+  APP_LOG(APP_LOG_LEVEL_WARNING, "config INT saved (%d = %d)",conf_item, value );
+}
+
 

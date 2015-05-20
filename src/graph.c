@@ -106,10 +106,7 @@ void print_tide_text_layers (char (*p_state_buf)[8],
 static void print_portname(char *p_portname)
 {
   static char display_str[1+PORTNAME_MAX_CHARS];
-  char *off = config_get_string(CFG_OFFSET);
-  APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  portname=%s,off=%s",p_portname,off);
-
-  int offset = atoi(off);
+  int offset = config_get_intval(CFG_OFFSET); 
   
   APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  portname=%s,offset=%d",p_portname,offset);
 

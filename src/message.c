@@ -117,7 +117,7 @@ void message_send_outbox() {
     dict_write_cstring(iter, CFG_SHOW_HEIGHTS, config_get_string(CFG_SHOW_HEIGHTS));
   
     dict_write_cstring(iter, CFG_PORTNAME,     config_get_string(CFG_PORTNAME));
-    dict_write_cstring(iter, CFG_OFFSET,       config_get_string(CFG_OFFSET));
+    dict_write_int8   (iter, CFG_OFFSET,       config_get_intval(CFG_OFFSET));
     dict_write_cstring(iter, CFG_DST,          config_get_string(CFG_DST));
 
   
@@ -125,11 +125,6 @@ void message_send_outbox() {
     // (slight duplication of work in main.c - but i always want this in 24h fmt)
     time_t epoch = time(NULL); 
     struct tm *tick_time = localtime(&epoch);
-    time_t local = mktime (tick_time);
-  
-    APP_LOG(APP_LOG_LEVEL_ERROR, "             epoch: %u " , (size_t) epoch);
-    APP_LOG(APP_LOG_LEVEL_ERROR, "             local: %u " , (size_t)local);
-
   
     char hhmm[] = "00:00";
     strftime(hhmm, sizeof("00:00"), "%H:%M", tick_time);
@@ -259,6 +254,7 @@ static int js_config(DictionaryIterator *iterator, void *context){
   // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
 
+  int tmp;
   // For all items
   while(t != NULL) {
     switch(t->key) {
@@ -287,8 +283,9 @@ static int js_config(DictionaryIterator *iterator, void *context){
              config_save_string(CFG_PORTNAME,     t->value->cstring);
              break;
       case CFG_OFFSET:
-             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Offset: %s", (t->value->cstring));
-             config_save_string(CFG_OFFSET,     t->value->cstring);
+             tmp = atoi(t->value->cstring);            
+             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Offset int: %d", tmp);
+             config_save_int(CFG_OFFSET,     tmp);
              break;
       case CFG_DST:
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / DST: %s", (t->value->cstring));
