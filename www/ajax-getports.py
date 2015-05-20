@@ -40,9 +40,13 @@ if options.country:
 #
 # Parse url params. Ignore version for now, we can see it in the apache logs
 #
+import re
 for field in form.keys():
     if field == "country":
        country = form[field].value
+       #strip leading zeros
+       country = re.sub(r"^0+","",country)
+
 
 if country == 0:
    sys.stderr.write("No country param passed \n")  #// apache errors.log

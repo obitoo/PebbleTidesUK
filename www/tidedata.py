@@ -136,12 +136,6 @@ class public():
          element["time"] = date_object.strftime("%H:%M")
          element["day"]  = date_object.strftime("%d")
 
-      # append to portname
-      if offset > 0: 
-         self.portname = self.portname + '+' + str(offset) 
-      if offset < 0: 
-         self.portname = self.portname + str(offset) 
-
 
 
    
