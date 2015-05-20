@@ -27,7 +27,7 @@
   //         - config2.html
   //  12May - config3, offsets and portname
   //  18May - 'undefined' defaults for vsn and time
-  //   
+  //  19May - offsets
 
 
 
@@ -39,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
-   // webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
+    webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
 
 
 // Listen for when the watchface is opened, then 
@@ -54,10 +54,10 @@ Pebble.addEventListener('ready',   function(e) {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "off",
        "cfg_line_graph"     : "off",
-      "cfg_port"           : "263:0110",
-      "cfg_show_portname"   : "on",
-      "cfg_enable_dst"      : "off",
-      "cfg_offset"          : "0"
+       "cfg_port"           : "263:0110",
+       "cfg_show_portname"  : "on",
+       "cfg_dst"            : "off",
+       "cfg_offset"         : "0"
     };  
   
     console.log("  config_defaults= " + JSON.stringify(config_defaults));
@@ -84,11 +84,8 @@ Pebble.addEventListener('ready',   function(e) {
   //
   //  Config page - open ======================================
   //
-
 Pebble.addEventListener("showConfiguration", function() {
-  
   console.log("--showConfiguration event");
-
   
   // Load up the stored options
   var url = config_url;
@@ -134,24 +131,6 @@ Pebble.addEventListener("webviewclosed", function(e) {
     console.log("  save config to localstorage:"+key+" = "+config[key]);
 	}
   
-//     var dictionary = {
-//       "MSG_TYPE"        :"config"};
-
-//   // Load up the stored options
-//   for (key in config_defaults) {
-//       console.log (" DEBUG: config_defaults:"+ JSON.stringify(config_defaults));
-//       var val = 0;//localStorage.getItem(key);
-    
-//       if (val === null || val === 0) { 
-//         val = config_defaults.getItem(key);
-//         console.log ("2-Taken config default of "+val+":"+key);}
-//       else {
-//         console.log ("2-Taken config stored of "+val+":"+key);
-//       }
-    
-//       dictionary.add(key, val);
-//   }
-  
   // Send to Pebble - add MSG_TYPE to allow routing
   var dictionary = {
               "MSG_TYPE"        :"config",
@@ -176,7 +155,10 @@ Pebble.addEventListener("webviewclosed", function(e) {
                           console.log("  config_open= 0, calling getTides()");
                           getTides(localStorage.getItem("cfg_port"),
                                    localStorage.getItem("cfg_version"), 
-                                   localStorage.getItem("cfg_time"));   
+                                   localStorage.getItem("cfg_time"),
+                                   localStorage.getItem("cfg_dst"),
+                                   localStorage.getItem("cfg_offset")
+                                  );   
                           console.log("  getTides() called");
                         },
                         function(e) {   //NAK
@@ -186,7 +168,10 @@ Pebble.addEventListener("webviewclosed", function(e) {
                           console.log("  config_open= 0, calling getTides()");
                           getTides(localStorage.getItem("cfg_port"),
                                    localStorage.getItem("cfg_version"), 
-                                   localStorage.getItem("cfg_time"));   
+                                   localStorage.getItem("cfg_time"),
+                                   localStorage.getItem("cfg_dst"),
+                                   localStorage.getItem("cfg_offset")
+                                  );   
                           console.log("  getTides() called");
                         }
                        );
@@ -229,10 +214,13 @@ Pebble.addEventListener('appmessage',   function(e) {
 
     // make web request for tides
     console.log(" calling getTides - "+e.payload.CFG_PORT);
-    getTides(location, e.payload.CFG_VERSION, e.payload.CFG_TIME);
+    getTides(location, e.payload.CFG_VERSION, 
+                       e.payload.CFG_TIME,
+                       e.payload.CFG_DST,
+                       e.payload.CFG_OFFSET);
   
-    var offsetMinutes = new Date().getTimezoneOffset() * 60;
-    console.log("  TIMEZONEEE========= offsetMinutes= "+offsetMinutes);
+//     var offsetMinutes = new Date().getTimezoneOffset() * 60;
+//     console.log("  TIMEZONE========= offsetMinutes= "+offsetMinutes);
 
   
   
@@ -257,8 +245,11 @@ var xhrRequest = function (url, type, callback) {
 };
 
 
-function getTides(locn, version, timestring) {
+function getTides(locn, version, timestring, dst_string, offset_val) {
   console.log("getTides:"+locn);
+  console.log("getTides:"+dst_string);
+  console.log("getTides:"+offset_val);
+
 
   // might work
   if (config_open == 1){
@@ -266,16 +257,25 @@ function getTides(locn, version, timestring) {
     return;
   }
   
-  // default values - after fresh install 
-  if (version == 'undefined') {
-    version ='2.0';
+  // default values - after fresh install / upgrade
+  if (version === undefined) {
+    version ='2.1';
   }
-  if (timestring == 'undefined'){
+  if (timestring === undefined){
     timestring = '13:37';
+  }
+  if (offset_val === undefined){
+    offset_val = 0;
+  }
+  
+  
+  // Add dst to offset and pass a single minute value
+  if (dst_string == 'on'){
+    offset_val = parseInt(offset_val)+60;
   }
   
   // Construct URL - 
-  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn+"&vsn="+version+"&time="+timestring;
+  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn +"&vsn="+version +"&time="+timestring +"&offset="+offset_val;
   
   // Send request to my Server
   // TODO - what if http get fails? 

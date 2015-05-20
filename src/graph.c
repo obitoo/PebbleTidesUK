@@ -106,9 +106,25 @@ void print_tide_text_layers (char (*p_state_buf)[8],
 static void print_portname(char *p_portname)
 {
   static char display_str[1+PORTNAME_MAX_CHARS];
+  char *off = config_get_string(CFG_OFFSET);
+  APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  portname=%s,off=%s",p_portname,off);
 
+  int offset = atoi(off);
+  
+  APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  portname=%s,offset=%d",p_portname,offset);
+
+  
+  // append offset time to portname 
+  if (offset > 0)
+    snprintf (display_str,PORTNAME_MAX_CHARS,"%s+%d",p_portname, offset );
+  else if (offset < 0)
+    snprintf (display_str,PORTNAME_MAX_CHARS,"%s%d",p_portname, offset );
+  else
+    snprintf (display_str,PORTNAME_MAX_CHARS,"%s",p_portname );
+
+  // output
   if (config_get_bool(CFG_PORTNAME)) 
-     text_layer_set_text(s_portname_text_layer, strncpy(display_str, p_portname,PORTNAME_MAX_CHARS ));
+     text_layer_set_text(s_portname_text_layer, display_str);
   else
      text_layer_set_text(s_portname_text_layer, "");
 }

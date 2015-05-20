@@ -116,11 +116,15 @@ void message_send_outbox() {
     dict_write_cstring(iter, CFG_LINE_GRAPH,   config_get_string(CFG_LINE_GRAPH));
     dict_write_cstring(iter, CFG_SHOW_HEIGHTS, config_get_string(CFG_SHOW_HEIGHTS));
   
+    dict_write_cstring(iter, CFG_PORTNAME,     config_get_string(CFG_PORTNAME));
+    dict_write_cstring(iter, CFG_OFFSET,       config_get_string(CFG_OFFSET));
+    dict_write_cstring(iter, CFG_DST,          config_get_string(CFG_DST));
+
+  
     // Pass watch time and version no
     // (slight duplication of work in main.c - but i always want this in 24h fmt)
     time_t epoch = time(NULL); 
     struct tm *tick_time = localtime(&epoch);
-
     time_t local = mktime (tick_time);
   
     APP_LOG(APP_LOG_LEVEL_ERROR, "             epoch: %u " , (size_t) epoch);
@@ -282,6 +286,15 @@ static int js_config(DictionaryIterator *iterator, void *context){
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Show Portname: %s", (t->value->cstring));
              config_save_string(CFG_PORTNAME,     t->value->cstring);
              break;
+      case CFG_OFFSET:
+             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Offset: %s", (t->value->cstring));
+             config_save_string(CFG_OFFSET,     t->value->cstring);
+             break;
+      case CFG_DST:
+             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / DST: %s", (t->value->cstring));
+             config_save_string(CFG_DST,     t->value->cstring);
+             break;
+      
       case MSG_TYPE:
              break;
        default:
