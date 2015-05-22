@@ -121,6 +121,16 @@ Pebble.addEventListener("showConfiguration", function() {
 Pebble.addEventListener("webviewclosed", function(e) {
   console.log("--webviewclosed event (config)");
   
+  
+  console.log("  >>>>>>e.reposne " + e.response);
+  
+  //  (IOS) - if string empty - exit.
+  if (!e.response || e.response.length === 0) {
+    console.log("  config Cancelled (empty response) - exit");
+    return;
+  }
+  
+  
   var config = JSON.parse(decodeURIComponent(e.response));
   console.log("  Options = " + JSON.stringify(config));
   
