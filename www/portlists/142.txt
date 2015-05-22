@@ -1,11 +1,7 @@
 optgroup, Liberia
-3594,Cape Mount 
 3595,Monrovia 
 3596,Farmington River 
 3597,Buchanan 
 3599,Cestos Bay 
 3600,Baffu Bay 
 3601,Sinoe Bay 
-3602,King Wills Town 
-3604,Subbubo Point 
-3606,Cape Palmas 

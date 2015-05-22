@@ -3,8 +3,3 @@ optgroup, Iraq
 4268,SHATT AL ARAB OUTER BAR 
 4269,AL FAW 
 4271,AL BASRAH 
-4272,Qarmat Ali Bar 
-4273,Nahr Umr 
-4274,Shafi Creek 
-4275,Odin Point 
-4276,Qurna 

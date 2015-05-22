@@ -1,5 +1,2 @@
 optgroup, Mauritania
 3529,Nouadhibou 
-3530,Ile D'arguin 
-3531,Cap Timiris 
-3532,Nouakchott 

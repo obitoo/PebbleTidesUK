@@ -28,11 +28,8 @@ optgroup, Siberia
 8340,PETROPAVLOVSK 
 8342,Bukhta Morzhovaya 
 8346,Mys Osypnoy 
-8347,Nikolskoye 
 8357,Gavan Sibir 
 8359,Bukhta Lavrova 
 8363,Bukhta Glubokaya 
 8369,Anadyr 
-8373,Bukhta Engaugin 
-8377,Bukhta Slavyanka (Reyd Plover) 
 8383,Mys Uelen 

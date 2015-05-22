@@ -120,7 +120,6 @@ optgroup, Norway
 1249,Laerdalsoyri 
 1250,Skjolden 
 1251,Skjerjehamn 
-1252,Eidsfjord 
 1253,Matre 
 1254,Kilstraumen 
 1255,Alverstraumen 
@@ -134,9 +133,7 @@ optgroup, Norway
 1263,Sorfjord (Odda) 
 1264,Eidfjord 
 1265,Stolmen 
-1266,Engesund 
 1267,Leirvik, Norway 
-1268,Fjaera 
 1269,Olen 
 1270,Espevaer 
 1271,Haugesund 
@@ -149,13 +146,9 @@ optgroup, Norway
 1280,Egersund 
 1283,Farsund 
 1284,Tregde 
-1285,Kristiansand 
-1289,Grimstad 
-1290,Arendal 
 1294,Nevlunghavn 
 1295,Helgeroa 
 1296,Horten 
 1298,Oscarsborg 
-1299,Moss 
 1300,Oslo 
 1301,Viker 

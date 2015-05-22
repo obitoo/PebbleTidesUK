@@ -1,18 +1,12 @@
 optgroup, Republic of Yemen
-4144,Tiqfash 
 4145,Kamaran 
 4146,Ras Al Katib 
-4147,Ras Mujamila 
 4149,Abu Ali Islands 
 4150,Jazirit Al Hanish Al Kabir 
 4151,Al Mukha 
 4153,Mayyun 
 4155,ADEN 
-4156,Shuqra 
-4157,Magatinal Saghir 
 4159,Ras Safwan 
 4160,Balhaf 
 4162,Al Mukalla 
-4163,Ras Sharmah 
-4165,Qishn 
 4166,Nishtun 

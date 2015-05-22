@@ -1,4 +1,1 @@
 optgroup, Turkey
-1950,Aydincik Limani 
-1968,Ayvalik 
-1969,Izmir (Smyrna) 

@@ -23,7 +23,6 @@ optgroup, Brazil
 2205,Atafona 
 2206,Itapemirim 
 2208,Terminal Da Ponta Do Ubu 
-2209,Martin Vaz Islets 
 2210,Ilha Da Trinidade 
 2211,Vitoria 
 2212,Ilhas Dos Abrolhos 
@@ -43,11 +42,9 @@ optgroup, Brazil
 2230,Tambau 
 2231,Cabedelo 
 2233,Porto De Natal 
-2234,Atol Das Rocas 
 2235,Fernando De Noronha 
 2238,Macau 
 2239,Areia Branca (Salineiro Terminal) 
-2240,Barra Do Jaguaribe (Aracati) 
 2242,Porto De Mucuripe 
 2243,Acarau 
 2244,Camocim 
@@ -65,5 +62,3 @@ optgroup, Brazil
 2257,Limao 
 2258,Macapa 
 2259,Porto De Santana 
-2262,Rio Cunani 
-2263,Cabo Cassipore 

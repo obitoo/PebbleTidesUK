@@ -2,7 +2,6 @@ optgroup, United Arab Emirates
 4192,KHAWR FAKKAN 
 4200,Saqr Port (Mina Saqr) 
 4201,Ras Al Khaymah 
-4202,Al Jazeera Port 
 4203,Umm Al-Qaiwain 
 4204,AJMAN 
 4205,SHARJAH 

@@ -2,10 +2,6 @@ optgroup, Cameroon
 3677,Rio Del Rey Entrance 
 3679,Port Sonara 
 3680,Man O War Bay 
-3681,Bimbia River Entrance 
-3682,Tiko 
-3683,Cap Cameroun 
 3684,Douala 
 3685,Manoka 
 3686,Malimba 
-3688,Kribi 

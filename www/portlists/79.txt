@@ -1,9 +1,6 @@
 optgroup, Ghana
-3619,Axim 
-3620,Dix Cove 
 3621,TAKORADI 
 3622,Sekondi 
-3624,Cape Coast 
 3626,Accra 
 3627,Tema 
 3628,Ada Panya (Riverside) 

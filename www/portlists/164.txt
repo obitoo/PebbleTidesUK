@@ -1,9 +1,7 @@
 optgroup, Morocco
 1809,Tanger 
 1810,Ceuta 
-1811,Ensenada De Tetouan 
 1815,Baie D'al Hoceima 
-1817,Melilla 
 1818,Islas Chafarinas 
 3503,Cap Spartel 
 3504,Asilah 

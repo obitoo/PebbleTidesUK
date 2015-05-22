@@ -1,33 +1,11 @@
 optgroup, Vietnam
 6906,Ha Tien 
-6909,Hon Rai 
 6911,Hon Tho Chau 
-6913,Cua Song Bai Hap (Off) 
 6916,Poulo Condore 
-6917,Cua Batak 
-6918,Mak Bat 
-6919,Cantho 
-6920,Cho Long Xuyen 
-6921,Chaudoc 
-6926,Song Cua Tieu 
-6927,Mytho 
-6928,Caibe 
-6929,Culao Mi Xuong 
-6930,Bouthan 
-6931,Pnom Penh 
-6933,Kompon-Luom 
 6934,Cua Soirap 
-6935,Song Vam Co Entrance 
-6936,Rach-La Entrance 
 6938,MUI VUNG TAU 
 6939,Mui Can Gio 
-6940,Les Quatre Bras 
-6941,Banc De Corail 
-6942,Nha Be Point 
 6943,Ho Chi Minh City (Sai Gon) 
-6944,Thu Dau Mot 
-6945,Bien Hoa 
-6946,Tan Huyen 
 6948,Cap Ba Ke 
 6950,POINTE DE KE GA 
 6951,Phan Thiet 
@@ -57,8 +35,6 @@ optgroup, Vietnam
 6996,CUA CAM APPROACHES (HON DAU) 
 6997,Do Son 
 6998,Hai Phong 
-7000,Cua Nam Trieu 
-7002,Xuy Nong Chao 
 7003,Ile Bach Long Vi 
 7004,Apowan 
 7005,Passe Des Hydres 

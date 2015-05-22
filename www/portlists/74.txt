@@ -6,8 +6,6 @@ optgroup, France
 1572,BOULOGNE-SUR-MER 
 1573,Le Touquet (Etaples) 
 1574,Berck Plage - Fort Mahon 
-1575,Le Hourdel 
-1576,St. Valery 
 1577,Cayeux 
 1578,Le Treport 
 1579,DIEPPE 

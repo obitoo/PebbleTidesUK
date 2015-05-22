@@ -41,19 +41,11 @@ optgroup, Chile
 9675,Caleta Mansa 
 9678,Maullin 
 9680,Bahia De Ancud 
-9682,Caleta Quintil 
-9686,Puerto San Pedro 
 9688,Puerto Queilen 
-9690,Dalcahue 
 9693,Quemchi 
-9694,Bahia Linao 
 9695,Carelmapu 
 9697,Puerto Chacao 
 9700,PUERTO MONTT 
-9706,Puerto Yelcho 
-9708,Bahia Tictoc 
-9709,Punta Caleta 
-9736,Estero Balladares 
 9738,Puerto Refugio 
 9742,Caleta Pascuas 
 9745,Puerto Slight 

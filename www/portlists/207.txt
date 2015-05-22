@@ -1,16 +1,9 @@
 optgroup, Saudi Arabia
-4120,Humaydah 
-4122,Jazirat Tiran (Johnson Point) 
 4123,Umm Qusur 
-4125,Sharm An Nu'man 
-4127,Mardunah 
-4129,Al Hasani 
 4131,Yanbu Al Bahr 
 4133,RABIGH 
 4135,Jeddah (Ghubbat Asharah) 
-4138,Sanak Island, Saudi Arabia 
 4139,Al Qunfudhah 
-4140,Hadarah Island 
 4142,Jizan 
 4254,RAS TANNURAH 
 4255,AL JUBAYL 

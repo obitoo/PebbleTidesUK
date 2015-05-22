@@ -7,11 +7,8 @@ optgroup, Bangladesh
 4501,Tiger Point 
 4502,Dhulasar 
 4503,Rabnabad Channel (Patua) 
-4505,D'apres Shoal 
 4506,Hatia Bar 
 4507,Sandwip Island 
-4508,Chandpur 
-4509,Narayanganj 
 4510,Norman's Point 
 4511,Khal No.18 
 4512,CHITTAGONG 

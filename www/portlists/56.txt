@@ -1,6 +1,3 @@
 optgroup, Cote D'Ivoire
-3608,Tabu River 
 3610,San Pedro 
-3611,Sassandra Anchorage 
-3613,Grand Lahou 
 3615,Abidjan Entrance 

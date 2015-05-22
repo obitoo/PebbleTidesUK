@@ -4,7 +4,6 @@ optgroup, Russia
 0950,Cape Serdtse Kamen 
 0951,Pitlekaj 
 0958,Ayon Island 
-0959,Kolyma River Entrance 
 0966,Tiksi Bay 
 0971,Komsomolskoy Pravda Island 
 0972,Cape Chelyuskin 
@@ -18,7 +17,6 @@ optgroup, Russia
 0992,Mys Kamennyy 
 0995,Mys Ragozina 
 0998,Mys Marre-Salya 
-1000,Zaliv Litke 
 1001,Mys Byk 
 1002,Mys Zhelaniya 
 1003,Zaliv Russkaya Gavan 
@@ -28,43 +26,30 @@ optgroup, Russia
 1007,Mys Seryebryany 
 1008,Zaliv Pukhovyy 
 1009,Guba Belushya 
-1010,Guba Nekhvatova 
 1011,Guba Kamyenka 
 1012,Guba Dolgaya 
 1013,Bukhta Varneka 
 1014,Ostrov Sokoliy 
 1015,Khabarovo 
-1017,Ostrov Dolgiy 
-1021,Ostrov Varandyey 
-1023,Mys Russki Zavorot 
 1024,Reka Pechora 
 1025,Bugrino 
 1026,Reka Indiga 
 1027,Ostrov Korga 
 1028,Mys Kanin Nos 
 1031,Reka Kiya Mouth 
-1032,Banka Litke 
 1033,Mys Konushin 
 1034,Semzha 
 1035,Kamenka 
 1036,Ostrov Morzhovets 
-1037,Mys Voronov 
 1038,Reka Megra 
 1039,Mys Insty 
 1040,Zimnyaya Zolotitsa 
-1041,Mys Kerets 
-1042,Berezovyy Bar 
 1043,Mys Yuzhnyy 
 1044,Lapominka 
 1045,Arkhangel'sk 
-1046,Severodvinsk 
 1048,Unskaya Guba 
-1049,Lopshen'ga 
 1050,Ostrov Zhizhginskiy 
-1051,Mys Letniy Orlov 
-1052,Guba Pushlakhta 
 1053,Mys Chesmenskiy 
-1054,Mys Glubokiy 
 1055,Ostrov Kiy 
 1056,Onega 
 1057,Ostrov Paskanets 
@@ -73,21 +58,14 @@ optgroup, Russia
 1060,Ostrov Sumostrov 
 1061,Ostrov Molchanov 
 1062,Ostrov Konev 
-1064,Ostrov Anzerskiy 
 1065,Solovetskiy 
 1066,Ostrov Yuzhnyy Rombak 
 1067,PORT OF KEM' 
-1069,Mys Pon'goma Navolok 
-1070,Mys Solomenny 
-1071,Kalgalaksha 
 1072,Gridina 
 1073,Ostrov Sryedniy Guba Keret 
-1074,Reka Kovda 
 1075,Kandalaksha 
 1076,Guba Porya 
 1077,Guba Malaya Pirya 
-1079,Reka Varzuga 
-1080,Tetrino 
 1082,Ostrov Sosnovets 
 1083,Ostrov Veshnyak 
 1084,Mys Orlov-Terskiy Tonkiy 

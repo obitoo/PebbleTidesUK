@@ -57,7 +57,6 @@ optgroup, England
 0083,Newhaven 
 0084,Eastbourne 
 0085,Hastings 
-0086,Rye (Approaches) 
 0087,Dungeness 
 0088,Folkestone 
 0089,DOVER 
@@ -68,7 +67,6 @@ optgroup, England
 0104,Herne Bay 
 0105,Whitstable Approaches 
 0106,Grovehurst Jetty 
-0107,Faversham 
 0108,SHEERNESS 
 0109,Chatham (Lock Approaches) 
 0110,Southend-On-Sea 
@@ -84,12 +82,10 @@ optgroup, England
 0123,Bradwell Waterside 
 0124,West Mersea 
 0126,Brightlingsea 
-0127,Colchester 
 0128,Clacton-On-Sea 
 0129,WALTON-ON-THE-NAZE 
 0130,Sunk Head 
 0131,HARWICH 
-0132,Mistley 
 0133,Ipswich 
 0134,Woodbridge Haven 
 0135,Bawdsey 
@@ -102,9 +98,6 @@ optgroup, England
 0143,Caister-On-Sea 
 0144,Winterton-On-Sea 
 0154,Cromer 
-0155,Blakeney Bar 
-0157,Wells Bar 
-0158,Burnham (Overy Staithe) 
 0161,Hunstanton 
 0162,King's Lynn 
 0163,Outer Westmark Knock 
@@ -148,39 +141,30 @@ optgroup, England
 0436,Tarn Point 
 0437,Duddon Bar 
 0439,BARROW (RAMSDEN DOCK) 
-0440,Ulverston 
 0441,Heysham 
-0442,Glasson Dock 
-0443,Wyre Lighthouse 
 0444,Fleetwood 
 0445,Blackpool 
 0446,Preston 
-0447,Southport 
 0448,Formby 
 0451,LIVERPOOL (GLADSTONE DOCK) 
 0452,Liverpool (Alfred Dock) 
 0453,Eastham 
-0455,Hale Head 
 0456,Widnes 
 0461,Hilbre Island 
-0462,Chester 
 0518,Beachley (Aust) 
 0519,Inward Rocks 
 0520,Narlwood Rocks 
 0521,White House 
 0522,Berkeley 
 0523,PORT OF BRISTOL (AVONMOUTH) 
-0524,Cumberland Basin Entrance 
 0525,Clevedon 
 0526,English And Welsh Grounds 
 0527,Weston-Super-Mare 
 0528,Burnham-On-Sea 
-0529,Bridgwater 
 0530,Hinkley Point 
 0531,Watchet 
 0532,Minehead 
 0533,Porlock Bay 
-0534,Lynmouth 
 0535,Ilfracombe 
 0536,Appledore 
 0537,Yelland Marsh 
@@ -189,16 +173,11 @@ optgroup, England
 0540,Bideford 
 0541,Clovelly 
 0542,Lundy 
-0543,Bude 
 0544,Boscastle 
 0545,Padstow 
 0546,Newquay 
 0547,St. Ives 
-0548,Sennen Cove 
 optgroup, Wales
-0463,Connah's Quay 
-0464,Mostyn Docks 
-0470,Colwyn Bay 
 0471,Llandudno 
 0472,Beaumaris 
 0473,Menai Bridge 
@@ -227,7 +206,6 @@ optgroup, Wales
 0496,MILFORD HAVEN 
 0497,Neyland 
 0498,Black Tar 
-0499,Haverfordwest 
 0501,Stackpole Quay 
 0502,Tenby 
 0504,Ferryside 
@@ -239,13 +217,11 @@ optgroup, Wales
 0513,Barry 
 0514,Cardiff 
 0515,Newport 
-0516,Chepstow 
 0517,Sudbrook 
 optgroup, Scotland
 0221,Eyemouth 
 0222,Dunbar 
 0223,Fidra 
-0224,Cockenzie 
 0225,LEITH 
 0226,Granton 
 0227,ROSYTH 
@@ -269,17 +245,14 @@ optgroup, Scotland
 0250,Burghead 
 0253,Nairn 
 0254,Mcdermott Base 
-0255,Fortrose 
 0256,Inverness 
 0258,Cromarty 
 0259,INVERGORDON 
-0260,Dingwall (Cromarty Firth) 
 0261,Portmahomack 
 0262,Meikle Ferry 
 0264,Golspie 
 0265,Helmsdale 
 0267,WICK 
-0268,Duncansby Head 
 0270,Muckle Skerry 
 0271,Burray Ness 
 0272,Deer Sound 
@@ -341,14 +314,12 @@ optgroup, Scotland
 0343,Loch Snizort (Uig Bay) 
 0344,Loch Dunvegan 
 0345,Loch Harport 
-0346,Camus Nan Gall 
 0349,Kyle Of Lochalsh 
 0351,Glenelg Bay 
 0352,Loch Hourn 
 0353,Inverie Bay 
 0354,Bay Of Laig 
 0355,Loch Moidart 
-0356,Loch Eatharna 
 0357,Gott Bay 
 0359,Carsaig Bay (Mull) 
 0360,Iona 
@@ -356,10 +327,8 @@ optgroup, Scotland
 0362,Sound Of Ulva 
 0363,Salen 
 0364,Tobermory 
-0365,Loch Aline 
 0367,Corran 
 0368,Corpach 
-0369,Loch Leven Head 
 0370,Port Appin 
 0371,Dunstaffnage Bay 
 0372,OBAN 
@@ -376,7 +345,6 @@ optgroup, Scotland
 0384,Loch Beag 
 0387,Carsaig Bay 
 0389,Sound Of Gigha 
-0390,Machrihanish 
 0391,Southend (Kintyre) 
 0393,Campbeltown 
 0394,East Loch Tarbert 
@@ -392,7 +360,6 @@ optgroup, Scotland
 0406,Bowling 
 0407,Glasgow 
 0408,Brodick Bay 
-0409,Lamlash 
 0410,Ardrossan 
 0411,Irvine 
 0412,Troon 
@@ -402,12 +369,7 @@ optgroup, Scotland
 0419,Drummore 
 0420,Luce Bay (Offshore Platform) 
 0421,Isle Of Whithorn 
-0422,Garlieston 
 0424,Hestan Island 
-0425,Southerness Point 
-0426,Annan Waterfoot 
-0430,Torduff Point 
-0431,Redkirk 
 optgroup, Northern Ireland
 0627,Cranfield Point 
 0628,Warrenpoint 
@@ -416,7 +378,6 @@ optgroup, Northern Ireland
 0631,Ardglass 
 0632,Killard Point 
 0633,Strangford 
-0634,Killyleagh 
 0635,South Rock 
 0636,Portavogie 
 0637,Donaghadee 

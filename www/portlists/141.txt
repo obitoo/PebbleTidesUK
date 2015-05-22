@@ -5,7 +5,6 @@ optgroup, Leeward Islands
 2455,Little Bay 
 2456,St. Johns, Antigua 
 2457,English Harbour 
-2458,St. Barthelemy 
 2459,Road Bay 
 2460,Anegada 
 2461,Tortola 

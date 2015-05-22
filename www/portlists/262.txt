@@ -27,8 +27,6 @@ optgroup, Greenland East Coast
 3447,Cape Tobin 
 3448,Finsch Island 
 3449,Zackenberg 
-3450,Little Pendulum Island 
-3451,Cape Borgen 
 3452,Danmarks Havn 
 3454,Kap Holbaek 
 3455,Jorgen Bronlund Fjord 
@@ -39,7 +37,6 @@ optgroup, Greenland West Coast
 3416,Renselaer Bay 
 3417,Port Foulke 
 3419,North Star Bay 
-3422,Upernavik 
 3423,Quamarujuk 
 3424,Godhavn 
 3425,Kronprinsens Ejland 
@@ -53,19 +50,12 @@ optgroup, Greenland West Coast
 3434,Gronnedal 
 3435,Julianehaab 
 3437,Nanortalik 
-3438,Frederiksdal 
-3439,Cape Farewell 
 optgroup, India East Coast
-4446,Kottaippattanam 
 4447,Nagappattinam 
 4448,Porto Novo 
 4449,Cuddalore 
 4450,Pondicherry 
 4452,CHENNAI (MADRAS) 
-4453,Pulicat 
-4454,Krishnapatnam 
-4455,Vadarevu 
-4456,Nizampatam 
 4457,Machilipatnam 
 4459,Sacramento Shoal 
 4461,Kakinada 
@@ -80,18 +70,11 @@ optgroup, India East Coast
 4474,False Point 
 4475,Shortt Island 
 4476,Chandbali 
-4478,Burhabalang River Entrance 
-4480,The Sandheads 
 4481,SAGAR ROADS 
 4482,Gangra Semaphore 
-4483,Balari Semaphore 
 4484,Diamond Harbour 
-4485,Hugli Point Semaphore 
 4486,Moyapur 
-4487,Akra Semaphore 
 4488,Kolkata (Garden Reach) 
-4490,Sandhead 
-4491,Canning Town 
 optgroup, Indian Ocean Islands
 4628,Cocos Islands (Home Island) 
 4629,Christmas Island (Indian Ocean) 
@@ -119,9 +102,7 @@ optgroup, India West Coast
 4342,Jafarabad 
 4343,Pipavav Bandar 
 4344,SULTANPUR 
-4345,Piram Island 
 4346,BHAVNAGAR 
-4348,Khambhat (Cambay) 
 4349,Dahej Bandar 
 4350,Ambheta 
 4351,Mehegam 
@@ -134,7 +115,6 @@ optgroup, India West Coast
 4358,Vasai (Bassein) 
 4359,MUMBAI (BOMBAY) 
 4360,Trombay 
-4361,Thana 
 4362,Mora (Karanja) 
 4363,Rewas Bandar 
 4364,Revadanda (Chaul) 
@@ -144,7 +124,6 @@ optgroup, India West Coast
 4368,Jaigarh 
 4369,Ratnagiri Bay 
 4370,Musakazi Point 
-4371,Angria Bank 
 4372,Vijayadurg Harbour 
 4373,Devgarh 
 4374,Malvan 
@@ -203,8 +182,6 @@ optgroup, Korea West Coast
 7477,Daeyeonpyeongdo 
 7479,Jumundo 
 7480,Ganghwado (Oepori) 
-7482,Seoul 
-7484,Sun Tol Mok 
 7486,INCHEON 
 7487,Daemuuido 
 7489,Deokjeokdo 
@@ -258,9 +235,6 @@ optgroup, Maldive Islands
 4402,Ihavandhoo 
 4404,Goidhoo Atoll 
 4405,Male 
-4406,Vattaru 
-4407,Hadhdunmathi Atoll 
-4408,North Huvadhu 
 4410,Addoo Atoll 
 optgroup, Peninsular Malaysia East Coast
 4879,Tanjung Penawar 

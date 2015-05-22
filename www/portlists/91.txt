@@ -12,7 +12,6 @@ optgroup, Hawaiian Islands
 6634,Kolo 
 6636,HONOLULU 
 6637,Waianae 
-6638,Waialua Bay 
 6639,Laie Bay 
 6640,Moku O Loe 
 6641,Waimanalo Bay 

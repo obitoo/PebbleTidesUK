@@ -3,8 +3,6 @@ optgroup, Sri Lanka
 4428,COLOMBO 
 4430,Galle 
 4431,Mirissa 
-4432,Hambantota 
-4435,Batticaloa Roads 
 4437,TRINCOMALEE 
 4439,Point Pedro 
 4440,Jaffna 

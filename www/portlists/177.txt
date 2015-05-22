@@ -4,14 +4,10 @@ optgroup, Oman
 4169,Marbat 
 4170,Al Hallaniyah 
 4171,Ras Al Madrakah 
-4172,Hamr An Nafur 
 4173,Ras Sarab 
-4174,Ghubbat Hashish 
 4175,Mahawt 
 4176,Ras Hilf 
-4178,Ras Sheiblah 
 4179,Al Ashkhara 
-4180,Ras Al Hadd 
 4181,Khawr Al Hajar 
 4182,Sur 
 4183,Dhagmar 

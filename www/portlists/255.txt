@@ -2,7 +2,6 @@ optgroup, United States
 2584,Padre Island 
 2585,Port Isabel 
 2586,Port Aransas (Caldwell Pier) 
-2587,Pass Cavallo 
 2588,Freeport Harbour Entrance 
 2589,Galveston Bay Entrance 
 2590,GALVESTON 
@@ -13,21 +12,16 @@ optgroup, United States
 2595,Lighthouse Point 
 2596,Weeks Bay 
 2597,Eugene Island 
-2598,Ship Shoal Light 
-2599,Wine Island 
 2600,Grand Isle, East Point 
 2601,Southwest Pass 
 2602,Port Eads 
-2603,Chandeleur Light 
 2604,Cat Island 
 2605,Biloxi 
 2607,Mobile Point 
 2608,Mobile 
 2609,Pensacola 
-2610,The Narrows 
 2611,Panama City Beach 
 2612,Panama City 
-2613,Port St. Joe 
 2614,Apalachicola 
 2615,St. Marks Light 
 2616,Deadman Bay 
@@ -255,7 +249,6 @@ optgroup, United States
 9227,Youngs Bay 
 9228,Astoria (Tongue Point) 
 9229,Harrington Point 
-9230,Eagle Cliff 
 9231,Saint Helens 
 9232,Vancouver (Colombia River) 
 9233,Portland (Columbia River) 

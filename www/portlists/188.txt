@@ -59,7 +59,6 @@ optgroup, Philippine Islands
 4986,Corregidor Island 
 4987,MANILA 
 4988,Olongapo 
-4990,Port Masinloc 
 4991,Santa Cruz (Luzon) 
 4993,Bolinao 
 4994,Sual 

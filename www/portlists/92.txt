@@ -1,6 +1,5 @@
 optgroup, Honduras
 2417,Isla De Guanaja 
 2418,Port Royal, Honduras 
-2419,Coxen Hole Pier 
 2421,Puerto Cortes 
 9449,Amapala 

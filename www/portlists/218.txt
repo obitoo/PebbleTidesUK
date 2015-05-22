@@ -7,16 +7,10 @@ optgroup, South Africa
 3782,CAPE TOWN 
 3784,Simon's Town 
 3785,Hermanus 
-3787,Cape Agulhas 
-3788,Port Beaufort 
 3789,MOSSEL BAY 
 3790,Knysna 
-3791,Plettenberg Bay 
-3792,Cape St. Francis 
 3793,PORT ELIZABETH 
 3794,Port Alfred 
 3795,EAST LONDON 
-3797,Port St. John's 
 3800,DURBAN 
 3801,RICHARDS BAY 
-3802,Kosi River Entrance 

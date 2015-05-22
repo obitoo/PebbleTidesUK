@@ -29,7 +29,6 @@ optgroup, Burma
 4563,Heinze Bok (Long Island) 
 4566,Myinkwa-Aw 
 4568,Sinbyubyin 
-4569,Tavoy 
 4571,Mali Kyun (Fisher Bay) 
 4573,Padaw-Aw 
 4574,MYEIK (MERGUI) 

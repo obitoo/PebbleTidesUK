@@ -1,7 +1,6 @@
 optgroup, Nigeria
 3635,Lagos Bar 
 3636,Apapa 
-3638,Benin River Bar 
 3640,Youngtown 
 3641,Koko 
 3642,Sapele 
@@ -11,23 +10,13 @@ optgroup, Nigeria
 3648,Warri 
 3649,Forcados River Bar 
 3650,Forcados 
-3651,Burutu 
 3654,Akassa 
-3655,Brass 
-3656,Degema 
-3657,New Calabar River Bar 
-3658,Percival Point 
-3659,Bakana 
-3660,Buguma 
 3661,Bonny River Approaches 
 3662,BONNY TOWN 
 3663,Ford Point 
 3664,Port Harcourt 
 3666,Opobo River Entrance (Sandy Point) 
 3667,Qua Iboe River Entrance 
-3668,Calabar River No. 2 Buoy 
 3669,Jamestown 
 3671,James Island 
 3673,Calabar 
-3675,Inikoi Island 
-3676,Esu Errorup 

@@ -11,16 +11,9 @@ optgroup, Peru
 9563,Chimbote 
 9564,Bahia Ferrol 
 9566,Bahia Huarmey 
-9568,Bahia Barmejo 
 9570,Puerto Huacho 
 9573,CALLAO 
-9575,Pucusana 
-9577,Cerro Azul 
 9579,PISCO 
-9580,Bahia Independencia 
 9583,San Juan 
-9584,Punta Lomas 
-9586,Rada Atico 
-9588,Caleta Quilca 
 9589,Matarani 
 9591,PUERTO ILO 

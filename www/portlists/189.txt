@@ -14,8 +14,6 @@ optgroup, Portugal
 1743,Sesimbra 
 1744,Setubal (Troia) 
 1745,Sines 
-1746,Milfontes 
-1747,Arrifana 
 1748,Enseada De Belixe 
 1749,Lagos 
 1750,Ponta Do Altar 

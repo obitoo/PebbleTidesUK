@@ -1,23 +1,15 @@
 optgroup, Tanzania
-3984,Ruvuma Bay 
 3985,MTWARA BAY 
 3986,Lindi 
 3988,Kiswere Haven 
 3990,Kilwa Masoko 
 3993,Chole Bay 
 3995,Simba Uranga 
-3996,Salale 
-3997,Batja 
-3998,Usimbe 
-4000,Latham Island 
 4001,DAR ES SALAAM 
 4002,Bagamoyo 
-4005,Ras Kizimkazi 
 4006,Zanzibar 
 4007,Mkokotoni Harbour 
 4008,Pangani Bay 
-4009,Mchengangazi Pass 
 4010,Mkoani 
 4011,Mesali Island 
-4013,Msuka Bay 
 4014,Tanga Bay 

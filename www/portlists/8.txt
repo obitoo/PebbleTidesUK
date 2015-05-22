@@ -2,13 +2,6 @@ optgroup, Angola
 3718,Enseada De Cabinda 
 3720,Soyo 
 3721,Pointe Bulabemba 
-3722,Quissanga 
-3723,Pass Mateba 
-3724,Pointe Camoens 
-3725,Fetish Rock 
-3726,Boma 
-3731,N'zeto 
-3733,Port Ambriz 
 3736,PORTO DE LUANDA 
 3740,Porto Amboim 
 3743,Porto Lobito 

@@ -1,4 +1,1 @@
 optgroup, Israel
-1989,Hefa (Haifa) 
-1990,Ashdod 
-4118,Eilat 

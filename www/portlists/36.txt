@@ -11,8 +11,6 @@ optgroup, Canada
 2869,Herring Cove 
 2871,Grindstone Island 
 2872,Hopewell Cape 
-2874,Moncton 
-2875,Salisbury 
 2877,Amherst Harbour 
 2878,Joggins 
 2880,Cape Capstan 
@@ -21,10 +19,8 @@ optgroup, Canada
 2884,Port Greville 
 2885,Parrsboro 
 2886,Five Islands 
-2888,Truro (Minas Basin) 
 2891,Burntcoat Head 
 2893,Hantsport 
-2894,Windsor 
 2897,Scots Bay 
 2899,Margaretsville 
 2900,Parkers Cove 
@@ -136,8 +132,6 @@ optgroup, Canada
 3089,St. Francois 
 3090,St. Laurent (St. Lawrence Estuary) 
 3092,QUEBEC 
-3095,Neuville 
-3096,Batiscan 
 3098,Baie Comeau 
 3099,Pointe Des Monts 
 3100,Iles Du Caouis 
@@ -152,7 +146,6 @@ optgroup, Canada
 3117,Mistanoque 
 3120,Blanc Sablon 
 3121,Forteau Bay 
-3122,Pinware Bay 
 3123,Red Bay, Canada 
 8839,Stewart 
 8840,Kumeon Bay 
@@ -238,10 +231,6 @@ optgroup, Canada
 9134,Lake Buntzen 
 9135,Port Moody 
 9136,Sand Heads 
-9138,New Westminster 
-9139,Port Coquitlam 
-9140,Port Haney 
-9141,Sumas 
 9142,Tsawwassen 
 optgroup, Vancouver Island
 optgroup, Canadian Arctic
@@ -258,8 +247,6 @@ optgroup, Canadian Arctic
 3334,Resolute 
 3338,Driftwood Bay 
 3340,Cape Capel 
-3341,Byam Martin Island 
-3343,Dealy Island 
 3344,Winter Harbour (Melville Sound) 
 3356,Fort Ross 
 3360,False Strait 
@@ -269,14 +256,10 @@ optgroup, Canadian Arctic
 3380,Pearce Point 
 3381,Bernard Harbour 
 3384,Cambridge Bay 
-3389,Princess Royal Island 
-3393,Cape Kellett 
-3395,Mercy Bay 
 3396,Mould Bay 
 3398,Isachsen 
 3400,Eureka 
 3402,Pim Island 
-3404,Cape Lawrence 
 3406,Discovery Harbour 
 3407,Cape Sheridan 
 3408,Cape Columbia 

@@ -14,18 +14,14 @@ optgroup, China
 7050,Paracel Islands 
 7056,NAOZHOU DAO 
 7057,Zhanjiang 
-7058,Maogang 
 7059,Diancheng 
 7061,Hailingshan Dao 
 7063,Xiachuan Dao 
 7065,Hebao Dao 
 7066,Gaolan Dao 
-7068,Pakkai 
 7070,Macao Harbour 
 7071,Zhuhai (Xiangzhou) 
 7073,Shekou Gang (Chiwan) 
-7075,Heng Men Haikou 
-7076,Tailung Channel 
 7077,Shanban Zhou 
 7078,Xianwu Jiao 
 7079,Nizhou Tou 
@@ -68,7 +64,6 @@ optgroup, China
 7161,Bai Yu 
 7162,Dadan (Dao) 
 7163,Xiamen Gang 
-7164,Zhangzhou 
 7165,Liaoluo Wan 
 7167,Ch'i-Mei Yu 
 7168,Chiang-Chun Kang-Tao 
@@ -86,20 +81,16 @@ optgroup, China
 7209,Baiquan Liedao 
 7211,MINJIANG KOU (CHUANSHI DAO) 
 7213,Mawei Gang 
-7214,Nan-Tai 
 7216,Mazu Dao 
 7219,Sandu Dao 
 7220,Xiyang Dao 
 7224,Shacheng Gang 
-7228,Dasanpan Dao 
-7229,Wenzhou Dao 
 7230,Wenzhou Gang 
 7235,Xiadachen Dao 
 7236,Haimen Gang 
 7239,Shipu Gang 
 7241,Nanjiushan 
 7244,Jiaoshan Jiao 
-7246,Pa Za Islets 
 7248,Xiazhi Dao 
 7249,Yangxiaomao Dao 
 7250,Qinqzi Men 
@@ -114,7 +105,6 @@ optgroup, China
 7273,TANXU SHAN 
 7274,ZHAPU GANG 
 7275,Baitashan 
-7277,Haining 
 7279,Xiluhua Dao 
 7280,CHANGJIANG APPROACHES (LUHUADAO) 
 7281,Sheshan Dao 
@@ -122,21 +112,13 @@ optgroup, China
 7283,Heqing 
 7284,WUSONG 
 7285,Shanghai 
-7286,Liuhe Kou 
-7287,Taicang Container Terminal 
 7288,Changshu 
-7289,Kuzi Gang 
-7290,Duanshan Gang 
 7291,Jiangyin 
-7294,Zhenjiang 
-7296,Nanjing 
-7298,Wuhu 
 7301,San Chia Chun 
 7303,San Se Tang 
 7306,Sin Yang Kau 
 7310,Kaishan Dao 
 7312,Lianyungang Gang 
-7313,Lanshantou 
 7314,RIZHAO GANG 
 7315,Huangjiatang Wan 
 7318,Qingdao 
@@ -163,7 +145,6 @@ optgroup, China
 7365,Qihe Kou 
 7366,TIANJIN GANG 
 7367,Dagu 
-7368,Tianjin (Tientsin) 
 7370,Caofeidian 
 7371,Jingtang 
 7375,Dapuhe Kou 
@@ -197,6 +178,5 @@ optgroup, China
 7439,Sin Do 
 7440,Chao-Shih-Kou 
 7441,Tuyup'o 
-7442,San-Tao-Lang-T'ou 
 7443,Dandong Gang 
 7445,Suun Do 

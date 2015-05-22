@@ -14,10 +14,8 @@ optgroup, Argentina
 2100,Cabo Virgenes 
 2101,PUNTA LOYOLA (PUERTO GALLEGOS) 
 2102,Ria Coig 
-2103,Puerto Santa Cruz Bar 
 2104,Punta Quilla 
 2105,Muelle Frigorifico 
-2106,Bahia Laura 
 2107,Bahia De Los Nodales 
 2108,Bahia Oso Marino 
 2109,Puerto Deseado 
@@ -33,7 +31,6 @@ optgroup, Argentina
 2121,Puerto Santa Elena 
 2122,Bahia Janssen 
 2123,Isla Escondida 
-2124,Bahia Engano (Puerto Rawson) 
 2125,Punta Ninfas 
 2126,PUERTO MADRYN 
 2127,Puerto Piramide 

@@ -1,7 +1,4 @@
 optgroup, New Caledonia
-5745,Pam Bay 
-5746,Port Puebo 
-5747,Port Hienghene 
 5748,Touho 
 5749,Baie De Poro 
 5750,Baie D'amata 
@@ -14,14 +11,12 @@ optgroup, New Caledonia
 5758,Amedee Lighthouse 
 5759,Noumea 
 5760,Baie St. Vincent 
-5761,Passe D'isie 
 5762,Baie D'ouarai 
 5763,Bourail 
 5764,Baie De La Poya 
 5765,Baie De Gomen 
 5766,Paagoumene Bay 
 5767,Banare Bay 
-5768,Aue Bay 
 optgroup, New Zealand North Island
 6366,Port Taranaki 
 6367,Waitara River Entrance 
@@ -36,7 +31,6 @@ optgroup, New Zealand North Island
 6377,Pouto Point 
 6378,Shelly Beach 
 6379,Tinopai 
-6380,Te Kopuru 
 6381,Opononi 
 6382,Kohukohu 
 6384,Ahipara Bay 
@@ -53,7 +47,6 @@ optgroup, New Zealand North Island
 6395,Port Whangarei 
 6396,Burgess Island (Pokohinu) 
 6397,Mansion House Bay 
-6398,Mahurangi Harbour 
 6399,Weiti River Entrance 
 6400,AUCKLAND 
 6401,Man O'war Bay 
@@ -73,7 +66,6 @@ optgroup, New Zealand North Island
 6423,Waipiro Bay 
 6424,Tolaga Bay 
 6425,Gisborne 
-6428,Portland Island 
 6429,Waikokopu 
 6430,Wairoa River Entrance 
 6432,Napier 

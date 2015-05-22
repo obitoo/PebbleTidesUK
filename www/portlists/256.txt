@@ -1,6 +1,4 @@
 optgroup, Uruguay
-2167,Paysandu 
-2168,Nueva Palmira 
 2169,Colonia 
 2170,Puerto Sauce 
 2171,Montevideo 

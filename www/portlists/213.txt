@@ -6,5 +6,3 @@ optgroup, Sierra Leone
 3586,Shenge Point 
 3587,Titibul Creek 
 3589,Bonthe 
-3591,Shebar Entrance 
-3592,Gallinas River 

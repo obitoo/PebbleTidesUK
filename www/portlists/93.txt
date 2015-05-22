@@ -23,16 +23,10 @@ optgroup, Iceland
 0834,Sudhureyri 
 0835,Bolungavik 
 0836,Alftafjordhur 
-0837,Arngerdharseyri 
-0838,Veidileysufjordhur 
-0839,Latravik 
-0840,Reykjarfjordhur 
 0841,Holmavik 
 0842,Hrutafjordhur 
 0843,Skagastrond 
 0844,Saudarkrokur 
-0845,Hofsos 
-0846,Haganesvik 
 0847,Siglufjordhur 
 0848,Olafsfjordhur 
 0849,Akureyri 
@@ -40,20 +34,11 @@ optgroup, Iceland
 0851,Husavik 
 0852,Raufarhofn 
 0853,Thorshofn 
-0854,Bakkafjordhur 
 0855,Vopnafjordhur 
-0856,Nes Farm 
 0858,Vestdalseyri 
-0859,Dalatangi 
-0860,Brekka 
 0861,Nordfjordhur (Nes) 
-0862,Hellisfjordhur 
 0864,Eskifjordhur 
 0865,Budareyri 
 0866,Faskrudsfjordhur 
 0867,Breidhdalsvik 
-0868,Papey 
 0870,Hvanney 
-0871,Kalfafellstadir 
-0872,Ingolfshofdi 
-0875,Vik 

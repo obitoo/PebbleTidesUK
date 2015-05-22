@@ -1,10 +1,8 @@
 optgroup, Antarctica
 2001,Breivika 
 2002,Marion Island 
-2004,Baie De L'oiseau 
 2005,Anse Betsy 
 2006,Port-Aux-Francais 
-2007,Port Jeanne D'arc 
 2008,St. Paul Island 
 2009,Mawson 
 2010,Heard Island 

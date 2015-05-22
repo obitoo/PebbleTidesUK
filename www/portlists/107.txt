@@ -25,8 +25,5 @@ optgroup, Italy
 1888,Ortona 
 1889,Ancona 
 1890,Pesaro 
-1891,Chioggia 
-1892,Malamocco 
 1894,VENEZIA (VENICE) 
-1895,Grado 
 1896,Trieste 

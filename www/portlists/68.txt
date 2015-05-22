@@ -1,7 +1,6 @@
 optgroup, Equatorial Guinea
 3690,Malabo 
 3691,Bahia De Luba (San Carlos) 
-3697,Pagalu (Annobon) 
 3698,Bata 
 3699,Rio Benito 
 3701,Cogo 

@@ -1,7 +1,6 @@
 optgroup, Australia
 5770,Norfolk Island 
 5772,Lord Howe Island 
-5774,Middleton Reef 
 5775,Cato Island 
 5781,Marion Reef 
 5782,Mellish Reef 
