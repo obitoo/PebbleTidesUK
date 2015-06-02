@@ -22,6 +22,7 @@
 # 16Apr   - default time for v2 client
 # 19May   - offsets. Handle undefined param
 #
+#
 
 import json
 import tidedata
@@ -58,6 +59,8 @@ if options.time:
    time = options.time
 if options.offset:
    offset = options.offset
+if options.date:
+   date = options.date
 
 
 
@@ -73,6 +76,8 @@ for field in form.keys():
        version = form[field].value
     if field == "offset" and form[field].value != 'undefined':
        offset = int(form[field].value)
+    if field == "date" and form[field].value != 'undefined':
+       date = int(form[field].value)
 
 if time == 0:
    time="13:37"
@@ -91,22 +96,32 @@ if ":" in port:
    port = port.split(":")[1]
 
 
+
+
+#
+#  
+#
+def exit_404():
+   sys.stderr.write(tides.error+"\n")  #// apache errors.log
+   sys.stderr.write("xxxx\n")
+   print "Status: 404 Not Found\r\n"
+   print "Content-Type: text/html\r\n\r\n"
+   print "<h1>404 File not found!</h1>"
+   sys.exit(1)
+
 #
 # Create a tidesdata request object 
 #
 tides = tidedata.public(port)
-
+if tides.error: 
+   exit_404()
 
 #
 # Scrape data
 #
 tides.scrape()
 if tides.error: 
-   sys.stderr.write(tides.error+"\n")  #// apache errors.log
-   print "Status: 404 Not Found\r\n"
-   print "Content-Type: text/html\r\n\r\n"
-   print "<h1>404 File not found!</h1>"
-   sys.exit(1)
+   exit_404()
 
 #
 # Adjust UK ports for BST. The others will just haveto have a DST flag
@@ -123,14 +138,16 @@ if (offset != 0):
 #
 # Use passed localtime to only show tides > now
 # - only on v3 client
+#
 if (int(float(str(version))) >= 3):
 
-   #sys.stderr.write ("version 3")
+      # For tz's ahead of UTC easytide will still return yesterdays data. 
+   if date:
+      tides.delete_in_past_day(date)
+
       # Use passed localtime to only show tides > now
    tides.delete_in_past(time)
-      # In addition to the above, for tz's ahead of UTC easytide will still return yesterdays data. 
-   if options.date:
-      tides.delete_in_past_day(options.date)
+
 else:
    from datetime import datetime
    from dateutil import tz

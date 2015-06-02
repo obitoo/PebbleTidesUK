@@ -27,6 +27,11 @@ class public():
      self.port = port
      self.error = None
 
+     # Validate instance vars
+     if port == "null":
+        self.error = "Invalid null port"
+
+
 
    #
    # pull from easytide, parse and store
