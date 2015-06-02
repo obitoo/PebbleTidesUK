@@ -131,6 +131,12 @@ void message_send_outbox() {
 
     dict_write_cstring(iter, CFG_TIME,         hhmm      );  
     dict_write_cstring(iter, CFG_VERSION,      APPVERSION);
+  
+    // Pass the date (1-31) too
+    char day[] = "00";  
+    strftime(day, sizeof("00"), "%d", tick_time);
+    dict_write_cstring(iter, CFG_DATE,         day      );  
+
 
     APP_LOG(APP_LOG_LEVEL_ERROR, "                     - sending time of %s", hhmm );
 

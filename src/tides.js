@@ -28,7 +28,7 @@
   //  12May - config3, offsets and portname
   //  18May - 'undefined' defaults for vsn and time
   //  19May - offsets
-
+  //   2Jun - date in get_tide url
 
 
   //
@@ -39,7 +39,7 @@ var config_open ;
 var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
- //   webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
+    // webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
 
 
 // Listen for when the watchface is opened, then 
@@ -167,7 +167,8 @@ Pebble.addEventListener("webviewclosed", function(e) {
                                    localStorage.getItem("cfg_version"), 
                                    localStorage.getItem("cfg_time"),
                                    localStorage.getItem("cfg_dst"),
-                                   localStorage.getItem("cfg_offset")
+                                   localStorage.getItem("cfg_offset"),
+                                   localStorage.getItem("cfg_date")
                                   );   
                           console.log("  getTides() called");
                         },
@@ -180,7 +181,8 @@ Pebble.addEventListener("webviewclosed", function(e) {
                                    localStorage.getItem("cfg_version"), 
                                    localStorage.getItem("cfg_time"),
                                    localStorage.getItem("cfg_dst"),
-                                   localStorage.getItem("cfg_offset")
+                                   localStorage.getItem("cfg_offset"),
+                                   localStorage.getItem("cfg_date")
                                   );   
                           console.log("  getTides() called");
                         }
@@ -217,7 +219,8 @@ Pebble.addEventListener('appmessage',   function(e) {
         localStorage.setItem("cfg_show_portname", e.payload.CFG_PORTNAME);
         localStorage.setItem("cfg_dst"     , e.payload.CFG_DST);
         localStorage.setItem("cfg_offset"  , e.payload.CFG_OFFSET);
-      
+        localStorage.setItem("cfg_date",    e.payload.CFG_DATE);
+
       
         location=e.payload.CFG_PORT;
     }
@@ -227,7 +230,8 @@ Pebble.addEventListener('appmessage',   function(e) {
     getTides(location, e.payload.CFG_VERSION, 
                        e.payload.CFG_TIME,
                        e.payload.CFG_DST,
-                       e.payload.CFG_OFFSET);
+                       e.payload.CFG_OFFSET,
+                       e.payload.CFG_DATE);
   
 //     var offsetMinutes = new Date().getTimezoneOffset() * 60;
 //     console.log("  TIMEZONE========= offsetMinutes= "+offsetMinutes);
@@ -255,7 +259,7 @@ var xhrRequest = function (url, type, callback) {
 };
 
 
-function getTides(locn, version, timestring, dst_string, offset_val) {
+function getTides(locn, version, timestring, dst_string, offset_val, date_val) {
   console.log("getTides:"+locn);
   console.log("getTides:"+dst_string);
   console.log("getTides:"+offset_val);
@@ -277,7 +281,9 @@ function getTides(locn, version, timestring, dst_string, offset_val) {
   if (offset_val === undefined){
     offset_val = 0;
   }
-  
+  if (date_val === undefined){
+    date_val = 0;
+  } 
   
   // Add dst to offset and pass a single minute value
   if (dst_string == 'on'){
@@ -285,7 +291,7 @@ function getTides(locn, version, timestring, dst_string, offset_val) {
   }
   
   // Construct URL - 
-  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn +"&vsn="+version +"&time="+timestring +"&offset="+offset_val;
+  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn +"&vsn="+version +"&time="+timestring +"&offset="+offset_val+"&date="+date_val;
   
   // Send request to my Server
   // TODO - what if http get fails? 

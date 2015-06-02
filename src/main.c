@@ -320,12 +320,16 @@ static void mainwindow_unload(Window *window) {
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - time callback entry" );
   
+      static int started_at = -1;  // 0 to 9
+      if (started_at == -1)
+         started_at = tick_time->tm_min % 10;
+
+      APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - started at %d", started_at);
+  
       update_time();
   
-
-  
       // Get tide data from phone every few minutes  
-      if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == 0) && messaging_ready()){
+      if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
         APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
         message_send_outbox();
       }
