@@ -45,7 +45,7 @@
 #define  CFG_DST          20
 #define  CFG_OFFSET       21
 #define  KEY_PORTNAME     22
-  
+#define  CFG_DATE         23 
 
   
   

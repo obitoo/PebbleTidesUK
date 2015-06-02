@@ -1,5 +1,6 @@
 {
     "appKeys": {
+        "CFG_DATE": 23,
         "CFG_DST": 20,
         "CFG_INVERT_COL": 13,
         "CFG_LINE_GRAPH": 15,
