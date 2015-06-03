@@ -96,14 +96,10 @@ if ":" in port:
    port = port.split(":")[1]
 
 
-
-
 #
-#  
 #
 def exit_404():
    sys.stderr.write(tides.error+"\n")  #// apache errors.log
-   sys.stderr.write("xxxx\n")
    print "Status: 404 Not Found\r\n"
    print "Content-Type: text/html\r\n\r\n"
    print "<h1>404 File not found!</h1>"

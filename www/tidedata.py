@@ -28,7 +28,7 @@ class public():
      self.error = None
 
      # Validate instance vars
-     if port == "null":
+     if (port == "null" or port == ""):
         self.error = "Invalid null port"
 
 
