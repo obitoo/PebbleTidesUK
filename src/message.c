@@ -119,6 +119,7 @@ void message_send_outbox() {
     dict_write_cstring(iter, CFG_PORTNAME,     config_get_string(CFG_PORTNAME));
     dict_write_int8   (iter, CFG_OFFSET,       config_get_intval(CFG_OFFSET));
     dict_write_cstring(iter, CFG_DST,          config_get_string(CFG_DST));
+    dict_write_cstring(iter, CFG_FEET,         config_get_string(CFG_FEET));
 
   
     // Pass watch time and version no
@@ -296,6 +297,10 @@ static int js_config(DictionaryIterator *iterator, void *context){
       case CFG_DST:
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / DST: %s", (t->value->cstring));
              config_save_string(CFG_DST,     t->value->cstring);
+             break;
+      case CFG_FEET:
+             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / FEET: %s", (t->value->cstring));
+             config_save_string(CFG_FEET,     t->value->cstring);
              break;
       
       case MSG_TYPE:

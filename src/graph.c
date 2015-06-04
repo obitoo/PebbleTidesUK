@@ -46,14 +46,19 @@ static void draw_tidepoints(GContext* ctx);
 static void draw_sinewave (GContext* ctx);
 
 
-static void print_tidetimes  (char (*p_state)[8], char (*p_time)[6]);
-static void print_tideheights(char (*p_state)[8], int *p_height, char *);
-static void print_portname   (char *p_portname);
+static void print_tidetimes       (char (*p_state)[8], char (*p_time)[6]);
+static void print_tideheights     (char (*p_state)[8], int *p_height, char *);
+static void print_portname        (char *p_portname);
+static void print_tideheights_feet(char (*p_state)[8], int *p_height, char *p_timestr);
 
     
 static int graph_data_stale();
       void graph_data_stale_set(int);
 static int lost_messaging_to_phone = 0;
+
+#define SHOW_HEIGHT_IN_FEET 1
+#define RATIO               3.2808399
+#define ROUND_NEAREST       3
 
 
   //
@@ -245,7 +250,10 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     static char text_layer_buffer1[32];
     static char text_layer_buffer2[32];
     char TODO_info[] = "      ";   //       char TODO_info[] = "Spring";
-  
+
+print_tideheights_feet (p_state, p_height, p_timestr);
+return;
+
     int min_h, max_h;
     calc_y_range(p_state, p_height, &min_h, &max_h);
 
@@ -272,8 +280,52 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
   
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
 }
-  
 
+// does what it says. Not sure how expensive this double maths will be. Only every 10 mins though. 
+static void convert_m_ft(int meters, int *i_feet, int *i_inches){
+    double d_feet = meters * RATIO / 10;  // no decimal point in the string from the phone, so *10
+    double d_inches = abs(12*(d_feet - (int)d_feet));
+
+    *i_feet = d_feet;
+    *i_inches = ((int) (d_inches/ROUND_NEAREST)) * ROUND_NEAREST; // eg nearest 3"
+
+    APP_LOG(APP_LOG_LEVEL_WARNING, "        metres=%d,   feet_d=%f  inches_d=%f", meters, d_feet, d_inches);
+    APP_LOG(APP_LOG_LEVEL_WARNING, "                     feet_i=%d  inches_i=%d",   *i_feet, *i_inches);
+}
+
+// For our cousins
+static void print_tideheights_feet(char (*p_state)[8], int *p_height, char *p_timestr){
+
+    static char text_layer_buffer1[32];
+    static char text_layer_buffer2[32];
+    int min_h, max_h;
+    int i_feet, i_inches;
+
+    APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights_feet()");
+
+    calc_y_range(p_state, p_height, &min_h, &max_h);
+  
+    convert_m_ft (max_h, &i_feet, &i_inches);
+    snprintf(text_layer_buffer1, 
+             sizeof(text_layer_buffer1),
+             " %d'%d\"\n", i_feet, i_inches);
+    convert_m_ft (min_h, &i_feet, &i_inches);
+    snprintf(text_layer_buffer2, 
+             sizeof(text_layer_buffer2),
+             " %2d'%d\"\n", i_feet, i_inches);
+  
+    // If we've lost comms to the phone, show last good update time
+    if (graph_data_stale()){ 
+        snprintf (text_layer_buffer1, sizeof(text_layer_buffer1)," Stale\n %s",p_timestr);
+        strcpy (text_layer_buffer2, "");
+    }
+
+    text_layer_set_text(s_tideheight_text_layer1, text_layer_buffer1);
+    text_layer_set_text(s_tideheight_text_layer2, text_layer_buffer2);
+  
+    APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights_feet()");
+}
+  
 
 
 static void draw_sinewave (GContext* ctx){
