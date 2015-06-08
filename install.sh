@@ -40,7 +40,7 @@ gitdir=/home/owen/tides/PebbleTidesUK/www
 ##
 ## Straight html
 ##
-for f in config.html  config3.html
+for f in config.html  config3.html config32.html
 do
    install $gitdir/$f /var/www/tides
 done
