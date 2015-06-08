@@ -44,6 +44,8 @@ char *config_get_string(int conf_item){
     static char c_heights[]="off";
     static char c_portname[4];
     static char c_dst[]     ="off";
+    static char c_feet[]    ="off";
+  
   
     strcpy (c_port    , "263:0110");
     strcpy (c_portname, "on");
@@ -74,6 +76,10 @@ char *config_get_string(int conf_item){
       case CFG_DST:
           tmp = c_dst;
           break;
+      case CFG_FEET:
+          tmp = c_feet;
+          break;
+      
       default:
           APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_string: Unknown conf_item:%d",conf_item);
     }
