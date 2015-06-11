@@ -46,7 +46,7 @@
 #define  CFG_OFFSET       21
 #define  KEY_PORTNAME     22
 #define  CFG_DATE         23 
-#define  CFG_FEET         24
+#define  CFG_SHOW_FEET    24
 
   
   

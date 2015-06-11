@@ -49,7 +49,7 @@ Pebble.addEventListener('ready',   function(e) {
     
     wait_msg = 0;
     config_open = 0;
-    config_url= webserver+"/tides/config3.html?";   
+    config_url= webserver+"/tides/config32.html?";   
     config_defaults = {
        "cfg_invert_col"     : "off",
        "cfg_show_heights"   : "off",
@@ -57,7 +57,8 @@ Pebble.addEventListener('ready',   function(e) {
        "cfg_port"           : "263:0110",
        "cfg_show_portname"  : "on",
        "cfg_dst"            : "off",
-       "cfg_offset"         : "0"
+       "cfg_offset"         : "0",
+       "cfg_show_feet"      : "off"
     };  
   
     console.log("  config_defaults= " + JSON.stringify(config_defaults));
@@ -151,6 +152,8 @@ Pebble.addEventListener("webviewclosed", function(e) {
               "CFG_PORTNAME"    : config.cfg_show_portname,
               "CFG_DST"         : config.cfg_dst,
               "CFG_OFFSET"      : config.cfg_offset,
+              "CFG_SHOW_FEET"   : config.cfg_show_feet,
+    
   };
 
   console.log("  Message to Pebble = " + JSON.stringify(dictionary));
@@ -220,6 +223,7 @@ Pebble.addEventListener('appmessage',   function(e) {
         localStorage.setItem("cfg_dst"     , e.payload.CFG_DST);
         localStorage.setItem("cfg_offset"  , e.payload.CFG_OFFSET);
         localStorage.setItem("cfg_date",    e.payload.CFG_DATE);
+        localStorage.setItem("cfg_show_feet", e.payload.CFG_SHOW_FEET);
 
       
         location=e.payload.CFG_PORT;

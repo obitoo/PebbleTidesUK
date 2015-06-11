@@ -20,8 +20,6 @@
 #include <graph.h>
 #include <config.h>
 
-extern void calc_graph_points          (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf);
-extern void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf, char *, char *);
 extern void main_hide_heights_layer();
 extern char*  p_current_time;
 
@@ -30,11 +28,6 @@ static int js_tides       (DictionaryIterator *iterator, void *context);
 static int js_config      (DictionaryIterator *iterator, void *context);
 static int js_ready       (DictionaryIterator *iterator, void *context);
 static char *translate_error(AppMessageResult result);
-
-static char state_buf[4][8];   // "hi" | "lo"
-static char time_buf[4][6];    // "23:44"
-static int  height_buf[5];    // "56"  = 5.6m 
-static char portname_buf[31];    //   "Southend-on-sea"
 
 
 extern Layer       *s_graph_layer;
@@ -50,6 +43,12 @@ extern void main_set_colours();
 extern void graph_data_stale_set(int);
 
 
+void cache_set_state    (int key, char *cstring);
+void cache_set_time     (int key, char *cstring);
+void cache_set_height   (int key, int intval);
+void cache_set_cachekey (char* cstring);
+
+
 //
 //  Callback entry points ====================================================
 //
@@ -61,8 +60,6 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
      // update graphics
   if (update) {
       graph_data_stale_set(0);
-      print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf);
-      calc_graph_points(state_buf, time_buf, height_buf);
       layer_mark_dirty (s_graph_layer); // only place we do this
   }
   APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished (ACK)" );
@@ -71,7 +68,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
   graph_data_stale_set(1);
-  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf); // 'Stale' msg
+  // TODO print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf); // 'Stale' msg
 }
 
 void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
@@ -82,7 +79,7 @@ void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reaso
      message_send_outbox();
   }
   graph_data_stale_set(1);
-  print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf); // 'Stale' msg
+//  TODO print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf); // 'Stale' msg
 }
 
 void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
@@ -119,7 +116,7 @@ void message_send_outbox() {
     dict_write_cstring(iter, CFG_PORTNAME,     config_get_string(CFG_PORTNAME));
     dict_write_int8   (iter, CFG_OFFSET,       config_get_intval(CFG_OFFSET));
     dict_write_cstring(iter, CFG_DST,          config_get_string(CFG_DST));
-    dict_write_cstring(iter, CFG_FEET,         config_get_string(CFG_FEET));
+    dict_write_cstring(iter, CFG_SHOW_FEET,    config_get_string(CFG_SHOW_FEET));
 
   
     // Pass watch time and version no
@@ -202,44 +199,45 @@ static int js_tides(DictionaryIterator *iterator, void *context){
         case   MSG_TYPE:
                break;
         case   KEY_STATE_0:
-               snprintf(state_buf[0], sizeof(state_buf[0]), "%s", t->value->cstring);
+               cache_set_state (0, t->value->cstring);
                break;
         case   KEY_TIME_0:
-               snprintf(time_buf[0], sizeof(time_buf[0]), "%s", t->value->cstring);
+               cache_set_time (0, t->value->cstring);
                break;
         case   KEY_STATE_1:
-               snprintf(state_buf[1], sizeof(state_buf[1]), "%s", t->value->cstring);
+               cache_set_state (1, t->value->cstring);
                break;
         case   KEY_TIME_1:
-               snprintf(time_buf[1], sizeof(time_buf[1]), "%s", t->value->cstring);
+               cache_set_time (1, t->value->cstring);
                break;
         case   KEY_STATE_2:
-               snprintf(state_buf[2], sizeof(state_buf[2]), "%s", t->value->cstring);
+               cache_set_state (2, t->value->cstring);
                break;
         case   KEY_TIME_2:
-               snprintf(time_buf[2], sizeof(time_buf[2]), "%s", t->value->cstring);
+               cache_set_time (2, t->value->cstring);
                break;
         case   KEY_STATE_3:
-               snprintf(state_buf[3], sizeof(state_buf[3]), "%s", t->value->cstring);
+               cache_set_state (3, t->value->cstring);
                break;
         case   KEY_TIME_3:
-               snprintf(time_buf[3], sizeof(time_buf[3]), "%s", t->value->cstring);
+               cache_set_time (3, t->value->cstring);
                break;
       
         case   KEY_HEIGHT_0:
-               height_buf[0] = atoi(t->value->cstring);
+               cache_set_height (0, atoi(t->value->cstring));
                break;
         case   KEY_HEIGHT_1:
-               height_buf[1] = atoi(t->value->cstring);
+               cache_set_height (1, atoi(t->value->cstring));
                break;
         case   KEY_HEIGHT_2:
-               height_buf[2] = atoi(t->value->cstring);
+               cache_set_height (2, atoi(t->value->cstring));
                break;
         case   KEY_HEIGHT_3:
-               height_buf[3] = atoi(t->value->cstring);
+               cache_set_height (3, atoi(t->value->cstring));
                break;
+
         case   KEY_PORTNAME:
-               snprintf(portname_buf, sizeof(portname_buf), "%s", t->value->cstring);
+               cache_set_cachekey (t->value->cstring);
                break;
         default:
                APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
@@ -298,9 +296,9 @@ static int js_config(DictionaryIterator *iterator, void *context){
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / DST: %s", (t->value->cstring));
              config_save_string(CFG_DST,     t->value->cstring);
              break;
-      case CFG_FEET:
+      case CFG_SHOW_FEET:
              APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / FEET: %s", (t->value->cstring));
-             config_save_string(CFG_FEET,     t->value->cstring);
+             config_save_string(CFG_SHOW_FEET,     t->value->cstring);
              break;
       
       case MSG_TYPE:

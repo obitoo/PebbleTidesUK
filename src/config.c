@@ -76,7 +76,7 @@ char *config_get_string(int conf_item){
       case CFG_DST:
           tmp = c_dst;
           break;
-      case CFG_FEET:
+      case CFG_SHOW_FEET:
           tmp = c_feet;
           break;
       

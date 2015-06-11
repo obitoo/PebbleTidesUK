@@ -2,12 +2,12 @@
     "appKeys": {
         "CFG_DATE": 23,
         "CFG_DST": 20,
-        "CFG_FEET": 24,
         "CFG_INVERT_COL": 13,
         "CFG_LINE_GRAPH": 15,
         "CFG_OFFSET": 21,
         "CFG_PORT": 16,
         "CFG_PORTNAME": 19,
+        "CFG_SHOW_FEET": 24,
         "CFG_SHOW_HEIGHTS": 14,
         "CFG_TIME": 17,
         "CFG_VERSION": 18,
