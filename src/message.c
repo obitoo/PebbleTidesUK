@@ -21,7 +21,6 @@
 #include <config.h>
 
 extern void main_hide_heights_layer();
-extern char*  p_current_time;
 
 static int process_js_msg (DictionaryIterator *iterator, void *context);
 static int js_tides       (DictionaryIterator *iterator, void *context);
@@ -31,8 +30,6 @@ static char *translate_error(AppMessageResult result);
 
 
 extern Layer       *s_graph_layer;
-
-static char appmsg_received_time[]="00:00";
 
 static int retry_count_out = 3;
 static int js_initialised = 0; 
@@ -134,9 +131,6 @@ void message_send_outbox() {
     strftime(day, sizeof("00"), "%d", tick_time);
     dict_write_cstring(iter, CFG_DATE,         day      );  
 
-
-    APP_LOG(APP_LOG_LEVEL_ERROR, "                     - sending time of %s", hhmm );
-
     // Dont do this. Really. https://developer.getpebble.com/2/guides/app-phone-communication.html
     //dict_write_end (iter);
 
@@ -154,10 +148,6 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
 
   int update_gfx = 0;
   
-  //quick +dirty - gets set by time handler in main - remove later  
-  if (p_current_time != NULL)
-      strcpy(appmsg_received_time, p_current_time);
-    
   // Can't assume order
   //Tuple *t = dict_read_first(iterator);
   Tuple *t = dict_find(iterator, MSG_TYPE);

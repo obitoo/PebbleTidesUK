@@ -51,8 +51,6 @@ static void mainwindow_unload(Window *window);
 
 
 
-       char *p_current_time;
-
 extern void inbox_dropped_callback(AppMessageResult , void *);
 extern void outbox_failed_callback(DictionaryIterator *, AppMessageResult , void *);
 extern void outbox_sent_callback(DictionaryIterator *, void *);
@@ -345,9 +343,6 @@ static void update_time() {
       static char buffer[] = "00:00";
       static char dateString[] = "wednesday 99 ";
   
-      // for other fns to use
-      p_current_time = buffer;    
-     
       APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - entry" );
     
       // Write the current hours and minutes into the buffer

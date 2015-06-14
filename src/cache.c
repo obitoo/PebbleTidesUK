@@ -5,13 +5,15 @@ static char state_cache[4][8];   // "hi" | "lo"
 static char time_cache[4][6];    // "23:44"
 static int  height_cache[5];    // "56"  = 5.6m 
 static char portname_cache[31];    //   "Southend-on-sea"
+static char hh_mm[]="00:00";    // last update time
 
 
-#define STATE_KEY 1
-#define HEIGHT_KEY 2
-#define TIME_KEY 3
-#define PORTNAME_KEY 4
-#define TIME_INIT_KEY 5
+#define STATE_KEY          1
+#define HEIGHT_KEY         2
+#define TIME_KEY           3
+#define PORTNAME_KEY       4
+#define TIME_INIT_KEY      5
+#define TIME_INIT_KEY_HHMM 6
   
   
 // todo - writing out too many times. Slow?
@@ -79,27 +81,42 @@ char* cache_get_portname_buf(){
 //  Ageing logic
 //
 int cache_stale(){
-  APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_stale()  ");
-
+//   APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_stale()  ");
   // get mins since epoch 
   time_t epoch = time(NULL);
   uint16_t now_mins = epoch / 60;
   
   // retrieve time cache was initialised 
   uint16_t cache_init = persist_read_int (TIME_INIT_KEY);
-  
-  APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_stale()  now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
+//   APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale()  now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
   return (((now_mins-cache_init) > CACHE_MAX_MINS) ? 1 : 0);
 }
+
 void cache_set_refreshed(){
-  // get seconds since epoch and store
+  // get time since epoch and store
   time_t epoch = time(NULL);
   uint16_t epoch_mins = epoch / 60;
   APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  epoch_mins= %u", (unsigned int)epoch_mins);
   persist_write_int (TIME_INIT_KEY, epoch_mins);
+  
+  // also store as a 24h hh:mm string - will display when the cache eventually goes stale
+  struct tm *tick_time = localtime(&epoch);
+  static char buffer[] = "00:00";
+  strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
+  persist_write_string(TIME_INIT_KEY_HHMM, buffer);
+  APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  hh_mm= %s", buffer);
+
   return;
 }
- 
+
+// retrieve time cache was initialised 
+
+char *cache_last_update() {
+  if (persist_exists(TIME_INIT_KEY_HHMM)){
+     persist_read_string(TIME_INIT_KEY_HHMM, hh_mm, sizeof(hh_mm));
+  }
+  return hh_mm;
+}
 
 
   

@@ -56,7 +56,6 @@ static void convert_m_ft          (int, char *, int *);
 static void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf,char *time_str,char *p_portname);
 
     
- int graph_data_stale();
 extern int cache_stale();
 
 // The following for converting to feet+inches
@@ -67,6 +66,7 @@ extern char  (*cache_get_state_buf())[8];
 extern char  (*cache_get_time_buf())[6];
 extern  int* cache_get_height_buf();
 extern char* cache_get_portname_buf();
+extern char* cache_last_update();
 
   //
   // entry points  ==============================
@@ -88,7 +88,7 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
     print_tide_text_layers(cache_get_state_buf(), 
                            cache_get_time_buf(), 
                            cache_get_height_buf(), 
-                           "13:37", 
+                           cache_last_update(), 
                            cache_get_portname_buf());
     
     // render
@@ -116,7 +116,7 @@ void print_tide_text_layers (char (*p_state_buf)[8],
   // heights  
   if (config_get_intval(CGRAPH_NUM_POINTS)  < 4) 
     print_tideheights (p_state_buf, p_height_buf, time_str);
-  
+ 
   // Portname
   print_portname (p_portname);
   
@@ -192,7 +192,7 @@ static void draw_tidepoints(GContext* ctx){
     int blob_radius = 3;
     for (i=0; i< config_get_intval(CGRAPH_NUM_POINTS) ; i++)
         if ((draw_x[i] > 0) && (draw_y[i] > 0) && (draw_x[i] < config_get_intval(CGRAPH_X_PX))){//} - blob_radius)){
-          if (graph_data_stale())
+          if (cache_stale())
               graphics_draw_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);      
           else
               graphics_fill_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);   
@@ -318,7 +318,7 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     }
   
     // If we've lost comms to the phone, show last good update time
-    if (graph_data_stale()){ 
+    if (cache_stale()){ 
         snprintf (text_layer_buffer1, sizeof(text_layer_buffer1)," Stale\n %s",p_timestr);
         strcpy (text_layer_buffer2, "");
     }
@@ -441,14 +441,16 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   int range_y       = y2 -y1;
   const int half_pi = TRIG_MAX_ANGLE/4;
   const int      pi = TRIG_MAX_ANGLE/2;
-  APP_LOG(APP_LOG_LEVEL_ERROR, "         before cache_stale() call  ");
-
-  graph_data_stale();
+  
+  APP_LOG(APP_LOG_LEVEL_INFO, "         before cache_stale() call  ");
   cache_stale();
-  int x_step = (graph_data_stale() ? 3: 1);  // indicate stale data with a dashed graph
+  int x_step = cache_stale() ? 3: 1;  // indicate stale data with a dashed graph
+  APP_LOG(APP_LOG_LEVEL_INFO, "         ..after cache_stale() call  ");
 
-  APP_LOG(APP_LOG_LEVEL_ERROR, "         ..after cache_stale() call  ");
-
+  
+  
+  
+  
   for (x = 0; x < range_x; x = x + x_step ){
       y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
@@ -614,14 +616,6 @@ static int calc_mins (char *s_hhmm, int *now){
 
 
 
-
-
-// Utils - stale data 
- int graph_data_stale(){
-  APP_LOG(APP_LOG_LEVEL_WARNING, " graph_data_stale()");    
-
-  return cache_stale();
-}
 
 
 
