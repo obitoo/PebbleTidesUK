@@ -40,7 +40,7 @@ var config_url;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
      webserver="http://192.168.7.175/";   // Dev DONT FORGET !!!111!11!!11
-
+// var testurl="/tides/test.json"; 
 
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
@@ -294,8 +294,13 @@ function getTides(locn, version, timestring, dst_string, offset_val, date_val) {
     offset_val = parseInt(offset_val)+60;
   }
   
-  // Construct URL - 
-  var url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn +"&vsn="+version +"&time="+timestring +"&offset="+offset_val+"&date="+date_val;
+  // Construct URL 
+  var url;
+  if (typeof testurl != 'undefined') {
+    url = webserver + testurl;
+  } else {
+    url = webserver+"/cgi-bin/tides/get_tide.py?port="+locn +"&vsn="+version +"&time="+timestring +"&offset="+offset_val+"&date="+date_val;
+  }
   
   // Send request to my Server
   // TODO - what if http get fails? 

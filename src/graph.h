@@ -74,11 +74,18 @@
 #define  CGRAPH_X_LOGICAL_MAX 2
 #define  CGRAPH_X_MINS        3 
   
+// #define  CACHE_MAX_MINS       360  // 6 hours 
+#define  CACHE_MAX_MINS       720  // 12 hours 
 
 
    // debug 
 // #define DEBUG_TIME_NOW_MINS  1020  // 17:00
-// #define DEBUG_TIME_NOW_MINS  1316  // 21:56
+// #define DEBUG_TIME_NOW_MINS  1319  // 21:59
+// #define DEBUG_TIME_NOW_MINS  1439  // 23:59
+// #define DEBUG_TIME_NOW_MINS  1     // 00:01
+// #define DEBUG_TIME_NOW_MINS  181     // 03:01
+// #define DEBUG_TIME_NOW_MINS  241     // 04:01
+// #define DEBUG_TIME_NOW_MINS  690  // 11:30
 // #define DEBUG_TIME_NOW_MINS  870  // 14:30
   
 

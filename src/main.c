@@ -125,16 +125,16 @@ int main (void){
 // http://developer.getpebble.com/tools/color-picker/#FFFFAA 
 
 // NEON - green and pink
-#define FG_COL GColorGreen
-#define FG_COL_DIM GColorFashionMagenta
+// #define FG_COL GColorGreen                // all other text
+// #define FG_COL_DIM GColorFashionMagenta   // Wave graph
   
 // SAND
 //#define FG_COL GColorYellow
 //#define FG_COL_DIM GColorChromeYellow
   
 // BLUE
-//#define FG_COL GColorElectricUltramarine
-//#define FG_COL_DIM GColorCyan 
+#define FG_COL  GColorWhite
+#define FG_COL_DIM GColorElectricBlue // GColorCyan 
 
     
 GColor colour_fg(){

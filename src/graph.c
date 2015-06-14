@@ -73,7 +73,7 @@ extern char* cache_get_portname_buf();
   // entry points  ==============================
   //
 void gfx_layer_update_callback(Layer *me, GContext* ctx) {
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  gfx_layer_update_callback()");
+  APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  gfx_layer_update_callback()");
 
   if (1){
     // set stroke colour - here? every time? 
@@ -98,7 +98,7 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
     draw_sinewave(ctx);
     
   }  
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  gfx_layer_update_callback()");
+  APP_LOG(APP_LOG_LEVEL_WARNING, "fn_exit:  gfx_layer_update_callback()");
 
 }
 
@@ -148,11 +148,11 @@ static void print_portname(char *p_portname)
   // output
   if (config_get_bool(CFG_PORTNAME)) {
       text_layer_set_text(s_portname_text_layer, display_str);
-      APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  showing portname=%s,offset=%d",p_portname,offset);
+//       APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  showing portname=%s,offset=%d",p_portname,offset);
   }
   else {
      text_layer_set_text(s_portname_text_layer, "");
-     APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  HIDING portname=%s,offset=%d",p_portname,offset);
+     APP_LOG(APP_LOG_LEVEL_WARNING, "print_portname:  HIDING portname=%s,offset=%d",p_portname,offset);
   }
 }
                                
@@ -160,7 +160,7 @@ static void print_portname(char *p_portname)
 
 
 static void draw_box(GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  draw_box()");
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
   
   graphics_context_set_stroke_color(ctx, colour_fg());
 
@@ -203,6 +203,9 @@ static void draw_tidepoints(GContext* ctx){
 
 }
 
+
+
+
 static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tidetimes()");
 
@@ -222,13 +225,24 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
       return;
     }
   
-    // All ok, so write out the data
-    int i = 0;
-    for (; i < config_get_intval(CGRAPH_NUM_POINTS); i++)
-//       APP_LOG(APP_LOG_LEVEL_INFO, "           print_tidetimes(%d) %d state=%s, time=%s",config_get_intval(CGRAPH_NUM_POINTS),i,p_state[i], p_time[i]);
+      
+    // All ok, so write out the data.. but check if first is in the past 
+    int style = config_get_intval(CGRAPH_NUM_POINTS);
+    int offset;
+    int time_now_mins = calc_localtime_mins();
+    int prev_mins     = time_now_mins;
+    int tidetime_mins = calc_mins (p_time[0], &prev_mins);
+    if (tidetime_mins < time_now_mins) {
+      style = 3;
+      offset = 1;
+    }
+    tidetime_mins = calc_mins (p_time[1], &prev_mins);
+    if (tidetime_mins < time_now_mins) {
+      style = 2;
+      offset = 2;
+    }
 
-  
-    switch (config_get_intval(CGRAPH_NUM_POINTS)){
+    switch (style){
       case 4:
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
                  "%s: %s         %s: %s       \n       %s: %s         %s: %s\n",
@@ -238,17 +252,20 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
       case 3:
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
                  "%s: %s    %s: %s\n         %s: %s       ",
-                 p_state[0], p_time[0] ,           p_state[2], p_time[2],
-                 p_state[1], p_time[1]  );
+                 p_state[0+offset], p_time[0+offset] ,           p_state[2+offset], p_time[2+offset],
+                 p_state[1+offset], p_time[1+offset]  );
+        break;
+      case 2:
+        snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
+                 "%s: %s          \n         %s: %s       ",
+                 p_state[0+offset], p_time[0+offset] ,          
+                 p_state[1+offset], p_time[1+offset]  );
         break;
       default:
         strcpy (text_layer_buffer, "--error in print_tidetimes() --");
         break;     
     }
  
-//     APP_LOG(APP_LOG_LEVEL_INFO, "text_layer_set_text: ");
-//     APP_LOG(APP_LOG_LEVEL_INFO, "(%s) ", text_layer_buffer);
-   
     text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
 
     APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit :  print_tidetimes()");
@@ -471,11 +488,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
       
       // Count mins from now to next tide hi/lo
       int tidetime_mins = calc_mins (p_time_buf[count_input], &prev_mins);
-      if (tidetime_mins < 0){ // error
-          APP_LOG(APP_LOG_LEVEL_ERROR, "calc_mins_failed (%s)", p_time_buf[count_input]);
-          return;
-      }  
-      
+    
       //  x point
       int xpos_mins        = tidetime_mins - time_now_mins;
       int xpos_px_relative = config_get_intval(CGRAPH_X_PX) * xpos_mins / config_get_intval(CGRAPH_X_MINS);
@@ -517,11 +530,13 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
 static int calc_localtime_mins(){
   time_t temp = time(NULL); 
   struct tm *tick_time = localtime(&temp);
+  int    time_now_mins = (tick_time->tm_hour * 60 ) + tick_time->tm_min;
   
-  int time_now_mins = (tick_time->tm_hour * 60 ) + tick_time->tm_min;
   #ifdef DEBUG_TIME_NOW_MINS
     time_now_mins=DEBUG_TIME_NOW_MINS;
   #endif
+    
+  APP_LOG(APP_LOG_LEVEL_INFO, "calc_localtime_mins = %d ", time_now_mins);
   return time_now_mins;
 }
 
@@ -547,10 +562,10 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
 
 
 // convert HH:MM to elapsed mins since midnight
-static int calc_mins (char *s_hhmm, int *i_prev_mins){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  calc_mins(%s, %d)", s_hhmm, *i_prev_mins );
+static int calc_mins (char *s_hhmm, int *now){
+  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  calc_mins(%s, %d)", s_hhmm, *now );
 
-  int i_mins = -1;
+  int tide_mins = -1;
   int i;
   char s_buf[2];
  
@@ -562,20 +577,36 @@ static int calc_mins (char *s_hhmm, int *i_prev_mins){
   
   // hours  
   strncpy (s_buf, s_hhmm, 2);
-  i_mins = atoi(s_buf) * 60;
+  tide_mins = atoi(s_buf) * 60;
   //mins
   strncpy (s_buf, s_hhmm+3, 2); 
-  i_mins = i_mins + atoi(s_buf);
+  tide_mins = tide_mins + atoi(s_buf);
 
   // tomorrow?  but allow 60 mins grace, in case we're a bit ahead of the webdata
-  while ((*i_prev_mins - i_mins) > 60 ){
-    i_mins = i_mins + MINS_IN_DAY;
+  // Now lets define this as 6 hrs. That'll be the cache stale time. 
+  APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins--->%d", tide_mins );
+
+  // we're ahead (cached, link down)
+  if (*now > tide_mins){
+      *now = tide_mins;
+  } else   
+  if ((*now < tide_mins) && ((tide_mins - *now) > CACHE_MAX_MINS)) {   // now after midnight, tide b4  
+    tide_mins = tide_mins - MINS_IN_DAY; 
+  } else 
+  // we're behind (normal)
+  if (abs(tide_mins-*now) > CACHE_MAX_MINS){
+    tide_mins = tide_mins + MINS_IN_DAY;
+    APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins----->%d", tide_mins );
   }
-  *i_prev_mins = i_mins;
+  *now = tide_mins;
   
-  APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", i_mins );
-  return i_mins;
+  APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", tide_mins );
+  return tide_mins;
 }
+
+
+
+
 
 // Utils - stale data 
 static int graph_data_stale(){

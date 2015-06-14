@@ -30,8 +30,8 @@ int config_get_bool(int conf_item){
   char value[4];
   strcpy (value, config_get_string (conf_item));
 
-  if (CFG_PORTNAME == conf_item)
-       APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_bool CFG_PORTNAME is %s which is %d",value,strcmp (value, "off"));
+//   if (CFG_PORTNAME == conf_item)
+//        APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_bool CFG_PORTNAME is %s which is %d",value,strcmp (value, "off"));
 
   return strcmp (value, "off");
 }
@@ -123,7 +123,7 @@ int config_get_intval (int conf_item){
      
       case CFG_OFFSET:
           retval = ( persist_exists(conf_item) ? persist_read_int(conf_item) :c_offset);
-          APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_int: CFG_OFFSET:%d",retval);
+//           APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_int: CFG_OFFSET:%d",retval);
           break;
       
 
