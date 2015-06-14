@@ -587,15 +587,19 @@ static int calc_mins (char *s_hhmm, int *now){
   APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins--->%d", tide_mins );
 
   // we're ahead (cached, link down)
-  if (*now > tide_mins){
+  if ((*now > tide_mins) && ((*now - tide_mins ) < CACHE_MAX_MINS)) {  // by less than 12(6?) hrs
       *now = tide_mins;
+      APP_LOG(APP_LOG_LEVEL_INFO, "       (case 1) ");
   } else   
   if ((*now < tide_mins) && ((tide_mins - *now) > CACHE_MAX_MINS)) {   // now after midnight, tide b4  
     tide_mins = tide_mins - MINS_IN_DAY; 
+    APP_LOG(APP_LOG_LEVEL_INFO, "       (case 2) ");
+
   } else 
   // we're behind (normal)
   if (abs(tide_mins-*now) > CACHE_MAX_MINS){
     tide_mins = tide_mins + MINS_IN_DAY;
+    APP_LOG(APP_LOG_LEVEL_INFO, "       (case 3) ");
     APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins----->%d", tide_mins );
   }
   *now = tide_mins;
