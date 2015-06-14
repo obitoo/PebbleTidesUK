@@ -58,7 +58,7 @@
 #define  GRAPH_Y_PX             45
 #define  GRAPH_NUM_HOZ_LINES    3 // 1 or 3 if you prefer  
 #define  MAX_X                  144
-#define  GRAPH_BORDER_PX        4
+#define  GRAPH_BORDER_PX        0
 #define  GRAPH_Y_LOWPOINT       4 // from wherever the border is 
 #define  GRAPH_EXAGGERATE_Y     4 // TODO 
   
@@ -68,7 +68,7 @@
 #define PORTNAME_MAX_CHARS      22  // for 18 font     
 
   
-// these replace the above
+// these are for config.c 
 #define  CGRAPH_NUM_POINTS    0
 #define  CGRAPH_X_PX          1  
 #define  CGRAPH_X_LOGICAL_MAX 2

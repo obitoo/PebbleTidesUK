@@ -161,20 +161,24 @@ static void print_portname(char *p_portname)
 static void draw_box(GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
   
-  graphics_context_set_stroke_color(ctx, colour_fg());
+  graphics_context_set_stroke_color(ctx, GColorPictonBlue);
+  graphics_context_set_fill_color(ctx, GColorPictonBlue);
 
   // nice border
   int _xpix = config_get_intval(CGRAPH_X_PX);  
-//   APP_LOG(APP_LOG_LEVEL_INFO, "        _xpix is %d", _xpix);
-  
 
-  graphics_draw_rect	(	 	ctx, (GRect) {.origin = { GRAPH_BORDER_PX, GRAPH_BORDER_PX }, .size = { _xpix , GRAPH_Y_PX}});
+  graphics_fill_rect	(	 	ctx, 
+                       (GRect) {.origin = { 0, 0 }, .size = { 144 , GRAPH_Y_PX+3}},
+                      0,GCornerNone);
 
   // midline(s)
+  graphics_context_set_stroke_color(ctx, GColorBlack);
+
   int  y = GRAPH_BORDER_PX;
   for (; y < GRAPH_Y_PX; y += (GRAPH_Y_PX/(1+GRAPH_NUM_HOZ_LINES))  )
     graphics_draw_line(ctx, (GPoint){GRAPH_BORDER_PX, y},
                             (GPoint){GRAPH_BORDER_PX + _xpix, y} );
+
 
 }
 
@@ -184,6 +188,7 @@ static void draw_tidepoints(GContext* ctx){
     if (!config_get_bool(CFG_LINE_GRAPH))
       return;  
   
+    return; // TODO
     graphics_context_set_fill_color(ctx, colour_fg());
 
     int i;  
@@ -244,7 +249,7 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
     switch (style){
       case 4:
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
-                 "%s: %s         %s: %s       \n       %s: %s         %s: %s\n",
+                 "%s:%s     %s:%s\n    %s:%s      %s:%s\n",
                  p_state[0], p_time[0] ,           p_state[2], p_time[2],
                  p_state[1], p_time[1] ,           p_state[3], p_time[3]);
         break;
@@ -419,7 +424,7 @@ static void draw_sinewave (GContext* ctx){
 
 static void plot_pixel_viewable (GContext* ctx, int xpix, int line_graph, int x, int y) {
   
-      if ((x > GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
+      if ((x >= GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
         if (line_graph) 
             graphics_draw_line(ctx, (GPoint){x, y}, (GPoint){x, y+LINE_GRAPH_WIDTH_PX} );
         else 
@@ -453,7 +458,13 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   
   for (x = 0; x < range_x; x = x + x_step ){
       y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+      graphics_context_set_stroke_color(ctx, colour_fg());
       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
+
+      graphics_context_set_stroke_color(ctx, colour_bg());
+      plot_pixel_viewable (ctx, _xpix, 0,  x1 + x, y1 + y + 3);
   }
 }
 

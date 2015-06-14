@@ -77,8 +77,8 @@ static void init() {
 //     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
 //     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 //   } else {
-    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
-    s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
+    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
+    s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 //   }
 
@@ -151,10 +151,10 @@ GColor colour_fg(){
 
 GColor colour_fg_dim(){
     #ifdef PBL_COLOR
-        if (config_get_bool(CFG_INVERT_COL)) 
-      return FG_COL;
+      if (config_get_bool(CFG_INVERT_COL)) 
+      return GColorBlack;
         else
-          return FG_COL_DIM;
+      return FG_COL_DIM;
         
     #else
        if (config_get_bool(CFG_INVERT_COL))
@@ -170,7 +170,7 @@ GColor colour_fg_dim(){
 GColor colour_bg(){
     #ifdef PBL_COLOR
       if (config_get_bool(CFG_INVERT_COL))
-          return FG_COL_DIM;
+          return GColorWhite;
       else
           return GColorBlack;
     #else
@@ -223,7 +223,6 @@ static void mainwindow_load(Window *window) {
   s_graph_layer = layer_create(GRect(0, 0, 144, 75));
       // callback fn:
   layer_set_update_proc(s_graph_layer, gfx_layer_update_callback);
-  layer_add_child(window_get_root_layer(window), s_graph_layer);
 
         // screen is 144 x 168  ------------------------
   
@@ -265,6 +264,7 @@ static void mainwindow_load(Window *window) {
   
     
   // Add as child layers to the Window's root layer
+  layer_add_child(window_get_root_layer(window), s_graph_layer);
 
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
@@ -272,6 +272,7 @@ static void mainwindow_load(Window *window) {
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer2));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_portname_text_layer));
+
 
   // hide if 3/4 width
   main_hide_heights_layer();
