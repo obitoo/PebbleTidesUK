@@ -56,9 +56,8 @@ static void convert_m_ft          (int, char *, int *);
 static void print_tide_text_layers (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf,char *time_str,char *p_portname);
 
     
-static int graph_data_stale();
-      void graph_data_stale_set(int);
-static int lost_messaging_to_phone = 0;
+ int graph_data_stale();
+extern int cache_stale();
 
 // The following for converting to feet+inches
 #define RATIO               3.2808399
@@ -442,8 +441,13 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   int range_y       = y2 -y1;
   const int half_pi = TRIG_MAX_ANGLE/4;
   const int      pi = TRIG_MAX_ANGLE/2;
-  
-  int x_step = graph_data_stale() ? 3: 1;  // indicate stale data with a dashed graph
+  APP_LOG(APP_LOG_LEVEL_ERROR, "         before cache_stale() call  ");
+
+  graph_data_stale();
+  cache_stale();
+  int x_step = (graph_data_stale() ? 3: 1);  // indicate stale data with a dashed graph
+
+  APP_LOG(APP_LOG_LEVEL_ERROR, "         ..after cache_stale() call  ");
 
   for (x = 0; x < range_x; x = x + x_step ){
       y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
@@ -584,27 +588,27 @@ static int calc_mins (char *s_hhmm, int *now){
 
   // tomorrow?  but allow 60 mins grace, in case we're a bit ahead of the webdata
   // Now lets define this as 6 hrs. That'll be the cache stale time. 
-  APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins--->%d", tide_mins );
+//   APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins--->%d", tide_mins );
 
   // we're ahead (cached, link down)
   if ((*now > tide_mins) && ((*now - tide_mins ) < CACHE_MAX_MINS)) {  // by less than 12(6?) hrs
       *now = tide_mins;
-      APP_LOG(APP_LOG_LEVEL_INFO, "       (case 1) ");
+//       APP_LOG(APP_LOG_LEVEL_INFO, "       (case 1) ");
   } else   
   if ((*now < tide_mins) && ((tide_mins - *now) > CACHE_MAX_MINS)) {   // now after midnight, tide b4  
     tide_mins = tide_mins - MINS_IN_DAY; 
-    APP_LOG(APP_LOG_LEVEL_INFO, "       (case 2) ");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "       (case 2) ");
 
   } else 
   // we're behind (normal)
   if (abs(tide_mins-*now) > CACHE_MAX_MINS){
     tide_mins = tide_mins + MINS_IN_DAY;
-    APP_LOG(APP_LOG_LEVEL_INFO, "       (case 3) ");
-    APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins----->%d", tide_mins );
+//     APP_LOG(APP_LOG_LEVEL_INFO, "       (case 3) ");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins----->%d", tide_mins );
   }
   *now = tide_mins;
   
-  APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", tide_mins );
+//   APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", tide_mins );
   return tide_mins;
 }
 
@@ -613,13 +617,11 @@ static int calc_mins (char *s_hhmm, int *now){
 
 
 // Utils - stale data 
-static int graph_data_stale(){
-  return lost_messaging_to_phone;
+ int graph_data_stale(){
+  APP_LOG(APP_LOG_LEVEL_WARNING, " graph_data_stale()");    
+
+  return cache_stale();
 }
 
-void graph_data_stale_set (int status){
-  APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  graph_data_stale_set, lost_messaging = %d", status );
-  lost_messaging_to_phone = status;
-}
 
 

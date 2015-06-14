@@ -40,14 +40,14 @@ static int js_initialised = 0;
        void message_send_outbox();
 
 extern void main_set_colours();
-extern void graph_data_stale_set(int);
+
 
 
 void cache_set_state    (int key, char *cstring);
 void cache_set_time     (int key, char *cstring);
 void cache_set_height   (int key, int intval);
 void cache_set_cachekey (char* cstring);
-
+void cache_set_refreshed();
 
 //
 //  Callback entry points ====================================================
@@ -59,7 +59,6 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   
      // update graphics
   if (update) {
-      graph_data_stale_set(0);
       layer_mark_dirty (s_graph_layer); // only place we do this
   }
   APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished (ACK)" );
@@ -247,6 +246,9 @@ static int js_tides(DictionaryIterator *iterator, void *context){
     t = dict_read_next(iterator);
   }
   
+  // only place we do this
+  cache_set_refreshed();
+    
   APP_LOG(APP_LOG_LEVEL_INFO, "js_tides()-exit");
   
   return 1;

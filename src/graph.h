@@ -82,7 +82,7 @@
 // #define DEBUG_TIME_NOW_MINS  1020  // 17:00
 // #define DEBUG_TIME_NOW_MINS  1319  // 21:59
 // #define DEBUG_TIME_NOW_MINS  1439  // 23:59
-#define DEBUG_TIME_NOW_MINS  1     // 00:01
+// #define DEBUG_TIME_NOW_MINS  1     // 00:01
 // #define DEBUG_TIME_NOW_MINS  181     // 03:01
 // #define DEBUG_TIME_NOW_MINS  241     // 04:01
 // #define DEBUG_TIME_NOW_MINS  690  // 11:30

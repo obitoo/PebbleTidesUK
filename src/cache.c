@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include <graph.h>
 
 static char state_cache[4][8];   // "hi" | "lo"
 static char time_cache[4][6];    // "23:44"
@@ -10,6 +11,7 @@ static char portname_cache[31];    //   "Southend-on-sea"
 #define HEIGHT_KEY 2
 #define TIME_KEY 3
 #define PORTNAME_KEY 4
+#define TIME_INIT_KEY 5
   
   
 // todo - writing out too many times. Slow?
@@ -38,36 +40,9 @@ void cache_set_cachekey(char* cstring){
 char  (*cache_get_state_buf())[8]{
     APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_state_buf()");
 
-    static int first_time = 1; 
-
     if (persist_exists(STATE_KEY)){
       persist_read_data(STATE_KEY, state_cache, sizeof(state_cache));
     }
-  
-//       if (first_time){
-        
-//       persist_read_data(TIME_KEY, time_cache, sizeof(time_cache));
-//       persist_read_data(HEIGHT_KEY, height_cache, sizeof(height_cache));
-
-//       first_time = 0;
-//       APP_LOG(APP_LOG_LEVEL_WARNING, "          cache_get_state_buf - DELETE first item");
-//       int i;
-//       for (i=0; i<4; i++){
-//         strcpy(state_cache[i], state_cache[i+1]);
-//         strcpy(time_cache[i], time_cache[i+1]);
-//         height_cache[i]= height_cache[i+1];
-//         APP_LOG(APP_LOG_LEVEL_WARNING, "          time_cache[%d] = %s", i, time_cache[i]);
-
-//       }
-//       strcpy (state_cache[i],"");
-//       strcpy (time_cache[i],"");
-//       height_cache[i] = 0;
-//             persist_write_data(HEIGHT_KEY, height_cache, sizeof(height_cache));
-//     persist_write_data(TIME_KEY, time_cache, sizeof(time_cache));
-//             persist_write_data(STATE_KEY, state_cache, sizeof(state_cache));
-
-
-//     }
   
     return state_cache;
 }
@@ -99,6 +74,32 @@ char* cache_get_portname_buf(){
 
   return portname_cache;
 }
+
+//
+//  Ageing logic
+//
+int cache_stale(){
+  APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_stale()  ");
+
+  // get mins since epoch 
+  time_t epoch = time(NULL);
+  uint16_t now_mins = epoch / 60;
+  
+  // retrieve time cache was initialised 
+  uint16_t cache_init = persist_read_int (TIME_INIT_KEY);
+  
+  APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_stale()  now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
+  return (((now_mins-cache_init) > CACHE_MAX_MINS) ? 1 : 0);
+}
+void cache_set_refreshed(){
+  // get seconds since epoch and store
+  time_t epoch = time(NULL);
+  uint16_t epoch_mins = epoch / 60;
+  APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  epoch_mins= %u", (unsigned int)epoch_mins);
+  persist_write_int (TIME_INIT_KEY, epoch_mins);
+  return;
+}
+ 
 
 
   
