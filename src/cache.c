@@ -40,7 +40,7 @@ void cache_set_cachekey(char* cstring){
 
 
 char  (*cache_get_state_buf())[8]{
-    APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_state_buf()");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_state_buf()");
 
     if (persist_exists(STATE_KEY)){
       persist_read_data(STATE_KEY, state_cache, sizeof(state_cache));
@@ -50,7 +50,7 @@ char  (*cache_get_state_buf())[8]{
 }
 
 char  (*cache_get_time_buf())[6]{
-    APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_time_buf()");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_time_buf()");
 
     if (persist_exists(TIME_KEY)){
       persist_read_data(TIME_KEY, time_cache, sizeof(time_cache));
@@ -59,7 +59,7 @@ char  (*cache_get_time_buf())[6]{
 }
 
 int* cache_get_height_buf(){
-    APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_height_buf()");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_height_buf()");
 
     if (persist_exists(HEIGHT_KEY)){
       persist_read_data(HEIGHT_KEY, height_cache, sizeof(height_cache));
@@ -68,7 +68,7 @@ int* cache_get_height_buf(){
 } 
 
 char* cache_get_portname_buf(){
-  APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_portname_buf()");
+//   APP_LOG(APP_LOG_LEVEL_INFO, "          cache_get_portname_buf()");
 
   if (persist_exists(PORTNAME_KEY)){
     persist_read_string(PORTNAME_KEY, portname_cache, sizeof(portname_cache));
