@@ -286,10 +286,6 @@ static void mainwindow_load(Window *window) {
   // hide if 3/4 width
   main_hide_heights_layer();
 
-    // testing testing
-  layer_mark_dirty (s_graph_layer);
-  
-  
   APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
 }
 
@@ -340,8 +336,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
       update_time();
   
       // Get tide data from phone every few minutes  
-//       if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
-  if (messaging_ready()){  // DEBUG DEBUG DEBUG
+      if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
         APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
         message_send_outbox();
       }
