@@ -33,7 +33,19 @@
     "longName": "TidesUK",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/tide4_24_24.png",
+                "menuIcon": true,
+                "name": "MENU_IMG_24",
+                "type": "png"
+            },
+            {
+                "file": "images/tide3_28_28.png",
+                "name": "MENU_IMG",
+                "type": "png"
+            }
+        ]
     },
     "sdkVersion": "3",
     "shortName": "TidesUK",
@@ -41,7 +53,7 @@
         "basalt"
     ],
     "uuid": "3dee6d28-1e53-4d0b-b0f6-f6f6ffdbb4dc",
-    "versionLabel": "3.2",
+    "versionLabel": "3.41",
     "watchapp": {
         "watchface": true
     }

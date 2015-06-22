@@ -58,7 +58,8 @@ extern void inbox_received_callback(DictionaryIterator *, void *);
 extern void message_send_outbox();
 extern int  messaging_ready();
 
-  
+extern void cache_init();
+extern void cache_deinit();
 
 
     //
@@ -92,6 +93,8 @@ static void init() {
   });
   window_stack_push(s_main_window, true);
   
+
+  
   // Register callbacks..
   app_message_register_inbox_received(inbox_received_callback);
   // Open AppMessage
@@ -100,11 +103,17 @@ static void init() {
   app_message_register_inbox_dropped(inbox_dropped_callback);
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
+  
+  // persistent storage
+  cache_init();
+  
+
 }
 
 static void deinit() {
   APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
   window_destroy(s_main_window);
+  cache_deinit();
   APP_LOG(APP_LOG_LEVEL_INFO, "deinit() done");
 }
 
@@ -277,6 +286,9 @@ static void mainwindow_load(Window *window) {
   // hide if 3/4 width
   main_hide_heights_layer();
 
+    // testing testing
+  layer_mark_dirty (s_graph_layer);
+  
   
   APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
 }
@@ -328,7 +340,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
       update_time();
   
       // Get tide data from phone every few minutes  
-      if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
+//       if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
+  if (messaging_ready()){  // DEBUG DEBUG DEBUG
         APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
         message_send_outbox();
       }

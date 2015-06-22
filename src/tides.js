@@ -45,7 +45,7 @@ var webserver="http://li646-227.members.linode.com/";
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
 Pebble.addEventListener('ready',   function(e) {
-//     console.log("--ready event");
+  console.log(Math.floor(Date.now() / 1000) + ":"+"--ready entry");
     
     wait_msg = 0;
     config_open = 0;
@@ -61,22 +61,23 @@ Pebble.addEventListener('ready',   function(e) {
        "cfg_show_feet"      : "off"
     };  
   
-//     console.log("  config_defaults= " + JSON.stringify(config_defaults));
+
+    console.log(Math.floor(Date.now() / 1000) + ":" + "  config_defaults= " + JSON.stringify(config_defaults));
 
     var dictionary = {
               "MSG_TYPE"        :"ready"};
 
   
-//      Pebble.sendAppMessage(dictionary,
-//                           function(e) {
-//                             console.log("  Ready sent to Pebble successfully");
-//                           },
-//                           function(e) {
-//                             console.log("  Error sending Ready to Pebble!");
-//                           }
-//                          );
+     Pebble.sendAppMessage(dictionary,
+                          function(e) {
+                            console.log(Math.floor(Date.now() / 1000) + ":"+"  Ready sent to Pebble successfully");
+                          },
+                          function(e) {
+                            console.log(Math.floor(Date.now() / 1000) + ":"+"  Error sending Ready to Pebble!");
+                          }
+                         );
      
-//      console.log("--ready event: exit");
+     console.log(Math.floor(Date.now() / 1000) + ":"+ "--ready event: exit");
     }
 );
 
