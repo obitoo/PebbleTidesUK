@@ -18,7 +18,8 @@
  ---------------------------------------------------------*/
 #include <pebble.h> 
 #include <graph.h> 
-#include <config.h>   
+#include <config.h> 
+#include <stdarg.h>
  
 
 static int calc_mins (char *, int *);
@@ -68,11 +69,36 @@ extern  int* cache_get_height_buf();
 extern char* cache_get_portname_buf();
 extern char* cache_last_update();
 
+void app_log_ts(int level, char* fmt, ...) {
+  static char format_string[256];
+  static char output_string[256];
+
+  va_list argptr;
+  va_start(argptr,fmt);
+  va_end(argptr);
+
+  time_t epoch = time(NULL);
+//   snprintf (format_string, sizeof(format_string), "%u:%s",(unsigned int) epoch, fmt); 
+//   APP_LOG(APP_LOG_LEVEL_DEBUG, "format string: %s",format_string);
+//   snprintf (output_string, sizeof(output_string), format_string,argptr ); 
+//   APP_LOG(APP_LOG_LEVEL_DEBUG, "output string: %s",output_string);
+
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "%u",(unsigned int) epoch);
+  APP_LOG(level, fmt, argptr);
+  
+}
+
+
+
+
+
+
   //
   // entry points  ==============================
   //
+ 
 void gfx_layer_update_callback(Layer *me, GContext* ctx) {
-  APP_LOG(APP_LOG_LEVEL_WARNING, "fn_entry:  gfx_layer_update_callback()");
+  app_log_ts(APP_LOG_LEVEL_WARNING, "fn_entry:  0:   gfx_layer_update_callback()");
 
   if (1){
     // set stroke colour - here? every time? 
@@ -82,6 +108,7 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
     calc_graph_points(cache_get_state_buf(), 
                       cache_get_time_buf(), 
                       cache_get_height_buf());
+    app_log_ts(APP_LOG_LEVEL_WARNING, "         1:  gfx_layer_update_callback()");
 
     // text - used to be only on receipt of tides from phone (10 mins) but now we're doing 
     // it every redraw (err, how long?)
@@ -90,14 +117,18 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
                            cache_get_height_buf(), 
                            cache_last_update(), 
                            cache_get_portname_buf());
-    
+
     // render
+    app_log_ts(APP_LOG_LEVEL_WARNING, "         2:  gfx_layer_update_callback()");
     draw_box(ctx);
+    app_log_ts(APP_LOG_LEVEL_WARNING, "         3:  gfx_layer_update_callback()");
     draw_tidepoints(ctx); 
+    app_log_ts(APP_LOG_LEVEL_WARNING, "         4:  gfx_layer_update_callback()");
+
     draw_sinewave(ctx);
     
   }  
-  APP_LOG(APP_LOG_LEVEL_WARNING, "fn_exit:  gfx_layer_update_callback()");
+  app_log_ts(APP_LOG_LEVEL_WARNING, "fn_exit:  5:  gfx_layer_update_callback()");
 
 }
 
@@ -147,11 +178,9 @@ static void print_portname(char *p_portname)
   // output
   if (config_get_bool(CFG_PORTNAME)) {
       text_layer_set_text(s_portname_text_layer, display_str);
-//       APP_LOG(APP_LOG_LEVEL_ERROR, "print_portname:  showing portname=%s,offset=%d",p_portname,offset);
   }
   else {
      text_layer_set_text(s_portname_text_layer, "");
-     APP_LOG(APP_LOG_LEVEL_WARNING, "print_portname:  HIDING portname=%s,offset=%d",p_portname,offset);
   }
 }
                                
@@ -161,20 +190,32 @@ static void print_portname(char *p_portname)
 static void draw_box(GContext* ctx){
   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
   
+#ifdef PBL_COLOR
+  graphics_context_set_stroke_color(ctx, GColorPictonBlue);
+  graphics_context_set_fill_color(ctx, GColorPictonBlue);
+#else
   graphics_context_set_stroke_color(ctx, colour_fg());
+#endif
 
   // nice border
   int _xpix = config_get_intval(CGRAPH_X_PX);  
-//   APP_LOG(APP_LOG_LEVEL_INFO, "        _xpix is %d", _xpix);
-  
 
-  graphics_draw_rect	(	 	ctx, (GRect) {.origin = { GRAPH_BORDER_PX, GRAPH_BORDER_PX }, .size = { _xpix , GRAPH_Y_PX}});
-
+#ifdef PBL_COLOR
+  graphics_fill_rect	(	 	ctx, 
+                       (GRect) {.origin = { 0, 0 }, .size = { 144 , GRAPH_Y_PX+3}},
+                      0,GCornerNone);
   // midline(s)
+  graphics_context_set_stroke_color(ctx, GColorBlack);
+#else
+  graphics_draw_rect	(	 	ctx, (GRect) {.origin = { GRAPH_BORDER_PX, GRAPH_BORDER_PX }, .size = { _xpix , GRAPH_Y_PX}});		
+#endif
+
+
   int  y = GRAPH_BORDER_PX;
   for (; y < GRAPH_Y_PX; y += (GRAPH_Y_PX/(1+GRAPH_NUM_HOZ_LINES))  )
     graphics_draw_line(ctx, (GPoint){GRAPH_BORDER_PX, y},
                             (GPoint){GRAPH_BORDER_PX + _xpix, y} );
+
 
 }
 
@@ -184,6 +225,10 @@ static void draw_tidepoints(GContext* ctx){
     if (!config_get_bool(CFG_LINE_GRAPH))
       return;  
   
+#ifdef PBL_COLOR
+    return; // TODO
+#endif
+
     graphics_context_set_fill_color(ctx, colour_fg());
 
     int i;  
@@ -243,10 +288,18 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
     switch (style){
       case 4:
+// #ifdef PBL_COLOR
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
-                 "%s: %s         %s: %s       \n       %s: %s         %s: %s\n",
+                 "%s:%s     %s:%s\n    %s:%s      %s:%s\n",
                  p_state[0], p_time[0] ,           p_state[2], p_time[2],
                  p_state[1], p_time[1] ,           p_state[3], p_time[3]);
+// #else
+//         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
+//                  "%s: %s         %s: %s       \n       %s: %s         %s: %s\n",
+//                  p_state[0], p_time[0] ,           p_state[2], p_time[2],
+//                  p_state[1], p_time[1] ,           p_state[3], p_time[3]);
+
+// #endif
         break;
       case 3:
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
@@ -267,7 +320,6 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
  
     text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
 
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit :  print_tidetimes()");
 }
 
 
@@ -410,8 +462,6 @@ static void draw_sinewave (GContext* ctx){
                     draw_x[3] + draw_x[2] - draw_x[1],
                     draw_y[2]);
 
-  
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit :  draw_sinewave()");
 }
 
 
@@ -419,7 +469,11 @@ static void draw_sinewave (GContext* ctx){
 
 static void plot_pixel_viewable (GContext* ctx, int xpix, int line_graph, int x, int y) {
   
+#ifdef PBL_COLOR
+      if ((x >= GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
+#else
       if ((x > GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
+#endif
         if (line_graph) 
             graphics_draw_line(ctx, (GPoint){x, y}, (GPoint){x, y+LINE_GRAPH_WIDTH_PX} );
         else 
@@ -449,11 +503,22 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
 
   
   
-  
+   // TODO - tidy up
   
   for (x = 0; x < range_x; x = x + x_step ){
       y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+
+#ifdef PBL_COLOR
+      graphics_context_set_stroke_color(ctx, colour_fg());
       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
+
+      graphics_context_set_stroke_color(ctx, colour_bg());
+      plot_pixel_viewable (ctx, _xpix, 0,  x1 + x, y1 + y + 3);
+#else
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+#endif
   }
 }
 
@@ -469,7 +534,7 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
     //  LOGIC ======================================================
     //
 void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_height_buf){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  calc_graph_points()");
+//   app_log_ts(APP_LOG_LEVEL_INFO, "fn_entry:  calc_graph_points()");
   int i;
   int count_input = 0, count_output = 0;
   int prev_mins;
@@ -481,6 +546,8 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
     draw_x[i] = draw_y[i] = 0;
   }
   
+
+
   //  current time, in minutes from midnight
   int time_now_mins = calc_localtime_mins();
       prev_mins = time_now_mins;
@@ -488,7 +555,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
   // calculate height range
   int min_h, max_h;
   int range_y = calc_y_range(p_state_buf, p_height_buf, &min_h, &max_h);
- 
+  
   // loop for each input 
   while (count_input < NUM_TIDES_BACKGROUND) {
       
@@ -528,7 +595,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
     
 
   
-  APP_LOG(APP_LOG_LEVEL_INFO, "do_graph_calc() - exit ");
+//   app_log_ts(APP_LOG_LEVEL_INFO, "calc_graph_points() - exit ");
 }
 
 
@@ -542,13 +609,13 @@ static int calc_localtime_mins(){
     time_now_mins=DEBUG_TIME_NOW_MINS;
   #endif
     
-  APP_LOG(APP_LOG_LEVEL_INFO, "calc_localtime_mins = %d ", time_now_mins);
+//   APP_LOG(APP_LOG_LEVEL_INFO, "calc_localtime_mins = %d ", time_now_mins);
   return time_now_mins;
 }
 
 
 static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, int *max_y){ 
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:     calc_y_range()" );
+  app_log_ts(APP_LOG_LEVEL_WARNING, "fn_entry:     calc_y_range()" );
 
   int i;
   *min_y=99, *max_y=-1;
@@ -559,7 +626,9 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
       if (!strcmp(p_state_buf[i],"hi") && p_height_buf[i] > *max_y)
         *max_y = p_height_buf[i];
   }
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:     calc_y_range()  min %d, max %d",*min_y,*max_y );
+//   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:     calc_y_range()  min %d, max %d",*min_y,*max_y );
+
+  app_log_ts(APP_LOG_LEVEL_WARNING, "fn_exit:     calc_y_range()" );
 
   return *max_y - *min_y;
 }
@@ -569,7 +638,7 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
 
 // convert HH:MM to elapsed mins since midnight
 static int calc_mins (char *s_hhmm, int *now){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  calc_mins(%s, %d)", s_hhmm, *now );
+//   app_log_ts(APP_LOG_LEVEL_INFO, "fn_entry:  calc_mins(%s, %d)", s_hhmm, *now );
 
   int tide_mins = -1;
   int i;

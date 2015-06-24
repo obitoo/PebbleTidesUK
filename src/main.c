@@ -58,7 +58,8 @@ extern void inbox_received_callback(DictionaryIterator *, void *);
 extern void message_send_outbox();
 extern int  messaging_ready();
 
-  
+extern void cache_init();
+extern void cache_deinit();
 
 
     //
@@ -77,9 +78,15 @@ static void init() {
 //     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
 //     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 //   } else {
-    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
-    s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
+// #ifdef PBL_COLOR
+    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
+    s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+// #else
+//     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
+//     s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
+//     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+// #endif
 //   }
 
 
@@ -92,6 +99,8 @@ static void init() {
   });
   window_stack_push(s_main_window, true);
   
+
+  
   // Register callbacks..
   app_message_register_inbox_received(inbox_received_callback);
   // Open AppMessage
@@ -100,11 +109,17 @@ static void init() {
   app_message_register_inbox_dropped(inbox_dropped_callback);
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
+  
+  // persistent storage
+  cache_init();
+  
+
 }
 
 static void deinit() {
   APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
   window_destroy(s_main_window);
+  cache_deinit();
   APP_LOG(APP_LOG_LEVEL_INFO, "deinit() done");
 }
 
@@ -151,10 +166,10 @@ GColor colour_fg(){
 
 GColor colour_fg_dim(){
     #ifdef PBL_COLOR
-        if (config_get_bool(CFG_INVERT_COL)) 
-      return FG_COL;
+      if (config_get_bool(CFG_INVERT_COL)) 
+      return GColorBlack;
         else
-          return FG_COL_DIM;
+      return FG_COL_DIM;
         
     #else
        if (config_get_bool(CFG_INVERT_COL))
@@ -170,7 +185,7 @@ GColor colour_fg_dim(){
 GColor colour_bg(){
     #ifdef PBL_COLOR
       if (config_get_bool(CFG_INVERT_COL))
-          return FG_COL_DIM;
+          return GColorWhite;
       else
           return GColorBlack;
     #else
@@ -223,7 +238,6 @@ static void mainwindow_load(Window *window) {
   s_graph_layer = layer_create(GRect(0, 0, 144, 75));
       // callback fn:
   layer_set_update_proc(s_graph_layer, gfx_layer_update_callback);
-  layer_add_child(window_get_root_layer(window), s_graph_layer);
 
         // screen is 144 x 168  ------------------------
   
@@ -235,7 +249,7 @@ static void mainwindow_load(Window *window) {
   text_layer_set_text_alignment(s_tidetimes_text_layer, GTextAlignmentLeft);
   
   // Portname Layer - left aligned with date 
-  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 38, 139, 23));  // 36,139,26 >>> for 21 font
+  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 40, 139, 21));  // 36,139,26 >>> for 21 font
   text_layer_set_text(s_portname_text_layer, "");
   text_layer_set_font(s_portname_text_layer, s_portname_font);
   text_layer_set_text_alignment(s_portname_text_layer, GTextAlignmentRight);
@@ -265,6 +279,7 @@ static void mainwindow_load(Window *window) {
   
     
   // Add as child layers to the Window's root layer
+  layer_add_child(window_get_root_layer(window), s_graph_layer);
 
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
@@ -273,10 +288,10 @@ static void mainwindow_load(Window *window) {
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_portname_text_layer));
 
+
   // hide if 3/4 width
   main_hide_heights_layer();
 
-  
   APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
 }
 
