@@ -1,11 +1,10 @@
 Pebble Tides Watchface
 
-UK Only - tide info scraped from Easytide
+Worldwide - tide info scraped from Easytide, the UK govt service
 
-Pebble SDK 2
+Pebble SDK 3
 
-Python 2.6 serverside - server cron job does the heavy lifting, small json served to Pebble upon request.  
-Assumes Pebble is running local UK time, server adjusts tide times before creating json.  
+Python 2.6 serverside: json served to Pebble upon request.  
 
 Python pre:
 pip install beautifulsoup4;
