@@ -288,18 +288,18 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
     switch (style){
       case 4:
-#ifdef PBL_COLOR
+// #ifdef PBL_COLOR
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
                  "%s:%s     %s:%s\n    %s:%s      %s:%s\n",
                  p_state[0], p_time[0] ,           p_state[2], p_time[2],
                  p_state[1], p_time[1] ,           p_state[3], p_time[3]);
-#else
-        snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
-                 "%s: %s         %s: %s       \n       %s: %s         %s: %s\n",
-                 p_state[0], p_time[0] ,           p_state[2], p_time[2],
-                 p_state[1], p_time[1] ,           p_state[3], p_time[3]);
+// #else
+//         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
+//                  "%s: %s         %s: %s       \n       %s: %s         %s: %s\n",
+//                  p_state[0], p_time[0] ,           p_state[2], p_time[2],
+//                  p_state[1], p_time[1] ,           p_state[3], p_time[3]);
 
-#endif
+// #endif
         break;
       case 3:
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
