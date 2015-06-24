@@ -16,6 +16,7 @@ static char hh_mm[]="00:00";    // last update time
 #define TIME_INIT_KEY_HHMM 6
   
   
+  
 extern void app_log_ts(int level, char* fmt, ...);
   
 // Call once from init()/deinit()
