@@ -78,9 +78,15 @@ static void init() {
 //     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
 //     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 //   } else {
+#ifdef PBL_COLOR
     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
     s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+#else
+    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
+    s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
+    s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+#endif
 //   }
 
 

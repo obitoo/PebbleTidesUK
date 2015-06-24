@@ -58,7 +58,13 @@
 #define  GRAPH_Y_PX             45
 #define  GRAPH_NUM_HOZ_LINES    3 // 1 or 3 if you prefer  
 #define  MAX_X                  144
+
+#ifdef PBL_COLOR
 #define  GRAPH_BORDER_PX        0
+#else
+#define  GRAPH_BORDER_PX        4
+#endif
+
 #define  GRAPH_Y_LOWPOINT       4 // from wherever the border is 
 #define  GRAPH_EXAGGERATE_Y     4 // TODO 
   
