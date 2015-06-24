@@ -306,6 +306,10 @@ static int js_config(DictionaryIterator *iterator, void *context){
   // enable other messaging - TODO - really?
   js_initialised = 1;
   
+  // give a little buzz
+  vibes_double_pulse();
+
+    
   APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
   
   return 1;
