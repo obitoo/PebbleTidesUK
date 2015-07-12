@@ -45,7 +45,7 @@ var webserver="http://li646-227.members.linode.com/";
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
 Pebble.addEventListener('ready',   function(e) {
-  console.log(Math.floor(Date.now() / 1000) + ":"+"--ready entry");
+//   console.log(Math.floor(Date.now() / 1000) + ":"+"--ready entry");
     
     wait_msg = 0;
     config_open = 0;
@@ -62,7 +62,7 @@ Pebble.addEventListener('ready',   function(e) {
     };  
   
 
-    console.log(Math.floor(Date.now() / 1000) + ":" + "  config_defaults= " + JSON.stringify(config_defaults));
+//     console.log(Math.floor(Date.now() / 1000) + ":" + "  config_defaults= " + JSON.stringify(config_defaults));
 
     var dictionary = {
               "MSG_TYPE"        :"ready"};
@@ -77,6 +77,21 @@ Pebble.addEventListener('ready',   function(e) {
                           }
                          );
      
+     // timeline
+     Pebble.getTimelineToken(
+           function (token) {
+          console.log('>>>>>>>>>>>>>>>>>>>>>>>>My timeline token is ' + token);
+           },
+           function (error) { 
+           console.log('>>>>>>>>>>>>>>>>>>>>>>>>Error getting timeline token: ' + error);
+          }
+     );
+     var utcOffset = new Date().getTimezoneOffset();
+     console.log('>>>>>>>>>>>>>>>>>>>>>>>>My utcOffset is ' + utcOffset);
+
+     // timeline
+  
+  
      console.log(Math.floor(Date.now() / 1000) + ":"+ "--ready event: exit");
     }
 );
@@ -92,19 +107,20 @@ Pebble.addEventListener("showConfiguration", function() {
   // Load up the stored options
   var url = config_url;
   for (var key in config_defaults) {
-      console.log ("  key:"+key);
+//       console.log ("  key:"+key);
     
       //var val = localStorage.getItem(key);
       var val = localStorage[key];
     
       console.log ("  val:"+val);
       if (val === null || (val == 'undefined')){
-        console.log("  config_defaults= " + JSON.stringify(config_defaults));
+//         console.log("  config_defaults= " + JSON.stringify(config_defaults));
         //val = config_defaults.getItem(key);  // ios issue here I think 
         val = config_defaults[key];  // ios issue here I think 
-        console.log ("  1-Taken config default of "+val+":"+key);}
+//         console.log ("  1-Taken config default of "+val+":"+key);
+      }
       else {
-        console.log ("  1-Taken config stored of "+val+":"+key);
+//         console.log ("  1-Taken config stored of "+val+":"+key);
       }
     
       url += encodeURIComponent(key) + "=" + encodeURIComponent(val)+"&";
@@ -124,7 +140,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
   console.log("--webviewclosed event (config)");
   
   
-  console.log("  >>>>>>e.reposne " + e.response);
+//   console.log("  >>>>>>e.reposne " + e.response);
   
   //  (IOS) - if string empty - exit.
   if (!e.response || e.response.length === 0) {
@@ -134,13 +150,13 @@ Pebble.addEventListener("webviewclosed", function(e) {
   
   
   var config = JSON.parse(decodeURIComponent(e.response));
-  console.log("  Options = " + JSON.stringify(config));
+//   console.log("  Options = " + JSON.stringify(config));
   
 
   // save to local storage. Might be empty though
   for (var key in config) {
     localStorage.setItem(key, config[key]);
-    console.log("  save config to localstorage:"+key+" = "+config[key]);
+//     console.log("  save config to localstorage:"+key+" = "+config[key]);
 	}
   
   // Send to Pebble - add MSG_TYPE to allow routing
@@ -192,7 +208,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
                         }
                        );
   
-  console.log("--webviewclosed event (config) - exit");
+//   console.log("--webviewclosed event (config) - exit");
 });
 
 
@@ -211,8 +227,8 @@ Pebble.addEventListener('appmessage',   function(e) {
     
     // config 
     if (e.payload !== null) {
-        console.log("   got payload");
-        console.log(JSON.stringify(e.payload));
+//         console.log("   got payload");
+//         console.log(JSON.stringify(e.payload));
      
         localStorage.setItem("cfg_invert_col", e.payload.CFG_INVERT_COL);
         localStorage.setItem("cfg_show_heights", e.payload.CFG_SHOW_HEIGHTS);
@@ -231,7 +247,7 @@ Pebble.addEventListener('appmessage',   function(e) {
     }
 
     // make web request for tides
-    console.log(" calling getTides - "+e.payload.CFG_PORT);
+//     console.log(" calling getTides - "+e.payload.CFG_PORT);
     getTides(location, e.payload.CFG_VERSION, 
                        e.payload.CFG_TIME,
                        e.payload.CFG_DST,
@@ -253,7 +269,7 @@ var xhrRequest = function (url, type, callback) {
   xhr.onload = function () { console.log("onload:"); callback(this.responseText);};
   xhr.open(type, url, true);
   xhr.ontimeout = function () { console.log("ontimeout:"); callback(1); };
-  xhr.onreadystatechange = function () { console.log("onreadystatechange:"+xhr.readyState+"   reponseTxt="+this.responseTxt);
+  xhr.onreadystatechange = function () { // console.log("onreadystatechange:"+xhr.readyState+"   reponseTxt="+this.responseTxt);
                                          if (xhr.readyState == 4) {
                                            if (xhr.status == 404) 
                                              callback(404); 
@@ -265,9 +281,9 @@ var xhrRequest = function (url, type, callback) {
 
 
 function getTides(locn, version, timestring, dst_string, offset_val, date_val) {
-  console.log("getTides:"+locn);
-  console.log("getTides:"+dst_string);
-  console.log("getTides:"+offset_val);
+//   console.log("getTides:"+locn);
+//   console.log("getTides:"+dst_string);
+//   console.log("getTides:"+offset_val);
 
 
   // might work
@@ -308,7 +324,7 @@ function getTides(locn, version, timestring, dst_string, offset_val, date_val) {
   console.log("getTides: about to make request:"+url);
   xhrRequest(url, 'GET', 
           function(responseText) {
-            console.log("xhrRequest Callback. responsText = "+responseText);
+//             console.log("xhrRequest Callback. responsText = "+responseText);
             var dictionary;
             if (responseText == 1){
                 console.log("Timeout!");
@@ -354,10 +370,10 @@ function getTides(locn, version, timestring, dst_string, offset_val, date_val) {
                 var height2 = json.tides[2].height;
                 var height3 = json.tides[3].height;
     
-                console.log("0 - state is " + state0 + "time is "+time0 + "height is "+height0);
-                console.log("1 - state is " + state1 + "time is "+time1 + "height is "+height1);
-                console.log("2 - state is " + state2 + "time is "+time2 + "height is "+height2);
-                console.log("3 - state is " + state3 + "time is "+time3 + "height is "+height3);
+//                 console.log("0 - state is " + state0 + "time is "+time0 + "height is "+height0);
+//                 console.log("1 - state is " + state1 + "time is "+time1 + "height is "+height1);
+//                 console.log("2 - state is " + state2 + "time is "+time2 + "height is "+height2);
+//                 console.log("3 - state is " + state3 + "time is "+time3 + "height is "+height3);
           
                 // build dict to send
                 dictionary = {
@@ -384,7 +400,7 @@ function getTides(locn, version, timestring, dst_string, offset_val, date_val) {
             } 
             
             // aaand send to Pebble
-            console.log("getTides, wait_msg = " + wait_msg);
+//             console.log("getTides, wait_msg = " + wait_msg);
             if (wait_msg === 0) {
             wait_msg = 1;
             Pebble.sendAppMessage(dictionary,

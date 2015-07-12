@@ -331,13 +331,13 @@ static void mainwindow_unload(Window *window) {
   //  Callback logic - time
   //
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-      APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - time callback entry" );
+//       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - time callback entry" );
   
       static int started_at = -1;  // 0 to 9
       if (started_at == -1)
          started_at = tick_time->tm_min % 10;
 
-      APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - started at %d", started_at);
+//       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - started at %d", started_at);
   
       update_time();
   
@@ -346,7 +346,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
         APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
         message_send_outbox();
       }
-      APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - exit" );
+//       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - exit" );
 }
 
 static void update_time() {
@@ -358,7 +358,7 @@ static void update_time() {
       static char buffer[] = "00:00";
       static char dateString[] = "wednesday 99 ";
   
-      APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - entry" );
+//       APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - entry" );
     
       // Write the current hours and minutes into the buffer
       if(clock_is_24h_style() == true) {
@@ -378,7 +378,7 @@ static void update_time() {
   
 
       
-      APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - exit" );
+//       APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - exit" );
 }
 
 

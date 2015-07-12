@@ -98,7 +98,7 @@ void app_log_ts(int level, char* fmt, ...) {
   //
  
 void gfx_layer_update_callback(Layer *me, GContext* ctx) {
-  app_log_ts(APP_LOG_LEVEL_WARNING, "fn_entry:  0:   gfx_layer_update_callback()");
+//   app_log_ts(APP_LOG_LEVEL_WARNING, "fn_entry:  0:   gfx_layer_update_callback()");
 
   if (1){
     // set stroke colour - here? every time? 
@@ -108,7 +108,7 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
     calc_graph_points(cache_get_state_buf(), 
                       cache_get_time_buf(), 
                       cache_get_height_buf());
-    app_log_ts(APP_LOG_LEVEL_WARNING, "         1:  gfx_layer_update_callback()");
+//     app_log_ts(APP_LOG_LEVEL_WARNING, "         1:  gfx_layer_update_callback()");
 
     // text - used to be only on receipt of tides from phone (10 mins) but now we're doing 
     // it every redraw (err, how long?)
@@ -119,16 +119,16 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
                            cache_get_portname_buf());
 
     // render
-    app_log_ts(APP_LOG_LEVEL_WARNING, "         2:  gfx_layer_update_callback()");
+//     app_log_ts(APP_LOG_LEVEL_WARNING, "         2:  gfx_layer_update_callback()");
     draw_box(ctx);
-    app_log_ts(APP_LOG_LEVEL_WARNING, "         3:  gfx_layer_update_callback()");
+//     app_log_ts(APP_LOG_LEVEL_WARNING, "         3:  gfx_layer_update_callback()");
     draw_tidepoints(ctx); 
-    app_log_ts(APP_LOG_LEVEL_WARNING, "         4:  gfx_layer_update_callback()");
+//     app_log_ts(APP_LOG_LEVEL_WARNING, "         4:  gfx_layer_update_callback()");
 
     draw_sinewave(ctx);
     
   }  
-  app_log_ts(APP_LOG_LEVEL_WARNING, "fn_exit:  5:  gfx_layer_update_callback()");
+//   app_log_ts(APP_LOG_LEVEL_WARNING, "fn_exit:  5:  gfx_layer_update_callback()");
 
 }
 
@@ -188,7 +188,7 @@ static void print_portname(char *p_portname)
 
 
 static void draw_box(GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
+//   APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
   
 #ifdef PBL_COLOR
   graphics_context_set_stroke_color(ctx, GColorPictonBlue);
@@ -220,7 +220,7 @@ static void draw_box(GContext* ctx){
 }
 
 static void draw_tidepoints(GContext* ctx){
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_tidepoints()");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_tidepoints()");
 
     if (!config_get_bool(CFG_LINE_GRAPH))
       return;  
@@ -251,7 +251,7 @@ static void draw_tidepoints(GContext* ctx){
 
 
 static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tidetimes()");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tidetimes()");
 
     static char text_layer_buffer[128];
   
@@ -328,7 +328,7 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
 
 static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
     static char text_layer_buffer1[32];
     static char text_layer_buffer2[32];
     char TODO_info[] = "      ";   //       char TODO_info[] = "Spring";
@@ -378,7 +378,7 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     text_layer_set_text(s_tideheight_text_layer1, text_layer_buffer1);
     text_layer_set_text(s_tideheight_text_layer2, text_layer_buffer2);
   
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
+//     APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
 }
 
 
@@ -397,8 +397,8 @@ static void convert_m_ft(int meters, char *s_feet, int *i_inches){
   
     *i_inches = ((int) (d_inches/ROUND_NEAREST)) * ROUND_NEAREST; // eg nearest 3"
 
-    APP_LOG(APP_LOG_LEVEL_WARNING, "        metres=%d,   feet_d=%f  inches_d=%f", meters, d_feet, d_inches);
-    APP_LOG(APP_LOG_LEVEL_WARNING, "                     feet_s=%s  inches_i=%d",   s_feet, *i_inches);
+//     APP_LOG(APP_LOG_LEVEL_WARNING, "        metres=%d,   feet_d=%f  inches_d=%f", meters, d_feet, d_inches);
+//     APP_LOG(APP_LOG_LEVEL_WARNING, "                     feet_s=%s  inches_i=%d",   s_feet, *i_inches);
 }
 
 /* 
@@ -426,7 +426,8 @@ static char* left_side_of_string(char* dest, int h){
 
 
 static void draw_sinewave (GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
+//   app_log_ts(APP_LOG_LEVEL_WARNING, "         fn_entry:  draw_sinewave()");
+
 
 //   int x = 0;
 //   for (;x<=4; x++) 
@@ -461,6 +462,7 @@ static void draw_sinewave (GContext* ctx){
                     draw_y[3],
                     draw_x[3] + draw_x[2] - draw_x[1],
                     draw_y[2]);
+//   app_log_ts(APP_LOG_LEVEL_WARNING, "         fn_exit:  draw_sinewave()");
 
 }
 
@@ -496,29 +498,35 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   const int half_pi = TRIG_MAX_ANGLE/4;
   const int      pi = TRIG_MAX_ANGLE/2;
   
-  APP_LOG(APP_LOG_LEVEL_INFO, "         before cache_stale() call  ");
-  cache_stale();
+//   APP_LOG(APP_LOG_LEVEL_INFO, "         before cache_stale() call  ");
+//   cache_stale();
   int x_step = cache_stale() ? 3: 1;  // indicate stale data with a dashed graph
-  APP_LOG(APP_LOG_LEVEL_INFO, "         ..after cache_stale() call  ");
+//   APP_LOG(APP_LOG_LEVEL_INFO, "         ..after cache_stale() call  ");
 
   
   
    // TODO - tidy up
+//   app_log_ts(APP_LOG_LEVEL_INFO, "         plot_quarter_line() - before loop");
   
+  int temp = 0;
   for (x = 0; x < range_x; x = x + x_step ){
       y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+      temp++;
 
 #ifdef PBL_COLOR
-      graphics_context_set_stroke_color(ctx, colour_fg());
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
+//       graphics_context_set_stroke_color(ctx, colour_fg());
+//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
+//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
 
-      graphics_context_set_stroke_color(ctx, colour_bg());
+//       graphics_context_set_stroke_color(ctx, colour_bg());
       plot_pixel_viewable (ctx, _xpix, 0,  x1 + x, y1 + y + 3);
 #else
       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
 #endif
+//     app_log_ts(APP_LOG_LEVEL_INFO, "         plot_quarter_line() - after loop");
+  APP_LOG(APP_LOG_LEVEL_INFO, "         sine loop had %d steps",temp);
+
   }
 }
 
