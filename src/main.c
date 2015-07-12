@@ -66,7 +66,7 @@ extern void cache_deinit();
     //  Init ======================================================
     //
 static void init() {
-  APP_LOG(APP_LOG_LEVEL_INFO, "init()");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "init()");
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   
@@ -117,15 +117,15 @@ static void init() {
 }
 
 static void deinit() {
-  APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
   window_destroy(s_main_window);
   cache_deinit();
-  APP_LOG(APP_LOG_LEVEL_INFO, "deinit() done");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "deinit() done");
 }
 
 int main (void){
   init();
-  APP_LOG(APP_LOG_LEVEL_INFO, "app_event_loop()");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "app_event_loop()");
   app_event_loop();
   deinit();
 }
@@ -199,18 +199,18 @@ GColor colour_bg(){
 
 void main_hide_heights_layer(){
   if (config_get_bool(CFG_SHOW_HEIGHTS)){
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Showing Heights layer-----------------");
+     // APP_LOG(APP_LOG_LEVEL_ERROR, "Showing Heights layer-----------------");
       layer_set_hidden((Layer *)s_tideheight_text_layer1, false);
       layer_set_hidden((Layer *)s_tideheight_text_layer2, false);
   } else {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Hiding Heights layer-------------------");
+     // APP_LOG(APP_LOG_LEVEL_ERROR, "Hiding Heights layer-------------------");
       layer_set_hidden((Layer *)s_tideheight_text_layer1, true);
       layer_set_hidden((Layer *)s_tideheight_text_layer2, true); 
   }
 }
 
 void main_set_colours(){
-  APP_LOG(APP_LOG_LEVEL_INFO, "main_set_colours() " );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "main_set_colours() " );
 
   window_set_background_color(s_main_window, colour_bg());
 
@@ -292,21 +292,21 @@ static void mainwindow_load(Window *window) {
   // hide if 3/4 width
   main_hide_heights_layer();
 
-  APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
 }
 
 
 
 static void mainwindow_unload(Window *window) {
-  APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_unload() " );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_unload() " );
 
   // Destroy textlayers
-  APP_LOG(APP_LOG_LEVEL_INFO, "destroy s_timelayer " );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "destroy s_timelayer " );
 
   text_layer_destroy(s_time_layer);
   text_layer_destroy(s_date_layer);
 
-  APP_LOG(APP_LOG_LEVEL_INFO, "destroy s_weatherlayer " );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "destroy s_weatherlayer " );
 
   text_layer_destroy(s_tidetimes_text_layer);
   text_layer_destroy(s_tideheight_text_layer1);
@@ -314,9 +314,9 @@ static void mainwindow_unload(Window *window) {
   
   // Destroy fonts
 
-  APP_LOG(APP_LOG_LEVEL_INFO, "destroy fonts 1" );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "destroy fonts 1" );
 //   fonts_unload_custom_font(s_tidetime_font);
-//   APP_LOG(APP_LOG_LEVEL_INFO, "destroy fonts 2" );
+//  // APP_LOG(APP_LOG_LEVEL_INFO, "destroy fonts 2" );
 //   fonts_unload_custom_font(s_time_font);
   
 
@@ -331,22 +331,22 @@ static void mainwindow_unload(Window *window) {
   //  Callback logic - time
   //
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-//       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - time callback entry" );
+//      // APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - time callback entry" );
   
       static int started_at = -1;  // 0 to 9
       if (started_at == -1)
          started_at = tick_time->tm_min % 10;
 
-//       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - started at %d", started_at);
+//      // APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - started at %d", started_at);
   
       update_time();
   
       // Get tide data from phone every few minutes  
       if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
-        APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
+       // APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
         message_send_outbox();
       }
-//       APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - exit" );
+//      // APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - exit" );
 }
 
 static void update_time() {
@@ -358,7 +358,7 @@ static void update_time() {
       static char buffer[] = "00:00";
       static char dateString[] = "wednesday 99 ";
   
-//       APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - entry" );
+//      // APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - entry" );
     
       // Write the current hours and minutes into the buffer
       if(clock_is_24h_style() == true) {
@@ -378,7 +378,7 @@ static void update_time() {
   
 
       
-//       APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - exit" );
+//      // APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - exit" );
 }
 
 
