@@ -35,14 +35,14 @@
     "resources": {
         "media": [
             {
-                "file": "images/tide4_24_24.png",
-                "menuIcon": true,
-                "name": "MENU_IMG_24",
+                "file": "images/tide3_28_28.png",
+                "name": "MENU_IMG",
                 "type": "png"
             },
             {
-                "file": "images/tide3_28_28.png",
-                "name": "MENU_IMG",
+                "file": "images/tide4_24_24.png",
+                "menuIcon": true,
+                "name": "MENU_IMG_24",
                 "type": "png"
             }
         ]
@@ -54,7 +54,7 @@
         "basalt"
     ],
     "uuid": "3dee6d28-1e53-4d0b-b0f6-f6f6ffdbb4dc",
-    "versionLabel": "3.52",
+    "versionLabel": "3.61",
     "watchapp": {
         "watchface": true
     }
