@@ -514,12 +514,12 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
       temp++;
 
 #ifdef PBL_COLOR
-//       graphics_context_set_stroke_color(ctx, colour_fg());
-//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
-//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
-//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
+      graphics_context_set_stroke_color(ctx, colour_fg());
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
 
-//       graphics_context_set_stroke_color(ctx, colour_bg());
+      graphics_context_set_stroke_color(ctx, colour_bg());
       plot_pixel_viewable (ctx, _xpix, 0,  x1 + x, y1 + y + 3);
 #else
       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
