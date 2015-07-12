@@ -42,14 +42,14 @@ void cache_init()
 
 void cache_deinit()
 {
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "         cache_deinit()  ");
+   // APP_LOG(APP_LOG_LEVEL_DEBUG, "         cache_deinit()  ");
 
     persist_write_data(STATE_KEY, state_cache, sizeof(state_cache));
     persist_write_data(TIME_KEY, time_cache, sizeof(time_cache));
     persist_write_data(HEIGHT_KEY, height_cache, sizeof(height_cache));
     persist_write_string(PORTNAME_KEY, portname_cache); 
 
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "         cache_deinit() - exit ");
+   // APP_LOG(APP_LOG_LEVEL_DEBUG, "         cache_deinit() - exit ");
 
 }
 
@@ -97,7 +97,7 @@ char* cache_get_portname_buf(){
 //  Ageing logic
 //
 int cache_stale(){
-//   APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_stale()  ");
+//  // APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_stale()  ");
   // get mins since epoch 
   time_t epoch = time(NULL);
   uint16_t now_mins = epoch / 60;
@@ -106,7 +106,7 @@ int cache_stale(){
   uint16_t cache_init = persist_read_int (TIME_INIT_KEY);
   
   
-//   APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale()  now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
+//  // APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale()  now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
   return (((now_mins-cache_init) > CACHE_MAX_MINS) ? 1 : 0);
 }
 
@@ -114,7 +114,7 @@ void cache_set_refreshed(){
   // get time since epoch and store
   time_t epoch = time(NULL);
   uint16_t epoch_mins = epoch / 60;
-  APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  epoch_mins= %u", (unsigned int)epoch_mins);
+ // APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  epoch_mins= %u", (unsigned int)epoch_mins);
   persist_write_int (TIME_INIT_KEY, epoch_mins);
   
   // also store as a 24h hh:mm string - will display when the cache eventually goes stale
@@ -122,7 +122,7 @@ void cache_set_refreshed(){
   static char buffer[] = "00:00";
   strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
   persist_write_string(TIME_INIT_KEY_HHMM, buffer);
-  APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  hh_mm= %s", buffer);
+ // APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  hh_mm= %s", buffer);
 
   return;
 }

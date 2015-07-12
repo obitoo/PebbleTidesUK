@@ -50,7 +50,7 @@ void cache_set_refreshed();
 //  Callback entry points ====================================================
 //
 void inbox_received_callback(DictionaryIterator *iterator, void *context) {
-  APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg entry" );
+ // APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg entry" );
    
   int update = process_js_msg(iterator, context);
   
@@ -58,7 +58,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   if (update) {
       layer_mark_dirty (s_graph_layer); // only place we do this
   }
-  APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished (ACK)" );
+ // APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished (ACK)" );
 }
 
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
@@ -79,7 +79,7 @@ void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reaso
 }
 
 void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
-  APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send success!");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send success!");
   retry_count_out = 3;
 }
 
@@ -88,7 +88,7 @@ void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
 //  Called from main 
 //
 int messaging_ready(){
-  APP_LOG(APP_LOG_LEVEL_WARNING, "messaging ready? = %d",js_initialised);
+ // APP_LOG(APP_LOG_LEVEL_WARNING, "messaging ready? = %d",js_initialised);
   return js_initialised;
 }
 
@@ -97,7 +97,7 @@ int messaging_ready(){
 //  Pebble to phone - this requests a tide update, passes config at same time
 //
 void message_send_outbox() {
-    APP_LOG(APP_LOG_LEVEL_WARNING, "message_send_outbox() - entry" );
+   // APP_LOG(APP_LOG_LEVEL_WARNING, "message_send_outbox() - entry" );
   
     // Begin dictionary
     DictionaryIterator *iter = NULL;
@@ -136,7 +136,7 @@ void message_send_outbox() {
 
     // Send the message
     app_message_outbox_send();
-    APP_LOG(APP_LOG_LEVEL_INFO, "message_send_outbox() - exit" );
+   // APP_LOG(APP_LOG_LEVEL_INFO, "message_send_outbox() - exit" );
 }
 
 
@@ -144,7 +144,7 @@ void message_send_outbox() {
 //  Callback logic  - Javascript appmessage 
 //
 static int process_js_msg(DictionaryIterator *iterator, void *context){
-  APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
 
   int update_gfx = 0;
   
@@ -177,7 +177,7 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
 //  Message Handlers 
 //  
 static int js_tides(DictionaryIterator *iterator, void *context){
-  APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
 
   // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
@@ -229,7 +229,7 @@ static int js_tides(DictionaryIterator *iterator, void *context){
                cache_set_cachekey (t->value->cstring);
                break;
         default:
-               APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
+              APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
                break;
     }
     // Look for next item
@@ -239,14 +239,14 @@ static int js_tides(DictionaryIterator *iterator, void *context){
   // only place we do this
   cache_set_refreshed();
     
-  APP_LOG(APP_LOG_LEVEL_INFO, "js_tides()-exit");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "js_tides()-exit");
   
   return 1;
 }
 
 
 static int js_config(DictionaryIterator *iterator, void *context){
-  APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
   
   // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
@@ -256,40 +256,40 @@ static int js_config(DictionaryIterator *iterator, void *context){
   while(t != NULL) {
     switch(t->key) {
       case CFG_SHOW_HEIGHTS:
-             APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Show heights: %s", (t->value->cstring));
+            // APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Show heights: %s", (t->value->cstring));
              config_save_string(CFG_SHOW_HEIGHTS, t->value->cstring);
              // adjust layers a bit
              main_hide_heights_layer();
              break;
       case CFG_INVERT_COL:
-             APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Invert cols: %s", (t->value->cstring));
+            // APP_LOG(APP_LOG_LEVEL_INFO, "      cfg / Invert cols: %s", (t->value->cstring));
              config_save_string(CFG_INVERT_COL,   t->value->cstring);
              // redraw the colours - expensive? 
              main_set_colours();
              break;
       case CFG_LINE_GRAPH:
-             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Line Graph: %s", (t->value->cstring));
+            // APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Line Graph: %s", (t->value->cstring));
              config_save_string(CFG_LINE_GRAPH,   t->value->cstring);
              break;
       case CFG_PORT:
-             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Port: %s", (t->value->cstring));
+            // APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Port: %s", (t->value->cstring));
              config_save_string(CFG_PORT,         t->value->cstring);
              break;
       case CFG_PORTNAME:
-             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Show Portname: %s", (t->value->cstring));
+            // APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Show Portname: %s", (t->value->cstring));
              config_save_string(CFG_PORTNAME,     t->value->cstring);
              break;
       case CFG_OFFSET:
              tmp = atoi(t->value->cstring);            
-             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Offset int: %d", tmp);
+            // APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / Offset int: %d", tmp);
              config_save_int(CFG_OFFSET,     tmp);
              break;
       case CFG_DST:
-             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / DST: %s", (t->value->cstring));
+            // APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / DST: %s", (t->value->cstring));
              config_save_string(CFG_DST,     t->value->cstring);
              break;
       case CFG_SHOW_FEET:
-             APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / FEET: %s", (t->value->cstring));
+            // APP_LOG(APP_LOG_LEVEL_INFO, "       cfg / FEET: %s", (t->value->cstring));
              config_save_string(CFG_SHOW_FEET,     t->value->cstring);
              break;
       
@@ -310,7 +310,7 @@ static int js_config(DictionaryIterator *iterator, void *context){
   vibes_double_pulse();
 
     
-  APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
   
   return 1;
 }
@@ -318,7 +318,7 @@ static int js_config(DictionaryIterator *iterator, void *context){
 
 
 static int js_ready(DictionaryIterator *iterator, void *context){
-  APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );
     
   // consume msg. Necessary?
   Tuple *t; 
@@ -331,7 +331,7 @@ static int js_ready(DictionaryIterator *iterator, void *context){
   // Send tides request
   message_send_outbox();
    
-  APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - exit" );
+ // APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - exit" );
   return 0;
 }
  

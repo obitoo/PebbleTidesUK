@@ -79,12 +79,12 @@ void app_log_ts(int level, char* fmt, ...) {
 
   time_t epoch = time(NULL);
 //   snprintf (format_string, sizeof(format_string), "%u:%s",(unsigned int) epoch, fmt); 
-//   APP_LOG(APP_LOG_LEVEL_DEBUG, "format string: %s",format_string);
+//  // APP_LOG(APP_LOG_LEVEL_DEBUG, "format string: %s",format_string);
 //   snprintf (output_string, sizeof(output_string), format_string,argptr ); 
-//   APP_LOG(APP_LOG_LEVEL_DEBUG, "output string: %s",output_string);
+//  // APP_LOG(APP_LOG_LEVEL_DEBUG, "output string: %s",output_string);
 
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "%u",(unsigned int) epoch);
-  APP_LOG(level, fmt, argptr);
+ // APP_LOG(APP_LOG_LEVEL_DEBUG, "%u",(unsigned int) epoch);
+ // APP_LOG(level, fmt, argptr);
   
 }
 
@@ -188,7 +188,7 @@ static void print_portname(char *p_portname)
 
 
 static void draw_box(GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
   
 #ifdef PBL_COLOR
   graphics_context_set_stroke_color(ctx, GColorPictonBlue);
@@ -220,7 +220,7 @@ static void draw_box(GContext* ctx){
 }
 
 static void draw_tidepoints(GContext* ctx){
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_tidepoints()");
+   // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_tidepoints()");
 
     if (!config_get_bool(CFG_LINE_GRAPH))
       return;  
@@ -242,7 +242,7 @@ static void draw_tidepoints(GContext* ctx){
           else
               graphics_fill_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);   
       
-//            APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
+//           // APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
 }
@@ -251,20 +251,20 @@ static void draw_tidepoints(GContext* ctx){
 
 
 static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tidetimes()");
+   // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tidetimes()");
 
     static char text_layer_buffer[128];
   
     // handle server errors, 
     if (!strcmp (p_state[0],"404")){
       snprintf(text_layer_buffer, sizeof(text_layer_buffer), "Error: 404 (port %s)",p_time[0]);
-      APP_LOG(APP_LOG_LEVEL_INFO, "404 Not found ");
+     // APP_LOG(APP_LOG_LEVEL_INFO, "404 Not found ");
       text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
       return;
     }
     if (!strcmp (p_state[0],"1")){
       snprintf(text_layer_buffer, sizeof(text_layer_buffer), "%s","Server Error: timeout");
-      APP_LOG(APP_LOG_LEVEL_INFO, "Server timeout error");
+     // APP_LOG(APP_LOG_LEVEL_INFO, "Server timeout error");
       text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
       return;
     }
@@ -328,7 +328,7 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
 
 static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
+   // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
     static char text_layer_buffer1[32];
     static char text_layer_buffer2[32];
     char TODO_info[] = "      ";   //       char TODO_info[] = "Spring";
@@ -378,7 +378,7 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     text_layer_set_text(s_tideheight_text_layer1, text_layer_buffer1);
     text_layer_set_text(s_tideheight_text_layer2, text_layer_buffer2);
   
-    APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
+   // APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
 }
 
 
@@ -397,8 +397,8 @@ static void convert_m_ft(int meters, char *s_feet, int *i_inches){
   
     *i_inches = ((int) (d_inches/ROUND_NEAREST)) * ROUND_NEAREST; // eg nearest 3"
 
-    APP_LOG(APP_LOG_LEVEL_WARNING, "        metres=%d,   feet_d=%f  inches_d=%f", meters, d_feet, d_inches);
-    APP_LOG(APP_LOG_LEVEL_WARNING, "                     feet_s=%s  inches_i=%d",   s_feet, *i_inches);
+   // APP_LOG(APP_LOG_LEVEL_WARNING, "        metres=%d,   feet_d=%f  inches_d=%f", meters, d_feet, d_inches);
+   // APP_LOG(APP_LOG_LEVEL_WARNING, "                     feet_s=%s  inches_i=%d",   s_feet, *i_inches);
 }
 
 /* 
@@ -426,11 +426,11 @@ static char* left_side_of_string(char* dest, int h){
 
 
 static void draw_sinewave (GContext* ctx){
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
 //   int x = 0;
 //   for (;x<=4; x++) 
-//       APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
+//      // APP_LOG(APP_LOG_LEVEL_INFO, "        point %d:  %d, %d", x, draw_x[x], draw_y[x]);
  
   graphics_context_set_stroke_color(ctx, colour_fg_dim());
 
@@ -484,7 +484,7 @@ static void plot_pixel_viewable (GContext* ctx, int xpix, int line_graph, int x,
 
 static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   
-  APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry :  plot_quarter_line(%d,%d - %d,%d)",x1,y1,x2,y2);
+ // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry :  plot_quarter_line(%d,%d - %d,%d)",x1,y1,x2,y2);
 
   int _xpix       = config_get_intval(CGRAPH_X_PX);
   int line_graph  = config_get_bool(CFG_LINE_GRAPH);
@@ -496,10 +496,10 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   const int half_pi = TRIG_MAX_ANGLE/4;
   const int      pi = TRIG_MAX_ANGLE/2;
   
-  APP_LOG(APP_LOG_LEVEL_INFO, "         before cache_stale() call  ");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "         before cache_stale() call  ");
   cache_stale();
   int x_step = cache_stale() ? 3: 1;  // indicate stale data with a dashed graph
-  APP_LOG(APP_LOG_LEVEL_INFO, "         ..after cache_stale() call  ");
+ // APP_LOG(APP_LOG_LEVEL_INFO, "         ..after cache_stale() call  ");
 
   
   
@@ -580,7 +580,7 @@ void calc_graph_points (char (*p_state_buf)[8], char (*p_time_buf)[6], int *p_he
         ypos_px_absolute = GRAPH_Y_PX + GRAPH_BORDER_PX - GRAPH_Y_LOWPOINT - (hm - min_h) * (GRAPH_Y_PX-GRAPH_Y_LOWPOINT)/range_y ;
 
       } else {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
+       // APP_LOG(APP_LOG_LEVEL_ERROR, "do_graph_calc state_buf is %s, expecting hi|lo ", p_state_buf[count_input]);
         return;
       }
     
@@ -609,7 +609,7 @@ static int calc_localtime_mins(){
     time_now_mins=DEBUG_TIME_NOW_MINS;
   #endif
     
-//   APP_LOG(APP_LOG_LEVEL_INFO, "calc_localtime_mins = %d ", time_now_mins);
+//  // APP_LOG(APP_LOG_LEVEL_INFO, "calc_localtime_mins = %d ", time_now_mins);
   return time_now_mins;
 }
 
@@ -626,7 +626,7 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
       if (!strcmp(p_state_buf[i],"hi") && p_height_buf[i] > *max_y)
         *max_y = p_height_buf[i];
   }
-//   APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:     calc_y_range()  min %d, max %d",*min_y,*max_y );
+//  // APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:     calc_y_range()  min %d, max %d",*min_y,*max_y );
 
   app_log_ts(APP_LOG_LEVEL_WARNING, "fn_exit:     calc_y_range()" );
 
@@ -659,27 +659,27 @@ static int calc_mins (char *s_hhmm, int *now){
 
   // tomorrow?  but allow 60 mins grace, in case we're a bit ahead of the webdata
   // Now lets define this as 6 hrs. That'll be the cache stale time. 
-//   APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins--->%d", tide_mins );
+//  // APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins--->%d", tide_mins );
 
   // we're ahead (cached, link down)
   if ((*now > tide_mins) && ((*now - tide_mins ) < CACHE_MAX_MINS)) {  // by less than 12(6?) hrs
       *now = tide_mins;
-//       APP_LOG(APP_LOG_LEVEL_INFO, "       (case 1) ");
+//      // APP_LOG(APP_LOG_LEVEL_INFO, "       (case 1) ");
   } else   
   if ((*now < tide_mins) && ((tide_mins - *now) > CACHE_MAX_MINS)) {   // now after midnight, tide b4  
     tide_mins = tide_mins - MINS_IN_DAY; 
-//     APP_LOG(APP_LOG_LEVEL_INFO, "       (case 2) ");
+//    // APP_LOG(APP_LOG_LEVEL_INFO, "       (case 2) ");
 
   } else 
   // we're behind (normal)
   if (abs(tide_mins-*now) > CACHE_MAX_MINS){
     tide_mins = tide_mins + MINS_IN_DAY;
-//     APP_LOG(APP_LOG_LEVEL_INFO, "       (case 3) ");
-//     APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins----->%d", tide_mins );
+//    // APP_LOG(APP_LOG_LEVEL_INFO, "       (case 3) ");
+//    // APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins----->%d", tide_mins );
   }
   *now = tide_mins;
   
-//   APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", tide_mins );
+//  // APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", tide_mins );
   return tide_mins;
 }
 
