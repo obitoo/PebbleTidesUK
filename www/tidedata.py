@@ -41,7 +41,7 @@ class public():
      url='http://www.ukho.gov.uk/easytide/EasyTide/ShowPrediction.aspx?PortID='+self.port+'&PredictionLength=7'
      html_doc = urllib2.urlopen(url)#.read()
      
-     soup = BeautifulSoup(html_doc)
+     soup = BeautifulSoup(html_doc, "lxml")
      
      
      #
@@ -239,6 +239,30 @@ class public():
      print ( ',"portname":"'+self.portname+'"')
      print  ( "}"              )
     
-    
+
+   #
+   # format dict for timeline
+   #  TODO month end
+   #
+   def dictionary(self):
+     array=[]
+     for i in range(0,6):
+       row={}
+       d=datetime.utcnow()
+       d=d.replace (day = int(self.tides_array[i]["day"]))
+       d=d.replace (hour = int(self.tides_array[i]["time"][:2]))
+       d=d.replace (minute = int(self.tides_array[i]["time"][3:]))
+#       d=d.replace (second = 0)
+#       d=d.replace (microsecond = 0)
+#       d=d.replace (tzinfo = 'Z')
+
+       row["state"]=self.tides_array[i]["state"]
+       row["datetime"]=d
+       row["height"]=float(self.tides_array[i]["height"])/10
+       row["portname"]=self.portname
+
+       array.append(row)
+
+     return array
 
 

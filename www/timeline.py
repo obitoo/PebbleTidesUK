@@ -34,11 +34,45 @@ class myTimeline(object):
 
        return result
 
+
+
+   # TODO - actions
+   def send_shared_pin (self, port_id,  hi_lo_string, date_time, height, portname):
+
+       # add the T eg '2015-07-15 21:17:53.217456Z' to '2015-07-15T21:17:53.217456Z'
+       date_time=date_time.replace (" ","T",1)
+
+
+       layout={
+           "type": "weatherPin"
+          ,"title": hi_lo_string
+          ,"subtitle": height
+          ,"tinyIcon": "system://images/TIDE_IS_HIGH"
+          ,"largeIcon": "system://images/TIDE_IS_HIGH"
+          ,"locationName": portname
+          ,"lastUpdated": datetime.utcnow().isoformat()+'Z'  # aha - isformat is the T
+         }
+#       actions =  '[ { "title": "Open Watchface!", "type": "openWatchApp" }]'
+
+       # TODO - pin id
+       pin_id = self.next_pin_id()
+       my_pin = Pin(id=pin_id, time = date_time, layout = layout)#, actions = actions)
+
+       print "Shared topic:",port_id
+       result=self.timeline.send_shared_pin(port_id, my_pin)
+       return result
+
+
+   def next_pin_id (self):
+      filename="./pin_id.txt"
+      with open(filename, "r+") as f:
+         data = f.read()
+         data = int(data) + 1
+         f.seek(0)
+         f.write(str(data))
+      return str (data -1)
+
        
-#TODO
-# pin id 
-# tz offset
-# datetime passed in right format
 
           
           

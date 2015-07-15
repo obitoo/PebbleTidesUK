@@ -24,14 +24,13 @@ t=myTimeline( app_api_key )
 
 
 #
-# Send tide pin
+# Send tide pin - shared
 #
-result = t.send_user_pin( user_key = user_key
-                         ,tz_offset_mins = 2                  # TODO
-                         ,hi_lo_string   = "High Tide"
-                         ,date_time      = 4                  # TODO
-                         ,height         = "-3.1"
-                         ,portname       = "Majorca")
+result = t.send_shared_pin( port_id        = "0110"
+                           ,hi_lo_string   = "High Tide"
+                           ,date_time      = str(datetime.utcnow())+"Z"
+                           ,height         = "-3.1"
+                           ,portname       = "Southend-on-Sea")
 
 if result.status_code != 200:
    print result.status_code

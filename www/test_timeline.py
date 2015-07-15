@@ -43,21 +43,31 @@ layout={
     "subtitle": "0.6",
     "tinyIcon": "system://images/TIDE_IS_HIGH",
     "largeIcon": "system://images/TIDE_IS_HIGH",
-    "locationName": "Southend-on-Sea",
+    #"locationName": "Southend-on-Sea",
+    "locationName": "Margate-Sea",
 #    "lastUpdated": "2015-07-11T23:24:00.000Z"
     "lastUpdated": datetime.utcnow().isoformat()+'Z'
   }
-#my_pin = Pin(id='124', time = '2015-07-11T23:26:00.000Z', layout = layout)
-actions =  '[ { "title": "Open Cuntface!", "type": "openWatchApp" }]'
- 
-my_pin = Pin(id='124', time = '2015-07-11T23:26:00.000Z', layout = layout, actions = actions)
+my_pin = Pin(id='125', time = '2015-07-15T23:27:00.000Z', layout = layout)
+
+#actions =  '[ { "title": "Open Cuntface!", "type": "openWatchApp" }]'
+#my_pin = Pin(id='124', time = '2015-07-15T23:26:00.000Z', layout = layout, actions = actions)
+
+#This works in cloudpebble
+#{ "actions": [ { "title": "Open Cuntface!", "type": "openWatchApp" }],
+# "id": "124",
+# "layout": {"largeIcon": "system://images/TIDE_IS_HIGH",
+#            "lastUpdated": "2015-07-11T21:59:35.764097Z",
+#            "locationName": "Majorca",
+#            "subtitle": "-3.0",
+#            "tinyIcon": "system://images/TIDE_IS_HIGH",
+#            "title": "High Tide",
+#            "type": "weatherPin"},
+# "time": "2015-07-15T23:26:00.000Z"}
 
 
-
-
-
-#result=timeline.send_shared_pin(['a_topic', 'another_topic'], my_pin)
-result=timeline.send_user_pin(user_key, my_pin)
+result=timeline.send_shared_pin(['0110'], my_pin)
+#result=timeline.send_user_pin(user_key, my_pin)
 #result=timeline.delete_user_pin(user_key, my_pin)
 print result
 
