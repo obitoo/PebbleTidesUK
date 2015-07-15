@@ -482,6 +482,14 @@ static void plot_pixel_viewable (GContext* ctx, int xpix, int line_graph, int x,
             graphics_draw_line(ctx, (GPoint){x, y},(GPoint){x, GRAPH_Y_PX+GRAPH_BORDER_PX} );
       }
 }
+  
+// PBL_COLOR only - 3 pixels
+static void plot_pixel_viewable3 (GContext* ctx, int xpix, int line_graph, int x, int y) {
+  
+      if ((x >= GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
+            graphics_draw_line(ctx, (GPoint){x, y},(GPoint){x, GRAPH_Y_PX+GRAPH_BORDER_PX+2} );
+      }
+}
 
 
 static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
@@ -498,36 +506,36 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   const int half_pi = TRIG_MAX_ANGLE/4;
   const int      pi = TRIG_MAX_ANGLE/2;
   
-//  // APP_LOG(APP_LOG_LEVEL_INFO, "         before cache_stale() call  ");
-//   cache_stale();
+  
+  // stale data? Dotted (dashed) graph 
   int x_step = cache_stale() ? 3: 1;  // indicate stale data with a dashed graph
-//  // APP_LOG(APP_LOG_LEVEL_INFO, "         ..after cache_stale() call  ");
 
   
   
-   // TODO - tidy up
-//   app_log_ts(APP_LOG_LEVEL_INFO, "         plot_quarter_line() - before loop");
-  
-  int temp = 0;
-  for (x = 0; x < range_x; x = x + x_step ){
-      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
-      temp++;
+//  This is the actual drawing bit  
 
 #ifdef PBL_COLOR
-      graphics_context_set_stroke_color(ctx, colour_fg());
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
-
-      graphics_context_set_stroke_color(ctx, colour_bg());
-      plot_pixel_viewable (ctx, _xpix, 0,  x1 + x, y1 + y + 3);
-#else
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
-#endif
-//     app_log_ts(APP_LOG_LEVEL_INFO, "         plot_quarter_line() - after loop");
- // APP_LOG(APP_LOG_LEVEL_INFO, "         sine loop had %d steps",temp);
-
+  graphics_context_set_stroke_color(ctx, colour_fg());
+  for (x = 0; x < range_x; x = x + x_step ){
+      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;  // TODO: OPTIMISE
+      plot_pixel_viewable3 (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
+//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
   }
+  
+  graphics_context_set_stroke_color(ctx, colour_bg());
+  for (x = 0; x < range_x; x = x + x_step ){
+      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+      plot_pixel_viewable (ctx, _xpix, 0,  x1 + x, y1 + y + 3);
+  }
+  
+#else
+  for (x = 0; x < range_x; x = x + x_step ){
+      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+  }
+#endif
+
 }
 
 

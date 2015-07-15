@@ -66,28 +66,15 @@ extern void cache_deinit();
     //  Init ======================================================
     //
 static void init() {
- // APP_LOG(APP_LOG_LEVEL_INFO, "init()");
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   
   // Create GFontieees.  Using Bold when black on white background
   s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
   s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
-  
-//   if (config_get_bool(CFG_INVERT_COL)){
-//     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);  // TODO:_BOLD is easier to read but spaced wider. ugh
-//     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-//   } else {
-// #ifdef PBL_COLOR
-    s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
-    s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
-    s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-// #else
-//     s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18);
-//     s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
-//     s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-// #endif
-//   }
+  s_tidetime_font =    fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
+  s_portname_font =   fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);//FONT_KEY_ROBOTO_CONDENSED_21 );  // fonts_get_system_font(FONT_KEY_GOTHIC_18);
+  s_tideheight_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
 
 
   // Create window, handlers
@@ -117,15 +104,12 @@ static void init() {
 }
 
 static void deinit() {
- // APP_LOG(APP_LOG_LEVEL_INFO, "deinit()");
   window_destroy(s_main_window);
   cache_deinit();
- // APP_LOG(APP_LOG_LEVEL_INFO, "deinit() done");
 }
 
 int main (void){
   init();
- // APP_LOG(APP_LOG_LEVEL_INFO, "app_event_loop()");
   app_event_loop();
   deinit();
 }
@@ -134,22 +118,9 @@ int main (void){
     //
     //  LAYOUT ======================================================
     //
-
-// http://developer.getpebble.com/tools/color-picker/#FFFFAA 
-
-// NEON - green and pink
-// #define FG_COL GColorGreen                // all other text
-// #define FG_COL_DIM GColorFashionMagenta   // Wave graph
-  
-// SAND
-//#define FG_COL GColorYellow
-//#define FG_COL_DIM GColorChromeYellow
-  
-// BLUE
 #define FG_COL  GColorWhite
-#define FG_COL_DIM GColorElectricBlue // GColorCyan 
-
-    
+#define FG_COL_DIM GColorElectricBlue  
+   
 GColor colour_fg(){
     #ifdef PBL_COLOR
         if (config_get_bool(CFG_INVERT_COL)) 
@@ -199,11 +170,9 @@ GColor colour_bg(){
 
 void main_hide_heights_layer(){
   if (config_get_bool(CFG_SHOW_HEIGHTS)){
-     // APP_LOG(APP_LOG_LEVEL_ERROR, "Showing Heights layer-----------------");
       layer_set_hidden((Layer *)s_tideheight_text_layer1, false);
       layer_set_hidden((Layer *)s_tideheight_text_layer2, false);
   } else {
-     // APP_LOG(APP_LOG_LEVEL_ERROR, "Hiding Heights layer-------------------");
       layer_set_hidden((Layer *)s_tideheight_text_layer1, true);
       layer_set_hidden((Layer *)s_tideheight_text_layer2, true); 
   }
@@ -240,8 +209,6 @@ static void mainwindow_load(Window *window) {
   layer_set_update_proc(s_graph_layer, gfx_layer_update_callback);
 
         // screen is 144 x 168  ------------------------
-  
-  
   // Create text times Layer
   s_tidetimes_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX , 144, 50));
   text_layer_set_text(s_tidetimes_text_layer, "Loading...");
@@ -267,10 +234,10 @@ static void mainwindow_load(Window *window) {
 
   
   //   heights - 3/4 width graph only  
-  s_tideheight_text_layer1 = text_layer_create(GRect(102 +GRAPH_BORDER_PX, 4, MAX_X, GRAPH_Y_PX + 40));
+  s_tideheight_text_layer1 = text_layer_create(GRect(102 +GRAPH_BORDER_PX, 0, MAX_X, GRAPH_Y_PX + 40));
   text_layer_set_font(s_tideheight_text_layer1, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer1, GTextAlignmentLeft);
-  s_tideheight_text_layer2 = text_layer_create(GRect(102 +GRAPH_BORDER_PX, GRAPH_Y_PX - 13 , MAX_X, GRAPH_Y_PX + 20));
+  s_tideheight_text_layer2 = text_layer_create(GRect(102 +GRAPH_BORDER_PX, GRAPH_Y_PX - 15 , MAX_X, GRAPH_Y_PX + 20));
   text_layer_set_font(s_tideheight_text_layer2, s_tideheight_font);
   text_layer_set_text_alignment(s_tideheight_text_layer2, GTextAlignmentLeft);
   
@@ -291,34 +258,23 @@ static void mainwindow_load(Window *window) {
 
   // hide if 3/4 width
   main_hide_heights_layer();
-
- // APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_load() - exit " );
 }
 
 
 
 static void mainwindow_unload(Window *window) {
- // APP_LOG(APP_LOG_LEVEL_INFO, "mainwindow_unload() " );
 
   // Destroy textlayers
- // APP_LOG(APP_LOG_LEVEL_INFO, "destroy s_timelayer " );
-
   text_layer_destroy(s_time_layer);
   text_layer_destroy(s_date_layer);
-
- // APP_LOG(APP_LOG_LEVEL_INFO, "destroy s_weatherlayer " );
 
   text_layer_destroy(s_tidetimes_text_layer);
   text_layer_destroy(s_tideheight_text_layer1);
   text_layer_destroy(s_tideheight_text_layer2);
   
   // Destroy fonts
-
- // APP_LOG(APP_LOG_LEVEL_INFO, "destroy fonts 1" );
 //   fonts_unload_custom_font(s_tidetime_font);
-//  // APP_LOG(APP_LOG_LEVEL_INFO, "destroy fonts 2" );
 //   fonts_unload_custom_font(s_time_font);
-  
 
   // Destroy Graph Layer
    layer_destroy(s_graph_layer);
@@ -331,22 +287,16 @@ static void mainwindow_unload(Window *window) {
   //  Callback logic - time
   //
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-//      // APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - time callback entry" );
-  
       static int started_at = -1;  // 0 to 9
       if (started_at == -1)
          started_at = tick_time->tm_min % 10;
 
-//      // APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - started at %d", started_at);
-  
       update_time();
   
       // Get tide data from phone every few minutes  
       if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
-       // APP_LOG(APP_LOG_LEVEL_WARNING, "tick_handler() - requesting tides");
         message_send_outbox();
       }
-//      // APP_LOG(APP_LOG_LEVEL_INFO, "tick_handler() - exit" );
 }
 
 static void update_time() {
@@ -358,8 +308,6 @@ static void update_time() {
       static char buffer[] = "00:00";
       static char dateString[] = "wednesday 99 ";
   
-//      // APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - entry" );
-    
       // Write the current hours and minutes into the buffer
       if(clock_is_24h_style() == true) {
         // Use 24 hour format
@@ -375,10 +323,6 @@ static void update_time() {
       // update layers
       text_layer_set_text(s_time_layer, buffer);
       text_layer_set_text(s_date_layer, dateString);
-  
-
-      
-//      // APP_LOG(APP_LOG_LEVEL_INFO, "update_time() - exit" );
 }
 
 
