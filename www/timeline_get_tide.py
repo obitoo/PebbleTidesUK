@@ -14,6 +14,7 @@ import json
 import tidedata
 import os, sys
 import optparse
+from timeline import myTimeline
 
 app_api_key = "SBna3itxdgseq99nbw87kur33gi1q4yi"  # This is the sandbox one
 
@@ -22,6 +23,8 @@ app_api_key = "SBna3itxdgseq99nbw87kur33gi1q4yi"  # This is the sandbox one
 #
 port       = 0
 utc_offset = 0
+hi_lo      = ""
+topic      = ""
 
 #
 # test cmdline options:   -p <port no> : testrun for one port
@@ -31,7 +34,9 @@ parser.add_option("-p",  dest="port", type="string",
                   help = "port number, run for single ")
 parser.add_option("-o",  dest="utc_offset", type="int", 
                   help = "utc offset, eg -60 ")
-parser.add_option("-u",  dest="user_token", type="string", 
+parser.add_option("-u",  dest="user_token", type="string",   
+                  help = "long user token string ")
+parser.add_option("-t",  dest="topic", type="string",   
                   help = "long user token string ")
 (options, args) = parser.parse_args()
 
@@ -41,6 +46,22 @@ if options.utc_offset:
    utc_offset = options.utc_offset
 if options.user_token:
    user_token = options.user_token
+if options.topic:
+   topic = options.topic
+
+#
+#  Validate the topic, if supplied
+#
+if topic:
+   try:
+      (hi_lo, port, utc_offset) = topic.split("_")
+      utc_offset=int(utc_offset)
+   except:
+      print "Error, cannot parse topic:",topic
+      sys.exit(1)
+
+   print "Parsed topic ",topic
+   print "got ",hi_lo, port, utc_offset
 
 
 #
@@ -79,12 +100,15 @@ if (utc_offset != 0):
 #
 # Loop round tides and Send timeline user pins
 #
-from timeline import myTimeline
 t=myTimeline( app_api_key )
 
 array=tides.dictionary()
-for i in range (3,5):  # prod: 0,6
+
+for i in range (0,6):  # prod: 0,6
    print "-----",i, array[i]["state"] , array[i]["datetime"],  array[i]["height"]
+
+   if (hi_lo) and (hi_lo != array[i]["state"]): 
+        continue 
 
    if (1):
       result = t.send_shared_pin( port_id        = port
