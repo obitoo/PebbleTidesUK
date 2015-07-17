@@ -311,9 +311,9 @@ class public():
 
    def publish (self, topic, logfilename):
 
-      path = '/home/owen/pebble-dev/master/PebbleTidesUK/www'
-
-      f = open (path + '/' + logfilename , "a")
+      path = '/home/owen/tides/prod'
+      f = open (path + '/' + logfilename , "a+")
+      path = '/usr/lib/cgi-bin/tides/'
       subprocess.Popen( [path + '/timeline_get_tide.py', '-t', topic], stdout=f, stderr=f)
       # thats it. Close file? 
 

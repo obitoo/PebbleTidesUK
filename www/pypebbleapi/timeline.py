@@ -63,6 +63,8 @@ class Timeline(object):
     def subscribe(self, user_token, topic):
         url = "{}/v1/user/subscription/{}".format(self._api_root, topic)
 
+        print topic, user_token
+        print url
         result = requests.post(
             url,
             headers={
@@ -72,8 +74,10 @@ class Timeline(object):
         return result
 
     def unsubscribe(self, user_token, topic):
-        url = "{}/v1/user/subscription/{}".format(self._api_root, topic)
+        url = "{}/v1/user/unsubscribe/{}".format(self._api_root, topic)
 
+        print topic, user_token
+        print url
         result = requests.delete(
             url,
             headers={

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # 
 # 
-# Owen Bullock - UK Tides - UKHO Easytide webscrape. 
+# Owen Bullock - PUBLISH PINS
 #                         - cgi script
 #                           Params:     port=<4 char string> + offset
 #                               or 
@@ -113,9 +113,9 @@ for i in range (0,6):  # prod: 0,6
    if (1):
       result = t.send_shared_pin( port_id        = port
                                  ,hi_lo_string   = array[i]["state"]
-                                 ,date_time      = str(array[i]["datetime"])+"Z"
+                                 ,date_time      = array[i]["datetime"]
                                  ,height         = str(array[i]["height"])
-                                 ,portname       = "help"#array[i]["portname"]
+                                 ,portname       = array[i]["portname"]
                                  ,utc_offset     = utc_offset
                                 )
 

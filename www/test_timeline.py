@@ -66,7 +66,7 @@ my_pin = Pin(id='125', time = '2015-07-15T23:27:00.000Z', layout = layout)
 # "time": "2015-07-15T23:26:00.000Z"}
 
 
-result=timeline.send_shared_pin(['0110'], my_pin)
+#result=timeline.send_shared_pin(['0110'], my_pin)
 #result=timeline.send_user_pin(user_key, my_pin)
 #result=timeline.delete_user_pin(user_key, my_pin)
 
@@ -79,6 +79,9 @@ result=timeline.send_shared_pin(['0110'], my_pin)
 #                'X-User-Token': user_key,
 #            },
 #)
+
+# unsubscribe
+result = timeline.unsubscribe(user_key, "hi_0108_-60")
 
 
 print result

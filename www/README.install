@@ -15,3 +15,7 @@ modules:
 	six
 	requests
 
+
+------------
+curl -X GET https://timeline-api.getpebble.com/v1/user/subscriptions --header "X-User-Token: SBACTtnBhLD2Pig05GxWaT2FqvpwC0i2"
+

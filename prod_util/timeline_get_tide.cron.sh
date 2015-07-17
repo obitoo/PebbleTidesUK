@@ -1,8 +1,8 @@
 #!/bin/bash 
 
 TOPICS=/var/www/tides/topics.txt
-SCRIPT_DIR=~/pebble-dev/master/PebbleTidesUK/www
-LOG_DIR=~/pebble-dev/master/PebbleTidesUK/www
+SCRIPT_DIR= /usr/lib/cgi-bin/tides/
+LOG_DIR=/home/owen/tides/prod
 
 SCRIPT=timeline_get_tide.py
 LOG_FILE=cron.log
