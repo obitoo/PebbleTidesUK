@@ -97,7 +97,8 @@ int messaging_ready(){
 //  Pebble to phone - this requests a tide update, passes config at same time
 //
 void message_send_outbox() {
-   // APP_LOG(APP_LOG_LEVEL_WARNING, "message_send_outbox() - entry" );
+//     APP_LOG(APP_LOG_LEVEL_WARNING, "message_send_outbox() - BYPASS" );
+//     return;
   
     // Begin dictionary
     DictionaryIterator *iter = NULL;
