@@ -15,7 +15,10 @@ class myTimeline(object):
       self.timeline = Timeline(my_api_key, "https://timeline-api.getpebble.com")
    
    
-   def send_user_pin (self, user_key, tz_offset_mins,  hi_lo_string, date_time, height, portname):
+   # TODO - actions
+   def send_user_pin (self, user_key, hi_lo_string, date_time, height, portname):
+       # add the T eg '2015-07-15 21:17:53.217456Z' to '2015-07-15T21:17:53.217456Z'
+       date_time=date_time.replace (" ","T",1)
 
        layout={
            "type": "weatherPin"
@@ -26,9 +29,10 @@ class myTimeline(object):
           ,"locationName": portname
           ,"lastUpdated": datetime.utcnow().isoformat()+'Z'
          }
-       actions =  '[ { "title": "Open Cuntface!", "type": "openWatchApp" }]'
-       
-       my_pin = Pin(id='124', time = '2015-07-11T23:26:00.000Z', layout = layout, actions = actions)
+#       actions =  '[ { "title": "Open Cuntface!", "type": "openWatchApp" }]'
+
+       pin_id = self.next_pin_id()
+       my_pin = Pin(id=pin_id, time = date_time, layout = layout)#, actions = actions)
 
        result=self.timeline.send_user_pin(user_key, my_pin)
 
@@ -37,15 +41,20 @@ class myTimeline(object):
 
 
    # TODO - actions
-   def send_shared_pin (self, port_id,  hi_lo_string, date_time, height, portname):
+   def send_shared_pin (self, port_id,  hi_lo_string, date_time, height, portname, utc_offset):
 
        # add the T eg '2015-07-15 21:17:53.217456Z' to '2015-07-15T21:17:53.217456Z'
        date_time=date_time.replace (" ","T",1)
 
 
+       if (hi_lo_string == "hi"):
+          high_low = "High Tide"
+       if (hi_lo_string == "lo"):
+          high_low = "Low Tide"
+
        layout={
            "type": "weatherPin"
-          ,"title": hi_lo_string
+          ,"title": high_low
           ,"subtitle": height
           ,"tinyIcon": "system://images/TIDE_IS_HIGH"
           ,"largeIcon": "system://images/TIDE_IS_HIGH"
@@ -54,15 +63,20 @@ class myTimeline(object):
          }
 #       actions =  '[ { "title": "Open Watchface!", "type": "openWatchApp" }]'
 
-       # TODO - pin id
        pin_id = self.next_pin_id()
        my_pin = Pin(id=pin_id, time = date_time, layout = layout)#, actions = actions)
 
-       print "Shared topic:",port_id
-       result=self.timeline.send_shared_pin(port_id, my_pin)
+       # topic: hi_0110_-60
+       topic = hi_lo_string + "_" + port_id + "_" + str(utc_offset)
+
+       # make request
+       result=self.timeline.send_shared_pin([topic], my_pin)
+       print "Sent to topic: ",topic
+
        return result
 
 
+   # TODO - lame, do in sql
    def next_pin_id (self):
       filename="./pin_id.txt"
       with open(filename, "r+") as f:

@@ -135,11 +135,13 @@ class public():
    #
    def adjust_offset(self, offset):
       for element in self.tides_array:
+         #print element
          date_object = datetime.strptime('Jan '+element["day"]+' 2001 ' +element["time"], '%b %d %Y %H:%M')
          date_object = date_object + timedelta(minutes = offset)
          
          element["time"] = date_object.strftime("%H:%M")
          element["day"]  = date_object.strftime("%d")
+         #print element["time"]
 
 
 
@@ -249,6 +251,7 @@ class public():
      for i in range(0,6):
        row={}
        d=datetime.utcnow()
+       #print self.tides_array[i]["time"]
        d=d.replace (day = int(self.tides_array[i]["day"]))
        d=d.replace (hour = int(self.tides_array[i]["time"][:2]))
        d=d.replace (minute = int(self.tides_array[i]["time"][3:]))

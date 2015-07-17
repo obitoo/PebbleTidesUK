@@ -53,7 +53,7 @@ my_pin = Pin(id='125', time = '2015-07-15T23:27:00.000Z', layout = layout)
 #actions =  '[ { "title": "Open Cuntface!", "type": "openWatchApp" }]'
 #my_pin = Pin(id='124', time = '2015-07-15T23:26:00.000Z', layout = layout, actions = actions)
 
-#This works in cloudpebble
+# Example: works in cloudpebble
 #{ "actions": [ { "title": "Open Cuntface!", "type": "openWatchApp" }],
 # "id": "124",
 # "layout": {"largeIcon": "system://images/TIDE_IS_HIGH",
@@ -69,5 +69,17 @@ my_pin = Pin(id='125', time = '2015-07-15T23:27:00.000Z', layout = layout)
 result=timeline.send_shared_pin(['0110'], my_pin)
 #result=timeline.send_user_pin(user_key, my_pin)
 #result=timeline.delete_user_pin(user_key, my_pin)
+
+# trying to make subs request - didnt qork
+#import requests
+#url = "https://timeline-api.getpebble.com/v1/user/subscriptions/"
+#result = requests.post(
+#            url,
+#            headers={
+#                'X-User-Token': user_key,
+#            },
+#)
+
+
 print result
 
