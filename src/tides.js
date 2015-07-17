@@ -35,7 +35,7 @@
   //  Init   ======================================
   //
 var wait_msg ;
-var config_open ;
+var config_open ; 
 var config_url, config_url_col;
 var config_defaults;
 var g_topics;
