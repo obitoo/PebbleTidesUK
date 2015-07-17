@@ -270,7 +270,8 @@ class public():
      return array
 
    # 
-   # Topic subs
+   # Topic subs - TODO - sql. 
+   #              TODO - this design can't work out when a topic no longer has any subscribers. 
    # 
    def store_timeline_subscription( self, sub_hi, sub_lo, port_no, utc_offset):
       if (sub_hi == "on"):
@@ -284,6 +285,14 @@ class public():
 
    def store_topic (self, topic):
       filename="/var/www/tides/topics.txt"
+
+      # check if already exists. 
+      with open(filename, "r") as f:
+         line = f.read()
+         if (line == topic):
+            return
+
+      # if not, append
       with open(filename, "a") as f:
-         f.write(topic)
+         f.write(topic+'\n')
 
