@@ -78,7 +78,7 @@ class myTimeline(object):
 
    # TODO - lame, do in sql
    def next_pin_id (self):
-      filename="./pin_id.txt"
+      filename="/var/www/tides/pin_id.txt"
       with open(filename, "r+") as f:
          data = f.read()
          data = int(data) + 1

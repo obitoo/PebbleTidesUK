@@ -21,13 +21,14 @@
 # 19Mar15 - date logic
 # 16Apr   - default time for v2 client
 # 19May   - offsets. Handle undefined param
-#
+# 17Jun   - extract and store topic subscriptions
 #
 
 import json
 import tidedata
 import cgi, cgitb, os, sys
 import optparse
+
 
 #
 #  Init 
@@ -38,6 +39,9 @@ port   = 0
 time   = 0
 version= 3.1
 offset = 0
+sub_hi="off"
+sub_lo="off"
+utc_offset = 0
 
 #
 # test cmdline options:   -p <port no> : testrun for one port
@@ -78,6 +82,13 @@ for field in form.keys():
        offset = int(form[field].value)
     if field == "date" and form[field].value != 'undefined':
        date = int(form[field].value)
+    # timeline -----------------------------
+    if field == "sub_hi" and form[field].value != 'undefined':
+       sub_hi = form[field].value
+    if field == "sub_lo" and form[field].value != 'undefined':
+       sub_lo = form[field].value
+    if field == "utc_offset" and form[field].value != 'undefined':
+       utc_offset = int(form[field].value)
 
 if time == 0:
    time="13:37"
@@ -94,6 +105,7 @@ if time == 0:
 #
 if ":" in port:
    port = port.split(":")[1]
+
 
 
 #
@@ -154,6 +166,11 @@ else:
    utc = utc.replace(tzinfo=from_zone)
    london = utc.astimezone(to_zone)
    tides.delete_in_past(london.strftime("%H:%M"))
+
+#
+#  Timeline - store the topic 
+#
+tides.store_timeline_subscription (sub_hi, sub_lo, port, utc_offset)
 
 #
 # Return json 

@@ -269,4 +269,21 @@ class public():
 
      return array
 
+   # 
+   # Topic subs
+   # 
+   def store_timeline_subscription( self, sub_hi, sub_lo, port_no, utc_offset):
+      if (sub_hi == "on"):
+         topic =  "hi_" + port_no + "_" + str(utc_offset)
+         self.store_topic (topic)
+
+      if (sub_lo == "on"):
+         topic =  "lo_" + port_no + "_" + str(utc_offset)
+         self.store_topic (topic)
+
+
+   def store_topic (self, topic):
+      filename="/var/www/tides/topics.txt"
+      with open(filename, "a") as f:
+         f.write(topic)
 
