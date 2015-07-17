@@ -39,7 +39,7 @@ var config_open ;
 var config_url, config_url_col;
 var config_defaults;
 var webserver="http://li646-227.members.linode.com/";
-      webserver="http://192.168.7.173/";   // Dev DONT FORGET !!!111!11!!11
+       webserver="http://192.168.7.173/";   // Dev DONT FORGET !!!111!11!!11
 // var testurl="/tides/test.json"; 
 
 
