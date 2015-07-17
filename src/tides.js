@@ -38,8 +38,9 @@ var wait_msg ;
 var config_open ;
 var config_url, config_url_col;
 var config_defaults;
+var g_topics;
 var webserver="http://li646-227.members.linode.com/";
-       webserver="http://192.168.7.173/";   // Dev DONT FORGET !!!111!11!!11
+//        webserver="http://192.168.7.173/";   // Dev DONT FORGET !!!111!11!!11
 // var testurl="/tides/test.json"; 
 
 
@@ -62,6 +63,7 @@ Pebble.addEventListener('ready',   function(e) {
        "cfg_offset"         : "0",
        "cfg_show_feet"      : "off"
     };  
+  
 //     timeline_data = {
 //       "sub_hi"              : "on",
 //       "sub_lo"              : "off",
@@ -108,6 +110,7 @@ function timeline_init()
            function (topics) {
                              console.log ("Timeline - got list");
                              console.log ('       Subscribed to ' + topics.join(', '));
+                             g_topics = topics;
                              },
            function (error)  { console.log('Timeline: Error getting subscriptions: ' + error);}
      );
@@ -140,17 +143,18 @@ Pebble.addEventListener("showConfiguration", function() {
   console.log("--showConfiguration event");
   
   // Different config page for Pebble Time
-  var colorCapable = ((typeof Pebble.getActiveWatchInfo === "function") && Pebble.getActiveWatchInfo().platform!='aplite');
-  console.log("     colorCapable = "+colorCapable);
+//   var colorCapable = ((typeof Pebble.getActiveWatchInfo === "function") && Pebble.getActiveWatchInfo().platform!='aplite');
+//   console.log("     colorCapable = "+colorCapable);
 
   
-  // Load up the stored options
+//   // Load up the stored options
   var url;
-  if (!colorCapable) {
-    url = config_url;
-  } else {
+//   if (!colorCapable) {
+//     url = config_url;
+//   } else {
     url = config_url_col;
-  }
+//   }
+  
   
   for (var key in config_defaults) {
 //       console.log ("  key:"+key);
@@ -207,9 +211,14 @@ Pebble.addEventListener("webviewclosed", function(e) {
   var config = JSON.parse(decodeURIComponent(e.response));
 //   console.log("  Options = " + JSON.stringify(config));
   
-  var old_port = localStorage.getItem("cfg_port").split(':')[1];
+//   // messy. TODO - little fn
+//   var old_port = localStorage.cfg_port;
+//   if (old_port === null || (old_port === undefined)){
+//      old_port = config_defaults.cfg_port;
+//   }
+//   old_port = old_port.split(':')[1];
 
-
+  
   // save to local storage. Might be empty though
   for (var key in config) {
     localStorage.setItem(key, config[key]);
@@ -272,28 +281,36 @@ Pebble.addEventListener("webviewclosed", function(e) {
      //  topic:  [hi|lo]_[portno]_[utcoffset]  
     
      // hi 
-   var topic = "hi_"+config.cfg_port.split(':')[1]+"_"+localStorage.utc_offset;
-   console.log("Timeline: topic is "+topic);
+   var topic_hi, topic_lo;
+   topic_hi = "hi_"+config.cfg_port.split(':')[1]+"_"+localStorage.utc_offset;
+   console.log("Timeline: topic is "+topic_hi);
    if ("on"== config.sub_hi){
-     timeline_sub(topic);
+     timeline_sub(topic_hi);
    } else {
-     timeline_unsub(topic);
+     timeline_unsub(topic_hi);
    }
      // low
-   topic = "lo_"+config.cfg_port.split(':')[1]+"_"+localStorage.utc_offset;
-   console.log("Timeline: topic is "+topic);
+   topic_lo = "lo_"+config.cfg_port.split(':')[1]+"_"+localStorage.utc_offset;
+   console.log("Timeline: topic is "+topic_lo);
    if ("on"== config.sub_lo){
-     timeline_sub(topic);
+     timeline_sub(topic_lo);
    } else {
-     timeline_unsub(topic);
+     timeline_unsub(topic_lo);
    }
-     // if port changed, unsubscribe both old topics
-   if (old_port != config.cfg_port.split(':')[1]){
-      topic = "lo_"+old_port+"_"+localStorage.utc_offset;
-      timeline_unsub(topic);
-      topic = "hi_"+old_port+"_"+localStorage.utc_offset;
-      timeline_unsub(topic);
+//      // if port changed, unsubscribe both old topics
+//    if (old_port != config.cfg_port.split(':')[1]){
+//       topic = "lo_"+old_port+"_"+localStorage.utc_offset;
+//       timeline_unsub(topic);
+//       topic = "hi_"+old_port+"_"+localStorage.utc_offset;
+//       timeline_unsub(topic);
+//    }
+  
+   // unsubscribe all the ones we queried at startup (largely a testing issue but poss in prod..?)
+   for (var i in g_topics) {
+      if ((g_topics[i] != topic_lo) && (g_topics[i] != topic_hi))
+         timeline_unsub(g_topics[i]);
    }
+  
   
    console.log("--webviewclosed event (config) - exit");
 });
