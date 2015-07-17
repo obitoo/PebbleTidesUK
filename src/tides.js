@@ -101,6 +101,9 @@ function timeline_init()
   
      // UTC offset
      var utcOffset = new Date().getTimezoneOffset();
+//   TESTING
+//      utcOffset = 420;
+  
      localStorage.setItem("utc_offset",utcOffset);
      console.log('Timeline: My utcOffset is ' + utcOffset);
   
