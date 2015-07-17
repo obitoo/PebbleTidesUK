@@ -1,3 +1,13 @@
 root@dell2:/var/log/apache2$ touch /var/www/tides/pin_id.txt
 root@dell2:/var/log/apache2$ touch /var/www/tides/topics.txt
 
+python
+------
+apt-get install python3-setuptools 
+easy_install3 pip
+pip3 install pypebbleapi
+
+modules: 
+	six
+	requests
+
