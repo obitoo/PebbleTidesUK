@@ -41,7 +41,8 @@ class public():
      url='http://www.ukho.gov.uk/easytide/EasyTide/ShowPrediction.aspx?PortID='+self.port+'&PredictionLength=7'
      html_doc = urllib2.urlopen(url)#.read()
      
-     soup = BeautifulSoup(html_doc, "lxml")
+     #soup = BeautifulSoup(html_doc, "lxml")
+     soup = BeautifulSoup(html_doc)
      
      
      #
