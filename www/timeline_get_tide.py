@@ -3,12 +3,12 @@
 # 
 # Owen Bullock - UK Tides - UKHO Easytide webscrape. 
 #                         - cgi script
-#                           Params:     port=<4 char string>
-#
+#                           Params:     port=<4 char string> + offset
+#                               or 
+#                                     topic
 #
 # 
 #
-# TODO - separate hi and lo
 
 import json
 import tidedata

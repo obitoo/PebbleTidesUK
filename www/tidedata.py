@@ -15,6 +15,7 @@ import json
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from dateutil import tz
+import subprocess
 
 
 Max_Portname_Length=30
@@ -276,23 +277,43 @@ class public():
    def store_timeline_subscription( self, sub_hi, sub_lo, port_no, utc_offset):
       if (sub_hi == "on"):
          topic =  "hi_" + port_no + "_" + str(utc_offset)
-         self.store_topic (topic)
+         
+         # new topic? Then publish
+         if (self.store_topic (topic)):
+             self.publish(topic, "publish.hi.log")
 
       if (sub_lo == "on"):
          topic =  "lo_" + port_no + "_" + str(utc_offset)
-         self.store_topic (topic)
+
+         # new topic? Then publish
+         if (self.store_topic (topic)):
+             self.publish(topic,"publish.lo.log")
 
 
+
+   # If its a new topic, return 1
    def store_topic (self, topic):
       filename="/var/www/tides/topics.txt"
 
-      # check if already exists. 
       with open(filename, "r") as f:
-         line = f.read()
-         if (line == topic):
-            return
+         for line in f:
+           if (line.rstrip() == topic):
+              return 0
 
       # if not, append
       with open(filename, "a") as f:
          f.write(topic+'\n')
+      return 1
+
+   #
+   # Call the script we use from cron. Takes a while so don't wait
+   #
+
+   def publish (self, topic, logfilename):
+
+      path = '/home/owen/pebble-dev/master/PebbleTidesUK/www'
+
+      f = open (path + '/' + logfilename , "a")
+      subprocess.Popen( [path + '/timeline_get_tide.py', '-t', topic], stdout=f, stderr=f)
+      # thats it. Close file? 
 

@@ -55,6 +55,9 @@ parser.add_option("-d",  dest="date", type="int",
                   help = "Day of month  ")
 parser.add_option("-o",  dest="offset", type="int", 
                   help = "Offset (minutes)")
+parser.add_option("-s",  dest="sub", type="string", 
+                  help = "test: subscribe flag [hi|lo|both]")
+
 (options, args) = parser.parse_args()
 
 if options.port:
@@ -65,6 +68,11 @@ if options.offset:
    offset = options.offset
 if options.date:
    date = options.date
+if options.sub:
+   if options.sub == 'hi' or options.sub == 'both':
+      sub_hi = 'on'
+   if options.sub == 'lo' or options.sub == 'both':
+      sub_lo = 'on'
 
 
 
@@ -168,7 +176,7 @@ else:
    tides.delete_in_past(london.strftime("%H:%M"))
 
 #
-#  Timeline - store the topic 
+#  Timeline - store the topic .  Calls an initial subscription if need be
 #
 tides.store_timeline_subscription (sub_hi, sub_lo, port, utc_offset)
 
