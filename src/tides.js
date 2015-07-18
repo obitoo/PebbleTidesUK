@@ -166,7 +166,7 @@ Pebble.addEventListener("showConfiguration", function() {
   } else {
     url = config_url_col;
   }
-  
+   
   
   for (var key in config_defaults) {
 //       console.log ("  key:"+key);
