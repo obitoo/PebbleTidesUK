@@ -35,14 +35,14 @@
     "resources": {
         "media": [
             {
-                "file": "images/tide3_28_28.png",
-                "name": "MENU_IMG",
-                "type": "png"
-            },
-            {
                 "file": "images/tide4_24_24.png",
                 "menuIcon": true,
                 "name": "MENU_IMG_24",
+                "type": "png"
+            },
+            {
+                "file": "images/tide3_28_28.png",
+                "name": "MENU_IMG",
                 "type": "png"
             }
         ]
@@ -53,8 +53,8 @@
         "aplite",
         "basalt"
     ],
-    "uuid": "3dee6d28-1e53-4d0b-b0f6-f6f6ffdbb4dc",
-    "versionLabel": "4.0",
+    "uuid": "32cff962-f75c-4cba-892f-d6388a76cfdc",
+    "versionLabel": "4.01",
     "watchapp": {
         "watchface": true
     }
