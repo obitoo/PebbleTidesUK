@@ -35,14 +35,14 @@
     "resources": {
         "media": [
             {
-                "file": "images/tide3_28_28.png",
-                "name": "MENU_IMG",
-                "type": "png"
-            },
-            {
                 "file": "images/tide4_24_24.png",
                 "menuIcon": true,
                 "name": "MENU_IMG_24",
+                "type": "png"
+            },
+            {
+                "file": "images/tide3_28_28.png",
+                "name": "MENU_IMG",
                 "type": "png"
             }
         ]

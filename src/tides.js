@@ -121,7 +121,7 @@ function timeline_init()
      Pebble.timelineSubscriptions(
            function (topics) {
                              console.log ("Timeline - got list");
-                             console.log ('       Subscribed to ' + topics.join(', '));
+                             console.log ('       Currently subscribed to ' + topics.join(', '));
                              g_topics = topics;
                              },
            function (error)  { console.log('Timeline: Error getting subscriptions: ' + error);}
