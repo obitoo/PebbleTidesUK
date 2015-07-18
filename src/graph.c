@@ -98,17 +98,13 @@ void app_log_ts(int level, char* fmt, ...) {
   //
  
 void gfx_layer_update_callback(Layer *me, GContext* ctx) {
-  app_log_ts(APP_LOG_LEVEL_WARNING, "fn_entry:  0:   gfx_layer_update_callback()");
 
   if (1){
-    // set stroke colour - here? every time? 
-    //graphics_context_set_stroke_color(ctx, colour_fg_dim());
 
     // redo this every call - its time based
     calc_graph_points(cache_get_state_buf(), 
                       cache_get_time_buf(), 
                       cache_get_height_buf());
-    app_log_ts(APP_LOG_LEVEL_WARNING, "         1:  gfx_layer_update_callback()");
 
     // text - used to be only on receipt of tides from phone (10 mins) but now we're doing 
     // it every redraw (err, how long?)
@@ -119,17 +115,11 @@ void gfx_layer_update_callback(Layer *me, GContext* ctx) {
                            cache_get_portname_buf());
 
     // render
-    app_log_ts(APP_LOG_LEVEL_WARNING, "         2:  gfx_layer_update_callback()");
     draw_box(ctx);
-    app_log_ts(APP_LOG_LEVEL_WARNING, "         3:  gfx_layer_update_callback()");
     draw_tidepoints(ctx); 
-    app_log_ts(APP_LOG_LEVEL_WARNING, "         4:  gfx_layer_update_callback()");
-
     draw_sinewave(ctx);
     
   }  
-  app_log_ts(APP_LOG_LEVEL_WARNING, "fn_exit:  5:  gfx_layer_update_callback()");
-
 }
 
 void print_tide_text_layers (char (*p_state_buf)[8], 
@@ -167,7 +157,7 @@ static void print_portname(char *p_portname)
   
 
   
-  // append offset time to portname 
+  // append offset time to portname  TODO: ...
   if (offset > 0)
     snprintf (display_str,PORTNAME_MAX_CHARS,"%s+%d",p_portname, offset );
   else if (offset < 0)
@@ -188,7 +178,6 @@ static void print_portname(char *p_portname)
 
 
 static void draw_box(GContext* ctx){
- // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_box()");
   
 #ifdef PBL_COLOR
   graphics_context_set_stroke_color(ctx, GColorPictonBlue);
@@ -220,13 +209,12 @@ static void draw_box(GContext* ctx){
 }
 
 static void draw_tidepoints(GContext* ctx){
-   // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_tidepoints()");
 
     if (!config_get_bool(CFG_LINE_GRAPH))
       return;  
   
 #ifdef PBL_COLOR
-    return; // TODO
+    return;  
 #endif
 
     graphics_context_set_fill_color(ctx, colour_fg());
@@ -241,8 +229,6 @@ static void draw_tidepoints(GContext* ctx){
               graphics_draw_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);      
           else
               graphics_fill_circle(ctx, (GPoint){draw_x[i], draw_y[i]} , blob_radius);   
-      
-//           // APP_LOG(APP_LOG_LEVEL_INFO, "          draw_tidepoints, abs:(%d,%d)  ", draw_x[i], draw_y[i] );
     }
 
 }
@@ -251,8 +237,6 @@ static void draw_tidepoints(GContext* ctx){
 
 
 static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
-   // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tidetimes()");
-
     static char text_layer_buffer[128];
   
     // handle server errors, 
@@ -272,15 +256,19 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
       
     // All ok, so write out the data.. but check if first is in the past 
     int style = config_get_intval(CGRAPH_NUM_POINTS);
-    int offset;
+    int offset = 0;
     int time_now_mins = calc_localtime_mins();
     int prev_mins     = time_now_mins;
+
     int tidetime_mins = calc_mins (p_time[0], &prev_mins);
+
     if (tidetime_mins < time_now_mins) {
       style = 3;
       offset = 1;
+
     }
     tidetime_mins = calc_mins (p_time[1], &prev_mins);
+
     if (tidetime_mins < time_now_mins) {
       style = 2;
       offset = 2;
@@ -288,18 +276,10 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
     switch (style){
       case 4:
-// #ifdef PBL_COLOR
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
                  "%s:%s     %s:%s\n    %s:%s      %s:%s\n",
                  p_state[0], p_time[0] ,           p_state[2], p_time[2],
                  p_state[1], p_time[1] ,           p_state[3], p_time[3]);
-// #else
-//         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
-//                  "%s: %s         %s: %s       \n       %s: %s         %s: %s\n",
-//                  p_state[0], p_time[0] ,           p_state[2], p_time[2],
-//                  p_state[1], p_time[1] ,           p_state[3], p_time[3]);
-
-// #endif
         break;
       case 3:
         snprintf(text_layer_buffer, sizeof(text_layer_buffer), 
@@ -328,7 +308,6 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
 
 static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
-   // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
     static char text_layer_buffer1[32];
     static char text_layer_buffer2[32];
     char TODO_info[] = "      ";   //       char TODO_info[] = "Spring";
@@ -378,7 +357,6 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     text_layer_set_text(s_tideheight_text_layer1, text_layer_buffer1);
     text_layer_set_text(s_tideheight_text_layer2, text_layer_buffer2);
   
-   // APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
 }
 
 
@@ -397,8 +375,6 @@ static void convert_m_ft(int meters, char *s_feet, int *i_inches){
   
     *i_inches = ((int) (d_inches/ROUND_NEAREST)) * ROUND_NEAREST; // eg nearest 3"
 
-   // APP_LOG(APP_LOG_LEVEL_WARNING, "        metres=%d,   feet_d=%f  inches_d=%f", meters, d_feet, d_inches);
-   // APP_LOG(APP_LOG_LEVEL_WARNING, "                     feet_s=%s  inches_i=%d",   s_feet, *i_inches);
 }
 
 /* 
@@ -426,7 +402,6 @@ static char* left_side_of_string(char* dest, int h){
 
 
 static void draw_sinewave (GContext* ctx){
- // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  draw_sinewave()");
 
 //   int x = 0;
 //   for (;x<=4; x++) 
@@ -461,6 +436,7 @@ static void draw_sinewave (GContext* ctx){
                     draw_y[3],
                     draw_x[3] + draw_x[2] - draw_x[1],
                     draw_y[2]);
+//   app_log_ts(APP_LOG_LEVEL_WARNING, "         fn_exit:  draw_sinewave()");
 
 }
 
@@ -480,6 +456,14 @@ static void plot_pixel_viewable (GContext* ctx, int xpix, int line_graph, int x,
             graphics_draw_line(ctx, (GPoint){x, y},(GPoint){x, GRAPH_Y_PX+GRAPH_BORDER_PX} );
       }
 }
+  
+// PBL_COLOR only - 3 pixels
+static void plot_pixel_viewable3 (GContext* ctx, int xpix, int line_graph, int x, int y) {
+  
+      if ((x >= GRAPH_BORDER_PX) && (x < xpix + GRAPH_BORDER_PX)) {
+            graphics_draw_line(ctx, (GPoint){x, y},(GPoint){x, GRAPH_Y_PX+GRAPH_BORDER_PX+2} );
+      }
+}
 
 
 static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
@@ -496,30 +480,36 @@ static void plot_quarter_line (GContext* ctx, int x1, int y1, int x2, int y2){
   const int half_pi = TRIG_MAX_ANGLE/4;
   const int      pi = TRIG_MAX_ANGLE/2;
   
- // APP_LOG(APP_LOG_LEVEL_INFO, "         before cache_stale() call  ");
-  cache_stale();
+  
+  // stale data? Dotted (dashed) graph 
   int x_step = cache_stale() ? 3: 1;  // indicate stale data with a dashed graph
- // APP_LOG(APP_LOG_LEVEL_INFO, "         ..after cache_stale() call  ");
 
   
   
-   // TODO - tidy up
-  
-  for (x = 0; x < range_x; x = x + x_step ){
-      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+//  This is the actual drawing bit  
 
 #ifdef PBL_COLOR
-      graphics_context_set_stroke_color(ctx, colour_fg());
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
-
-      graphics_context_set_stroke_color(ctx, colour_bg());
-      plot_pixel_viewable (ctx, _xpix, 0,  x1 + x, y1 + y + 3);
-#else
-      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
-#endif
+  graphics_context_set_stroke_color(ctx, colour_fg());
+  for (x = 0; x < range_x; x = x + x_step ){
+      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;  // TODO: OPTIMISE
+      plot_pixel_viewable3 (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +1);
+//       plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y +2);
   }
+  
+  graphics_context_set_stroke_color(ctx, colour_bg());
+  for (x = 0; x < range_x; x = x + x_step ){
+      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+      plot_pixel_viewable (ctx, _xpix, 0,  x1 + x, y1 + y + 3);
+  }
+  
+#else
+  for (x = 0; x < range_x; x = x + x_step ){
+      y = (range_y/2) + range_y * sin_lookup(-half_pi + pi * x / range_x) / TRIG_MAX_RATIO / 2 ;
+      plot_pixel_viewable (ctx, _xpix, line_graph,  x1 + x, y1 + y);
+  }
+#endif
+
 }
 
 
@@ -638,15 +628,13 @@ static int calc_y_range (char (*p_state_buf)[8], int *p_height_buf, int *min_y, 
 
 // convert HH:MM to elapsed mins since midnight
 static int calc_mins (char *s_hhmm, int *now){
-//   app_log_ts(APP_LOG_LEVEL_INFO, "fn_entry:  calc_mins(%s, %d)", s_hhmm, *now );
-
   int tide_mins = -1;
   int i;
   char s_buf[2];
  
   
   if ( (i = strlen(s_hhmm)) != 5){
-    APP_LOG(APP_LOG_LEVEL_ERROR, "          calc_mins strlen is %d, expecting 5", i);
+   APP_LOG(APP_LOG_LEVEL_ERROR, "          calc_mins strlen is %d, expecting 5", i);
     return -1;
   }
   
@@ -661,25 +649,20 @@ static int calc_mins (char *s_hhmm, int *now){
   // Now lets define this as 6 hrs. That'll be the cache stale time. 
 //  // APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins--->%d", tide_mins );
 
+  
   // we're ahead (cached, link down)
   if ((*now > tide_mins) && ((*now - tide_mins ) < CACHE_MAX_MINS)) {  // by less than 12(6?) hrs
       *now = tide_mins;
-//      // APP_LOG(APP_LOG_LEVEL_INFO, "       (case 1) ");
   } else   
   if ((*now < tide_mins) && ((tide_mins - *now) > CACHE_MAX_MINS)) {   // now after midnight, tide b4  
     tide_mins = tide_mins - MINS_IN_DAY; 
-//    // APP_LOG(APP_LOG_LEVEL_INFO, "       (case 2) ");
-
   } else 
   // we're behind (normal)
   if (abs(tide_mins-*now) > CACHE_MAX_MINS){
     tide_mins = tide_mins + MINS_IN_DAY;
-//    // APP_LOG(APP_LOG_LEVEL_INFO, "       (case 3) ");
-//    // APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins----->%d", tide_mins );
   }
   *now = tide_mins;
-  
-//  // APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", tide_mins );
+
   return tide_mins;
 }
 

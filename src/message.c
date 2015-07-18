@@ -62,16 +62,16 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 }
 
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
+ // APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
 //   graph_data_stale_set(1);
   // TODO print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf); // 'Stale' msg
 }
 
 void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %i - %s", reason, translate_error(reason));
+ // APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %i - %s", reason, translate_error(reason));
   // retry 
   if (--retry_count_out > 0) {
-     APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send RETRY");
+    // APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send RETRY");
      message_send_outbox();
   }
 //   graph_data_stale_set(1);
@@ -97,7 +97,12 @@ int messaging_ready(){
 //  Pebble to phone - this requests a tide update, passes config at same time
 //
 void message_send_outbox() {
+<<<<<<< HEAD
+//     APP_LOG(APP_LOG_LEVEL_WARNING, "message_send_outbox() - BYPASS" );
+//     return;
+=======
    // APP_LOG(APP_LOG_LEVEL_WARNING, "message_send_outbox() - entry" );
+>>>>>>> master
   
     // Begin dictionary
     DictionaryIterator *iter = NULL;
@@ -152,7 +157,7 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   //Tuple *t = dict_read_first(iterator);
   Tuple *t = dict_find(iterator, MSG_TYPE);
   if (t == NULL ){
-       APP_LOG(APP_LOG_LEVEL_ERROR, "     Missing MSG_TYPE key" );
+      // APP_LOG(APP_LOG_LEVEL_ERROR, "     Missing MSG_TYPE key" );
        return 0;
   }
 
@@ -166,7 +171,7 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   if (!strcmp(t->value->cstring,"ready")){
      update_gfx = js_ready (iterator, context);
   } else {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected MSG_TYPE value - %s", t->value->cstring );
+   // APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected MSG_TYPE value - %s", t->value->cstring );
   }
   
   return update_gfx;
@@ -229,7 +234,11 @@ static int js_tides(DictionaryIterator *iterator, void *context){
                cache_set_cachekey (t->value->cstring);
                break;
         default:
+<<<<<<< HEAD
+              // APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
+=======
               APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
+>>>>>>> master
                break;
     }
     // Look for next item
@@ -296,7 +305,7 @@ static int js_config(DictionaryIterator *iterator, void *context){
       case MSG_TYPE:
              break;
        default:
-             APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
+            // APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
              break;
     }
     // Look for next item

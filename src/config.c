@@ -81,7 +81,7 @@ char *config_get_string(int conf_item){
           break;
       
       default:
-          APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_string: Unknown conf_item:%d",conf_item);
+         APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_string: Unknown conf_item:%d",conf_item);
     }
   
     if (persist_exists(conf_item)) {
@@ -123,12 +123,11 @@ int config_get_intval (int conf_item){
      
       case CFG_OFFSET:
           retval = ( persist_exists(conf_item) ? persist_read_int(conf_item) :c_offset);
-//          // APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_int: CFG_OFFSET:%d",retval);
           break;
       
 
       default:
-          APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_intval:  Unknown conf_item:%d",conf_item);
+         APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_intval:  Unknown conf_item:%d",conf_item);
     }
     return retval; 
 }

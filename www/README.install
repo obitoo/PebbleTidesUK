@@ -1,0 +1,21 @@
+touch /var/www/tides/pin_id.txt
+touch /var/www/tides/topics.txt
+
+chmod 777 /var/www/tides/pin_id.txt
+chmod 777 /var/www/tides/topics.txt
+
+
+python
+------
+apt-get install python3-setuptools 
+easy_install3 pip
+pip3 install pypebbleapi
+
+modules: 
+	six
+	requests
+
+
+------------
+curl -X GET https://timeline-api.getpebble.com/v1/user/subscriptions --header "X-User-Token: SBACTtnBhLD2Pig05GxWaT2FqvpwC0i2"
+

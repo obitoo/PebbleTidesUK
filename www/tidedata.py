@@ -15,6 +15,7 @@ import json
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from dateutil import tz
+import subprocess
 
 
 Max_Portname_Length=30
@@ -41,6 +42,7 @@ class public():
      url='http://www.ukho.gov.uk/easytide/EasyTide/ShowPrediction.aspx?PortID='+self.port+'&PredictionLength=7'
      html_doc = urllib2.urlopen(url)#.read()
      
+     #soup = BeautifulSoup(html_doc, "lxml")
      soup = BeautifulSoup(html_doc)
      
      
@@ -135,11 +137,13 @@ class public():
    #
    def adjust_offset(self, offset):
       for element in self.tides_array:
+         #print element
          date_object = datetime.strptime('Jan '+element["day"]+' 2001 ' +element["time"], '%b %d %Y %H:%M')
          date_object = date_object + timedelta(minutes = offset)
          
          element["time"] = date_object.strftime("%H:%M")
          element["day"]  = date_object.strftime("%d")
+         #print element["time"]
 
 
 
@@ -239,6 +243,77 @@ class public():
      print ( ',"portname":"'+self.portname+'"')
      print  ( "}"              )
     
-    
 
+   #
+   # format dict for timeline
+   #  TODO month end
+   #
+   def dictionary(self):
+     array=[]
+     for i in range(0,6):
+       row={}
+       d=datetime.utcnow()
+       #print self.tides_array[i]["time"]
+       d=d.replace (day = int(self.tides_array[i]["day"]))
+       d=d.replace (hour = int(self.tides_array[i]["time"][:2]))
+       d=d.replace (minute = int(self.tides_array[i]["time"][3:]))
+#       d=d.replace (second = 0)
+#       d=d.replace (microsecond = 0)
+#       d=d.replace (tzinfo = 'Z')
+
+       row["state"]=self.tides_array[i]["state"]
+       row["datetime"]=d
+       row["height"]=float(self.tides_array[i]["height"])/10
+       row["portname"]=self.portname
+
+       array.append(row)
+
+     return array
+
+   # 
+   # Topic subs - TODO - sql. 
+   #              TODO - this design can't work out when a topic no longer has any subscribers. 
+   # 
+   def store_timeline_subscription( self, sub_hi, sub_lo, port_no, utc_offset):
+      if (sub_hi == "on"):
+         topic =  "hi_" + port_no + "_" + str(utc_offset)
+         
+         # new topic? Then publish
+         if (self.store_topic (topic)):
+             self.publish(topic, "publish.hi.log")
+
+      if (sub_lo == "on"):
+         topic =  "lo_" + port_no + "_" + str(utc_offset)
+
+         # new topic? Then publish
+         if (self.store_topic (topic)):
+             self.publish(topic,"publish.lo.log")
+
+
+
+   # If its a new topic, return 1
+   def store_topic (self, topic):
+      filename="/var/www/tides/topics.txt"
+
+      with open(filename, "r") as f:
+         for line in f:
+           if (line.rstrip() == topic):
+              return 0
+
+      # if not, append
+      with open(filename, "a") as f:
+         f.write(topic+'\n')
+      return 1
+
+   #
+   # Call the script we use from cron. Takes a while so don't wait
+   #
+
+   def publish (self, topic, logfilename):
+
+      path = '/home/owen/tides/prod'
+      f = open (path + '/' + logfilename , "a+")
+      path = '/usr/lib/cgi-bin/tides/'
+      subprocess.Popen( [path + '/timeline_get_tide.py', '-t', topic], stdout=f, stderr=f)
+      # thats it. Close file? 
 

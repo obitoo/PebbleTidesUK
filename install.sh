@@ -31,6 +31,26 @@ install()
  fi
 
 }
+install_portlist()
+{
+ src=$1
+ dest=$2/$(basename $1)
+
+
+ diff $src $dest > /dev/null
+ if [ $? -eq 0 ]
+ then
+    echo -n "."
+ else
+    echo "Warning - files differ"
+    echo "install $1 to $2 ?"
+    read
+    cp $1 $2
+    echo "ok"
+ fi
+
+}
+
 
 ##
 ##  Git local copy
@@ -40,7 +60,7 @@ gitdir=/home/owen/tides/PebbleTidesUK/www
 ##
 ## Straight html
 ##
-for f in config.html  config3.html config32.html
+for f in config32.html config32_col.html
 do
    install $gitdir/$f /var/www/tides
 done
@@ -48,7 +68,7 @@ done
 ##
 ## cgi scripts
 ##
-for f in get_tide.py  scrape_easytide.py  tidedata.py ajax-getports.py
+for f in get_tide.py  scrape_easytide.py  tidedata.py ajax-getports.py timeline_get_tide.py timeline.py
 do
    install $gitdir/$f /usr/lib/cgi-bin/tides
 done
@@ -56,8 +76,7 @@ done
 ## tide files
 for f in $gitdir/portlists/*
 do
-   echo "copying $f"
-   install $f /usr/lib/cgi-bin/tides/portlists/
+   install_portlist $f /usr/lib/cgi-bin/tides/portlists/
 done
 
 
@@ -65,7 +84,7 @@ done
 ## util scripts
 ##
 gitdir=/home/owen/tides/PebbleTidesUK/prod_util
-for f in analyse_apache_logs.sh
+for f in analyse_apache_logs.sh timeline_get_tide.cron.sh
 do
    install $gitdir/$f /home/owen/tides/prod
 done
