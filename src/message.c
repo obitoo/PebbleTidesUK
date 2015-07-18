@@ -97,13 +97,7 @@ int messaging_ready(){
 //  Pebble to phone - this requests a tide update, passes config at same time
 //
 void message_send_outbox() {
-<<<<<<< HEAD
-//     APP_LOG(APP_LOG_LEVEL_WARNING, "message_send_outbox() - BYPASS" );
-//     return;
-=======
-   // APP_LOG(APP_LOG_LEVEL_WARNING, "message_send_outbox() - entry" );
->>>>>>> master
-  
+ 
     // Begin dictionary
     DictionaryIterator *iter = NULL;
     app_message_outbox_begin(&iter);
@@ -234,11 +228,7 @@ static int js_tides(DictionaryIterator *iterator, void *context){
                cache_set_cachekey (t->value->cstring);
                break;
         default:
-<<<<<<< HEAD
-              // APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
-=======
               APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
->>>>>>> master
                break;
     }
     // Look for next item
