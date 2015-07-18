@@ -123,7 +123,6 @@ int config_get_intval (int conf_item){
      
       case CFG_OFFSET:
           retval = ( persist_exists(conf_item) ? persist_read_int(conf_item) :c_offset);
-//          APP_LOG(APP_LOG_LEVEL_ERROR, "config_get_int: CFG_OFFSET:%d",retval);
           break;
       
 

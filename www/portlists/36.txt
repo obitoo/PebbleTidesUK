@@ -233,6 +233,53 @@ optgroup, Canada
 9136,Sand Heads 
 9142,Tsawwassen 
 optgroup, Vancouver Island
+9016,Alert Bay
+9018,Port Mcneill
+9020,Port Hardy
+9022,Shushartie Bay
+9023,Cape Scott
+9026,Winter Harbour, Canada
+9027,Quatsino
+9030,Klaskish Inlet
+9032,Nasparti Inlet
+9036,Kyuquot
+9040,Ceepeecee
+9042,Saavedra Islands
+9047,Riley Cove
+9050,TOFINO
+9053,Ucluelet
+9055,Bamfield Inlet
+9057,PORT ALBERNI
+9059,Carmanah Point
+9060,Port San Juan (Port Renfrew)
+9061,Point No Point (Vancouver Island)
+9062,Sooke
+9063,Pedder Bay
+9064,Esquimalt
+9065,VICTORIA
+9066,Oak Bay
+9067,Sidney
+9068,Patricia Bay
+9069,Brentwood Bay
+9070,Cowichan Harbour
+9071,Fulford Harbour
+9072,Narvaez Bay
+9073,Tumbo Channel
+9074,Mayne Island (Village Bay)
+9075,Miners Bay
+9076,Porlier Pass
+9077,Maple Bay
+9078,Crofton
+9079,CHEMAINUS
+9080,Ladysmith
+9082,Silva Bay
+9084,Harmac
+9085,Nanaimo
+9086,Nanoose
+9092,Comox
+9094,Campbell River
+9095,Duncan Bay
+9096,Bloedel
 optgroup, Canadian Arctic
 3311,Brevoort Harbour 
 3312,Cumberland Sound 

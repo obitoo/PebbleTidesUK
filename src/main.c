@@ -267,7 +267,6 @@ static void mainwindow_unload(Window *window) {
   // Destroy textlayers
   text_layer_destroy(s_time_layer);
   text_layer_destroy(s_date_layer);
-
   text_layer_destroy(s_tidetimes_text_layer);
   text_layer_destroy(s_tideheight_text_layer1);
   text_layer_destroy(s_tideheight_text_layer2);

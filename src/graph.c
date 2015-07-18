@@ -308,7 +308,6 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
 
 
 static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr){
-//    // APP_LOG(APP_LOG_LEVEL_INFO, "fn_entry:  print_tideheights()");
     static char text_layer_buffer1[32];
     static char text_layer_buffer2[32];
     char TODO_info[] = "      ";   //       char TODO_info[] = "Spring";
@@ -358,7 +357,6 @@ static void print_tideheights(char (*p_state)[8], int *p_height, char *p_timestr
     text_layer_set_text(s_tideheight_text_layer1, text_layer_buffer1);
     text_layer_set_text(s_tideheight_text_layer2, text_layer_buffer2);
   
-//    // APP_LOG(APP_LOG_LEVEL_INFO, "fn_exit:  print_tideheights()");
 }
 
 
@@ -377,8 +375,6 @@ static void convert_m_ft(int meters, char *s_feet, int *i_inches){
   
     *i_inches = ((int) (d_inches/ROUND_NEAREST)) * ROUND_NEAREST; // eg nearest 3"
 
-//    // APP_LOG(APP_LOG_LEVEL_WARNING, "        metres=%d,   feet_d=%f  inches_d=%f", meters, d_feet, d_inches);
-//    // APP_LOG(APP_LOG_LEVEL_WARNING, "                     feet_s=%s  inches_i=%d",   s_feet, *i_inches);
 }
 
 /* 
@@ -406,8 +402,6 @@ static char* left_side_of_string(char* dest, int h){
 
 
 static void draw_sinewave (GContext* ctx){
-//   app_log_ts(APP_LOG_LEVEL_WARNING, "         fn_entry:  draw_sinewave()");
-
 
 //   int x = 0;
 //   for (;x<=4; x++) 
@@ -605,7 +599,7 @@ static int calc_localtime_mins(){
     time_now_mins=DEBUG_TIME_NOW_MINS;
   #endif
     
-  APP_LOG(APP_LOG_LEVEL_INFO, "calc_localtime_mins = %d ", time_now_mins);
+//  // APP_LOG(APP_LOG_LEVEL_INFO, "calc_localtime_mins = %d ", time_now_mins);
   return time_now_mins;
 }
 
@@ -653,6 +647,7 @@ static int calc_mins (char *s_hhmm, int *now){
 
   // tomorrow?  but allow 60 mins grace, in case we're a bit ahead of the webdata
   // Now lets define this as 6 hrs. That'll be the cache stale time. 
+//  // APP_LOG(APP_LOG_LEVEL_INFO, "       calc_mins--->%d", tide_mins );
 
   
   // we're ahead (cached, link down)
@@ -667,8 +662,7 @@ static int calc_mins (char *s_hhmm, int *now){
     tide_mins = tide_mins + MINS_IN_DAY;
   }
   *now = tide_mins;
-  
-//  APP_LOG(APP_LOG_LEVEL_INFO, "calc_mins->%d", tide_mins );
+
   return tide_mins;
 }
 
