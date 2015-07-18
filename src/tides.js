@@ -63,6 +63,15 @@ Pebble.addEventListener('ready',   function(e) {
        "cfg_offset"         : "0",
        "cfg_show_feet"      : "off"
     };  
+    // save to localStorage, if not already set
+    for (var key in config_defaults) {
+      var val = localStorage[key];
+      if (val === null || (val === undefined)){
+          localStorage[key]=config_defaults[key];
+          console.log ("localStorage["+key+"] initialised ");
+      }
+    }
+  
   
 //     timeline_data = {
 //       "sub_hi"              : "on",
@@ -145,18 +154,18 @@ function send_ready(){
 Pebble.addEventListener("showConfiguration", function() {
   console.log("--showConfiguration event");
   
-  // Different config page for Pebble Time
-//   var colorCapable = ((typeof Pebble.getActiveWatchInfo === "function") && Pebble.getActiveWatchInfo().platform!='aplite');
-//   console.log("     colorCapable = "+colorCapable);
+  // Different config page for Pebble Time. Doesnt work in the emulator ffs
+  var colorCapable = ((typeof Pebble.getActiveWatchInfo === "function") && Pebble.getActiveWatchInfo().platform!='aplite');
+  console.log("     colorCapable = "+colorCapable);
 
   
-//   // Load up the stored options
+  // Load up the stored options
   var url;
-//   if (!colorCapable) {
-//     url = config_url;
-//   } else {
+  if (!colorCapable) {
+    url = config_url;
+  } else {
     url = config_url_col;
-//   }
+  }
   
   
   for (var key in config_defaults) {
@@ -212,7 +221,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
   
   
   var config = JSON.parse(decodeURIComponent(e.response));
-//   console.log("  Options = " + JSON.stringify(config));
+  console.log("  Options = " + JSON.stringify(config));
   
 //   // messy. TODO - little fn
 //   var old_port = localStorage.cfg_port;
@@ -225,7 +234,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
   // save to local storage. Might be empty though
   for (var key in config) {
     localStorage.setItem(key, config[key]);
-//     console.log("  save config to localstorage:"+key+" = "+config[key]);
+    console.log("  save config to localstorage:"+key+" = "+config[key]);
 	}
   localStorage.setItem("sub_hi", config.sub_hi);
   localStorage.setItem("sub_lo", config.sub_lo);
@@ -351,8 +360,8 @@ Pebble.addEventListener('appmessage',   function(e) {
 
     // config 
     if (e.payload !== null) {
-//         console.log("   got payload");
-//         console.log(JSON.stringify(e.payload));
+        console.log("   got payload");
+        console.log(JSON.stringify(e.payload));
      
         // store old value 
         old_port = localStorage.getItem("cfg_port").split(':')[1];
