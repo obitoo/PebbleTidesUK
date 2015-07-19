@@ -83,7 +83,7 @@ Pebble.addEventListener('ready',   function(e) {
     // Initialise - subscribe to high tides only
   console.log ("Timeline: localStorage.sub_hi = "+localStorage.sub_hi);
     if (localStorage.sub_hi === undefined || localStorage.sub_hi === null){
-           localStorage.setItem("sub_hi","on");
+           localStorage.setItem("sub_hi","off");
         console.log ("Timeline: localStorage.sub_hi = "+localStorage.sub_hi);
 
     }
