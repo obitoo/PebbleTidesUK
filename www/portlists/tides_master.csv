@@ -1,1 +1,265 @@
-/mnt/raid1/devel/tides/tides_master.csv
+total,ID,Country,Mapped,ID
+7,1, Admiralty Island, ,#N/A
+81,2, Alaska, Alaska,2
+5,3, Alaska (North), Alaska,2
+2,4, Albania, Albania,4
+24,5, Aleutian Islands, ,#N/A
+1,6, Algeria, Algeria,6
+14,7, Andaman Islands, ,#N/A
+19,8, Angola, Angola,8
+46,9, Antarctica, Antarctica,9
+12,10, Archipelago de los Chonos, ,#N/A
+73,11, Argentina, Argentina,11
+1,12, Aruba, Aruba,12
+351,13, Australia, Australia,13
+144,14, Australia East Coast, Australia,13
+89,15, Australia North Coast, Australia,13
+78,16, Australia South Coast, Australia,13
+7,17, Azores,Portugal,189
+25,18, Bahama Islands, Bahama Islands,18
+6,19, Bahrain, Bahrain,19
+7,20, Bali,Indonesia,262
+19,21, Bangladesh, Bangladesh,21
+1,22, Banks Islands, ,#N/A
+10,23, Baranof Island, ,#N/A
+5,24, Belgium, Belgium,24
+10,25, Belitung, ,#N/A
+4,26, Belize, Belize,26
+2,27, Benin, Benin,27
+3,28, Bermuda, Bermuda,28
+12,29, Bismarck Archipelago, ,#N/A
+1,30, Bonaire, Bonaire,30
+68,31, Brazil, Brazil,31
+4,32, Brunei, Brunei,32
+45,33, Burma, Burma,33
+3,34, Cambodia, Cambodia,34
+10,35, Cameroon, Cameroon,35
+291,36, Canada, Canada,36
+30,37, Vancouver Island, Canada,36
+35,38, Canadian Arctic, Canada,36
+8,39, Canary Islands, Canary Islands,39
+11,40, Cape Verde Islands, Cape Verde Islands,40
+15,41, Caroline Islands, ,#N/A
+1,42, Cayman Islands, Cayman Islands,42
+2,43, Central China Sea Reefs, ,#N/A
+5,44, Chagos Archipelago, ,#N/A
+6,45, Channel Islands,United Kingdom,263
+11,46, Chicagof Island, ,#N/A
+58,47, Chile, Chile,47
+203,48, China, China,48
+1,49, Coco Group, ,#N/A
+14,50, Colombia, Colombia,50
+5,51, Comoro Islands, ,#N/A
+4,52, Cook Islands North, ,#N/A
+3,53, Cook Islands South, ,#N/A
+1,54, Corsica, Corsica,54
+10,55, Costa Rica, Costa Rica,55
+5,56, Cote D'Ivoire, Cote D'Ivoire,56
+11,57, Croatia, Croatia,57
+23,58, Cuba, Cuba,58
+1,59, Curacao, Curacao,59
+3,60, Cyprus, Cyprus,60
+17,61, Denmark, Denmark,61
+3,62, Djibouti, ,#N/A
+4,63, Dominican Republic, Dominican Republic,63
+3,64, East Timor, East Timor,64
+20,65, Ecuador, Ecuador,65
+15,66, Egypt, Egypt,66
+196,67, England, England,67
+6,68, Equatorial Guinea, Equatorial Guinea,68
+5,69, Eritrea, Eritrea,69
+15,70, Faeroe Islands, Faeroe Islands,70
+18,71, Falkland Islands, Falkland Islands,71
+30,72, Fiji Islands, Fiji Islands,72
+9,73, Flores,Indonesia,262
+124,74, France, France,74
+3,75, Franz Josef Land, ,#N/A
+8,76, French Guiana, French Guiana,76
+6,77, Gabon, ,#N/A
+41,78, Germany, Germany,78
+9,79, Ghana, Ghana,79
+9,80, Graham Island, ,#N/A
+7,81, Grecian Archipelago, Greece,82
+8,82, Greece, Greece,82
+12,83, Greenland East Coast,Greenland,262
+21,84, Greenland West Coast,Greenland,262
+3,85, Guatemala, Guatemala,85
+61,86, Guinea, Guinea,86
+13,87, Guinea-Bissau, ,#N/A
+17,88, Guyana, Guyana,88
+2,89, Haiti, Haiti,89
+9,90, Halmahera, Halmahera,90
+24,91, Hawaiian Islands, Hawaiian Islands,91
+5,92, Honduras, Honduras,92
+58,93, Iceland, Iceland,93
+2,94, Iles Australes, ,#N/A
+5,95, Iles de la Societe, ,#N/A
+4,96, Iles Loyaute, ,#N/A
+4,97, Iles Marquises, ,#N/A
+36,98, India East Coast,India,262
+2,99, Indian Ocean Islands,India,262
+3,100, India South Coast,India,262
+68,101, India West Coast,India,262
+27,102, Iran, Iran,102
+9,103, Iraq, Iraq,103
+119,104, Ireland, Ireland,104
+4,105, Isle of Man,United Kingdom,263
+3,106, Israel, Israel,106
+31,107, Italy, Italy,107
+10,108, Jamaica, Jamaica,108
+2,109, Jan Mayen, ,#N/A
+383,110, Japan, Japan,110
+20,111, Japan Hokkaido East Coast, ,#N/A
+6,112, Japan Hokkaido North-East Coast, ,#N/A
+12,113, Japan Hokkaido West Coast, ,#N/A
+38,114, Japan Honshu East Coast, ,#N/A
+103,115, Japan Honshu South Coast, ,#N/A
+49,116, Japan Honshu West Coast, ,#N/A
+12,117, Japan Kyushu East Coast, ,#N/A
+13,118, Japan Kyushu North Coast, ,#N/A
+41,119, Japan Kyushu West Coast, ,#N/A
+11,120, Japan Nanpo Shoto, ,#N/A
+29,121, Japan Nansei Shoto, ,#N/A
+21,122, Japan Shikoku North Coast, ,#N/A
+11,123, Japan Shikoku West and South Coasts, ,#N/A
+9,124, Jawa East Coast, Jawa East Coast,124
+15,125, Jawa North Coast, ,#N/A
+4,126, Jawa South Coast, ,#N/A
+2,127, Jordan, Jordan,127
+49,128, Kalimantan, ,#N/A
+8,129, Kenya, Kenya,129
+13,130, Kiribati, ,#N/A
+19,131, Korea East Coast,Korea,262
+65,132, Korea West Coast,Korea,262
+4,133, Kuiu Island, ,#N/A
+7,134, Kupreanof Island, ,#N/A
+23,135, Kuril Islands, ,#N/A
+6,136, Kuwait, Kuwait,136
+56,137, Labrador, ,#N/A
+3,138, Lakshadweep, ,#N/A
+3,139, La Reunion, ,#N/A
+2,140, Lebanon, Lebanon,140
+12,141, Leeward Islands, Leeward Islands,141
+10,142, Liberia, Liberia,142
+5,143, Libya, Libya,143
+6,144, Line Islands, ,#N/A
+4,145, Lingga Kepulauan, ,#N/A
+6,146, Lombok, Lombok,146
+14,147, Louisiade Archipelago, ,#N/A
+49,148, Madagascar, Madagascar,148
+6,149, Madeira Islands, ,#N/A
+8,150, Madura, Madura,150
+7,151, Maldive Islands,Republic of Maldives,262
+1,152, Malta, Malta,152
+4,153, Marianas Islands, ,#N/A
+15,154, Marshall Islands, ,#N/A
+4,155, Mauritania, Mauritania,155
+5,156, Mauritius Group, Mauritius Group,156
+56,157, Mexico, Mexico,157
+4,158, Mexico (Caribbean), Mexico,157
+10,159, Mexico (Gulf), Mexico,157
+2,160, Mid South Atlantic Islands, ,#N/A
+1,161, Monaco, Monaco,161
+2,162, Montenegro, Montenegro,162
+6,163, Moresby Island, ,#N/A
+20,164, Morocco, Morocco,164
+35,165, Mozambique, Mozambique,165
+6,166, Namibia, Namibia,166
+33,167, Netherlands, Netherlands,167
+23,168, New Caledonia, New Caledonia,168
+59,169, Newfoundland, ,#N/A
+64,170, New Zealand North Island, New Zealand North Island,168
+54,171, New Zealand South Island, ,#N/A
+9,172, Nicaragua, Nicaragua,172
+5,173, Nicobar Islands, ,#N/A
+32,174, Nigeria, Nigeria,174
+22,175, Northern Ireland,United Kingdom,263
+160,176, Norway, Norway,176
+30,177, Oman, Oman,177
+2,178, Pacific Ocean Islands, ,#N/A
+7,179, Pakistan, Pakistan,179
+5,180, Palau Islands, ,#N/A
+18,181, Panama, Panama,181
+89,182, Papua, ,#N/A
+35,183, Papua New Guinea, Papua New Guinea,183
+19,184, Peninsular Malaysia East Coast,Malaysia,262
+11,185, Peninsular Malaysia South Coast,Malaysia,262
+34,186, Peninsular Malaysia West Coast,Malaysia,262
+25,187, Peru, Peru,187
+127,188, Philippine Islands, Philippine Islands,188
+24,189, Portugal, Portugal,189
+23,190, Prince of Wales Island, ,#N/A
+4,191, Puerto Rico, Puerto Rico,191
+10,192, Pulau Bangka, ,#N/A
+15,193, Qatar, Qatar,193
+17,194, Republic of Yemen, Republic of Yemen,194
+8,195, Revillagigedo Island, ,#N/A
+7,196, Riau Kepulauan, ,#N/A
+121,197, Russia, Russia,197
+24,198, Sabah, ,#N/A
+20,199, Sakhalin East Coast, ,#N/A
+15,200, Sakhalin West Coast, ,#N/A
+6,201, Salvador, Salvador,201
+9,202, Samoa Islands, ,#N/A
+4,203, Santa Cruz Islands, ,#N/A
+2,204, Sao Tome e Principe, Sao Tome e Principe,204
+27,205, Sarawak, Sarawak,205
+3,206, Sardinia, Sardinia,206
+20,207, Saudi Arabia, Saudi Arabia,207
+166,208, Scotland,United Kingdom,263
+8,209, Senegal, Senegal,209
+12,210, Sermata Eilanden, ,#N/A
+13,211, Seychelles, ,#N/A
+37,212, Siberia, Siberia,212
+9,213, Sierra Leone, Sierra Leone,213
+8,214, Singapore, Singapore,214
+1,215, Slovenia, Slovenia,215
+36,216, Solomon Islands, ,#N/A
+14,217, Somalia, ,#N/A
+21,218, South Africa, South Africa,218
+52,219, Spain, Spain,219
+12,220, Sri Lanka, Sri Lanka,220
+3,221, Sudan, ,#N/A
+19,222, Sulawesi East Coast, ,#N/A
+4,223, Sulawesi North Coast, ,#N/A
+23,224, Sulawesi West Coast, ,#N/A
+16,225, Sulu Archipelago, ,#N/A
+6,226, Sumatera East Coast,Sumatra,262
+33,227, Sumatera North East Coast,Sumatra,262
+24,228, Sumatera South West Coast,Sumatra,262
+6,229, Sumba,Indonesia,262
+4,230, Sumbawa, ,#N/A
+4,231, Suqutra, ,#N/A
+5,232, Suriname, ,#N/A
+16,233, Svalbard, ,#N/A
+19,234, T'ai-Wan, ,#N/A
+22,235, Tanzania, Tanzania,235
+23,236, Tasmania, Tasmania,236
+35,237, Thailand, Thailand,237
+13,238, Thailand West Coast, Thailand West Coast,238
+1,239, The Congo, The Congo,239
+9,240, The Gambia, ,#N/A
+15,241, The Molucca Islands, ,#N/A
+5,242, Timor, Timor,242
+4,243, Tobago, Tobago,243
+1,244, Togo, ,#N/A
+1,245, Tokelau, ,#N/A
+4,246, Tonga Islands, ,#N/A
+15,247, Trinidad, Trinidad,247
+10,248, Tuamoto (Low) Archipelago, ,#N/A
+8,249, Tudjuh Kepulauan, ,#N/A
+17,250, Tunisia, Tunisia,250
+3,251, Turkey, Turkey,251
+2,252, Turks Islands, ,#N/A
+1,253, Tuvalu, Tuvalu,253
+28,254, United Arab Emirates, United Arab Emirates,254
+328,255, United States, United States,255
+8,256, Uruguay, Uruguay,256
+12,257, Vanuatu, ,#N/A
+14,258, Venezuela, Venezuela,258
+69,259, Vietnam, Vietnam,259
+69,260, Wales,United Kingdom,263
+3,261, Western Sahara, ,#N/A
+9,262, Windward Islands, ,#N/A
+,263,United Kingdom,United Kingdom,263
+,264,Indonesia,Indonesia,262 
