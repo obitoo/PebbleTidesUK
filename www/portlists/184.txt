@@ -1,0 +1,93 @@
+optgroup, Peninsular Malaysia East Coast
+4879,Tanjung Penawar 
+4881,Tanjung Sedili Kechil 
+4882,Tanjung Sedili Besar 
+4886,Pulau Babi Besar 
+4887,Mersing 
+4889,Teluk Tekek 
+4892,Kuala Rompin 
+4894,Pulau Berhala 
+4895,Kuala Pahang 
+4896,Kuantan 
+4897,Sungai Kemaman 
+4898,Kertih Terminal 
+4899,Kuala Dungun 
+4901,CHENDERING 
+4902,Kuala Terengganu 
+4904,Setiu 
+4907,Sungai Besut 
+4910,Tumpat 
+4911,Geting 
+optgroup, Peninsular Malaysia South Coast
+4710,Tanjung Pelepas 
+4711,Tanjung Bunga 
+4712,Putri Narrows 
+4713,Johor Bahru (West Side Of Causeway) 
+4730,Teluk Sengat 
+4731,Tanjung Surat 
+4733,Tanjung Serindet 
+4734,Sungai Belungkor 
+4735,Tanjung Pengelih 
+4736,Tanjung Ayam 
+4737,Ramunia Jetty 
+optgroup, Peninsular Malaysia West Coast
+4654,Pelabuhan Kuah 
+4655,Pulau Beras Basah 
+4656,Teluk Datai 
+4657,Teluk Ewa 
+4658,Kuala Perlis 
+4659,Pulau Bidan 
+4660,Tanjung Dawai 
+4663,PINANG (GEORGETOWN) 
+4664,Pulau Rimau 
+4670,Port Weld 
+4674,Lumut Pier 
+4675,Pulau Katak 
+4676,Pulau Jarak 
+4678,Bagan Datuk 
+4679,Teluk Intan 
+4680,Kuala Bernam 
+4683,Kuala Selangor 
+4684,Pulau Angsa 
+4686,PELABUHAN KLANG 
+4688,Pintu Gedong 
+4689,Permatang Sedepa (One Fathom Bank) 
+4690,Pulau Jemur 
+4693,Tanjung Gabang 
+4695,PORT DICKSON 
+4696,Cape Rachado 
+4698,Tanjung Keling 
+4699,Melaka 
+4701,Pulau Undan 
+4702,Muar 
+4703,Parit Jawa 
+4704,KUALA BATU PAHAT 
+4705,Tanjung Laboh 
+4707,Pulau Pisang 
+4708,Tanjung Piai 
+optgroup, Sabah
+5097,Wallace Bay 
+5099,Tawau 
+5101,Pakalangan 
+5103,Semporna 
+5105,Kunak 
+5107,Lahad Datu 
+5108,Bakapit 
+5111,Tambisan Island 
+5113,Kinabatangan 
+5115,SANDAKAN 
+5117,Labuk Bay 
+5118,Pulau Lankayan 
+5121,Pulau Tigabu 
+5122,Pulau Banggi 
+5125,Kudat 
+5127,Pulau Mantanani Besar 
+5130,Pulau Mangalum 
+5132,KOTA KINABALU 
+5133,Kuala Papar 
+5134,Tiga 
+5136,Pulau Keraman 
+5137,LABUAN (VICTORIA HARBOUR) 
+5138,Weston 
+5139,Sipitang 
+

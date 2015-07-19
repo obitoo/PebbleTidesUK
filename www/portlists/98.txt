@@ -1,0 +1,97 @@
+optgroup, India East Coast
+4447,Nagappattinam 
+4448,Porto Novo 
+4449,Cuddalore 
+4450,Pondicherry 
+4452,CHENNAI (MADRAS) 
+4457,Machilipatnam 
+4459,Sacramento Shoal 
+4461,Kakinada 
+4463,Vishakhapatnam 
+4464,Bhimunipatnam 
+4466,Kalingapatnam 
+4468,Baruva 
+4469,Gopalpur 
+4471,Chilka Mouth 
+4472,Kushabhadra River 
+4473,Devi River Entrance 
+4474,False Point 
+4475,Shortt Island 
+4476,Chandbali 
+4481,SAGAR ROADS 
+4482,Gangra Semaphore 
+4484,Diamond Harbour 
+4486,Moyapur 
+4488,Kolkata (Garden Reach) 
+optgroup, Indian Ocean Islands
+4628,Cocos Islands (Home Island) 
+4629,Christmas Island (Indian Ocean) 
+optgroup, India South Coast
+4422,Kulasekarapatnam 
+4423,Tuticorin 
+4425,Pamban Pass 
+optgroup, India West Coast
+4325,Kori Creek Entrance 
+4326,Lakhpat 
+4327,Godia Creek 
+4328,Mandvi 
+4329,Navinal Point (Mundra) 
+4330,Kandla Harbour 
+4331,Navlakhi 
+4332,Hansthal Creek 
+4333,Rozi 
+4334,Salaya Harbour 
+4335,OKHA 
+4336,Dwarka (Rupen Bandar) 
+4337,Miyani 
+4338,Porbandar 
+4340,Veraval 
+4341,Nawabandar 
+4342,Jafarabad 
+4343,Pipavav Bandar 
+4344,SULTANPUR 
+4346,BHAVNAGAR 
+4349,Dahej Bandar 
+4350,Ambheta 
+4351,Mehegam 
+4352,Bharuch 
+4353,Suvali 
+4354,TAPI RIVER (HAZIRA) 
+4355,Valsad 
+4356,Dahanu 
+4357,Satpati 
+4358,Vasai (Bassein) 
+4359,MUMBAI (BOMBAY) 
+4360,Trombay 
+4362,Mora (Karanja) 
+4363,Rewas Bandar 
+4364,Revadanda (Chaul) 
+4365,Murud-Janjira Harbour 
+4366,Bankot 
+4367,Port Dabhol 
+4368,Jaigarh 
+4369,Ratnagiri Bay 
+4370,Musakazi Point 
+4372,Vijayadurg Harbour 
+4373,Devgarh 
+4374,Malvan 
+4375,Vengurla 
+4377,Mormugao 
+4378,Betul 
+4379,Karwar 
+4380,Kumta 
+4381,Bhatkal 
+4382,Coondapoor 
+4383,Malpe 
+4385,New Mangalore 
+4386,Kasaragod 
+4387,Cannanore 
+4388,Tellicherry 
+4389,Calicut 
+4390,Beypore 
+4391,Ponnani 
+4393,KOCHI (COCHIN) 
+4394,Alleppey 
+4395,Quilon 
+4396,Trivandrum 
+4397,Muttam Point 

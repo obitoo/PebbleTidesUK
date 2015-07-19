@@ -1,0 +1,6 @@
+optgroup, Maldive Islands
+4402,Ihavandhoo
+4404,Goidhoo Atoll
+4405,Male
+4410,Addoo Atoll
+

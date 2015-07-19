@@ -1,0 +1,30 @@
+optgroup, Greenland East Coast
+3441,Finnsbu 
+3443,Ammassalik 
+3446,Danmark Island 
+3447,Cape Tobin 
+3448,Finsch Island 
+3449,Zackenberg 
+3452,Danmarks Havn 
+3454,Kap Holbaek 
+3455,Jorgen Bronlund Fjord 
+3456,Kap Morris Jesup 
+optgroup, Greenland West Coast
+3413,Cape Bryant 
+3414,Thank God Harbour 
+3416,Renselaer Bay 
+3417,Port Foulke 
+3419,North Star Bay 
+3423,Quamarujuk 
+3424,Godhavn 
+3425,Kronprinsens Ejland 
+3426,Egedesminde 
+3428,Rifkol Island 
+3429,Holsteinsborg 
+3430,Manitsoq 
+3431,Godthaab (Nuuk) 
+3432,Faeringehavn 
+3433,Frederikshaab 
+3434,Gronnedal 
+3435,Julianehaab 
+3437,Nanortalik 

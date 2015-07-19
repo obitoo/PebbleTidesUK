@@ -81,8 +81,8 @@ total,ID,Country,Mapped,ID
 9,80, Graham Island, ,#N/A
 7,81, Grecian Archipelago, Greece,82
 8,82, Greece, Greece,82
-12,83, Greenland East Coast,Greenland,262
-21,84, Greenland West Coast,Greenland,262
+12,83, Greenland East Coast,Greenland,83
+21,84, Greenland West Coast,Greenland,83
 3,85, Guatemala, Guatemala,85
 61,86, Guinea, Guinea,86
 13,87, Guinea-Bissau, ,#N/A
@@ -96,10 +96,10 @@ total,ID,Country,Mapped,ID
 5,95, Iles de la Societe, ,#N/A
 4,96, Iles Loyaute, ,#N/A
 4,97, Iles Marquises, ,#N/A
-36,98, India East Coast,India,262
-2,99, Indian Ocean Islands,India,262
-3,100, India South Coast,India,262
-68,101, India West Coast,India,262
+36,98, India East Coast,India,98
+2,99, Indian Ocean Islands,India,98
+3,100, India South Coast,India,98
+68,101, India West Coast,India,98
 27,102, Iran, Iran,102
 9,103, Iraq, Iraq,103
 119,104, Ireland, Ireland,104
@@ -129,8 +129,8 @@ total,ID,Country,Mapped,ID
 49,128, Kalimantan, ,#N/A
 8,129, Kenya, Kenya,129
 13,130, Kiribati, ,#N/A
-19,131, Korea East Coast,Korea,262
-65,132, Korea West Coast,Korea,262
+19,131, Korea East Coast,Korea,131
+65,132, Korea West Coast,Korea,131   
 4,133, Kuiu Island, ,#N/A
 7,134, Kupreanof Island, ,#N/A
 23,135, Kuril Islands, ,#N/A
@@ -149,7 +149,7 @@ total,ID,Country,Mapped,ID
 49,148, Madagascar, Madagascar,148
 6,149, Madeira Islands, ,#N/A
 8,150, Madura, Madura,150
-7,151, Maldive Islands,Republic of Maldives,262
+7,151, Maldive Islands,Republic of Maldives,151
 1,152, Malta, Malta,152
 4,153, Marianas Islands, ,#N/A
 15,154, Marshall Islands, ,#N/A
@@ -182,9 +182,9 @@ total,ID,Country,Mapped,ID
 18,181, Panama, Panama,181
 89,182, Papua, ,#N/A
 35,183, Papua New Guinea, Papua New Guinea,183
-19,184, Peninsular Malaysia East Coast,Malaysia,262
-11,185, Peninsular Malaysia South Coast,Malaysia,262
-34,186, Peninsular Malaysia West Coast,Malaysia,262
+19,184, Peninsular Malaysia East Coast,Malaysia,184
+11,185, Peninsular Malaysia South Coast,Malaysia,184
+34,186, Peninsular Malaysia West Coast,Malaysia,184
 25,187, Peru, Peru,187
 127,188, Philippine Islands, Philippine Islands,188
 24,189, Portugal, Portugal,189
@@ -196,7 +196,7 @@ total,ID,Country,Mapped,ID
 8,195, Revillagigedo Island, ,#N/A
 7,196, Riau Kepulauan, ,#N/A
 121,197, Russia, Russia,197
-24,198, Sabah, ,#N/A
+24,198, Sabah, Malaysian Borneo,184
 20,199, Sakhalin East Coast, ,#N/A
 15,200, Sakhalin West Coast, ,#N/A
 6,201, Salvador, Salvador,201

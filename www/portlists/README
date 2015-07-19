@@ -1,0 +1,2 @@
+for f in *txt; do c=$(echo $f | cut -d'.' -f1); echo $c; grep \"$c\" ../config32_col.html | grep -v mins; done
+

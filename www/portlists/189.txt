@@ -20,3 +20,12 @@ optgroup, Portugal
 1751,Enseada De Albufeira 
 1752,Porto De Faro-Olhao 
 1753,Vila Real De Santo Antonio 
+optgroup, Azores
+3459,Porto Da Casa
+3460,Lajes (Flores)
+3462,Horta
+3465,Santa Cruz (Graciosa)
+3466,Angra Do Heroismo
+3467,PONTA DELGADA
+3469,Vila Do Porto
+

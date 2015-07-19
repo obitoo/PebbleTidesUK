@@ -1,0 +1,84 @@
+optgroup, Korea East Coast
+7568,Ulsan
+7569,Gampo
+7570,Pohang
+7571,Ganggu
+7572,Chuksan
+7574,Jukbyeon
+7576,Mukho
+7577,Ulleungdo
+7580,Jumunjin
+7581,Sokcho
+7583,Jangjeon
+7585,Wonsan
+7587,Seohojin
+7589,Sinpo
+7591,Chaho
+7594,Seongjin
+7597,Daeyanghwa Man
+7600,Sajin
+7603,Unggi
+optgroup, Korea West Coast
+7448,Ka Do 
+7450,Nap Do 
+7452,Unmu Do 
+7457,Sok To 
+7458,P'i Do 
+7468,Monggum P'o 
+7469,Wollae Do (Getsnai Tau) 
+7470,Baengnyeongdo 
+7471,Daecheongdo 
+7474,Sunwido 
+7475,Mu Do 
+7477,Daeyeonpyeongdo 
+7479,Jumundo 
+7480,Ganghwado (Oepori) 
+7486,INCHEON 
+7487,Daemuuido 
+7489,Deokjeokdo 
+7492,Pyeongtaek 
+7494,Daesan 
+7497,Mohang-Ri 
+7498,Anheung 
+7500,Boryeong 
+7501,Daecheon 
+7503,Eocheongdo 
+7504,Gunsan (Outer Port) 
+7505,Gunsan 
+7507,Daejang-Ri 
+7508,Wido 
+7510,Anmado 
+7512,Hampyeongman 
+7515,Bukgang Sudo 
+7517,Mokpo 
+7519,Shihado 
+7521,Hataedo 
+7523,Bigeumdo 
+7525,Daeheuksando 
+7529,Usuyeong 
+7530,Hajodo 
+7531,Byeokpajin 
+7532,Sangmado 
+7533,Eoranjin 
+7534,Jukdo 
+7535,Hwasun 
+7536,Seogwipo 
+7538,Udo Sudo 
+7539,Jeju 
+7541,Chujado 
+7542,Soando 
+7543,Wando 
+7544,Geumdangdo 
+7545,Geomundo 
+7548,NOKDONG 
+7550,Narodo 
+7553,Yeosu 
+7555,Yokjido 
+7557,Samcheonpo 
+7559,TONGYEONG 
+7560,Jisepo 
+7562,Unpungo 
+7563,Masan 
+7564,Jinhaehang 
+7565,Gadeokdo 
+7566,Busan 
