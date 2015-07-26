@@ -95,7 +95,7 @@ for field in form.keys():
        sub_hi = form[field].value
     if field == "sub_lo" and form[field].value != 'undefined':
        sub_lo = form[field].value
-    if field == "utc_offset" and form[field].value != 'undefined':
+    if field == "utc_offset" and form[field].value != 'undefined' and form[field].value != 'null':
        utc_offset = int(form[field].value)
 
 if time == 0:
