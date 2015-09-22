@@ -287,6 +287,11 @@ static void mainwindow_unload(Window *window) {
   //
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
       static int started_at = -1;  // 0 to 9
+  
+      APP_LOG(APP_LOG_LEVEL_INFO, "main.c:tick_handler() started_at = %d", started_at );
+      APP_LOG(APP_LOG_LEVEL_INFO, "main.c:tick_handler() messaging_ready() = %d", messaging_ready() );
+
+
       if (started_at == -1)
          started_at = tick_time->tm_min % 10;
 

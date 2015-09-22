@@ -48,6 +48,8 @@ var webserver="http://li646-227.members.linode.com/";
 // Listen for when the watchface is opened, then 
 // tell Pebble we're good to start receiving messages. 
 Pebble.addEventListener('ready',   function(e) {
+    console.log (" >>>>>>>> JS ready event "); 
+
     wait_msg = 0;
     config_open = 0;
     config_url= webserver+"/tides/config32.html?";   
@@ -71,7 +73,8 @@ Pebble.addEventListener('ready',   function(e) {
           console.log ("localStorage["+key+"] initialised ");
       }
     }
-  
+    console.log ("          JS ready event 1"); 
+
   
 //     timeline_data = {
 //       "sub_hi"              : "on",
@@ -81,19 +84,22 @@ Pebble.addEventListener('ready',   function(e) {
 //     };
   
     // Initialise - subscribe to high tides only
-  console.log ("Timeline: localStorage.sub_hi = "+localStorage.sub_hi);
     if (localStorage.sub_hi === undefined || localStorage.sub_hi === null){
            localStorage.setItem("sub_hi","off");
-        console.log ("Timeline: localStorage.sub_hi = "+localStorage.sub_hi);
-
+           console.log ("Timeline: localStorage.sub_hi = "+localStorage.sub_hi);
     }
     if (localStorage.sub_lo === undefined || localStorage.sub_lo === null){
            localStorage.setItem("sub_lo","off");
     }
+    console.log ("          JS ready event 2"); 
+    send_ready();
 
-     timeline_init();
-     send_ready();
-    }
+    console.log ("          JS ready event 3"); 
+    timeline_init();
+
+    console.log ("          JS ready event 4 - exit"); 
+
+  }
 );
 
 
@@ -130,6 +136,8 @@ function timeline_init()
 }
 
 function send_ready(){
+    console.log ("         JS send_ready() "); 
+
     var dictionary = {  "MSG_TYPE"        :"ready"};
     Pebble.sendAppMessage(dictionary,
           function(e) {
@@ -139,6 +147,8 @@ function send_ready(){
                        console.log(Math.floor(Date.now() / 1000) + ":"+"  Error sending Ready to Pebble!");
                       }
     );
+    console.log ("         JS send_ready() - exit"); 
+
 }
 
 
@@ -152,7 +162,7 @@ function send_ready(){
   //  Config page - OPEN ======================================
   //
 Pebble.addEventListener("showConfiguration", function() {
-  console.log("--showConfiguration event");
+    console.log (" >>>>>>>> JS showConfiguration event "); 
   
   // Different config page for Pebble Time. Doesnt work in the emulator ffs
   var colorCapable = ((typeof Pebble.getActiveWatchInfo === "function") && Pebble.getActiveWatchInfo().platform!='aplite');
@@ -208,7 +218,7 @@ Pebble.addEventListener("showConfiguration", function() {
 // config page - CLOSE ======================================
 //
 Pebble.addEventListener("webviewclosed", function(e) {
-  console.log("--webviewclosed event (config)");
+    console.log (" >>>>>>>> JS webviewclosed(config) event "); 
   
   
 //   console.log("  >>>>>>e.reposne " + e.response);
@@ -383,15 +393,15 @@ Pebble.addEventListener('appmessage',   function(e) {
     }
 
     // make web request for tides
-//     console.log(" calling getTides - "+e.payload.CFG_PORT);
+    console.log(" calling getTides - "+e.payload.CFG_PORT);
     getTides(location, e.payload.CFG_VERSION, 
                        e.payload.CFG_TIME,
                        e.payload.CFG_DST,
                        e.payload.CFG_OFFSET,
                        e.payload.CFG_DATE);
   
-//     var offsetMinutes = new Date().getTimezoneOffset() * 60;
-//     console.log("  TIMEZONE========= offsetMinutes= "+offsetMinutes);
+    var offsetMinutes = new Date().getTimezoneOffset() * 60;
+    console.log("  TIMEZONE========= offsetMinutes= "+offsetMinutes);
 
   
   

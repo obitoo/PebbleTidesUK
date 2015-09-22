@@ -50,7 +50,7 @@ void cache_set_refreshed();
 //  Callback entry points ====================================================
 //
 void inbox_received_callback(DictionaryIterator *iterator, void *context) {
- // APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg entry" );
+ APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg entry" );
    
   int update = process_js_msg(iterator, context);
   
@@ -58,20 +58,20 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   if (update) {
       layer_mark_dirty (s_graph_layer); // only place we do this
   }
- // APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished (ACK)" );
+ APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished (ACK)" );
 }
 
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
- // APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
+ APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %i - %s", reason, translate_error(reason));
 //   graph_data_stale_set(1);
   // TODO print_tide_text_layers(state_buf, time_buf, height_buf, appmsg_received_time, portname_buf); // 'Stale' msg
 }
 
 void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
- // APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %i - %s", reason, translate_error(reason));
+ APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %i - %s", reason, translate_error(reason));
   // retry 
   if (--retry_count_out > 0) {
-    // APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send RETRY");
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send RETRY");
      message_send_outbox();
   }
 //   graph_data_stale_set(1);
@@ -88,7 +88,7 @@ void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
 //  Called from main 
 //
 int messaging_ready(){
- // APP_LOG(APP_LOG_LEVEL_WARNING, "messaging ready? = %d",js_initialised);
+  APP_LOG(APP_LOG_LEVEL_WARNING, "messaging ready? = %d",js_initialised);
   return js_initialised;
 }
 
@@ -97,7 +97,8 @@ int messaging_ready(){
 //  Pebble to phone - this requests a tide update, passes config at same time
 //
 void message_send_outbox() {
- 
+    APP_LOG(APP_LOG_LEVEL_INFO, "message_send_outbox() " );
+
     // Begin dictionary
     DictionaryIterator *iter = NULL;
     app_message_outbox_begin(&iter);
@@ -135,7 +136,7 @@ void message_send_outbox() {
 
     // Send the message
     app_message_outbox_send();
-   // APP_LOG(APP_LOG_LEVEL_INFO, "message_send_outbox() - exit" );
+   APP_LOG(APP_LOG_LEVEL_INFO, "message_send_outbox() - exit" );
 }
 
 
@@ -143,7 +144,7 @@ void message_send_outbox() {
 //  Callback logic  - Javascript appmessage 
 //
 static int process_js_msg(DictionaryIterator *iterator, void *context){
- // APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
+  APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
 
   int update_gfx = 0;
   
@@ -176,7 +177,7 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
 //  Message Handlers 
 //  
 static int js_tides(DictionaryIterator *iterator, void *context){
- // APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
+ APP_LOG(APP_LOG_LEVEL_INFO, "js_tides() - entry" );
 
   // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
@@ -245,7 +246,7 @@ static int js_tides(DictionaryIterator *iterator, void *context){
 
 
 static int js_config(DictionaryIterator *iterator, void *context){
- // APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
+ APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - entry" );
   
   // Start again. Necessary? 
   Tuple *t = dict_read_first(iterator);
@@ -309,7 +310,7 @@ static int js_config(DictionaryIterator *iterator, void *context){
   vibes_double_pulse();
 
     
- // APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
+ APP_LOG(APP_LOG_LEVEL_INFO, "js_config() - exit" );
   
   return 1;
 }
@@ -317,7 +318,7 @@ static int js_config(DictionaryIterator *iterator, void *context){
 
 
 static int js_ready(DictionaryIterator *iterator, void *context){
- // APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );
+  APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - entry" );
     
   // consume msg. Necessary?
   Tuple *t; 
@@ -330,7 +331,7 @@ static int js_ready(DictionaryIterator *iterator, void *context){
   // Send tides request
   message_send_outbox();
    
- // APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - exit" );
+ APP_LOG(APP_LOG_LEVEL_INFO, "js_ready() - exit" );
   return 0;
 }
  
