@@ -21,7 +21,7 @@
 # 19Mar15 - date logic
 # 16Apr   - default time for v2 client
 # 19May   - offsets. Handle undefined param
-# 17Jun   - extract and store topic subscriptions
+# 17Jun   - extract and store topic subscriptions - /var/www/tides/topics.txt 
 #
 
 import json
@@ -82,18 +82,18 @@ if options.sub:
 for field in form.keys():
     if field == "port" :
        port = form[field].value
-    if field == "time"   and form[field].value != 'undefined':
+    if field == "time"   and form[field].value != 'undefined' and form[field].value != 'null':
        time = form[field].value
-    if field == "vsn"    and form[field].value != 'undefined':
+    if field == "vsn"    and form[field].value != 'undefined' and form[field].value != 'null':
        version = form[field].value
-    if field == "offset" and form[field].value != 'undefined':
+    if field == "offset" and form[field].value != 'undefined' and form[field].value != 'null':
        offset = int(form[field].value)
-    if field == "date" and form[field].value != 'undefined':
+    if field == "date" and form[field].value != 'undefined' and form[field].value != 'null':
        date = int(form[field].value)
     # timeline -----------------------------
-    if field == "sub_hi" and form[field].value != 'undefined':
+    if field == "sub_hi" and form[field].value != 'undefined' and form[field].value != 'null':
        sub_hi = form[field].value
-    if field == "sub_lo" and form[field].value != 'undefined':
+    if field == "sub_lo" and form[field].value != 'undefined' and form[field].value != 'null':
        sub_lo = form[field].value
     if field == "utc_offset" and form[field].value != 'undefined' and form[field].value != 'null':
        utc_offset = int(form[field].value)

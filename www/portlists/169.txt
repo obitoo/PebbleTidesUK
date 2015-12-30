@@ -1,0 +1,56 @@
+optgroup, New Zealand South Island
+6452,Tarakohe 
+6453,Collingwood 
+6454,Motupipi River 
+6455,Astrolabe Road 
+6458,Nelson 
+6460,Croiselles Harbour 
+6462,Greville Harbour 
+6464,Stephens Island 
+6466,Elmslie Bay 
+6467,Pelorus Sound Entrance 
+6471,Havelock 
+6474,Long Island (New Zealand) 
+6476,East Bay 
+6477,Picton 
+6478,Okiwa Bay 
+6479,Te Iro Bay 
+6480,Fishermans Rock 
+6481,Lucky Bay 
+6482,Port Underwood 
+6485,Cape Campbell 
+6487,Kaikoura Peninsula 
+6490,LYTTELTON 
+6491,Tikao Bay 
+6492,Timaru 
+6494,Oamaru 
+6496,Otago Harbour Entrance (Spit Wharf) 
+6497,Port Chalmers 
+6498,Dunedin 
+6500,Nugget Point 
+6502,Waipapa Point 
+6504,BLUFF 
+6505,New River Entrance 
+6506,Colac Bay (Oraka) 
+6507,Paterson Inlet (Golden Bay) 
+6511,Preservation Inlet, Coal Island 
+6512,Many Islands 
+6513,Deep Cove 
+6515,Bligh Sound 
+6516,Anita Bay 
+6518,Jackson Bay 
+6519,Haast River Entrance 
+6520,Bruce Bay 
+6521,Okarito 
+6523,Hokitika River Bar 
+6524,Greymouth 
+6526,WESTPORT 
+6527,Karamea River Entrance 
+6528,Whanganui Inlet 
+6530,Macquarie Island 
+6532,Campbell Island (Motu Ihupuku) 
+6534,Carnley Harbour 
+6535,Antipodes Islands 
+6536,Chatham Island (Waitangi) 
+6537,Raoul Island (Fishing Rock) 
+
