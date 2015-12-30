@@ -35,6 +35,16 @@
     "resources": {
         "media": [
             {
+                "file": "images/bt-icon.png",
+                "name": "IMAGE_BT_ICON_WHT",
+                "type": "png"
+            },
+            {
+                "file": "images/bt-icon-black.png",
+                "name": "IMAGE_BT_ICON_BLK",
+                "type": "png"
+            },
+            {
                 "file": "images/tide4_24_24.png",
                 "menuIcon": true,
                 "name": "MENU_IMG_24",
@@ -54,7 +64,7 @@
         "basalt"
     ],
     "uuid": "3dee6d28-1e53-4d0b-b0f6-f6f6ffdbb4dc",
-    "versionLabel": "4.0",
+    "versionLabel": "4.2",
     "watchapp": {
         "watchface": true
     }

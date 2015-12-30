@@ -40,6 +40,10 @@ static GFont        s_date_font;
 static GFont        s_tidetime_font;
 static GFont        s_tideheight_font;
 static GFont        s_portname_font;
+static BitmapLayer *s_bt_icon_layer;
+static GBitmap     *s_bt_icon_bitmap_b;
+static GBitmap     *s_bt_icon_bitmap_w;
+
 
        Layer       *s_graph_layer;
 //static GBitmap     *s_background_bitmap;
@@ -47,6 +51,7 @@ static GFont        s_portname_font;
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed);
 static void mainwindow_load(Window *window);
 static void mainwindow_unload(Window *window);
+static void bluetooth_callback(bool connected);
 
 
 
@@ -60,6 +65,8 @@ extern int  messaging_ready();
 
 extern void cache_init();
 extern void cache_deinit();
+
+static int do_bt_vibe = 0; // first time, including when switching back from timeline
 
 
     //
@@ -96,7 +103,9 @@ static void init() {
   app_message_register_inbox_dropped(inbox_dropped_callback);
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
-  
+  // Register for Bluetooth connection updates
+  bluetooth_connection_service_subscribe(bluetooth_callback);
+
   // persistent storage
   cache_init();
   
@@ -243,7 +252,12 @@ static void mainwindow_load(Window *window) {
   
   // set colours - inverted ornot
   main_set_colours();
-  
+ 
+  //BT icon
+  s_bt_icon_bitmap_w = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BT_ICON_WHT);
+  s_bt_icon_bitmap_b = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BT_ICON_BLK);
+  s_bt_icon_layer = bitmap_layer_create(GRect(0, 131, 30, 30));
+  bitmap_layer_set_compositing_mode(s_bt_icon_layer, GCompOpSet);
     
   // Add as child layers to the Window's root layer
   layer_add_child(window_get_root_layer(window), s_graph_layer);
@@ -254,7 +268,10 @@ static void mainwindow_load(Window *window) {
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tideheight_text_layer2));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_tidetimes_text_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_portname_text_layer));
+  layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_bt_icon_layer));
 
+  // Show the correct state of the BT connection from the start
+  bluetooth_callback(bluetooth_connection_service_peek());
 
   // hide if 3/4 width
   main_hide_heights_layer();
@@ -270,23 +287,27 @@ static void mainwindow_unload(Window *window) {
   text_layer_destroy(s_tidetimes_text_layer);
   text_layer_destroy(s_tideheight_text_layer1);
   text_layer_destroy(s_tideheight_text_layer2);
-  
-  // Destroy fonts
-//   fonts_unload_custom_font(s_tidetime_font);
-//   fonts_unload_custom_font(s_time_font);
 
-  // Destroy Graph Layer
-   layer_destroy(s_graph_layer);
+  layer_destroy(s_graph_layer);
+
+  gbitmap_destroy(s_bt_icon_bitmap_b);
+  gbitmap_destroy(s_bt_icon_bitmap_w);
+  bitmap_layer_destroy(s_bt_icon_layer);
 }
 
 
 
 
   //
-  //  Callback logic - time
+  //  Callback logic - time, bluetooth
   //
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
       static int started_at = -1;  // 0 to 9
+  
+      APP_LOG(APP_LOG_LEVEL_INFO, "main.c:tick_handler() started_at = %d", started_at );
+      APP_LOG(APP_LOG_LEVEL_INFO, "main.c:tick_handler() messaging_ready() = %d", messaging_ready() );
+
+
       if (started_at == -1)
          started_at = tick_time->tm_min % 10;
 
@@ -325,7 +346,29 @@ static void update_time() {
 }
 
 
+static void bluetooth_callback(bool connected) {
+  // black or white icon
+  if (config_get_bool(CFG_INVERT_COL))
+    bitmap_layer_set_bitmap(s_bt_icon_layer, s_bt_icon_bitmap_b);
+  else
+    bitmap_layer_set_bitmap(s_bt_icon_layer, s_bt_icon_bitmap_w);
+  
+      
+  // Show icon if disconnected
+  layer_set_hidden(bitmap_layer_get_layer(s_bt_icon_layer), connected);
 
+  APP_LOG(APP_LOG_LEVEL_WARNING, "blutooth status: %d", (int) connected);
+
+  // Issue a vibrating alert
+  if(!connected) {
+    vibes_double_pulse();
+  } else {
+    if (do_bt_vibe)  // dont vibe if BT enabled and switching back from timeline
+       vibes_short_pulse();
+  }
+  do_bt_vibe = 1;
+}
+ 
 
 
 
