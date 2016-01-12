@@ -177,6 +177,8 @@
           select_slider ("cfg_show_portname", "show_portname");
           select_slider ("cfg_dst"          , "enable_dst");
           select_slider ("cfg_show_feet"    , "show_feet");
+          select_slider ("sub_hi"        , "sub_hi");
+          select_slider ("sub_lo"        , "sub_lo");
 
             // Time manual offset
           var cfg_offset = getURLVariable('cfg_offset');
@@ -373,6 +375,30 @@
            </select>
         </div>
      </div>
+
+
+
+
+
+     <div data-role="collapsible" data-collapsed="true">
+        <h3>Timeline Configuration  </h3>
+        <div data-role="fieldcontain">
+          <label for="sub_hi">High Tides </label>
+          <select name="sub_hi" id="sub_hi" data-role="slider">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+          </select>
+        </div>
+        <div data-role="fieldcontain">
+          <label for="sub_lo">Low Tides </label>
+          <select name="sub_lo" id="sub_lo" data-role="slider">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+          </select>
+        </div>
+
+     </div>
+
    
 
 
@@ -431,7 +457,7 @@
 
 
      <div data-role="collapsible" data-collapsed="true">
-        <h3>Time Configuration </h3>
+        <h3>Time Offset Configuration </h3>
 
         <div class="ui-grid-a">
            <div class="ui-block-a">
@@ -506,6 +532,8 @@
           'cfg_dst'          : $("#enable_dst").val(),
           'cfg_offset'       : $("#list-offset").val(),
           'cfg_show_feet'    : $("#show_feet").val(),
+          'sub_hi'           : $("#sub_hi").val(),
+          'sub_lo'           : $("#sub_lo").val(),
         }
         return options;
       }
