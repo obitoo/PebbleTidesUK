@@ -183,12 +183,14 @@ class public():
    def delete_in_past(self, time_hhmm):
      prevmins=0
      minsnow=self._hhmm_to_mins(time_hhmm)
-     for i in range(0,4):
+     for i in range(0,len(self.tides_array)):
         t=self.tides_array[0]["time"]   # always zero :) 
         tidemins=self._hhmm_to_mins(t)
-        if (tidemins < minsnow ) and (tidemins > prevmins):  # if its suddenly less we;ve hit midnight
-           del self.tides_array[0]
-           prevmins=tidemins
+        if (i< len(self.tides_array)):
+           if (tidemins < minsnow ) and (tidemins > prevmins):  # if its suddenly less we;ve hit midnight
+              del self.tides_array[0]
+              prevmins=tidemins
+
 
    #
    # similarly for date. TODO: 1st of month
@@ -200,7 +202,14 @@ class public():
         if day == 1 and int(self.tides_array[0]["day"]) >= 27:
            del self.tides_array[0]
 
-
+   #
+   # quick workaround for double hi tides
+   #
+   def delete_double_hi (self):
+      for i in range (0,len(self.tides_array)-2): 
+         if (i< len(self.tides_array) -1):
+            if  (self.tides_array[i]["state"] == self.tides_array[i+1]["state"]):
+               del self.tides_array[i+1]
 
 
 
@@ -266,7 +275,7 @@ class public():
        row["height"]=float(self.tides_array[i]["height"])/10
        row["portname"]=self.portname
 
-       array.append(row)
+       
 
      return array
 

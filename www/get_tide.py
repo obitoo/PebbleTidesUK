@@ -23,6 +23,8 @@
 # 19May   - offsets. Handle undefined param
 # 17Jun   - extract and store topic subscriptions - /var/www/tides/topics.txt 
 #
+# 17Jan16 - workaround for double hi tides - delete_double_hi
+#
 
 import json
 import tidedata
@@ -145,6 +147,7 @@ if tides.error:
 if (int(port) < 801):
    tides.adjust_bst()
 
+
 #
 # ..which we handle here
 #
@@ -163,6 +166,9 @@ if (int(float(str(version))) >= 3):
 
       # Use passed localtime to only show tides > now
    tides.delete_in_past(time)
+
+      # hack - delete double hi tides
+   tides.delete_double_hi()
 
 else:
    from datetime import datetime
