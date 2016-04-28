@@ -275,6 +275,7 @@ class public():
        row["height"]=float(self.tides_array[i]["height"])/10
        row["portname"]=self.portname
 
+       array.append(row)
        
 
      return array
