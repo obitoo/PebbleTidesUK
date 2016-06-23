@@ -136,7 +136,7 @@ function timeline_init()
 }
 
 function send_ready(){
-    console.log ("         JS send_ready() "); 
+    console.log ("             JS send_ready() "); 
 
     var dictionary = {  "MSG_TYPE"        :"ready"};
     Pebble.sendAppMessage(dictionary,
@@ -147,7 +147,7 @@ function send_ready(){
                        console.log(Math.floor(Date.now() / 1000) + ":"+"  Error sending Ready to Pebble!");
                       }
     );
-    console.log ("         JS send_ready() - exit"); 
+    console.log ("             JS send_ready() - exit"); 
 
 }
 
@@ -581,7 +581,7 @@ function getTides(locn, version, timestring, dst_string, offset_val, date_val) {
             } 
             
             // aaand send to Pebble
-//             console.log("getTides, wait_msg = " + wait_msg);
+            console.log("getTides: wait_msg = " + wait_msg);
             if (wait_msg === 0) {
             wait_msg = 1;
             Pebble.sendAppMessage(dictionary,

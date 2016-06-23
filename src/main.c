@@ -52,6 +52,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed);
 static void mainwindow_load(Window *window);
 static void mainwindow_unload(Window *window);
 static void bluetooth_callback(bool connected);
+static void battery_callback (BatteryChargeState charge_state);
 
 
 
@@ -105,6 +106,8 @@ static void init() {
   app_message_register_outbox_sent(outbox_sent_callback);
   // Register for Bluetooth connection updates
   bluetooth_connection_service_subscribe(bluetooth_callback);
+  // Register for battery state
+  battery_state_service_subscribe(battery_callback);
 
   // persistent storage
   cache_init();
@@ -309,14 +312,26 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 
       if (started_at == -1)
-         started_at = tick_time->tm_min % 10;
+         started_at = tick_time->tm_min % TIDE_PHONE_POLL_MINS;
 
       update_time();
   
+    
+  
+      // debugging 
+      APP_LOG(APP_LOG_LEVEL_INFO, "main.c:tick_handler() Current is %d, next update/request at %d minutes", 
+                                tick_time->tm_min % TIDE_PHONE_POLL_MINS, started_at);
+
+      if (1 == TIDE_PHONE_POLL_MINS){
+        message_send_outbox();
+      }
+      else
       // Get tide data from phone every few minutes  
       if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
         message_send_outbox();
       }
+      APP_LOG(APP_LOG_LEVEL_INFO, "main.c:tick_handler() exit --------------------------------------------------------------");
+
 }
 
 static void update_time() {
@@ -369,7 +384,10 @@ static void bluetooth_callback(bool connected) {
   do_bt_vibe = 1;
 }
  
-
+// do nothing - draw routine handles peeking at the state each time. 
+static void battery_callback (BatteryChargeState charge_state) {
+  return;
+}
 
 
 

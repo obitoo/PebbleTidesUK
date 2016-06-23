@@ -19,10 +19,11 @@
 #pragma once
 
 #define  RELEASE_VSN   3.0
-  
+
+
+// js message keys 
+
 #define MSG_TYPE    0 
-  
-// js message keys  
 #define KEY_STATE_0 1 
 #define  KEY_TIME_0 2
 #define KEY_STATE_1 3
@@ -54,7 +55,9 @@
   
 // these dont change whatever the size of the graph window
 #define  MINS_IN_DAY            1440    
-#define  TIDE_PHONE_POLL_MINS   30 //  10  // approx every x-pixel
+//#define  TIDE_PHONE_POLL_MINS   30 //  30 //  approx every x-pixel
+#define  TIDE_PHONE_POLL_MINS   5 // debug!!   
+
 #define  GRAPH_Y_PX             45
 #define  GRAPH_NUM_HOZ_LINES    3 // 1 or 3 if you prefer  
 #define  MAX_X                  144
