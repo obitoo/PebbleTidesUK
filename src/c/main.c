@@ -53,8 +53,7 @@ static void mainwindow_load(Window *window);
 static void mainwindow_unload(Window *window);
 static void bluetooth_callback(bool connected);
 static void battery_callback (BatteryChargeState charge_state);
-
-
+static void prv_unobstructed_will_change(GRect final_unobstructed_screen_area, void *context);
 
 
 extern void inbox_dropped_callback(AppMessageResult , void *);
@@ -213,6 +212,56 @@ void main_set_colours(){
   text_layer_set_text_color(s_date_layer, colour_fg());
 }
 
+
+// h=168 is full 
+
+static void position_time_layer(Window *window, int height){
+  // Get the total available screen real-estate
+//   GRect bounds = layer_get_unobstructed_bounds(window_get_root_layer(window));
+  APP_LOG(APP_LOG_LEVEL_ERROR, "position_time_layer:   unobstructed bounds.h = %d ", height );
+
+    // Get the current position of our bottom text layer
+  GRect frame = layer_get_frame(text_layer_get_layer(s_time_layer));
+    // Shift the Y coordinate
+  frame.origin.y = height - 50;  // 50 is the height of the text layer
+    // Apply the new position
+  layer_set_frame(text_layer_get_layer(s_time_layer), frame);
+  
+//   // And move the portname layer
+//   int hmax = 168;
+//   int hoff = 168 - (GRAPH_Y_PX + GRAPH_BORDER_PX + 40);
+//   GRect frame2 = layer_get_frame(text_layer_get_layer(s_portname_text_layer));
+//   frame2.origin.y = height - hoff;  // 21 is the height of the text layer
+//   layer_set_frame(text_layer_get_layer(s_portname_text_layer), frame2);
+
+
+}
+static void mainwindow_layout_full(Window *window, int height) {
+   // show layers
+   layer_set_hidden(text_layer_get_layer(s_portname_text_layer), false);
+//   layer_set_hidden(text_layer_get_layer(s_tidetimes_text_layer), false);
+   layer_set_hidden(text_layer_get_layer(s_date_layer), false);
+
+   // put time layer at the back
+   layer_insert_below_sibling(text_layer_get_layer(s_time_layer), text_layer_get_layer(s_date_layer));
+
+   // move time layer
+   position_time_layer (window, height);
+}
+
+static void mainwindow_layout_obstructed(Window *window, int height) {
+   // hide layers
+   layer_set_hidden(text_layer_get_layer(s_portname_text_layer), true);
+//   layer_set_hidden(text_layer_get_layer(s_tidetimes_text_layer), true);
+   layer_set_hidden(text_layer_get_layer(s_date_layer), true);
+
+   // time layer at the front
+   layer_insert_above_sibling(text_layer_get_layer(s_time_layer), text_layer_get_layer(s_tidetimes_text_layer));
+
+   // move time layer
+   position_time_layer (window, height);
+}
+
 static void mainwindow_load(Window *window) {
 
   // Create graph layer
@@ -228,7 +277,7 @@ static void mainwindow_load(Window *window) {
   text_layer_set_text_alignment(s_tidetimes_text_layer, GTextAlignmentLeft);
   
   // Portname Layer - left aligned with date 
-  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 40, 139, 21));  // 36,139,26 >>> for 21 font
+  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 40, 144, 21));  // 36,139,26 >>> for 21 font
   text_layer_set_text(s_portname_text_layer, "");
   text_layer_set_font(s_portname_text_layer, s_portname_font);
   text_layer_set_text_alignment(s_portname_text_layer, GTextAlignmentRight);
@@ -278,9 +327,39 @@ static void mainwindow_load(Window *window) {
 
   // hide if 3/4 width
   main_hide_heights_layer();
+  
+  // Is screen obstructed?
+  GRect full_bounds = layer_get_bounds(window_get_root_layer(window));
+  GRect unobstructed_bounds = layer_get_unobstructed_bounds(window_get_root_layer(window));
+  if (!grect_equal(&full_bounds, &unobstructed_bounds)) {
+      mainwindow_layout_obstructed (window, unobstructed_bounds.size.h );
+  }
+  
+  // Handler for pop up notification at the bottom
+  UnobstructedAreaHandlers handlers = {
+     .will_change = prv_unobstructed_will_change
+  };
+  unobstructed_area_service_subscribe(handlers, window);
+
+  
+
 }
 
+static void prv_unobstructed_will_change(GRect final_unobstructed_screen_area, void *context) {
+  // Get the full size of the screen
+  GRect full_bounds = layer_get_bounds(window_get_root_layer((Window*)context));
+  APP_LOG(APP_LOG_LEVEL_ERROR, "prv_unobstructed_will_change()");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "                       full_bounds.size.h=%d",full_bounds.size.h);
+  APP_LOG(APP_LOG_LEVEL_ERROR, "                      unobs_bounds.size.h=%d",final_unobstructed_screen_area.size.h);
 
+  if (!grect_equal(&full_bounds, &final_unobstructed_screen_area)) {
+    // Screen is about to become obstructed, hide stuff
+      mainwindow_layout_obstructed ((Window*)context, final_unobstructed_screen_area.size.h );
+  } else {
+    // Screen going back, show stuff again
+      mainwindow_layout_full ((Window*)context, full_bounds.size.h);
+  }
+}
 
 static void mainwindow_unload(Window *window) {
 
