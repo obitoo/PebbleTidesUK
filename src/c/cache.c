@@ -1,5 +1,5 @@
 #include <pebble.h>
-#include <graph.h>
+#include "graph.h"
 
 static char state_cache[4][8];   // "hi" | "lo"
 static char time_cache[4][6];    // "23:44"

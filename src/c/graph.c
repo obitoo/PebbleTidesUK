@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ---------------------------------------------------------*/
 #include <pebble.h> 
-#include <graph.h> 
-#include <config.h> 
+#include "graph.h" 
+#include "config.h" 
 #include <stdarg.h>
  
 

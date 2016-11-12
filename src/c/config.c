@@ -18,7 +18,7 @@
  ---------------------------------------------------------*/
 
 #include <pebble.h>
-#include <graph.h>
+#include "graph.h"
   
 char *config_get_string(int );
 
