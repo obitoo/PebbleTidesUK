@@ -107,10 +107,10 @@ int cache_stale(){
   uint16_t cache_age = now_mins-cache_init; 
   
   if (cache_age > CACHE_MAX_MINS) {
-    APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale() = 1   now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
+//     APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale() = 1   now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
     return 1;
   }
-  APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale() = 0   now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
+//   APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale() = 0   now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
   return 0;
 }
 

@@ -68,6 +68,8 @@ extern void cache_deinit();
 
 static int do_bt_vibe = 0; // first time, including when switching back from timeline
 
+extern char  (*cache_get_state_buf())[8];
+
 
     //
     //  Init ======================================================
@@ -395,6 +397,14 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
       update_time();
   
+      // If we've got a Server Timeout (state = 1) then retry now
+      char (*p_state)[8] =  cache_get_state_buf();
+      if (!strcmp (p_state[0],"1")){
+         APP_LOG(APP_LOG_LEVEL_ERROR, "  got a SERVER TIMEOUT, retrying now" );
+         started_at = ((tick_time->tm_min) % TIDE_PHONE_POLL_MINS);
+      }
+
+
     
   
       // debugging 

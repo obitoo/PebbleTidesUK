@@ -264,7 +264,8 @@ static void print_tidetimes(char (*p_state)[8], char (*p_time)[6]){
       return;
     }
     if (!strcmp (p_state[0],"1")){
-      snprintf(text_layer_buffer, sizeof(text_layer_buffer), "%s","Server Error: timeout");
+      // Don't show on the screen, but main.c will recognise this and retry next minute
+//       snprintf(text_layer_buffer, sizeof(text_layer_buffer), "%s","Server Error: timeout");
      // APP_LOG(APP_LOG_LEVEL_INFO, "Server timeout error");
       text_layer_set_text(s_tidetimes_text_layer, text_layer_buffer);
       return;

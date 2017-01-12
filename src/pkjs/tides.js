@@ -122,6 +122,8 @@ Pebble.addEventListener("showConfiguration", function() {
 Pebble.addEventListener("webviewclosed", function(e) {
   console.log("--webviewclosed event (config)");
   
+  config_open = 0;
+
   
   console.log("  >>>>>>e.reposne " + e.response);
   
@@ -164,7 +166,6 @@ Pebble.addEventListener("webviewclosed", function(e) {
                         function(e) {   //ACK
                           wait_msg = 0;
                           console.log("  Config sent to Pebble - ACK");
-                            config_open = 0;
                           console.log("  config_open= 0, calling getTides()");
                           getTides(localStorage.getItem("cfg_port"),
                                    localStorage.getItem("cfg_version"), 
@@ -178,7 +179,6 @@ Pebble.addEventListener("webviewclosed", function(e) {
                         function(e) {   //NAK
                           wait_msg = 0;
                           console.log("  ERROR - sending Config to Pebble - NAK");
-                            config_open = 0;
                           console.log("  config_open= 0, calling getTides()");
                           getTides(localStorage.getItem("cfg_port"),
                                    localStorage.getItem("cfg_version"), 
@@ -250,6 +250,7 @@ var xhrRequest = function (url, type, callback) {
 
   var xhr = new XMLHttpRequest();
   xhr.onload = function () { console.log("onload:"); callback(this.responseText);};
+
   xhr.open(type, url, true);
   xhr.ontimeout = function () { console.log("ontimeout:"); callback(1); };
   xhr.onreadystatechange = function () { console.log("onreadystatechange:"+xhr.readyState+"   reponseTxt="+this.responseTxt);
