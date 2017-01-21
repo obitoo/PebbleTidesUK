@@ -78,6 +78,8 @@ static void init() {
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   
+
+  
   // Create GFontieees.  Using Bold when black on white background
   s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
   s_date_font =    fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
@@ -97,14 +99,15 @@ static void init() {
   
 
   
-  // Register callbacks..
+    // Register callbacks..
   app_message_register_inbox_received(inbox_received_callback);
-  // Open AppMessage
-  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
-  // Register callbacks..
   app_message_register_inbox_dropped(inbox_dropped_callback);
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
+
+  // Open AppMessage
+  app_message_open(4000,4000);
+  
   // Register for Bluetooth connection updates
   bluetooth_connection_service_subscribe(bluetooth_callback);
   // Register for battery state

@@ -66,13 +66,14 @@ Pebble.addEventListener('ready',   function(e) {
     var dictionary = {
               "MSG_TYPE"        :"ready"};
 
-  
+     console.log("   ready dictionary= " + JSON.stringify(dictionary));
+
      Pebble.sendAppMessage(dictionary,
                           function(e) {
                             console.log("  Ready sent to Pebble successfully");
                           },
                           function(e) {
-                            console.log("  Error sending Ready to Pebble!");
+                            console.log("  Error sending Ready to Pebble:"  + JSON.stringify(e));
                           }
                          );
      

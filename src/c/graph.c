@@ -191,33 +191,46 @@ static void draw_box(GContext* ctx){
   // nice border
   int _xpix = config_get_intval(CGRAPH_X_PX);  
 
+  // midline(s) aka battery indicator
   GColor line1, line2;
-  
+
+
 #ifdef PBL_COLOR
   graphics_fill_rect	(	 	ctx, 
                        (GRect) {.origin = { 0, 0 }, .size = { 144 , GRAPH_Y_PX+3}},
                       0,GCornerNone);
-  // midline(s)
+  
   line1 = GColorBlack;
   line2 = GColorWhite;
+
 #else
   graphics_draw_rect	(	 	ctx, (GRect) {.origin = { GRAPH_BORDER_PX, GRAPH_BORDER_PX }, .size = { _xpix , GRAPH_Y_PX}});		
 #endif
 
   // Battery - 3 lines, so each is 25%, 50%, 75%.  Change colour if > charge%
   uint8_t  charge_percent = battery_state_service_peek().charge_percent;
+  
+  charge_percent = 10;
+  
   APP_LOG(APP_LOG_LEVEL_WARNING, "draw_box()  charge_percent = %d ", (int) charge_percent);
 
   int  y = GRAPH_BORDER_PX;
   int  ypix_per_line = (GRAPH_Y_PX/(1+GRAPH_NUM_HOZ_LINES));
   for (; y < GRAPH_Y_PX; y += ypix_per_line ){
-#ifdef PBL_COLOR
     if ((100 *  y / GRAPH_Y_PX ) > charge_percent) {
+#ifdef PBL_COLOR
         graphics_context_set_stroke_color(ctx, line2);
+// #else 
+//         graphics_context_set_stroke_color(ctx, colour_bg());
+#endif
     } else {
+#ifdef PBL_COLOR
         graphics_context_set_stroke_color(ctx, line1);
+// #else
+//         graphics_context_set_stroke_color(ctx, colour_fg());
+#endif
     }
-#endif    
+    
     graphics_draw_line(ctx, (GPoint){GRAPH_BORDER_PX, y},
                             (GPoint){GRAPH_BORDER_PX + _xpix, y} );
   }
