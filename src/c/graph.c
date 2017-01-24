@@ -210,21 +210,25 @@ static void draw_box(GContext* ctx){
   // Battery - 3 lines, so each is 25%, 50%, 75%.  Change colour if > charge%
   uint8_t  charge_percent = battery_state_service_peek().charge_percent;
   
-  charge_percent = 10;
-  
   APP_LOG(APP_LOG_LEVEL_WARNING, "draw_box()  charge_percent = %d ", (int) charge_percent);
 
   int  y = GRAPH_BORDER_PX;
   int  ypix_per_line = (GRAPH_Y_PX/(1+GRAPH_NUM_HOZ_LINES));
+  int draw_percent = 0;
   for (; y < GRAPH_Y_PX; y += ypix_per_line ){
-    if ((100 *  y / GRAPH_Y_PX ) > charge_percent) {
+    draw_percent = 2 + (100 *  y / GRAPH_Y_PX );
+    if (draw_percent >= charge_percent) {
 #ifdef PBL_COLOR
+        APP_LOG(APP_LOG_LEVEL_WARNING, "        white, screenpos = %d ", draw_percent);
+
         graphics_context_set_stroke_color(ctx, line2);
 // #else 
 //         graphics_context_set_stroke_color(ctx, colour_bg());
 #endif
     } else {
 #ifdef PBL_COLOR
+              APP_LOG(APP_LOG_LEVEL_WARNING, "        black, screenpos = %d ", draw_percent);
+
         graphics_context_set_stroke_color(ctx, line1);
 // #else
 //         graphics_context_set_stroke_color(ctx, colour_fg());
