@@ -219,7 +219,7 @@ static void draw_box(GContext* ctx){
     draw_percent = 2 + (100 *  y / GRAPH_Y_PX );
     if (draw_percent >= charge_percent) {
 #ifdef PBL_COLOR
-        APP_LOG(APP_LOG_LEVEL_WARNING, "        white, screenpos = %d ", draw_percent);
+//         APP_LOG(APP_LOG_LEVEL_WARNING, "        white, screenpos = %d ", draw_percent);
 
         graphics_context_set_stroke_color(ctx, line2);
 // #else 
@@ -227,7 +227,7 @@ static void draw_box(GContext* ctx){
 #endif
     } else {
 #ifdef PBL_COLOR
-              APP_LOG(APP_LOG_LEVEL_WARNING, "        black, screenpos = %d ", draw_percent);
+//               APP_LOG(APP_LOG_LEVEL_WARNING, "        black, screenpos = %d ", draw_percent);
 
         graphics_context_set_stroke_color(ctx, line1);
 // #else
