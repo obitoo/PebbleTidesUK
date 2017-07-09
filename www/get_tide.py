@@ -24,6 +24,8 @@
 # 17Jun   - extract and store topic subscriptions - /var/www/tides/topics.txt 
 #
 # 17Jan16 - workaround for double hi tides - delete_double_hi
+#  9Jul17 - North Fambridge  263:0122A
+#
 #
 
 import json
@@ -144,7 +146,12 @@ if tides.error:
 #
 # Adjust UK ports for BST. The others will just haveto have a DST flag
 #
-if (int(port) < 801):
+if (port.isalnum()):
+   portint=int(port[:-1])
+else: 
+   portint=int(port)
+
+if (portint < 801):
    tides.adjust_bst()
 
 
