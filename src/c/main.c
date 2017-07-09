@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ---------------------------------------------------------*/
 #include <pebble.h>
-#include <graph.h>
-#include <config.h>  
+#include "graph.h"
+#include "config.h" 
   
 static void update_time();
 GColor colour_fg();
@@ -52,8 +52,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed);
 static void mainwindow_load(Window *window);
 static void mainwindow_unload(Window *window);
 static void bluetooth_callback(bool connected);
-
-
+static void battery_callback (BatteryChargeState charge_state);
+static void prv_unobstructed_will_change(GRect final_unobstructed_screen_area, void *context);
 
 
 extern void inbox_dropped_callback(AppMessageResult , void *);
@@ -68,6 +68,8 @@ extern void cache_deinit();
 
 static int do_bt_vibe = 0; // first time, including when switching back from timeline
 
+extern char  (*cache_get_state_buf())[8];
+
 
     //
     //  Init ======================================================
@@ -75,6 +77,8 @@ static int do_bt_vibe = 0; // first time, including when switching back from tim
 static void init() {
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+  
+
   
   // Create GFontieees.  Using Bold when black on white background
   s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
@@ -95,16 +99,19 @@ static void init() {
   
 
   
-  // Register callbacks..
+    // Register callbacks..
   app_message_register_inbox_received(inbox_received_callback);
-  // Open AppMessage
-  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
-  // Register callbacks..
   app_message_register_inbox_dropped(inbox_dropped_callback);
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
+
+  // Open AppMessage
+  app_message_open(4000,4000);
+  
   // Register for Bluetooth connection updates
   bluetooth_connection_service_subscribe(bluetooth_callback);
+  // Register for battery state
+  battery_state_service_subscribe(battery_callback);
 
   // persistent storage
   cache_init();
@@ -210,6 +217,56 @@ void main_set_colours(){
   text_layer_set_text_color(s_date_layer, colour_fg());
 }
 
+
+// h=168 is full 
+
+static void position_time_layer(Window *window, int height){
+  // Get the total available screen real-estate
+//   GRect bounds = layer_get_unobstructed_bounds(window_get_root_layer(window));
+  APP_LOG(APP_LOG_LEVEL_ERROR, "position_time_layer:   unobstructed bounds.h = %d ", height );
+
+    // Get the current position of our bottom text layer
+  GRect frame = layer_get_frame(text_layer_get_layer(s_time_layer));
+    // Shift the Y coordinate
+  frame.origin.y = height - 50;  // 50 is the height of the text layer
+    // Apply the new position
+  layer_set_frame(text_layer_get_layer(s_time_layer), frame);
+  
+//   // And move the portname layer
+//   int hmax = 168;
+//   int hoff = 168 - (GRAPH_Y_PX + GRAPH_BORDER_PX + 40);
+//   GRect frame2 = layer_get_frame(text_layer_get_layer(s_portname_text_layer));
+//   frame2.origin.y = height - hoff;  // 21 is the height of the text layer
+//   layer_set_frame(text_layer_get_layer(s_portname_text_layer), frame2);
+
+
+}
+static void mainwindow_layout_full(Window *window, int height) {
+   // show layers
+   layer_set_hidden(text_layer_get_layer(s_portname_text_layer), false);
+//   layer_set_hidden(text_layer_get_layer(s_tidetimes_text_layer), false);
+   layer_set_hidden(text_layer_get_layer(s_date_layer), false);
+
+   // put time layer at the back
+   layer_insert_below_sibling(text_layer_get_layer(s_time_layer), text_layer_get_layer(s_date_layer));
+
+   // move time layer
+   position_time_layer (window, height);
+}
+
+static void mainwindow_layout_obstructed(Window *window, int height) {
+   // hide layers
+   layer_set_hidden(text_layer_get_layer(s_portname_text_layer), true);
+//   layer_set_hidden(text_layer_get_layer(s_tidetimes_text_layer), true);
+   layer_set_hidden(text_layer_get_layer(s_date_layer), true);
+
+   // time layer at the front
+   layer_insert_above_sibling(text_layer_get_layer(s_time_layer), text_layer_get_layer(s_tidetimes_text_layer));
+
+   // move time layer
+   position_time_layer (window, height);
+}
+
 static void mainwindow_load(Window *window) {
 
   // Create graph layer
@@ -225,7 +282,7 @@ static void mainwindow_load(Window *window) {
   text_layer_set_text_alignment(s_tidetimes_text_layer, GTextAlignmentLeft);
   
   // Portname Layer - left aligned with date 
-  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 40, 139, 21));  // 36,139,26 >>> for 21 font
+  s_portname_text_layer = text_layer_create(GRect(0, GRAPH_Y_PX + GRAPH_BORDER_PX + 40, 144, 21));  // 36,139,26 >>> for 21 font
   text_layer_set_text(s_portname_text_layer, "");
   text_layer_set_font(s_portname_text_layer, s_portname_font);
   text_layer_set_text_alignment(s_portname_text_layer, GTextAlignmentRight);
@@ -275,9 +332,39 @@ static void mainwindow_load(Window *window) {
 
   // hide if 3/4 width
   main_hide_heights_layer();
+  
+  // Is screen obstructed?
+  GRect full_bounds = layer_get_bounds(window_get_root_layer(window));
+  GRect unobstructed_bounds = layer_get_unobstructed_bounds(window_get_root_layer(window));
+  if (!grect_equal(&full_bounds, &unobstructed_bounds)) {
+      mainwindow_layout_obstructed (window, unobstructed_bounds.size.h );
+  }
+  
+  // Handler for pop up notification at the bottom
+  UnobstructedAreaHandlers handlers = {
+     .will_change = prv_unobstructed_will_change
+  };
+  unobstructed_area_service_subscribe(handlers, window);
+
+  
+
 }
 
+static void prv_unobstructed_will_change(GRect final_unobstructed_screen_area, void *context) {
+  // Get the full size of the screen
+  GRect full_bounds = layer_get_bounds(window_get_root_layer((Window*)context));
+  APP_LOG(APP_LOG_LEVEL_ERROR, "prv_unobstructed_will_change()");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "                       full_bounds.size.h=%d",full_bounds.size.h);
+  APP_LOG(APP_LOG_LEVEL_ERROR, "                      unobs_bounds.size.h=%d",final_unobstructed_screen_area.size.h);
 
+  if (!grect_equal(&full_bounds, &final_unobstructed_screen_area)) {
+    // Screen is about to become obstructed, hide stuff
+      mainwindow_layout_obstructed ((Window*)context, final_unobstructed_screen_area.size.h );
+  } else {
+    // Screen going back, show stuff again
+      mainwindow_layout_full ((Window*)context, full_bounds.size.h);
+  }
+}
 
 static void mainwindow_unload(Window *window) {
 
@@ -309,14 +396,34 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 
       if (started_at == -1)
-         started_at = tick_time->tm_min % 10;
+         started_at = tick_time->tm_min % TIDE_PHONE_POLL_MINS;
 
       update_time();
   
+      // If we've got a Server Timeout (state = 1) then retry now
+      char (*p_state)[8] =  cache_get_state_buf();
+      if (!strcmp (p_state[0],"1")){
+         APP_LOG(APP_LOG_LEVEL_ERROR, "  got a SERVER TIMEOUT, retrying now" );
+         started_at = ((tick_time->tm_min) % TIDE_PHONE_POLL_MINS);
+      }
+
+
+    
+  
+      // debugging 
+      APP_LOG(APP_LOG_LEVEL_INFO, "main.c:tick_handler() Current is %d, next update/request at %d minutes", 
+                                tick_time->tm_min % TIDE_PHONE_POLL_MINS, started_at);
+
+      if (1 == TIDE_PHONE_POLL_MINS){
+        message_send_outbox();
+      }
+      else
       // Get tide data from phone every few minutes  
       if((tick_time->tm_min % TIDE_PHONE_POLL_MINS == started_at) && messaging_ready()){
         message_send_outbox();
       }
+      APP_LOG(APP_LOG_LEVEL_INFO, "main.c:tick_handler() exit --------------------------------------------------------------");
+
 }
 
 static void update_time() {
@@ -369,7 +476,10 @@ static void bluetooth_callback(bool connected) {
   do_bt_vibe = 1;
 }
  
-
+// do nothing - draw routine handles peeking at the state each time. 
+static void battery_callback (BatteryChargeState charge_state) {
+  return;
+}
 
 
 

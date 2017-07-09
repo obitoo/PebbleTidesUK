@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ---------------------------------------------------------*/
 #include <pebble.h>
-#include <graph.h>
-#include <config.h>
+#include "graph.h"
+#include "config.h"
 
 extern void main_hide_heights_layer();
 
@@ -50,15 +50,17 @@ void cache_set_refreshed();
 //  Callback entry points ====================================================
 //
 void inbox_received_callback(DictionaryIterator *iterator, void *context) {
- APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg entry" );
+ APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() " );
    
   int update = process_js_msg(iterator, context);
   
      // update graphics
   if (update) {
+      APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - marking layer dirty" );
       layer_mark_dirty (s_graph_layer); // only place we do this
+    
   }
- APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - AppMsg Finished (ACK)" );
+ APP_LOG(APP_LOG_LEVEL_WARNING, "inbox_received_callback() - exit" );
 }
 
 void inbox_dropped_callback(AppMessageResult reason, void *context) {
@@ -144,15 +146,24 @@ void message_send_outbox() {
 //  Callback logic  - Javascript appmessage 
 //
 static int process_js_msg(DictionaryIterator *iterator, void *context){
-  APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - entry" );
+  APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg()" );
 
   int update_gfx = 0;
+  
+  // debug
+//   Tuple *tuple = dict_read_first(iterator);
+//   while (tuple) {
+  
+//     APP_LOG(APP_LOG_LEVEL_WARNING, "tuple: %d, %s", (int)tuple->key, tuple->value->cstring);
+//     tuple = dict_read_next(iterator);
+//   }
+  // \debug
   
   // Can't assume order
   //Tuple *t = dict_read_first(iterator);
   Tuple *t = dict_find(iterator, MSG_TYPE);
   if (t == NULL ){
-      // APP_LOG(APP_LOG_LEVEL_ERROR, "     Missing MSG_TYPE key" );
+       APP_LOG(APP_LOG_LEVEL_ERROR, "     Missing MSG_TYPE key" );
        return 0;
   }
 
@@ -166,9 +177,11 @@ static int process_js_msg(DictionaryIterator *iterator, void *context){
   if (!strcmp(t->value->cstring,"ready")){
      update_gfx = js_ready (iterator, context);
   } else {
-   // APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected MSG_TYPE value - %s", t->value->cstring );
+     APP_LOG(APP_LOG_LEVEL_ERROR, "     unexpected MSG_TYPE value - %s", t->value->cstring );
   }
   
+  APP_LOG(APP_LOG_LEVEL_INFO, "process_js_msg() - exit" );
+
   return update_gfx;
 }
       

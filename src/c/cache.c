@@ -1,5 +1,5 @@
 #include <pebble.h>
-#include <graph.h>
+#include "graph.h"
 
 static char state_cache[4][8];   // "hi" | "lo"
 static char time_cache[4][6];    // "23:44"
@@ -104,16 +104,22 @@ int cache_stale(){
   // retrieve time cache was initialised 
   uint16_t cache_init = persist_read_int (TIME_INIT_KEY);
   
+  uint16_t cache_age = now_mins-cache_init; 
   
-  APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale()  now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
-  return (((now_mins-cache_init) > CACHE_MAX_MINS) ? 1 : 0);
+  if (cache_age > CACHE_MAX_MINS) {
+//     APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale() = 1   now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
+    return 1;
+  }
+//   APP_LOG(APP_LOG_LEVEL_INFO, "         cache_stale() = 0   now= %u, cache_init = %u", (unsigned int)now_mins, (unsigned int) cache_init);
+  return 0;
 }
 
 void cache_set_refreshed(){
   // get time since epoch and store
   time_t epoch = time(NULL);
   uint16_t epoch_mins = epoch / 60;
- // APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  epoch_mins= %u", (unsigned int)epoch_mins);
+  APP_LOG(APP_LOG_LEVEL_WARNING, "         cache_set_refreshed()  epoch_mins= %u", (unsigned int)epoch_mins);
+  
   persist_write_int (TIME_INIT_KEY, epoch_mins);
   
   // also store as a 24h hh:mm string - will display when the cache eventually goes stale
@@ -121,8 +127,8 @@ void cache_set_refreshed(){
   static char buffer[] = "00:00";
   strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
   persist_write_string(TIME_INIT_KEY_HHMM, buffer);
- // APP_LOG(APP_LOG_LEVEL_ERROR, "         cache_set_refreshed()  hh_mm= %s", buffer);
-
+  
+  APP_LOG(APP_LOG_LEVEL_WARNING, "         cache_set_refreshed()  hh_mm= %s", buffer);
   return;
 }
 
