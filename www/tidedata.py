@@ -9,12 +9,15 @@
 #
 
 import urllib2
+from urllib2 import HTTPError
+
 import sys
 import pprint
 import json
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from dateutil import tz
+from time import strftime
 import subprocess
 
 
@@ -27,101 +30,128 @@ class public():
    def __init__ (self,port):
      self.port = port
      self.error = None
+     self.tides_array = []
 
      # Validate instance vars
      if (port == "null" or port == ""):
         self.error = "Invalid null port"
 
 
+   def push_tide_to_array(self,day,state,height,time):
+     line={'day': day }
+     line['state']  =state
+     line['height'] =height
+     line['time']   =str(time)[0:2]+':'+str(time)[2:4]
+     self.tides_array.append(line)
+
+
+   def set_error(self, errormsg):
+      # todays day
+     utc = datetime.utcnow()
+     day = str(utc.day)
+
+     self.push_tide_to_array(day,'hi','153','0100')
+     self.push_tide_to_array(day,'lo','053','0400')
+     self.push_tide_to_array(day,'hi','153','0600')
+     self.push_tide_to_array(day,'lo','053','0800')
+     self.push_tide_to_array(day,'hi','153','1200')
+     self.push_tide_to_array(day,'lo','053','1400')
+     self.push_tide_to_array(day,'hi','153','1700')
+     self.push_tide_to_array(day,'lo','053','1900')
+     self.push_tide_to_array(day,'hi','153','2100')
+     self.push_tide_to_array(day,'lo','053','2300')
+     self.portname = errormsg
+#     self.portname = ">> FIX IN PROGRESS.. <<"
+
+   # 
+   # pull data from UKHO api
+   #
+   # TODO - deal with non uk ports that return nothing - DONE
+   # TODO - abstract the two urlib calls
+   def get_tides(self):
+     apikey="174adcbe0bc14d38b06feae438d62371"
+
+     ## make Station info request to get port name from numeric id
+     url='https://admiraltyapi.azure-api.net/uktidalapi/api/V1/Stations/'+self.port
+     req = urllib2.Request(url)
+     req.add_header('Ocp-Apim-Subscription-Key', apikey)
+     try:
+       resp = urllib2.urlopen(req)
+     except HTTPError as err:
+        #debug print err
+        if err.code == 404 :
+           return self.set_error("UKHO Brexit failure")
+        else :
+           return self.set_error("ERROR:"+str(err.code))
+
+
+     stationcontent = resp.read()
+     #print  "DEBUG:"+stationcontent
+
+     json_array = json.loads(stationcontent)
+
+     ## this is the output of this section 
+     self.portname = json_array['properties']['Name']
+
+
+
+     ## make second request, for tide times
+     url='https://admiraltyapi.azure-api.net/uktidalapi/api/V1/Stations/'+self.port+'/TidalEvents'
+     #print "DEBUG:"+url
+
+     req = urllib2.Request(url)
+     req.add_header('Ocp-Apim-Subscription-Key', apikey)
+     try:
+       resp = urllib2.urlopen(req)
+     except HTTPError as err: 
+        if err.code == 404 :
+           return self.set_error("UKHO Brexit failure")
+        else :
+           return self.set_error("ERROR:"+str(err.code))
+
+
+     tidescontent = resp.read()
+
+     ## parse returned json array
+     json_array = json.loads(tidescontent)
+
+     #print  "DEBUG RAW:"+tidescontent
+     for i in range(len(json_array)):
+       #print "DEBUG"+json_array[i]['EventType'] + ':' +  json_array[i]['DateTime'] +'/'+str(json_array[i]['Height'])
+
+         #returned format is  2021-09-16T07:20:00
+         # or sometimes its 2021-09-16T07:20:00.333  ffs, so 0:19 strips that
+       datestr=json_array[i]['DateTime'][0:19]
+       tidedatetime=datetime.strptime(json_array[i]['DateTime'][0:19], '%Y-%m-%dT%H:%M:%S')
+
+         ## day     00-31
+       day=str(tidedatetime.day)
+         ## state   hi|lo
+       if json_array[i]['EventType'] == 'LowWater':
+          state='lo'
+       else:
+          state='hi'
+         ## height  000-999 (00.0m - 99.9m)
+       height = '0'+str(json_array[i]['Height']).replace(".","").zfill(3)
+       height=height[0:3]
+
+
+         ## time    hhmm
+       time=tidedatetime.strftime('%H%M')
+
+       self.push_tide_to_array(day,state,height,time)
+
+
+
+
 
    #
-   # pull from easytide, parse and store
+   # pull from easytide, parse and store DEPRECATED
    #
    def scrape(self):
-     
-     url='http://www.ukho.gov.uk/easytide/EasyTide/ShowPrediction.aspx?PortID='+self.port+'&PredictionLength=7'
-     html_doc = urllib2.urlopen(url)#.read()
-     
-     #soup = BeautifulSoup(html_doc, "lxml")
-     soup = BeautifulSoup(html_doc)
-     
-     
-     #
-     # Port details/name 
-     #
-     rows =  soup.find_all('span', {'class':'PortName'})
-     self.portname = rows[0].get_text()[:Max_Portname_Length]
-        
-     
-     #
-     # tide times
-     #  
-     array=[]
-     
-     imax=0
-     
-     for first in  soup.find_all('table', {'class':'HWLWTable'} ):  # also picks up 'HWLWTable first' it seems?
-       for tr in first.find_all('tr'):
-         i = imax
+     return self.get_tides()
+     #return self.temp_hack()
 
-         for th in tr.findAll('th', {'class':'HWLWTableHeaderCell'}):
-            # ---- dates  ----------
-            # assume: day is chars 4-5. TODO - test on 1 Apr
-            day=th.string[4:][:-4]
-
-            #testing
-            #if int(day)==19:
-            #   day="31"
-            #if int(day)==20:
-            #   day="1"
-        
-
-         # either th or td
-         for th in tr.findAll('th', {'class':'HWLWTableHWLWCell'}):
-
-            #
-            # ---- hi/lo indicators
-            #
-            line={'day': day }
-            if th.string == 'LW':
-               line['state']='lo'
-            else:
-               line['state']='hi'
-            array.append(line)
-     
-         for td in tr.findAll('td', {'class':'HWLWTableCell'}):
-            #
-            # ---- height
-            #
-            if "m" in td.string:  
-
-               # example:   <td class="HWLWTableCell">0.5 m</td>
-               hm=td.string[:-2].encode("ascii")
-
-               # remove .
-               # zero pad front to 3 chars
-               array[i]['height']=hm.replace(".","").zfill(3)
-
-     
-            #
-            # ---- times 
-            #
-            if ":" in td.string: 
-               array[i]['time']=td.string[1:].encode("ascii")
-            i = i + 1
-
-       imax=i
-     
-     
-     # Exit and warn if nothing scraped. 
-     if len (array) == 0: 
-        self.error="No tide data scraped for port ("+self.port+")"
-        return
-
-     # save
-     self.tides_array = array
-     
-     
 
 
    #
@@ -242,7 +272,8 @@ class public():
      print ( '"tides":['       )
 
      first=True
-     for i in range(0, 6):
+     #for i in range(0, 6):
+     for i in range(len(self.tides_array)):
         if not first:
            print(",")
         print json.dumps(self.tides_array[i]),
