@@ -69,7 +69,17 @@ class public():
    # TODO - deal with non uk ports that return nothing - DONE
    # TODO - abstract the two urlib calls
    def get_tides(self):
-     apikey="174adcbe0bc14d38b06feae438d62371"
+
+     #
+     # read api key
+     #
+     try:
+       file = open("./api_key.txt")
+       apikey = file.read().replace("\n", " ")
+       file.close()
+     except IOError:
+       return self.set_error("No API Key")
+
 
      ## make Station info request to get port name from numeric id
      url='https://admiraltyapi.azure-api.net/uktidalapi/api/V1/Stations/'+self.port
@@ -81,6 +91,8 @@ class public():
         #debug print err
         if err.code == 404 :
            return self.set_error("UKHO Brexit failure")
+        elif err.code == 401 :
+           return self.set_error("Bad API Key 401")
         else :
            return self.set_error("ERROR:"+str(err.code))
 
